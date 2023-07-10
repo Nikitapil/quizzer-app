@@ -1,0 +1,14 @@
+@import './nullstyle';
+@import "./colors";
+
+body {
+  font-family: 'Playfair Display', serif;
+  background: $bg-primary-blue;
+  color: $color-white;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 10px 20px;
+}
