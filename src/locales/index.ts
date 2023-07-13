@@ -1,7 +1,7 @@
-import en from './en.json';
-import ru from './ru.json';
+import eng from './eng.json';
+import rus from './rus.json';
 
 export default {
-  en,
-  ru
-}
+  eng,
+  rus
+};
