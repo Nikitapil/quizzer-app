@@ -1,4 +1,9 @@
 {
   "page_not_found": "Страница не найдена",
-  "go_main": "Перейти на главную"
+  "go_main": "Перейти на главную",
+  "select_category": "Выберите категорию",
+  "select_difficulty": "Выберите сложность",
+  "select_questions_type": "Выберите тип вопросов",
+  "set_amount_of_questions": "Укажите количество вопросов",
+  "generate_quiz": "Сгенерировать квиз"
 }

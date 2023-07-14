@@ -1,4 +1,9 @@
 {
   "page_not_found": "Page not found",
-  "go_main": "Go to main"
+  "go_main": "Go to main",
+  "select_category": "Select Category",
+  "select_difficulty": "Select Difficulty",
+  "select_questions_type": "Select Questions Type",
+  "set_amount_of_questions": "Set amount of questions",
+  "generate_quiz": "Generate Quiz"
 }

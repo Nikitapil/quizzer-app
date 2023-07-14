@@ -1,0 +1,38 @@
+import type { IOption } from '@/types/types';
+
+export interface ICategory {
+  id: string;
+  name: string;
+}
+
+export interface IQuestionsCount {
+  easy: number;
+  medium: number;
+  hard: number;
+  all: number;
+}
+
+export interface IHomeStoreState {
+  questionCategories: IOption[];
+  isCategoriesLoading: boolean;
+  categoryQuestionsCount: IQuestionsCount;
+}
+export type THomeStoreGetters = {};
+export interface IHomeStoreActions {
+  getCategories: () => void;
+  getCategoryQuestionsCount: (id: string) => void;
+}
+
+export interface IGetCategoryQuestionsCountResponse {
+  total_easy_question_count: number;
+  total_hard_question_count: number;
+  total_medium_question_count: number;
+  total_question_count: number;
+}
+
+export interface IGenerateQuizValues {
+  category: string;
+  difficulty: '' | 'easy' | 'medium' | 'hard';
+  questionsType: string;
+  amount: number;
+}
