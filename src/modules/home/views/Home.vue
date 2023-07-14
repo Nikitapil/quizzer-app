@@ -24,14 +24,22 @@
         :label="$t('select_questions_type')"
         :disabled="store.isCategoriesLoading"
       />
-      <AppInput
-        id="set_amount_of_questions"
+      <FormField
         v-model="generateQuizValues.amount"
-        type="number"
-        :label="amountLabel"
-        :disabled="store.isCategoriesLoading"
-        :is-error="isAmountError"
-      />
+        name="questions-amount"
+        rules="required"
+      >
+        <template #default="{ invalid }">
+          <AppInput
+            id="set_amount_of_questions"
+            v-model="generateQuizValues.amount"
+            type="text"
+            :label="amountLabel"
+            :disabled="store.isCategoriesLoading"
+            :is-error="invalid"
+          />
+        </template>
+      </FormField>
     </form>
   </div>
 </template>
@@ -50,6 +58,7 @@ import {
   IQuestionsCount
 } from '@/modules/home/domain/types';
 import { useI18n } from 'vue-i18n';
+import FormField from '@/components/inputs/FormField.vue';
 
 const { t } = useI18n();
 
@@ -61,7 +70,7 @@ const generateQuizValues = ref<IGenerateQuizValues>({
   category: '',
   difficulty: '',
   questionsType: '',
-  amount: 50
+  amount: '50'
 });
 
 const maxQuestionsCount = computed(() => {
@@ -77,7 +86,7 @@ const amountLabel = computed(() => {
 });
 
 const isAmountError = computed(
-  () => generateQuizValues.value.amount > maxQuestionsCount.value
+  () => +generateQuizValues.value.amount > maxQuestionsCount.value
 );
 
 const onChangeCategory = async () => {

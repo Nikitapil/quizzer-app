@@ -34,5 +34,5 @@ export interface IGenerateQuizValues {
   category: string;
   difficulty: '' | 'easy' | 'medium' | 'hard';
   questionsType: string;
-  amount: number;
+  amount: string;
 }

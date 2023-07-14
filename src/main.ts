@@ -9,6 +9,7 @@ import 'vue3-toastify/dist/index.css';
 
 import App from './modules/app/App.vue';
 import router from './router';
+import { validators } from '@/plugins/validation';
 
 const i18n = createI18n({
   availableLocales: ['rus', 'eng'],
@@ -26,5 +27,6 @@ app.use(Vue3Toasity, {
   autoClose: 2500,
   theme: 'dark'
 } as ToastContainerOptions);
+app.use(validators);
 
 app.mount('#app');
