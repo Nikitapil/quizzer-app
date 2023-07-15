@@ -5,8 +5,13 @@ import type {
 } from '@/modules/home/domain/types';
 import type { IOption } from '@/types/types';
 import { mapCategoriesToOptions } from '@/modules/home/helpers/mappers';
-import type { IQuestionsCount } from '@/modules/home/domain/types';
+import type {
+  IQuestionsCount,
+  IGenerateQuizRequest,
+  IGenerateQuizResponse
+} from '@/modules/home/domain/types';
 import { defaultQuestionsCountValue } from '@/modules/home/domain/constants';
+import type { AxiosResponse } from 'axios';
 
 export class HomeService {
   static async getCategories(): Promise<IOption[]> {
@@ -29,5 +34,18 @@ export class HomeService {
     } catch (e) {
       return defaultQuestionsCountValue;
     }
+  }
+
+  static async generateQuiz(
+    quizParams: IGenerateQuizRequest
+  ): Promise<AxiosResponse<IGenerateQuizResponse>> {
+    const request: IGenerateQuizRequest = {
+      amount: quizParams.amount,
+      category: quizParams.category || undefined,
+      difficulty: quizParams.difficulty || undefined,
+      type: quizParams.type || undefined
+    };
+
+    return $api.post<IGenerateQuizResponse>('/quizes/generate', request);
   }
 }

@@ -7,5 +7,7 @@
   "set_amount_of_questions": "Set amount of questions",
   "generate_quiz": "Generate Quiz",
   "value_less_than": "Value should be less than",
-  "lets_go": "Let's go"
+  "lets_go": "Let's go",
+  "required_field": "Field is required",
+  "value_more_than": "Value should be more than"
 }

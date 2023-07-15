@@ -11,7 +11,7 @@ import App from './modules/app/App.vue';
 import router from './router';
 import { validators } from '@/plugins/validation';
 
-const i18n = createI18n({
+export const i18n = createI18n({
   availableLocales: ['rus', 'eng'],
   locale: localStorage.getItem('lang') || 'eng',
   fallbackLocale: 'rus',

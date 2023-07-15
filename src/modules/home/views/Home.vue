@@ -26,11 +26,8 @@
       />
       <FormField
         name="questions-amount"
-        :rules="{ max_value: maxQuestionsCount }"
+        :rules="{ max_value: maxQuestionsCount, min_value: 1, required: true }"
         :modelValue="generateQuizValues.amount"
-        :custom-error-message="`${$t('value_less_than')} ${
-          maxQuestionsCount + 1
-        }`"
       >
         <template #default="{ invalid }">
           <div class="amount-input">
@@ -46,9 +43,10 @@
         </template>
       </FormField>
       <AppButton
-        :text="$t('lets_go')"
         full
+        :text="$t('lets_go')"
         :disabled="store.isCategoriesLoading"
+        @click="onSubmit"
       />
     </form>
   </div>
@@ -105,7 +103,13 @@ const onChangeCategory = async () => {
 
 const onSubmit = async () => {
   const isValid = await validate();
-  console.log(isValid);
+  if (isValid.valid) {
+    const id = await store.generateQuiz({
+      ...generateQuizValues.value,
+      category: +generateQuizValues.value.category
+    });
+    console.log(id);
+  }
 };
 
 onMounted(async () => {
