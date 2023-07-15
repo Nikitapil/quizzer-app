@@ -1,4 +1,5 @@
 export enum ERoutesNames {
   HOME = 'home',
-  ERROR = 'error'
+  ERROR = 'error',
+  QUIZ = 'quiz'
 }

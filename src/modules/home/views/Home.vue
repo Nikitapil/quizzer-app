@@ -19,7 +19,7 @@
       />
       <AppSelect
         id="select_questions_type"
-        v-model="generateQuizValues.questionsType"
+        v-model="generateQuizValues.type"
         :options="questionTypeOptions"
         :label="$t('select_questions_type')"
         :disabled="store.isCategoriesLoading"
@@ -69,19 +69,22 @@ import { useI18n } from 'vue-i18n';
 import FormField from '@/components/inputs/FormField.vue';
 import { useForm } from 'vee-validate';
 import AppButton from '@/components/AppButton.vue';
+import { useRouter } from 'vue-router';
+import { ERoutesNames } from '@/router/routes-names';
 
 const { t } = useI18n();
 
 useDocTitle('');
 
 const store = useHomeStore();
+const router = useRouter();
 
 const { validate } = useForm();
 
 const generateQuizValues = ref<IGenerateQuizValues>({
   category: '',
   difficulty: '',
-  questionsType: '',
+  type: '',
   amount: 50
 });
 
@@ -108,7 +111,9 @@ const onSubmit = async () => {
       ...generateQuizValues.value,
       category: +generateQuizValues.value.category
     });
-    console.log(id);
+    if (id) {
+      await router.push({ name: ERoutesNames.QUIZ, params: { id } });
+    }
   }
 };
 

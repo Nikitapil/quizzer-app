@@ -21,7 +21,9 @@ export type THomeStoreGetters = {};
 export interface IHomeStoreActions {
   getCategories: () => void;
   getCategoryQuestionsCount: (id: string) => void;
-  generateQuiz: (quizParams: IGenerateQuizRequest) => void;
+  generateQuiz: (
+    quizParams: IGenerateQuizRequest
+  ) => Promise<string | undefined>;
 }
 
 export interface IGetCategoryQuestionsCountResponse {
@@ -34,7 +36,7 @@ export interface IGetCategoryQuestionsCountResponse {
 export interface IGenerateQuizValues {
   category: string;
   difficulty: '' | 'easy' | 'medium' | 'hard';
-  questionsType: string;
+  type: string;
   amount: number;
 }
 

@@ -9,5 +9,6 @@
   "value_less_than": "Value should be less than",
   "lets_go": "Let's go",
   "required_field": "Field is required",
-  "value_more_than": "Value should be more than"
+  "value_more_than": "Value should be more than",
+  "questions_not_found": "Questions with this params not found"
 }

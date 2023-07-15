@@ -8,6 +8,7 @@ import type {
 import { toast } from 'vue3-toastify';
 import { HomeService } from '@/modules/home/HomeService';
 import { defaultQuestionsCountValue } from '@/modules/home/domain/constants';
+import { i18n } from '@/main';
 
 export const useHomeStore = defineStore<
   'home',
@@ -59,7 +60,7 @@ export const useHomeStore = defineStore<
         return data.id;
       } catch (e: any) {
         if (e?.response?.data?.message) {
-          toast(e?.response?.data?.message);
+          toast(i18n.global.t(e?.response?.data?.message));
         }
       } finally {
         this.isCategoriesLoading = false;
