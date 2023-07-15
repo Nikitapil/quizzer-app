@@ -25,21 +25,31 @@
         :disabled="store.isCategoriesLoading"
       />
       <FormField
-        v-model="generateQuizValues.amount"
         name="questions-amount"
-        rules="required"
+        :rules="{ max_value: maxQuestionsCount }"
+        :modelValue="generateQuizValues.amount"
+        :custom-error-message="`${$t('value_less_than')} ${
+          maxQuestionsCount + 1
+        }`"
       >
         <template #default="{ invalid }">
-          <AppInput
-            id="set_amount_of_questions"
-            v-model="generateQuizValues.amount"
-            type="text"
-            :label="amountLabel"
-            :disabled="store.isCategoriesLoading"
-            :is-error="invalid"
-          />
+          <div class="amount-input">
+            <AppInput
+              id="set_amount_of_questions"
+              v-model="generateQuizValues.amount"
+              type="number"
+              :label="amountLabel"
+              :disabled="store.isCategoriesLoading"
+              :is-error="invalid"
+            />
+          </div>
         </template>
       </FormField>
+      <AppButton
+        :text="$t('lets_go')"
+        full
+        :disabled="store.isCategoriesLoading"
+      />
     </form>
   </div>
 </template>
@@ -59,6 +69,8 @@ import {
 } from '@/modules/home/domain/types';
 import { useI18n } from 'vue-i18n';
 import FormField from '@/components/inputs/FormField.vue';
+import { useForm } from 'vee-validate';
+import AppButton from '@/components/AppButton.vue';
 
 const { t } = useI18n();
 
@@ -66,11 +78,13 @@ useDocTitle('');
 
 const store = useHomeStore();
 
+const { validate } = useForm();
+
 const generateQuizValues = ref<IGenerateQuizValues>({
   category: '',
   difficulty: '',
   questionsType: '',
-  amount: '50'
+  amount: 50
 });
 
 const maxQuestionsCount = computed(() => {
@@ -85,12 +99,13 @@ const amountLabel = computed(() => {
   return `${t('set_amount_of_questions')} (max: ${maxQuestionsCount.value})`;
 });
 
-const isAmountError = computed(
-  () => +generateQuizValues.value.amount > maxQuestionsCount.value
-);
-
 const onChangeCategory = async () => {
   await store.getCategoryQuestionsCount(generateQuizValues.value.category);
+};
+
+const onSubmit = async () => {
+  const isValid = await validate();
+  console.log(isValid);
 };
 
 onMounted(async () => {
@@ -128,5 +143,13 @@ onMounted(async () => {
     margin-bottom: 16px;
     color: $color-white;
   }
+}
+
+.amount-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
 }
 </style>

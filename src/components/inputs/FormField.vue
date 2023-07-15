@@ -7,10 +7,15 @@
     :validate-on-change="true"
     :validate-on-input="true"
   >
-    <slot v-bind="{ ...field, invalid: errors && !!errors.length }"></slot>
-    <p v-if="errors && errors.length">
-      {{ customErrorMessage || errorMessage }}
-    </p>
+    <div class="w-100">
+      <slot v-bind="{ ...field, invalid: errors && !!errors.length }"></slot>
+      <p
+        v-if="errors && errors.length"
+        class="error"
+      >
+        {{ customErrorMessage || errorMessage }}
+      </p>
+    </div>
   </Field>
 </template>
 
@@ -24,4 +29,9 @@ defineProps<{
 }>();
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.error {
+  color: red;
+  margin-top: 4px;
+}
+</style>

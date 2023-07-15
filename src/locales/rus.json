@@ -5,5 +5,7 @@
   "select_difficulty": "Выберите сложность",
   "select_questions_type": "Выберите тип вопросов",
   "set_amount_of_questions": "Укажите количество вопросов",
-  "generate_quiz": "Сгенерировать квиз"
+  "generate_quiz": "Сгенерировать квиз",
+  "value_less_than": "Значение должно быть меньше",
+  "lets_go": "Начать"
 }
