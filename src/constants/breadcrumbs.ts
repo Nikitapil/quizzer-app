@@ -1,16 +1,20 @@
 import { ERoutesNames } from '@/router/routes-names';
 
 export const BREADCRUMBS = {
-  main: {
+  MAIN: {
     title: 'main',
     routeName: ERoutesNames.HOME
   },
-  game: {
+  GAME: {
     title: 'play_quiz',
     routeName: ERoutesNames.QUIZ
   },
-  error: {
+  ERROR: {
     title: 'error_page',
     routeName: ERoutesNames.ERROR
+  },
+  ALL_QUIZZES: {
+    title: 'all_quizzes',
+    routeName: ERoutesNames.ALL_QUIZES
   }
 };

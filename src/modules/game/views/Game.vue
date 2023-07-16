@@ -46,8 +46,12 @@ import GameQuestion from '@/modules/game/components/GameQuestion.vue';
 import AppButton from '@/components/AppButton.vue';
 import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/constants/breadcrumbs';
+import { useDocTitle } from '@/composables/useDocTitle';
+import { useI18n } from 'vue-i18n';
 
-useBreadCrumbs([BREADCRUMBS.main, BREADCRUMBS.game]);
+const { t } = useI18n();
+useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.GAME]);
+useDocTitle(t('play_quiz'));
 
 const route = useRoute();
 const store = useGameStore();

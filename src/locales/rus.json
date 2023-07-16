@@ -17,5 +17,10 @@
   "generated_quiz": "Сгенерированный квиз",
   "main": "Главная",
   "play_quiz": "Квиз",
-  "error_page": "404"
+  "error_page": "404",
+  "all_quizzes": "Все квизы",
+  "questions_pl": "вопросов",
+  "rating": "Рейтинг",
+  "author": "Автор",
+  "play": "Играть"
 }

@@ -17,5 +17,10 @@
   "generated_quiz": "Generated Quiz",
   "main": "Main",
   "play_quiz": "Quiz",
-  "error_page": "404"
+  "error_page": "404",
+  "all_quizzes": "All Quizzes",
+  "questions_pl": "questions",
+  "rating": "Rating",
+  "author": "Author",
+  "play": "Play"
 }

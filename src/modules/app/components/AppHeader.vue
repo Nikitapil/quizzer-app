@@ -4,6 +4,19 @@
       <h1 class="logo">
         <router-link to="/">Quizzer</router-link>
       </h1>
+      <nav>
+        <ul class="header__navigation">
+          <li>
+            <router-link
+              class="link"
+              active-class="active-link"
+              :to="{ name: ERoutesNames.ALL_QUIZES }"
+            >
+              {{ $t('all_quizzes') }}
+            </router-link>
+          </li>
+        </ul>
+      </nav>
     </div>
   </header>
 </template>
@@ -17,6 +30,25 @@
   width: 100%;
   background: $bg-dark-blue;
   box-shadow: $shadow-black-common;
+
+  &__navigation {
+    display: flex;
+    gap: 16px;
+
+    .link {
+      color: inherit;
+      text-decoration: none;
+      font-size: 18px;
+
+      &:hover {
+        text-shadow: $text-shadow-thite-big;
+      }
+
+      &.active-link {
+        text-shadow: $text-shadow-thite-big;
+      }
+    }
+  }
 }
 
 .logo {
@@ -41,3 +73,6 @@
   align-items: center;
 }
 </style>
+<script setup lang="ts">
+import { ERoutesNames } from '@/router/routes-names';
+</script>
