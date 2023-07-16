@@ -90,10 +90,10 @@ defineEmits(['click']);
   &.white {
     background: $bg-white;
     color: $color-dark-blue;
-  }
 
-  &:hover {
-    background: $bg-medium-blue;
+    &:hover {
+      background: $bg-medium-blue;
+    }
   }
 
   &.sm {

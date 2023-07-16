@@ -4,7 +4,7 @@
     <div class="quiz-info">
       <RoundLoader v-if="store.isPageLoading" />
       <div v-else-if="!store.game">
-        <h2 class="not-found">Quiz not found</h2>
+        <h2 class="not-found">{{ $t('quiz_not_found') }}</h2>
       </div>
       <div v-else-if="currentQuestion">
         <p class="total">
@@ -17,6 +17,22 @@
           @answer="onAnswer"
         />
       </div>
+      <div
+        v-else
+        class="result"
+      >
+        <p class="result-text">
+          {{ $t('your_result') }}: {{ correctAnswersCount }}/{{
+            store.totalQuestionsCount
+          }}
+        </p>
+        <AppButton
+          :text="$t('play_again')"
+          appearence="white"
+          size="lg"
+          @click="restart"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -27,6 +43,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useGameStore } from '@/modules/game/store/GameStore';
 import RoundLoader from '@/components/loaders/RoundLoader.vue';
 import GameQuestion from '@/modules/game/components/GameQuestion.vue';
+import AppButton from '@/components/AppButton.vue';
 
 const route = useRoute();
 const store = useGameStore();
@@ -56,6 +73,12 @@ const onAnswer = async (answer: string) => {
       goToNextQuestion();
     }, 2000);
   }
+};
+
+const restart = () => {
+  currentQuestionIndex.value = 0;
+  correctAnswersCount.value = 0;
+  currentCorrectAnswer.value = null;
 };
 
 onMounted(async () => {
@@ -97,5 +120,17 @@ onMounted(async () => {
   font-size: 20px;
   margin-bottom: 16px;
   text-align: center;
+}
+
+.result-text {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
 </style>

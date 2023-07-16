@@ -10,5 +10,9 @@
   "lets_go": "Let's go",
   "required_field": "Field is required",
   "value_more_than": "Value should be more than",
-  "questions_not_found": "Questions with this params not found"
+  "questions_not_found": "Questions with this params not found",
+  "quiz_not_found": "Quiz not found",
+  "your_result": "Your result",
+  "play_again": "Play again",
+  "generated_quiz": "Generated Quiz"
 }

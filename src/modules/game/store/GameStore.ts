@@ -5,6 +5,7 @@ import type {
   TGameStoreGetters
 } from '@/modules/game/domain/types';
 import { GameService } from '@/modules/game/GameService';
+import { i18n } from '@/main';
 
 export const useGameStore = defineStore<
   'game',
@@ -25,7 +26,7 @@ export const useGameStore = defineStore<
     },
     quizName(state: IGameStoreState): string {
       return state.game?.name === 'Untitled'
-        ? 'Generated Quiz'
+        ? i18n.global.t('generated_quiz')
         : state.game?.name || '';
     }
   },
