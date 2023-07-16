@@ -44,6 +44,10 @@ import { useGameStore } from '@/modules/game/store/GameStore';
 import RoundLoader from '@/components/loaders/RoundLoader.vue';
 import GameQuestion from '@/modules/game/components/GameQuestion.vue';
 import AppButton from '@/components/AppButton.vue';
+import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
+import { BREADCRUMBS } from '@/constants/breadcrumbs';
+
+useBreadCrumbs([BREADCRUMBS.main, BREADCRUMBS.game]);
 
 const route = useRoute();
 const store = useGameStore();

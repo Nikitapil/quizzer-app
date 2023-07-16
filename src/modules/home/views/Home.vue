@@ -71,6 +71,9 @@ import { useForm } from 'vee-validate';
 import AppButton from '@/components/AppButton.vue';
 import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
+import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
+
+useBreadCrumbs([]);
 
 const { t } = useI18n();
 

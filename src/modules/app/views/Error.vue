@@ -23,7 +23,10 @@
 import { ERoutesNames } from '@/router/routes-names';
 import { useDocTitle } from '@/composables/useDocTitle';
 import { Icon } from '@iconify/vue';
+import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
+import { BREADCRUMBS } from '@/constants/breadcrumbs';
 useDocTitle('404');
+useBreadCrumbs([BREADCRUMBS.main, BREADCRUMBS.error]);
 </script>
 
 <style lang="scss" scoped>

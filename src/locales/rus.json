@@ -14,5 +14,8 @@
   "quiz_not_found": "Квиз не найден",
   "your_result": "Ваш результат",
   "play_again": "Сыграть еще раз",
-  "generated_quiz": "Сгенерированный квиз"
+  "generated_quiz": "Сгенерированный квиз",
+  "main": "Главная",
+  "play_quiz": "Квиз",
+  "error_page": "404"
 }

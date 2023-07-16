@@ -14,5 +14,8 @@
   "quiz_not_found": "Quiz not found",
   "your_result": "Your result",
   "play_again": "Play again",
-  "generated_quiz": "Generated Quiz"
+  "generated_quiz": "Generated Quiz",
+  "main": "Main",
+  "play_quiz": "Quiz",
+  "error_page": "404"
 }
