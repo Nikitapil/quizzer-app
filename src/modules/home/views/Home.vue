@@ -1,6 +1,9 @@
 <template>
   <div class="home-page">
-    <form class="generation-form">
+    <form
+      class="generation-form"
+      @submit.prevent="onSubmit"
+    >
       <h2 class="generation-form__title">{{ $t('generate_quiz') }}</h2>
       <AppSelect
         id="select_category"
@@ -44,9 +47,9 @@
       </FormField>
       <AppButton
         full
+        type="submit"
         :text="$t('lets_go')"
         :disabled="store.isCategoriesLoading"
-        @click="onSubmit"
       />
     </form>
   </div>
