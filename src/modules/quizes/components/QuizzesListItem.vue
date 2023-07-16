@@ -22,6 +22,7 @@
       <AppButton
         appearence="dark"
         :text="$t('play')"
+        @click="goToQuiz"
       />
     </div>
   </li>
@@ -30,10 +31,18 @@
 <script setup lang="ts">
 import type { IQuiz } from '@/modules/quizes/domain/types';
 import AppButton from '@/components/AppButton.vue';
+import { useRouter } from 'vue-router';
+import { ERoutesNames } from '@/router/routes-names';
 
-defineProps<{
+const router = useRouter();
+
+const props = defineProps<{
   quiz: IQuiz;
 }>();
+
+const goToQuiz = () => {
+  router.push({ name: ERoutesNames.QUIZ, params: { id: props.quiz.id } });
+};
 </script>
 
 <style lang="scss" scoped>
@@ -41,6 +50,7 @@ defineProps<{
 
 .quiz-item {
   max-width: 800px;
+  width: 100%;
   border-radius: 15px;
   padding: 16px;
   background: $bg-white;

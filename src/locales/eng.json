@@ -22,5 +22,7 @@
   "questions_pl": "questions",
   "rating": "Rating",
   "author": "Author",
-  "play": "Play"
+  "play": "Play",
+  "no_quizzes_yet": "No quizzes yet",
+  "search": "Search"
 }

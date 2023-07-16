@@ -22,5 +22,7 @@
   "questions_pl": "вопросов",
   "rating": "Рейтинг",
   "author": "Автор",
-  "play": "Играть"
+  "play": "Играть",
+  "no_quizzes_yet": "Квизов пока нет",
+  "search": "Поиск"
 }

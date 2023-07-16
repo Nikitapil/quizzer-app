@@ -8,6 +8,11 @@ body {
   color: $color-white;
 }
 
+html {
+  height: unset;
+  min-height: 100%;
+}
+
 .container {
   max-width: 1280px;
   margin: 0 auto;
