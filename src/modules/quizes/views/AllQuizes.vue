@@ -1,6 +1,21 @@
 <template>
   <div>
     <h1 class="title">{{ $t('all_quizzes') }}</h1>
+    <form
+      v-if="isShowSearch"
+      class="controls"
+      @submit.prevent
+    >
+      <AppInput
+        v-model="search"
+        :placeholder="$t('search')"
+      />
+      <AppButton
+        type="submit"
+        :text="$t('search')"
+        @click="onSearch"
+      />
+    </form>
     <div
       v-if="store.isQuizzesLoading"
       class="loader"
@@ -12,16 +27,6 @@
       v-else
       class="quizzes-container"
     >
-      <div class="controls">
-        <AppInput
-          v-model="search"
-          :placeholder="$t('search')"
-        />
-        <AppButton
-          :text="$t('search')"
-          @click="onSearch"
-        />
-      </div>
       <QuizzesListItem
         v-for="quiz in store.quizzes"
         :key="quiz.id"
@@ -42,7 +47,7 @@ import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/constants/breadcrumbs';
 import { useDocTitle } from '@/composables/useDocTitle';
 import { useI18n } from 'vue-i18n';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useQuizzesStore } from '@/modules/quizes/store/QuizzesStore';
 import RoundLoader from '@/components/loaders/RoundLoader.vue';
 import QuizzesListItem from '@/modules/quizes/components/QuizzesListItem.vue';
@@ -76,6 +81,10 @@ const onChangePage = async (p: number) => {
   await getQuizzes();
 };
 
+const isShowSearch = computed(() => {
+  return !store.isQuizzesLoading && (!!store.quizzes.length || !!search.value);
+});
+
 onMounted(async () => {
   await getQuizzes();
 });
@@ -105,5 +114,8 @@ onMounted(async () => {
   display: flex;
   gap: 8px;
   align-items: center;
+  margin: 0 auto;
+  margin-bottom: 16px;
+  max-width: 800px;
 }
 </style>

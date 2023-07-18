@@ -1,5 +1,8 @@
 <template>
-  <div class="pagination">
+  <div
+    v-if="pagesCount > 1"
+    class="pagination"
+  >
     <AppButton
       v-for="page in pagesCount"
       :key="page"
