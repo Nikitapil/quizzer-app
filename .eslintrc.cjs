@@ -17,6 +17,7 @@ module.exports = {
   rules: {
     'vue/multi-word-component-names': 'off',
     'vue/no-setup-props-destructure': 'off',
+    'vue/no-v-text-v-html-on-component': 'off',
     "vue/attributes-order": ["error", {
       "order": [
         "DEFINITION",

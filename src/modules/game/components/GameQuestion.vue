@@ -8,11 +8,11 @@
       <AppButton
         v-for="answer in question.answers"
         :key="answer"
-        :text="answer"
         :appearence="answer === correctAnswer ? 'success' : 'white'"
         :disabled="isLoading"
         full
         @click="$emit('answer', answer)"
+        v-html="answer"
       />
     </div>
   </div>
