@@ -13,6 +13,10 @@
     background: lightskyblue;
     cursor: not-allowed;
   }
+
+  &:focus {
+    background: $bg-white;
+  }
 }
 
 .label {
