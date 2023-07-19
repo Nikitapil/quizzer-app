@@ -2,7 +2,7 @@
   <div class="app">
     <AppHeader />
     <div class="panel">
-      <BreadCrumbs :breabcrums="store.breadCrumbs" />
+      <BreadCrumbs :breadcrumbs="store.breadCrumbs" />
       <lang-switcher />
     </div>
     <main class="container main">

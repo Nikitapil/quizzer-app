@@ -5,7 +5,7 @@
       href="https://nikitapil.github.io/gamelandia/"
       target="_blank"
     >
-      More games here
+      {{ $t('more_games_here') }}
     </a>
   </footer>
 </template>

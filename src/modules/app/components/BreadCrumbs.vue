@@ -1,11 +1,11 @@
 <template>
   <div class="breadcrumbs-container">
     <div
-      v-for="(breadcrumb, index) in breabcrums"
+      v-for="(breadcrumb, index) in breadcrumbs"
       :key="breadcrumb.routeName"
     >
       <router-link
-        v-if="index !== breabcrums.length - 1"
+        v-if="index !== breadcrumbs.length - 1"
         class="breadcrumb-link"
         :to="{ name: breadcrumb.routeName }"
       >
@@ -20,7 +20,7 @@
 import type { IBreadcrumb } from '@/modules/app/domain/types';
 
 defineProps<{
-  breabcrums: IBreadcrumb[];
+  breadcrumbs: IBreadcrumb[];
 }>();
 </script>
 

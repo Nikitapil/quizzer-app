@@ -3,16 +3,16 @@
     <h2 class="error-page__title">{{ $t('page_not_found') }}</h2>
     <div class="error-page__numbers">404</div>
     <div class="error-page__link-container">
-      <Icon
-        icon="maki:arrow"
-        color="white"
-        width="24"
-        :horizontalFlip="true"
-      />
       <RouterLink
         class="error-page__link"
         :to="{ name: ERoutesNames.HOME }"
       >
+        <Icon
+          icon="maki:arrow"
+          color="white"
+          width="24"
+          :horizontalFlip="true"
+        />
         {{ $t('go_main') }}
       </RouterLink>
     </div>
@@ -51,6 +51,9 @@ useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.ERROR]);
     font-size: 24px;
     color: inherit;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
 
   &__link-container {

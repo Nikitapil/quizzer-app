@@ -2,7 +2,7 @@
   <header class="header">
     <div class="container w-100 header-container">
       <h1 class="logo">
-        <router-link to="/">Quizzer</router-link>
+        <router-link :to="{ name: ERoutesNames.HOME }">Quizzer</router-link>
       </h1>
       <nav>
         <ul class="header__navigation">
@@ -20,6 +20,10 @@
     </div>
   </header>
 </template>
+
+<script setup lang="ts">
+import { ERoutesNames } from '@/router/routes-names';
+</script>
 
 <style lang="scss" scoped>
 @import '../../../assets/styles/colors';
@@ -74,6 +78,3 @@
   align-items: center;
 }
 </style>
-<script setup lang="ts">
-import { ERoutesNames } from '@/router/routes-names';
-</script>

@@ -47,9 +47,7 @@ const isOpened = ref(false);
 const switcher = ref(null);
 
 const open = () => (isOpened.value = true);
-const close = () => {
-  isOpened.value = false;
-};
+const close = () => (isOpened.value = false);
 
 useClickOutside(close, switcher.value);
 </script>
