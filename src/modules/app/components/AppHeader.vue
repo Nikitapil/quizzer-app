@@ -39,13 +39,14 @@
       color: inherit;
       text-decoration: none;
       font-size: 18px;
+      transition: 0.4s;
 
       &:hover {
-        text-shadow: $text-shadow-thite-big;
+        text-shadow: $text-shadow-white-big;
       }
 
       &.active-link {
-        text-shadow: $text-shadow-thite-big;
+        text-shadow: $text-shadow-white-big;
       }
     }
   }
@@ -58,7 +59,7 @@
   letter-spacing: 0.5px;
 
   &:hover {
-    text-shadow: $text-shadow-thite-big;
+    text-shadow: $text-shadow-white-big;
   }
 
   a {

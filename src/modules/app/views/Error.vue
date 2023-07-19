@@ -59,7 +59,7 @@ useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.ERROR]);
     gap: 5px;
     transition: 0.4s;
     &:hover {
-      filter: drop-shadow($text-shadow-thite-big);
+      filter: drop-shadow($text-shadow-white-big);
     }
   }
 }

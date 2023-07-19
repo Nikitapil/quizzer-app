@@ -25,7 +25,7 @@
     transition: 0.4s;
 
     &:hover {
-      text-shadow: $text-shadow-thite-big;
+      text-shadow: $text-shadow-white-big;
     }
   }
 }
