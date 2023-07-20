@@ -2,6 +2,7 @@
   <label
     v-if="label"
     class="label"
+    data-test="app-select-label"
     :for="id"
   >
     {{ label }}
@@ -10,6 +11,7 @@
     :id="id"
     v-model="modelValue"
     class="input"
+    data-test="app-select"
     :disabled="disabled"
     @change="$emit('change', modelValue)"
   >
