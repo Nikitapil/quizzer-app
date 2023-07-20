@@ -2,6 +2,7 @@
   <label
     v-if="label"
     class="label"
+    data-test="app-input-label"
     :for="id"
   >
     {{ label }}
@@ -17,7 +18,6 @@
     :name="name"
     :disabled="disabled"
   />
-  <p v-if="isError && errorMessage">{{ errorMessage }}</p>
 </template>
 
 <script setup lang="ts">
@@ -34,7 +34,6 @@ withDefaults(
     id?: string;
     label?: string;
     disabled?: boolean;
-    errorMessage?: string;
   }>(),
   {
     type: 'text',
