@@ -10,6 +10,7 @@
     :id="id"
     v-model="modelValue"
     class="input"
+    data-test="app-input"
     :class="{ error: isError }"
     :type="type"
     :placeholder="placeholder"

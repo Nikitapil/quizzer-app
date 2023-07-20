@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { fileURLToPath, URL } from 'node:url';
 import { resolve, dirname } from 'node:path';
 import { defineConfig } from 'vite';
@@ -21,6 +22,10 @@ export default defineConfig({
       )
     })
   ],
+  test: {
+    globals: true,
+    environment: 'happy-dom'
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
