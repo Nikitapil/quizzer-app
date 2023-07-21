@@ -2,6 +2,7 @@
   <div
     v-if="pagesCount > 1"
     class="pagination"
+    data-testid="pagination"
   >
     <AppButton
       v-for="page in pagesCount"
