@@ -23,7 +23,7 @@
       <RoundLoader />
     </div>
     <div v-else-if="!store.quizzes.length">{{ $t('no_quizzes_yet') }}.</div>
-    <div
+    <ul
       v-else
       class="quizzes-container"
     >
@@ -38,7 +38,7 @@
         :current-page="page"
         @change-page="onChangePage"
       />
-    </div>
+    </ul>
   </div>
 </template>
 
