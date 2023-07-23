@@ -5,6 +5,7 @@
   >
     <Icon
       class="switcher-icon"
+      data-testid="switcher-icon"
       icon="tabler:world"
       color="white"
       width="28"
