@@ -26,7 +26,7 @@ import { Icon } from '@iconify/vue';
 import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/constants/breadcrumbs';
 useDocTitle('404');
-useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.ERROR]);
+useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.ERROR])
 </script>
 
 <style lang="scss" scoped>
