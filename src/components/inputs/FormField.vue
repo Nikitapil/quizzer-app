@@ -20,7 +20,8 @@
 </template>
 
 <script setup lang="ts">
-import { Field, RuleExpression } from 'vee-validate';
+import { Field } from 'vee-validate';
+import type { RuleExpression } from 'vee-validate';
 
 defineProps<{
   name: string;
