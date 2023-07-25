@@ -20,11 +20,11 @@
 </template>
 
 <script setup lang="ts">
-import { Field } from 'vee-validate';
+import { Field, RuleExpression } from 'vee-validate';
 
 defineProps<{
   name: string;
-  rules: string | object;
+  rules: string | RuleExpression<unknown>;
   customErrorMessage?: string;
 }>();
 </script>

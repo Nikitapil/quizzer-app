@@ -50,7 +50,7 @@ import QuizzesListItem from '@/modules/quizes/components/QuizzesListItem.vue';
 import Pagination from '@/components/Pagination.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/AppButton.vue';
-import { IGetQuizzesRequest } from '@/modules/quizes/domain/types';
+import type { IGetQuizzesRequest } from '@/modules/quizes/domain/types';
 
 defineProps<{
   title: string;

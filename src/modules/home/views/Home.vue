@@ -64,7 +64,7 @@ import {
 import AppInput from '@/components/inputs/AppInput.vue';
 import { useHomeStore } from '@/modules/home/store/HomeStore';
 import { computed, onMounted, ref } from 'vue';
-import {
+import type {
   IGenerateQuizValues,
   IQuestionsCount
 } from '@/modules/home/domain/types';
