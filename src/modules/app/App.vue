@@ -17,7 +17,14 @@ import BreadCrumbs from '@/modules/app/components/BreadCrumbs.vue';
 import LangSwitcher from '@/modules/app/components/LangSwitcher.vue';
 import { useAppStore } from '@/modules/app/store/AppStore';
 import AppFooter from '@/modules/app/components/AppFooter.vue';
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
+import { onMounted } from 'vue';
 const store = useAppStore();
+const authStore = useAuthStore();
+
+onMounted(() => {
+  authStore.refresh();
+});
 </script>
 <style lang="scss" scoped>
 @import '../../assets/styles/vars';

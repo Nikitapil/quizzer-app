@@ -36,5 +36,8 @@
   "username_placeholder": "Введите имя пользователя...",
   "sign_up_action": "Зарегистрироваться",
   "sign_in": "Вход",
-  "sign_in_action": "Войти"
+  "sign_in_action": "Войти",
+  "user_not_found": "Пользователь не найден",
+  "user_already_exist": "Пользователь уже существует",
+  "logout": "Выйти"
 }

@@ -18,7 +18,7 @@
   &__link {
     display: block;
     width: fit-content;
-    font-size: 16px;
+    font-size: 18px;
     text-decoration: none;
     color: inherit;
     margin-left: auto;

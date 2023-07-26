@@ -36,5 +36,8 @@
   "username_placeholder": "Enter username...",
   "sign_up_action": "Sign up",
   "sign_in": "Sign in",
-  "sign_in_action": "Sign in"
+  "sign_in_action": "Sign in",
+  "user_not_found": "User not found",
+  "user_already_exist": "User already exists",
+  "logout": "Logout"
 }

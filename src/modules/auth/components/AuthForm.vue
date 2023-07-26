@@ -2,7 +2,7 @@
   <div class="form-container">
     <form
       class="form"
-      @submit.prevent
+      @submit.prevent="onSubmit"
     >
       <h2 class="title">{{ title }}</h2>
       <FormField
@@ -58,7 +58,10 @@
           </div>
         </template>
       </FormField>
-      <AppButton :text="submitBtnText" />
+      <AppButton
+        :text="submitBtnText"
+        type="submit"
+      />
     </form>
     <div class="link-container">
       <slot name="link"></slot>
@@ -71,6 +74,8 @@ import FormField from '@/components/inputs/FormField.vue';
 import { ref } from 'vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/AppButton.vue';
+import { useForm } from 'vee-validate';
+import { ISignUpAuthRequest } from '@/modules/auth/types';
 
 defineProps<{
   title: string;
@@ -78,11 +83,24 @@ defineProps<{
   useSignUp?: boolean;
 }>();
 
+const emit = defineEmits<{
+  submit: [ISignUpAuthRequest];
+}>();
+
+const { validate } = useForm();
+
 const values = ref({
   email: '',
   password: '',
   username: ''
 });
+
+const onSubmit = async () => {
+  const { valid } = await validate();
+  if (valid) {
+    emit('submit', values.value);
+  }
+};
 </script>
 
 <style lang="scss" scoped>

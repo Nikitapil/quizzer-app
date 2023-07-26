@@ -111,8 +111,8 @@ const onChangeCategory = async () => {
 };
 
 const onSubmit = async () => {
-  const isValid = await validate();
-  if (isValid.valid) {
+  const { valid } = await validate();
+  if (valid) {
     const id = await store.generateQuiz({
       ...generateQuizValues.value,
       category: +generateQuizValues.value.category

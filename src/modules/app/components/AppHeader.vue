@@ -2,18 +2,49 @@
   <header class="header">
     <div class="container w-100 header-container">
       <h1 class="logo">
-        <router-link :to="{ name: ERoutesNames.HOME }">Quizzer</router-link>
+        <RouterLink :to="{ name: ERoutesNames.HOME }">Quizzer</RouterLink>
       </h1>
       <nav>
         <ul class="header__navigation">
           <li>
-            <router-link
+            <RouterLink
               class="link"
               active-class="active-link"
               :to="{ name: ERoutesNames.ALL_QUIZES }"
             >
               {{ $t('all_quizzes') }}
-            </router-link>
+            </RouterLink>
+          </li>
+          <template v-if="authStore.isLoading">
+            <HorizontalLoader />
+          </template>
+          <template v-else-if="!authStore.user">
+            <li>
+              <RouterLink
+                class="link"
+                active-class="active-link"
+                :to="{ name: ERoutesNames.SIGN_IN }"
+              >
+                {{ $t('sign_in_action') }}
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink
+                class="link"
+                active-class="active-link"
+                :to="{ name: ERoutesNames.SIGN_UP }"
+              >
+                {{ $t('sign_up_action') }}
+              </RouterLink>
+            </li>
+          </template>
+          <li v-else>
+            <AppButton
+              appearence="error"
+              size="sm"
+              :text="$t('logout')"
+              @click="logout"
+            />
           </li>
         </ul>
       </nav>
@@ -23,6 +54,15 @@
 
 <script setup lang="ts">
 import { ERoutesNames } from '@/router/routes-names';
+import HorizontalLoader from '@/components/loaders/HorizontalLoader.vue';
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
+import AppButton from '@/components/AppButton.vue';
+
+const authStore = useAuthStore();
+
+const logout = async () => {
+  await authStore.logout();
+};
 </script>
 
 <style lang="scss" scoped>
@@ -37,6 +77,7 @@ import { ERoutesNames } from '@/router/routes-names';
 
   &__navigation {
     display: flex;
+    align-items: center;
     gap: 16px;
 
     .link {
