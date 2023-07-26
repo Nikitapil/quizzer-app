@@ -4,6 +4,8 @@ import { ERoutesNames } from '@/router/routes-names';
 import Error from '@/modules/app/views/Error.vue';
 import Game from '@/modules/game/views/Game.vue';
 import AllQuizes from '@/modules/quizes/views/AllQuizes.vue';
+import SignUp from '@/modules/auth/views/SignUp.vue';
+import SignIn from '@/modules/auth/views/SignIn.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +29,16 @@ const router = createRouter({
       path: '/quizzes/all',
       name: ERoutesNames.ALL_QUIZES,
       component: AllQuizes
+    },
+    {
+      path: '/signup',
+      name: ERoutesNames.SIGN_UP,
+      component: SignUp
+    },
+    {
+      path: '/signin',
+      name: ERoutesNames.SIGN_IN,
+      component: SignIn
     }
   ]
 });

@@ -1,5 +1,5 @@
 <template>
-  <div class="home-page">
+  <div class="centered-page">
     <form
       class="generation-form"
       @submit.prevent="onSubmit"
@@ -130,14 +130,6 @@ onMounted(async () => {
 <style lang="scss" scoped>
 @import '../../../assets/styles/vars';
 @import '../../../assets/styles/colors';
-
-.home-page {
-  width: 100%;
-  min-height: $main-height;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 .generation-form {
   max-width: 400px;

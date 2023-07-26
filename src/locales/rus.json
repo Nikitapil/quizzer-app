@@ -25,5 +25,16 @@
   "play": "Играть",
   "no_quizzes_yet": "Квизов пока нет",
   "search": "Поиск",
-  "more_games_here": "Больше игр тут"
+  "more_games_here": "Больше игр тут",
+  "email_error": "Введите валидный email",
+  "sign_up": "Регистрация",
+  "field_min_length": "Минимальная длина поля {limit} символов",
+  "password_label": "Пароль:",
+  "username_label": "Имя пользователя:",
+  "email_placeholder": "Введите email...",
+  "password_placeholder": "Введите пароль...",
+  "username_placeholder": "Введите имя пользователя...",
+  "sign_up_action": "Зарегистрироваться",
+  "sign_in": "Вход",
+  "sign_in_action": "Войти"
 }

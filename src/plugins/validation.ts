@@ -24,4 +24,28 @@ export const validators = () => {
 
     return true;
   });
+
+  defineRule('email', (value: string) => {
+    if (!value || !value.length) {
+      return true;
+    }
+    if (
+      !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        value
+      )
+    ) {
+      return i18n.global.t('email_error');
+    }
+    return true;
+  });
+
+  defineRule('minLength', (value: string, [limit]: [number]) => {
+    if (!value || !value.length) {
+      return true;
+    }
+    if (value.length < limit) {
+      return i18n.global.t('field_min_length', { limit });
+    }
+    return true;
+  });
 };
