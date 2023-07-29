@@ -75,7 +75,7 @@ import { ref } from 'vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/AppButton.vue';
 import { useForm } from 'vee-validate';
-import { ISignUpAuthRequest } from '@/modules/auth/types';
+import type { ISignUpAuthRequest } from '@/modules/auth/types';
 
 defineProps<{
   title: string;
