@@ -39,5 +39,13 @@
   "sign_in_action": "Sign in",
   "user_not_found": "User not found",
   "user_already_exist": "User already exists",
-  "logout": "Logout"
+  "logout": "Logout",
+  "restore_password": "Restore password",
+  "next": "Next",
+  "secret_key_description": "Secret key was sent to your email, place it in the field below and set new password",
+  "secret_key_placeholder": "Enter secret key...",
+  "secret_key_label": "Secret key:",
+  "new_password_placeholder": "Enter new password...",
+  "new_password_label": "New password",
+  "update_password": "Update password"
 }

@@ -39,5 +39,13 @@
   "sign_in_action": "Войти",
   "user_not_found": "Пользователь не найден",
   "user_already_exist": "Пользователь уже существует",
-  "logout": "Выйти"
+  "logout": "Выйти",
+  "restore_password": "Восстановление пароля",
+  "next": "Далее",
+  "secret_key_description": "Секретный ключ был отправлен вам на email, пожалуйста введите его в поле ниже и установите новый пароль",
+  "secret_key_placeholder": "Введите секретный ключ...",
+  "secret_key_label": "Секретный ключ:",
+  "new_password_placeholder": "Введите новый пароль...",
+  "new_password_label": "Новый пароль",
+  "update_password": "Обновить пароль"
 }

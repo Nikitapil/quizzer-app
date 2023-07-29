@@ -20,11 +20,21 @@ export interface IAuthResponse {
 export interface IAuthStoreState {
   user: IUser | null;
   isLoading: boolean;
+  isRestorePasswordLoading: boolean;
 }
+
+export interface IRestorePasswordRequest {
+  key: string;
+  password: string;
+}
+
 export type TAuthStoreGetters = {};
 export interface IAuthStoreActions {
   refresh: () => void;
   login: (loginRequest: IBaseAuthRequest) => void;
   register: (loginRequest: ISignUpAuthRequest) => void;
   logout: () => void;
+  getRestorePasswordKey: (email: string) => void;
+  setAuthData: (data: IAuthResponse) => void;
+  restorePassword: (request: IRestorePasswordRequest) => void;
 }

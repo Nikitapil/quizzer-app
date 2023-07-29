@@ -4,7 +4,7 @@ import type {
   IAuthResponse,
   IBaseAuthRequest,
   ISignUpAuthRequest
-} from '@/modules/auth/types';
+} from '@/modules/auth/domain/types';
 
 export class AuthService {
   static async signUp(

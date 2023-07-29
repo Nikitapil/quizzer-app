@@ -1,7 +1,12 @@
 <template>
   <button
     class="button"
-    :class="{ [appearence]: true, 'full-width': full, [size]: true }"
+    :class="{
+      [appearence]: true,
+      'full-width': full,
+      [size]: true,
+      'with-icon': withIcon
+    }"
     :type="type"
     :disabled="disabled"
     @click="$emit('click')"
@@ -18,6 +23,7 @@ withDefaults(
     full?: boolean;
     size?: 'sm' | 'md' | 'lg';
     disabled?: boolean;
+    withIcon?: boolean;
     appearence?:
       | 'primary'
       | 'dark'
@@ -30,6 +36,7 @@ withDefaults(
     appearence: 'primary',
     type: 'button',
     full: false,
+    withIcon: false,
     size: 'md'
   }
 );
@@ -107,6 +114,11 @@ defineEmits(['click']);
   &:disabled {
     background: $bg-gray;
     cursor: not-allowed;
+  }
+
+  &.with-icon {
+    line-height: 0;
+    padding: 0;
   }
 }
 </style>

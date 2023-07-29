@@ -22,7 +22,7 @@ import AuthForm from '@/modules/auth/components/AuthForm.vue';
 import { ERoutesNames } from '@/router/routes-names';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import RoundLoader from '@/components/loaders/RoundLoader.vue';
-import type { ISignUpAuthRequest } from '@/modules/auth/types';
+import type { ISignUpAuthRequest } from '@/modules/auth/domain/types';
 import { watch } from 'vue';
 import { useRouter } from 'vue-router';
 
