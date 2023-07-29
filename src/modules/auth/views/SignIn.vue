@@ -31,7 +31,6 @@ import type { ISignUpAuthRequest } from '@/modules/auth/domain/types';
 import RoundLoader from '@/components/loaders/RoundLoader.vue';
 import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import AppModal from '@/components/AppModal.vue';
 import AppButton from '@/components/AppButton.vue';
 import RestorePasswordModal from '@/modules/auth/components/restore-form/RestorePasswordModal.vue';
 
