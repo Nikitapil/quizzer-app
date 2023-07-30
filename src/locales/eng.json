@@ -48,5 +48,20 @@
   "new_password_placeholder": "Enter new password...",
   "new_password_label": "New password",
   "update_password": "Update password",
-  "rate_quiz": "Rate quiz:"
+  "rate_quiz": "Rate quiz:",
+  "create_quiz": "Create quiz",
+  "quiz_name_label": "Quiz name:",
+  "quiz_name_placeholder": "Enter quiz name",
+  "access_only_by_link": "Access only by link",
+  "question_label": "Question:",
+  "question_placeholder": "Enter question...",
+  "question_number": "Question №{questionNumber}",
+  "correct_answer_label": "Correct answer:",
+  "correct_answer_placeholder": "Enter correct answer...",
+  "incorrect_answer_label": "Incorrect answer №{incorrectNumber}:",
+  "incorrect_answer_placeholder": "Enter incorrect answer...",
+  "incorrect_answers": "Incorrect answers",
+  "add_incorrect_answer": "Add incorrect answer",
+  "add_question": "Add question",
+  "create": "Create"
 }

@@ -31,3 +31,16 @@ export interface IGetQuizzesResponse {
   quizes: IQuiz[];
   totalCount: number;
 }
+
+export interface IQuizFormQuestion {
+  id: string;
+  question: string;
+  correctAnswer: string;
+  incorrectAnswers: string[];
+}
+
+export interface IQuizFormValues {
+  name: '';
+  isPrivate: false;
+  questions: IQuizFormQuestion[];
+}

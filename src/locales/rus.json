@@ -48,5 +48,20 @@
   "new_password_placeholder": "Введите новый пароль...",
   "new_password_label": "Новый пароль",
   "update_password": "Обновить пароль",
-  "rate_quiz": "Оцените квиз:"
+  "rate_quiz": "Оцените квиз:",
+  "create_quiz": "Создать квиз",
+  "quiz_name_label": "Название квиза:",
+  "quiz_name_placeholder": "Введите название квиза",
+  "access_only_by_link": "Доступ только по ссылке",
+  "question_label": "Вопрос:",
+  "question_placeholder": "Введите вопрос...",
+  "question_number": "Вопрос №{questionNumber}",
+  "correct_answer_label": "Правильный ответ:",
+  "correct_answer_placeholder": "Введите правильный ответ...",
+  "incorrect_answer_label": "Неправильный ответ №{incorrectNumber}:",
+  "incorrect_answer_placeholder": "Введите неправильный ответ...",
+  "incorrect_answers": "Неправильные ответы",
+  "add_incorrect_answer": "Добавить неправиьный ответ",
+  "add_question": "Добавить вопрос",
+  "create": "Создать"
 }

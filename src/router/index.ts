@@ -6,6 +6,7 @@ import Game from '@/modules/game/views/Game.vue';
 import AllQuizes from '@/modules/quizes/views/AllQuizes.vue';
 import SignUp from '@/modules/auth/views/SignUp.vue';
 import SignIn from '@/modules/auth/views/SignIn.vue';
+import CreateQuiz from '@/modules/quizes/views/CreateQuiz.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,6 +40,11 @@ const router = createRouter({
       path: '/signin',
       name: ERoutesNames.SIGN_IN,
       component: SignIn
+    },
+    {
+      path: '/create',
+      name: ERoutesNames.CREATE_QUIZ,
+      component: CreateQuiz
     }
   ]
 });

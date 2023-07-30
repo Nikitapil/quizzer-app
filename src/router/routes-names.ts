@@ -4,5 +4,6 @@ export enum ERoutesNames {
   QUIZ = 'quiz',
   ALL_QUIZES = 'quizes.all',
   SIGN_UP = 'signup',
-  SIGN_IN = 'signin'
+  SIGN_IN = 'signin',
+  CREATE_QUIZ = 'create-quiz'
 }
