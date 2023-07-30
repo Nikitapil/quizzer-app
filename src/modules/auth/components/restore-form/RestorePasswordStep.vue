@@ -53,7 +53,7 @@ import FormField from '@/components/inputs/FormField.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import { ref } from 'vue';
 import AppButton from '@/components/AppButton.vue';
-import { IRestorePasswordRequest } from '@/modules/auth/domain/types';
+import type { IRestorePasswordRequest } from '@/modules/auth/domain/types';
 import { useForm } from 'vee-validate';
 
 const emit = defineEmits<{

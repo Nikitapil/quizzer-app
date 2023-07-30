@@ -33,7 +33,6 @@ export interface IGetQuizzesResponse {
 }
 
 export interface IQuizFormQuestion {
-  id: string;
   question: string;
   correctAnswer: string;
   incorrectAnswers: string[];

@@ -72,7 +72,7 @@
 import { computed } from 'vue';
 import FormField from '@/components/inputs/FormField.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
-import { IQuizFormQuestion } from '@/modules/quizes/domain/types';
+import type { IQuizFormQuestion } from '@/modules/quizes/domain/types';
 import AppButton from '@/components/AppButton.vue';
 import QuizFormIncorrectAnswer from '@/modules/quizes/components/quiz-form/QuizFormIncorrectAnswer.vue';
 import { Icon } from '@iconify/vue';

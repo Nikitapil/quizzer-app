@@ -28,8 +28,8 @@
     />
 
     <QuizFormQuestion
-      v-for="(question, index) in formValues.questions"
-      :key="question.id"
+      v-for="(_, index) in formValues.questions"
+      :key="`question-${index}`"
       v-model="formValues.questions[index]"
       :question-number="index + 1"
       @delete-question="onDeleteQuestion"
@@ -53,8 +53,7 @@ import AppInput from '@/components/inputs/AppInput.vue';
 import { ref } from 'vue';
 import AppCheckboox from '@/components/inputs/AppCheckboox.vue';
 import QuizFormQuestion from '@/modules/quizes/components/quiz-form/QuizFormQuestion.vue';
-import { IQuizFormValues } from '@/modules/quizes/domain/types';
-import { v4 as uuid } from 'uuid';
+import type { IQuizFormValues } from '@/modules/quizes/domain/types';
 import AppButton from '@/components/AppButton.vue';
 import { useForm } from 'vee-validate';
 
@@ -69,19 +68,16 @@ const formValues = ref<IQuizFormValues>({
   isPrivate: false,
   questions: [
     {
-      id: uuid(),
       question: '',
       correctAnswer: '',
       incorrectAnswers: ['', '']
     },
     {
-      id: uuid(),
       question: '',
       correctAnswer: '',
       incorrectAnswers: ['', '']
     },
     {
-      id: uuid(),
       question: '',
       correctAnswer: '',
       incorrectAnswers: ['', '']
@@ -91,7 +87,6 @@ const formValues = ref<IQuizFormValues>({
 
 const onAddQuestion = () =>
   formValues.value.questions.push({
-    id: uuid(),
     question: '',
     correctAnswer: '',
     incorrectAnswers: ['', '']

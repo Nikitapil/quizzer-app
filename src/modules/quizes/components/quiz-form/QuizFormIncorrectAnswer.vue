@@ -38,7 +38,6 @@
 
 <script setup lang="ts">
 import FormField from '@/components/inputs/FormField.vue';
-import { defineModel } from 'vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/AppButton.vue';
 import { Icon } from '@iconify/vue';
