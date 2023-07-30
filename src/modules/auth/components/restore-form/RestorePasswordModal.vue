@@ -4,11 +4,20 @@
     :title="$t('restore_password')"
   >
     <template #content>
+      <div
+        v-if="store.isRestorePasswordLoading"
+        class="loader"
+      >
+        <RoundLoader color="blue" />
+      </div>
       <RestorePasswordEmailStep
-        v-if="step === ERestorePasswordSteps.EMAIL_STEP"
+        v-else-if="step === ERestorePasswordSteps.EMAIL_STEP"
         @submit="goToPasswordStep"
       />
-      <RestorePasswordStep v-else />
+      <RestorePasswordStep
+        v-else
+        @submit="store.restorePassword"
+      />
     </template>
   </AppModal>
 </template>
@@ -19,14 +28,28 @@ import RestorePasswordEmailStep from '@/modules/auth/components/restore-form/Res
 import { ref } from 'vue';
 import { ERestorePasswordSteps } from '@/modules/auth/domain/constants';
 import RestorePasswordStep from '@/modules/auth/components/restore-form/RestorePasswordStep.vue';
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
+import RoundLoader from '@/components/loaders/RoundLoader.vue';
 
 const isOpened = defineModel<boolean>();
 
+const store = useAuthStore();
+
 const step = ref<ERestorePasswordSteps>(ERestorePasswordSteps.EMAIL_STEP);
 
-const goToPasswordStep = () => {
-  step.value = ERestorePasswordSteps.PASSWORD_STEP;
+const goToPasswordStep = async (email: string) => {
+  const isRestoreKeySent = await store.getRestorePasswordKey(email);
+  if (isRestoreKeySent) {
+    step.value = ERestorePasswordSteps.PASSWORD_STEP;
+  }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+</style>

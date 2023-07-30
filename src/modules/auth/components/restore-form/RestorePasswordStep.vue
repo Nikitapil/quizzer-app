@@ -1,7 +1,7 @@
 <template>
   <form
     class="form"
-    @submit.prevent
+    @submit.prevent="onSubmit"
   >
     <p class="restore-key-description">{{ $t('secret_key_description') }}</p>
     <FormField
@@ -42,6 +42,7 @@
     </FormField>
     <AppButton
       full
+      type="submit"
       :text="$t('update_password')"
     />
   </form>
@@ -52,9 +53,27 @@ import FormField from '@/components/inputs/FormField.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import { ref } from 'vue';
 import AppButton from '@/components/AppButton.vue';
+import { IRestorePasswordRequest } from '@/modules/auth/domain/types';
+import { useForm } from 'vee-validate';
+
+const emit = defineEmits<{
+  submit: [data: IRestorePasswordRequest];
+}>();
+
+const { validate } = useForm();
 
 const secretKey = ref('');
 const newPassword = ref('');
+
+const onSubmit = async () => {
+  const { valid } = await validate();
+  if (valid) {
+    emit('submit', {
+      key: secretKey.value,
+      password: newPassword.value
+    });
+  }
+};
 </script>
 
 <style lang="scss" scoped>

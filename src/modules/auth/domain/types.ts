@@ -34,7 +34,7 @@ export interface IAuthStoreActions {
   login: (loginRequest: IBaseAuthRequest) => void;
   register: (loginRequest: ISignUpAuthRequest) => void;
   logout: () => void;
-  getRestorePasswordKey: (email: string) => void;
+  getRestorePasswordKey: (email: string) => Promise<boolean>;
   setAuthData: (data: IAuthResponse) => void;
   restorePassword: (request: IRestorePasswordRequest) => void;
 }

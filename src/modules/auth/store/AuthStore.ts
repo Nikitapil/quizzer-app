@@ -86,10 +86,12 @@ export const useAuthStore = defineStore<
       try {
         this.isRestorePasswordLoading = true;
         await AuthService.getRestoreKey(email);
+        return true;
       } catch (e: any) {
         if (e?.response?.data?.message) {
           toast(i18n.global.t(e?.response?.data?.message));
         }
+        return false;
       } finally {
         this.isRestorePasswordLoading = false;
       }
@@ -97,7 +99,8 @@ export const useAuthStore = defineStore<
     async restorePassword({ key, password }: IRestorePasswordRequest) {
       try {
         this.isRestorePasswordLoading = true;
-        await AuthService.restorePassword(key, password);
+        const { data } = await AuthService.restorePassword(key, password);
+        this.setAuthData(data);
       } catch (e: any) {
         if (e?.response?.data?.message) {
           toast(i18n.global.t(e?.response?.data?.message));

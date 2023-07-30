@@ -1,10 +1,23 @@
 <template>
-  <div class="lds-dual-ring"></div>
+  <div
+    class="lds-dual-ring"
+    :class="{ [color]: true }"
+  ></div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+withDefaults(
+  defineProps<{
+    color?: 'white' | 'blue';
+  }>(),
+  {
+    color: 'white'
+  }
+);
+</script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '../../assets/styles/colors';
 .lds-dual-ring {
   display: inline-block;
   width: 80px;
@@ -21,6 +34,11 @@
   border-color: #fff transparent #fff transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
+
+.lds-dual-ring.blue:after {
+  border-color: $color-medium-blue transparent $color-medium-blue transparent;
+}
+
 @keyframes lds-dual-ring {
   0% {
     transform: rotate(0deg);
