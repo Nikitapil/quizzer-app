@@ -47,5 +47,6 @@
   "secret_key_label": "Секретный ключ:",
   "new_password_placeholder": "Введите новый пароль...",
   "new_password_label": "Новый пароль",
-  "update_password": "Обновить пароль"
+  "update_password": "Обновить пароль",
+  "rate_quiz": "Оцените квиз:"
 }

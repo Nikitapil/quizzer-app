@@ -15,6 +15,7 @@ export interface IGameStoreState {
   game: IGame | null;
   isPageLoading: boolean;
   isAnswerLoading: boolean;
+  isRateInProgress: boolean;
 }
 export type TGameStoreGetters = {
   totalQuestionsCount(state: IGameStoreState): number;
@@ -23,8 +24,14 @@ export type TGameStoreGetters = {
 export interface IGameStoreActions {
   getGame: (id: string) => void;
   getCorrectAnswer: (id: string) => Promise<string>;
+  rateQuiz: (rating: number) => void;
 }
 
 export interface ICorrectAnswer {
   answer: string;
+}
+
+export interface IrateQuizRequest {
+  quizId: string;
+  rating: number;
 }

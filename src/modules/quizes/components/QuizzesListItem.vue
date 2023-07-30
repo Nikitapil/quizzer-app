@@ -10,6 +10,12 @@
         class="quiz-item__text"
       >
         {{ $t('rating') }}: {{ quiz.rating }}
+        <Icon
+          icon="ic:round-star"
+          color="#d2e000"
+          width="20"
+          height="20"
+        />
       </p>
       <p
         v-if="quiz.author"
@@ -33,6 +39,7 @@ import type { IQuiz } from '@/modules/quizes/domain/types';
 import AppButton from '@/components/AppButton.vue';
 import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
+import { Icon } from '@iconify/vue';
 
 const router = useRouter();
 
@@ -68,6 +75,8 @@ const goToQuiz = () => {
 
   &__text {
     color: $color-medium-blue;
+    display: flex;
+    align-items: center;
   }
 }
 </style>

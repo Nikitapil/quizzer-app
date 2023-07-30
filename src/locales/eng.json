@@ -47,5 +47,6 @@
   "secret_key_label": "Secret key:",
   "new_password_placeholder": "Enter new password...",
   "new_password_label": "New password",
-  "update_password": "Update password"
+  "update_password": "Update password",
+  "rate_quiz": "Rate quiz:"
 }

@@ -6,6 +6,7 @@ import type {
 } from '@/modules/game/domain/types';
 import { GameService } from '@/modules/game/GameService';
 import { i18n } from '@/main';
+import { toast } from 'vue3-toastify';
 
 export const useGameStore = defineStore<
   'game',
@@ -17,7 +18,8 @@ export const useGameStore = defineStore<
     return {
       game: null,
       isPageLoading: true,
-      isAnswerLoading: false
+      isAnswerLoading: false,
+      isRateInProgress: false
     };
   },
   getters: {
@@ -51,6 +53,21 @@ export const useGameStore = defineStore<
         return '';
       } finally {
         this.isAnswerLoading = false;
+      }
+    },
+    async rateQuiz(rating: number) {
+      if (!this.game) {
+        return;
+      }
+      try {
+        this.isRateInProgress = true;
+        await GameService.rateQuiz({ quizId: this.game.id, rating });
+      } catch (e: any) {
+        if (e?.response?.data?.message) {
+          toast(i18n.global.t(e?.response?.data?.message));
+        }
+      } finally {
+        this.isRateInProgress = false;
       }
     }
   }

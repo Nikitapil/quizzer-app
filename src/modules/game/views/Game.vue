@@ -26,6 +26,16 @@
             store.totalQuestionsCount
           }}
         </p>
+        <div
+          v-if="authStore.user"
+          class="rating"
+        >
+          <span>{{ $t('rate_quiz') }}</span>
+          <StarRating
+            :is-loading="store.isRateInProgress"
+            @select="store.rateQuiz"
+          />
+        </div>
         <AppButton
           :text="$t('play_again')"
           appearence="white"
@@ -48,6 +58,8 @@ import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/constants/breadcrumbs';
 import { useDocTitle } from '@/composables/useDocTitle';
 import { useI18n } from 'vue-i18n';
+import StarRating from '@/components/StarRating.vue';
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
 const { t } = useI18n();
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.GAME]);
@@ -55,6 +67,7 @@ useDocTitle(t('play_quiz'));
 
 const route = useRoute();
 const store = useGameStore();
+const authStore = useAuthStore();
 
 const currentQuestionIndex = ref(0);
 const correctAnswersCount = ref(0);
@@ -140,5 +153,12 @@ onMounted(async () => {
   flex-direction: column;
   align-items: center;
   gap: 16px;
+}
+
+.rating {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 18px;
 }
 </style>
