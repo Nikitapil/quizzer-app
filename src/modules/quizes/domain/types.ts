@@ -43,3 +43,12 @@ export interface IQuizFormValues {
   isPrivate: false;
   questions: IQuizFormQuestion[];
 }
+
+export interface IQuizFormStoreState {
+  isLoading: boolean;
+  quizForm: IQuizFormValues | null;
+}
+export type TQuizFormStoreGetters = {};
+export interface IQuizFormStoreActions {
+  createQuiz: (data: IQuizFormValues) => Promise<boolean>;
+}

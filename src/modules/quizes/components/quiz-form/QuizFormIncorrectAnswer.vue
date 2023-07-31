@@ -1,14 +1,14 @@
 <template>
   <div class="incorrect-answer">
     <FormField
-      :name="`incorrect-${index}`"
+      :name="`incorrect-${index}-${questionId}`"
       rules="required"
       :model-value="modelValue"
     >
       <template #default="{ invalid }">
         <div class="input">
           <AppInput
-            :id="`incorrect-${index}`"
+            :id="`incorrect-${index}-${questionId}`"
             v-model="modelValue"
             :placeholder="$t('incorrect_answer_placeholder')"
             :label="
@@ -20,7 +20,7 @@
       </template>
     </FormField>
     <AppButton
-      v-if="index > 1"
+      v-if="index > 0"
       class="delete-btn"
       with-icon
       appearence="transparent"
@@ -46,6 +46,7 @@ const modelValue = defineModel<string>();
 
 defineProps<{
   index: number;
+  questionId: string;
 }>();
 
 defineEmits(['delete-answer']);

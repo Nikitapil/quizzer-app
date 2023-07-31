@@ -1,8 +1,10 @@
 import type { IGetQuizzesRequest } from '@/modules/quizes/domain/types';
 import $api from '@/api/api';
 import type { AxiosResponse } from 'axios';
-import type { IGetQuizzesResponse } from '@/modules/quizes/domain/types';
-import { IQuizFormValues } from '@/modules/quizes/domain/types';
+import type {
+  IGetQuizzesResponse,
+  IQuizFormValues
+} from '@/modules/quizes/domain/types';
 
 export class QuizzesService {
   static async getAllQuizzes({

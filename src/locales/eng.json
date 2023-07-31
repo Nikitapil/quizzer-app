@@ -64,5 +64,6 @@
   "add_incorrect_answer": "Add incorrect answer",
   "add_question": "Add question",
   "create": "Create",
-  "or": "OR"
+  "or": "OR",
+  "quiz_created": "Quiz created"
 }

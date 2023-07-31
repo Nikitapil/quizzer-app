@@ -35,7 +35,7 @@
       </template>
     </FormField>
     <FormField
-      :name="localId"
+      :name="`correct-${localId}`"
       rules="required"
       :model-value="questionFormValues.correctAnswer"
     >
@@ -57,6 +57,7 @@
       :key="`incorrect-${index}`"
       v-model="questionFormValues.incorrectAnswers[index]"
       :index="index"
+      :question-id="localId"
       @delete-answer="onDeleteIncorrectAnswer(index)"
     />
     <AppButton

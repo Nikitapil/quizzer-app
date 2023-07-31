@@ -32,7 +32,7 @@
       :key="`question-${index}`"
       v-model="formValues.questions[index]"
       :question-number="index + 1"
-      @delete-question="onDeleteQuestion"
+      @delete-question="onDeleteQuestion(index)"
     />
     <AppButton
       :text="$t('add_question')"
@@ -59,6 +59,11 @@ import { useForm } from 'vee-validate';
 
 defineProps<{
   title: string;
+  isLoading: boolean;
+}>();
+
+const emit = defineEmits<{
+  submit: [data: IQuizFormValues];
 }>();
 
 const { validate } = useForm();
@@ -70,17 +75,17 @@ const formValues = ref<IQuizFormValues>({
     {
       question: '',
       correctAnswer: '',
-      incorrectAnswers: ['', '']
+      incorrectAnswers: ['']
     },
     {
       question: '',
       correctAnswer: '',
-      incorrectAnswers: ['', '']
+      incorrectAnswers: ['']
     },
     {
       question: '',
       correctAnswer: '',
-      incorrectAnswers: ['', '']
+      incorrectAnswers: ['']
     }
   ]
 });
@@ -89,7 +94,7 @@ const onAddQuestion = () =>
   formValues.value.questions.push({
     question: '',
     correctAnswer: '',
-    incorrectAnswers: ['', '']
+    incorrectAnswers: ['']
   });
 
 const onDeleteQuestion = (index: number) =>
@@ -97,7 +102,9 @@ const onDeleteQuestion = (index: number) =>
 
 const onSubmit = async () => {
   const { valid } = await validate();
-  console.log(formValues.value);
+  if (valid) {
+    emit('submit', formValues.value);
+  }
 };
 </script>
 
