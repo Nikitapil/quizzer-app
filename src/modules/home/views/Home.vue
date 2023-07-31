@@ -7,6 +7,7 @@
       <AppButton
         full
         appearence="success"
+        size="lg"
         :text="$t('create_quiz')"
         @click="router.push({ name: ERoutesNames.CREATE_QUIZ })"
       />

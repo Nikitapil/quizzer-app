@@ -14,6 +14,7 @@
             :label="
               $t('incorrect_answer_label', { incorrectNumber: index + 1 })
             "
+            :disabled="isLoading"
             :is-error="invalid"
           />
         </div>
@@ -24,6 +25,7 @@
       class="delete-btn"
       with-icon
       appearence="transparent"
+      :disabled="isLoading"
       @click="$emit('delete-answer')"
     >
       <Icon
@@ -47,6 +49,7 @@ const modelValue = defineModel<string>();
 defineProps<{
   index: number;
   questionId: string;
+  isLoading: boolean;
 }>();
 
 defineEmits(['delete-answer']);

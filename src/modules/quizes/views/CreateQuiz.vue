@@ -27,6 +27,7 @@ const onCreate = async (data: IQuizFormValues) => {
   const isCreated = await store.createQuiz(data);
   if (isCreated) {
     toast.success('quiz_created');
+    // TODO change link to my quizzes page
     await router.push({ name: ERoutesNames.ALL_QUIZES });
   }
 };

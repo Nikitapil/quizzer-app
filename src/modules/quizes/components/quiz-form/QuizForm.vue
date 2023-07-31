@@ -17,6 +17,7 @@
             :placeholder="$t('quiz_name_placeholder')"
             :label="$t('quiz_name_label')"
             :is-error="invalid"
+            :disabled="isLoading"
           />
         </div>
       </template>
@@ -25,6 +26,7 @@
       id="is-private"
       v-model="formValues.isPrivate"
       :label="$t('access_only_by_link')"
+      :disabled="isLoading"
     />
 
     <QuizFormQuestion
@@ -32,17 +34,20 @@
       :key="`question-${index}`"
       v-model="formValues.questions[index]"
       :question-number="index + 1"
+      :is-loading="isLoading"
       @delete-question="onDeleteQuestion(index)"
     />
     <AppButton
       :text="$t('add_question')"
       appearence="dark"
+      :disabled="isLoading"
       @click="onAddQuestion"
     />
     <AppButton
-      :text="title"
       appearence="success"
       type="submit"
+      :text="title"
+      :disabled="isLoading"
     />
   </form>
 </template>

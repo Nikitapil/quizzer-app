@@ -8,6 +8,7 @@
       class="delete-btn"
       with-icon
       appearence="transparent"
+      :disabled="isLoading"
       @click="$emit('delete-question')"
     >
       <Icon
@@ -30,6 +31,7 @@
             :placeholder="$t('question_placeholder')"
             :label="$t('question_label')"
             :is-error="invalid"
+            :disabled="isLoading"
           />
         </div>
       </template>
@@ -47,6 +49,7 @@
             :placeholder="$t('correct_answer_placeholder')"
             :label="$t('correct_answer_label')"
             :is-error="invalid"
+            :disabled="isLoading"
           />
         </div>
       </template>
@@ -58,12 +61,14 @@
       v-model="questionFormValues.incorrectAnswers[index]"
       :index="index"
       :question-id="localId"
+      :is-loading="isLoading"
       @delete-answer="onDeleteIncorrectAnswer(index)"
     />
     <AppButton
       v-if="questionFormValues.incorrectAnswers.length < 5"
       full
       :text="$t('add_incorrect_answer')"
+      :disabled="isLoading"
       @click="onAddIncorrectAnswer"
     />
   </div>
@@ -82,6 +87,7 @@ const questionFormValues = defineModel<IQuizFormQuestion>({ required: true });
 
 const props = defineProps<{
   questionNumber: number;
+  isLoading: boolean;
 }>();
 
 defineEmits(['delete-question']);

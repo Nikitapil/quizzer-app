@@ -3,6 +3,7 @@
     <input
       :id="id"
       v-model="modelValue"
+      disabled="disabled"
       class="checkbox-input"
       type="checkbox"
     />
@@ -31,10 +32,16 @@ import { Icon } from '@iconify/vue';
 
 const modelValue = defineModel<boolean>();
 
-defineProps<{
-  id: string;
-  label: string;
-}>();
+withDefaults(
+  defineProps<{
+    id: string;
+    label: string;
+    disabled?: boolean;
+  }>(),
+  {
+    disabled: false
+  }
+);
 </script>
 
 <style lang="scss" scoped>
@@ -60,6 +67,14 @@ defineProps<{
 
 .checkbox-input {
   display: none;
+
+  &:disabled + label {
+    cursor: not-allowed;
+
+    & .checkbox {
+      background: lightskyblue;
+    }
+  }
 }
 </style>
 <style>
