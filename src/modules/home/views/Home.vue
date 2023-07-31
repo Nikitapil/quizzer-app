@@ -1,5 +1,17 @@
 <template>
   <div class="centered-page">
+    <div
+      v-if="authStore.user"
+      class="create-button"
+    >
+      <AppButton
+        full
+        appearence="success"
+        :text="$t('create_quiz')"
+        @click="router.push({ name: ERoutesNames.CREATE_QUIZ })"
+      />
+      <p>{{ $t('or') }}</p>
+    </div>
     <form
       class="generation-form"
       @submit.prevent="onSubmit"
@@ -75,6 +87,7 @@ import AppButton from '@/components/AppButton.vue';
 import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
 import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
 useBreadCrumbs([]);
 
@@ -83,6 +96,7 @@ const { t } = useI18n();
 useDocTitle('');
 
 const store = useHomeStore();
+const authStore = useAuthStore();
 const router = useRouter();
 
 const { validate } = useForm();
@@ -158,5 +172,19 @@ onMounted(async () => {
   align-items: center;
   gap: 10px;
   width: 100%;
+}
+
+.create-button {
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+  align-items: center;
+
+  p {
+    font-size: 24px;
+  }
 }
 </style>

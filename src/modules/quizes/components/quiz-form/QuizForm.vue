@@ -40,7 +40,7 @@
       @click="onAddQuestion"
     />
     <AppButton
-      :text="$t('create')"
+      :text="title"
       appearence="success"
       type="submit"
     />
@@ -97,7 +97,7 @@ const onDeleteQuestion = (index: number) =>
 
 const onSubmit = async () => {
   const { valid } = await validate();
-  console.log(valid);
+  console.log(formValues.value);
 };
 </script>
 

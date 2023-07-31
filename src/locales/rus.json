@@ -63,5 +63,6 @@
   "incorrect_answers": "Неправильные ответы",
   "add_incorrect_answer": "Добавить неправиьный ответ",
   "add_question": "Добавить вопрос",
-  "create": "Создать"
+  "create": "Создать",
+  "or": "ИЛИ"
 }
