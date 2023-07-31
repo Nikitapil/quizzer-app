@@ -7,6 +7,7 @@ import AllQuizes from '@/modules/quizes/views/AllQuizes.vue';
 import SignUp from '@/modules/auth/views/SignUp.vue';
 import SignIn from '@/modules/auth/views/SignIn.vue';
 import CreateQuiz from '@/modules/quizes/views/CreateQuiz.vue';
+import EditQuiz from '@/modules/quizes/views/EditQuiz.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +46,11 @@ const router = createRouter({
       path: '/create',
       name: ERoutesNames.CREATE_QUIZ,
       component: CreateQuiz
+    },
+    {
+      path: '/edit/:id',
+      name: ERoutesNames.EDIT_QUIZ,
+      component: EditQuiz
     }
   ]
 });

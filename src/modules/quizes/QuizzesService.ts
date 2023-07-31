@@ -5,6 +5,7 @@ import type {
   IGetQuizzesResponse,
   IQuizFormValues
 } from '@/modules/quizes/domain/types';
+import { ISingleQuiz } from '@/modules/quizes/domain/types';
 
 export class QuizzesService {
   static async getAllQuizzes({
@@ -21,5 +22,11 @@ export class QuizzesService {
 
   static async createQuiz(request: IQuizFormValues) {
     return $api.post('/quizes/create', request);
+  }
+
+  static async getSingleQuiz(
+    quizId: string
+  ): Promise<AxiosResponse<ISingleQuiz>> {
+    return $api.get<ISingleQuiz>(`/quizes/${quizId}`);
   }
 }

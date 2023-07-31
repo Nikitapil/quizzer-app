@@ -3,7 +3,7 @@
     <input
       :id="id"
       v-model="modelValue"
-      disabled="disabled"
+      :disabled="disabled"
       class="checkbox-input"
       type="checkbox"
     />

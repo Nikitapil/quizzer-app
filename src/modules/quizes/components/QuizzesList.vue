@@ -31,6 +31,7 @@
         v-for="quiz in store.quizzes"
         :key="quiz.id"
         :quiz="quiz"
+        :user-id="userId"
       />
       <Pagination
         :total-items-count="store.totalCount"
@@ -51,6 +52,7 @@ import Pagination from '@/components/Pagination.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/AppButton.vue';
 import type { IGetQuizzesRequest } from '@/modules/quizes/domain/types';
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
 defineProps<{
   title: string;
@@ -61,6 +63,9 @@ const emit = defineEmits<{
 }>();
 
 const store = useQuizzesStore();
+const authStore = useAuthStore();
+
+const userId = computed(() => authStore.user?.id || 0);
 
 const page = ref(1);
 const search = ref('');

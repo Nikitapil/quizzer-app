@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import type {
+  IGetQuizFormParams,
   IQuizFormStoreActions,
   IQuizFormStoreState,
   IQuizFormValues,
@@ -17,7 +18,8 @@ export const useQuizFormStore = defineStore<
   state: () => {
     return {
       isLoading: false,
-      quizForm: null
+      quizForm: null,
+      isQuizLoading: false
     };
   },
 
@@ -34,6 +36,17 @@ export const useQuizFormStore = defineStore<
         return false;
       } finally {
         this.isLoading = false;
+      }
+    },
+    async getQuizForm(params: IGetQuizFormParams) {
+      try {
+        this.isQuizLoading = true;
+      } catch (e: any) {
+        if (e?.response?.data?.message) {
+          toast(e?.response.data.message);
+        }
+      } finally {
+        this.isQuizLoading = false;
       }
     }
   }

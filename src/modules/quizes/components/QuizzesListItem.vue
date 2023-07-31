@@ -24,7 +24,26 @@
         {{ $t('author') }}: {{ quiz.author }}
       </p>
     </div>
-    <div>
+    <div class="controls">
+      <template v-if="isShowQuizUserBtns">
+        <AppButton
+          class="tool-btn"
+          with-icon
+          @click="
+            router.push({
+              name: ERoutesNames.EDIT_QUIZ,
+              params: { id: quiz.id }
+            })
+          "
+        >
+          <Icon
+            icon="ic:twotone-edit"
+            color="#fff"
+            width="25"
+            height="25"
+          />
+        </AppButton>
+      </template>
       <AppButton
         appearence="dark"
         :text="$t('play')"
@@ -40,16 +59,20 @@ import AppButton from '@/components/AppButton.vue';
 import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
 import { Icon } from '@iconify/vue';
+import { computed } from 'vue';
 
 const router = useRouter();
 
 const props = defineProps<{
   quiz: IQuiz;
+  userId: number;
 }>();
 
 const goToQuiz = () => {
   router.push({ name: ERoutesNames.QUIZ, params: { id: props.quiz.id } });
 };
+
+const isShowQuizUserBtns = computed(() => props.quiz.userId === props.userId);
 </script>
 
 <style lang="scss" scoped>
@@ -78,5 +101,15 @@ const goToQuiz = () => {
     display: flex;
     align-items: center;
   }
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tool-btn {
+  padding: 2px !important;
 }
 </style>
