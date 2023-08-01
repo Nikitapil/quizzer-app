@@ -39,8 +39,8 @@ export interface IQuizFormQuestion {
 }
 
 export interface IQuizFormValues {
-  name: '';
-  isPrivate: false;
+  name: string;
+  isPrivate: boolean;
   questions: IQuizFormQuestion[];
 }
 
@@ -76,7 +76,7 @@ export interface ISingleQuiz {
   createdAt: string;
   updatedAt: string;
   name: string;
-  isPrivate: string;
+  isPrivate: boolean;
   userId: number;
   questions: ISingleQuizQuestion[];
 }

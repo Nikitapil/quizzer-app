@@ -8,6 +8,7 @@ import type {
 } from '@/modules/quizes/domain/types';
 import { toast } from 'vue3-toastify';
 import { QuizzesService } from '@/modules/quizes/QuizzesService';
+import { mapQuizResponseToQuizForm } from '@/modules/quizes/helpers/mapers';
 
 export const useQuizFormStore = defineStore<
   'quiz-form',
@@ -38,9 +39,15 @@ export const useQuizFormStore = defineStore<
         this.isLoading = false;
       }
     },
-    async getQuizForm(params: IGetQuizFormParams) {
+    async getQuizForm({ quizId, userId }: IGetQuizFormParams) {
       try {
         this.isQuizLoading = true;
+        const { data } = await QuizzesService.getSingleQuiz(quizId);
+        if (data.userId !== userId) {
+          this.quizForm = null;
+          return;
+        }
+        this.quizForm = mapQuizResponseToQuizForm(data);
       } catch (e: any) {
         if (e?.response?.data?.message) {
           toast(e?.response.data.message);

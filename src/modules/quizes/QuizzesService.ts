@@ -3,9 +3,9 @@ import $api from '@/api/api';
 import type { AxiosResponse } from 'axios';
 import type {
   IGetQuizzesResponse,
-  IQuizFormValues
+  IQuizFormValues,
+  ISingleQuiz
 } from '@/modules/quizes/domain/types';
-import { ISingleQuiz } from '@/modules/quizes/domain/types';
 
 export class QuizzesService {
   static async getAllQuizzes({
