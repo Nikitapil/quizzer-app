@@ -22,7 +22,7 @@ export const useAuthStore = defineStore<
   state: () => {
     return {
       user: null,
-      isLoading: false,
+      isLoading: true,
       isRestorePasswordLoading: false
     };
   },

@@ -27,6 +27,6 @@ export class QuizzesService {
   static async getSingleQuiz(
     quizId: string
   ): Promise<AxiosResponse<ISingleQuiz>> {
-    return $api.get<ISingleQuiz>(`/quizes/${quizId}`);
+    return $api.get<ISingleQuiz>(`/quizes/quiz/${quizId}`);
   }
 }

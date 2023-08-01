@@ -55,16 +55,17 @@
 <script setup lang="ts">
 import FormField from '@/components/inputs/FormField.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import AppCheckboox from '@/components/inputs/AppCheckboox.vue';
 import QuizFormQuestion from '@/modules/quizes/components/quiz-form/QuizFormQuestion.vue';
 import type { IQuizFormValues } from '@/modules/quizes/domain/types';
 import AppButton from '@/components/AppButton.vue';
 import { useForm } from 'vee-validate';
 
-defineProps<{
+const props = defineProps<{
   title: string;
   isLoading: boolean;
+  initialValues?: IQuizFormValues;
 }>();
 
 const emit = defineEmits<{
@@ -111,6 +112,15 @@ const onSubmit = async () => {
     emit('submit', formValues.value);
   }
 };
+
+onMounted(() => {
+  if (props.initialValues) {
+    formValues.value = {
+      ...props.initialValues,
+      questions: [...props.initialValues.questions]
+    };
+  }
+});
 </script>
 
 <style lang="scss" scoped>

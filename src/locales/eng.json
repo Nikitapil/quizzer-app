@@ -65,5 +65,8 @@
   "add_question": "Add question",
   "create": "Create",
   "or": "OR",
-  "quiz_created": "Quiz created"
+  "quiz_created": "Quiz created",
+  "quiz_creation": "Quiz creation",
+  "quiz_editing": "Quiz editing",
+  "edit_quiz": "Edit quiz"
 }

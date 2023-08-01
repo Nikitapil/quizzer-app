@@ -6,7 +6,13 @@
       <lang-switcher />
     </div>
     <main class="container main">
-      <router-view />
+      <div
+        v-if="authStore.isLoading"
+        class="centered-page"
+      >
+        <RoundLoader />
+      </div>
+      <router-view v-else />
     </main>
     <AppFooter />
   </div>
@@ -19,6 +25,7 @@ import { useAppStore } from '@/modules/app/store/AppStore';
 import AppFooter from '@/modules/app/components/AppFooter.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { onMounted } from 'vue';
+import RoundLoader from '@/components/loaders/RoundLoader.vue';
 const store = useAppStore();
 const authStore = useAuthStore();
 

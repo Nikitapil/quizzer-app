@@ -65,5 +65,8 @@
   "add_question": "Добавить вопрос",
   "create": "Создать",
   "or": "ИЛИ",
-  "quiz_created": "Квиз создан"
+  "quiz_created": "Квиз создан",
+  "quiz_creation": "Создание квиза",
+  "quiz_editing": "Редактирование квиза",
+  "edit_quiz": "Редактировать квиз"
 }

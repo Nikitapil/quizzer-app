@@ -16,7 +16,10 @@ import type { IQuizFormValues } from '@/modules/quizes/domain/types';
 import { toast } from 'vue3-toastify';
 import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
+import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
+import { BREADCRUMBS } from '@/constants/breadcrumbs';
 
+useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.CREATE]);
 useAuthRedirect();
 
 const router = useRouter();
