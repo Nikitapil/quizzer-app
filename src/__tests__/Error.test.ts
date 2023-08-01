@@ -1,4 +1,4 @@
-import { flushPromises, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import App from '@/modules/app/App.vue';
 import { i18n } from '@/main';
 import router from '@/router';
