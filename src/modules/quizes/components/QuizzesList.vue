@@ -33,7 +33,9 @@
         :quiz="quiz"
         :user-id="userId"
         :is-delete-in-progress="store.isDeleteInProgress"
+        :is-toggle-favourites-in-progress="store.isToggleFavouritesInProgress"
         @delete="onDelete"
+        @toggle-favourites="onAddToFavourites"
       />
       <Pagination
         :total-items-count="store.totalCount"
@@ -53,7 +55,7 @@ import QuizzesListItem from '@/modules/quizes/components/QuizzesListItem.vue';
 import Pagination from '@/components/Pagination.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/AppButton.vue';
-import type { IGetQuizzesRequest } from '@/modules/quizes/domain/types';
+import type { IGetQuizzesRequest, IQuiz } from '@/modules/quizes/domain/types';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
 defineProps<{
@@ -82,6 +84,9 @@ const getQuizzes = async () => {
 const onDelete = async (id: string) => {
   await store.deleteQuiz(id);
   await getQuizzes();
+};
+const onAddToFavourites = async (quiz: IQuiz) => {
+  await store.toggleFavouriteQuiz(quiz);
 };
 
 const onSearch = () => {

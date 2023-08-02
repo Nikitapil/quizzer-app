@@ -15,12 +15,14 @@ export interface IQuizzesStoreState {
   quizzes: IQuiz[];
   isQuizzesLoading: boolean;
   isDeleteInProgress: boolean;
+  isToggleFavouritesInProgress: boolean;
   totalCount: number;
 }
 export type TQuizzesStoreGetters = {};
 export interface IQuizzesStoreActions {
   getAllQuizes: (request: IGetQuizzesRequest) => void;
   deleteQuiz: (id: string) => Promise<boolean>;
+  toggleFavouriteQuiz: (quiz: IQuiz) => void;
 }
 
 export interface IGetQuizzesRequest {

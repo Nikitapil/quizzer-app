@@ -38,4 +38,12 @@ export class QuizzesService {
   static async deleteQuiz(quizId: string) {
     return $api.delete(`/quizes/quiz/${quizId}`);
   }
+
+  static async addQuizToFavourites(quizId: string) {
+    return $api.post(`/quizes/favourite/${quizId}`);
+  }
+
+  static async removeQuizToFavourites(quizId: string) {
+    return $api.delete(`/quizes/favourite/${quizId}`);
+  }
 }

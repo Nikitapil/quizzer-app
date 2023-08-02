@@ -3,7 +3,8 @@ import type {
   IQuizzesStoreActions,
   IQuizzesStoreState,
   TQuizzesStoreGetters,
-  IGetQuizzesRequest
+  IGetQuizzesRequest,
+  IQuiz
 } from '@/modules/quizes/domain/types';
 import { toast } from 'vue3-toastify';
 import { QuizzesService } from '@/modules/quizes/QuizzesService';
@@ -19,6 +20,7 @@ export const useQuizzesStore = defineStore<
       quizzes: [],
       isQuizzesLoading: false,
       isDeleteInProgress: false,
+      isToggleFavouritesInProgress: false,
       totalCount: 0
     };
   },
@@ -50,6 +52,26 @@ export const useQuizzesStore = defineStore<
         return false;
       } finally {
         this.isDeleteInProgress = false;
+      }
+    },
+    async toggleFavouriteQuiz(quiz: IQuiz) {
+      try {
+        this.isToggleFavouritesInProgress = true;
+        if (!quiz.isInFavourites) {
+          await QuizzesService.addQuizToFavourites(quiz.id);
+        } else {
+          await QuizzesService.removeQuizToFavourites(quiz.id);
+        }
+        const idx = this.quizzes.findIndex((q) => q.id === quiz.id);
+        if (idx !== -1) {
+          this.quizzes[idx].isInFavourites = !this.quizzes[idx].isInFavourites;
+        }
+      } catch (e: any) {
+        if (e?.response?.data?.message) {
+          toast(e?.response.data.message);
+        }
+      } finally {
+        this.isToggleFavouritesInProgress = false;
       }
     }
   }

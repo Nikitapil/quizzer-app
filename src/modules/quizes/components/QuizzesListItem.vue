@@ -25,6 +25,21 @@
       </p>
     </div>
     <div class="controls">
+      <AppButton
+        v-if="userId"
+        with-icon
+        class="tool-btn"
+        appearence="dark"
+        :disabled="isToggleFavouritesInProgress"
+        @click="$emit('toggle-favourites', quiz)"
+      >
+        <Icon
+          :icon="favouritesBtnIcon"
+          color="#d2e000"
+          width="24"
+          height="24"
+        />
+      </AppButton>
       <template v-if="isShowQuizUserBtns">
         <AppButton
           class="tool-btn"
@@ -86,12 +101,14 @@ const isDeleteModalOpened = ref(false);
 
 defineEmits<{
   delete: [id: number];
+  toggleFavourites: [quiz: IQuiz];
 }>();
 
 const props = defineProps<{
   quiz: IQuiz;
   userId: number;
   isDeleteInProgress: boolean;
+  isToggleFavouritesInProgress: boolean;
 }>();
 
 const goToQuiz = () => {
@@ -99,6 +116,9 @@ const goToQuiz = () => {
 };
 
 const isShowQuizUserBtns = computed(() => props.quiz.userId === props.userId);
+const favouritesBtnIcon = computed(() =>
+  props.quiz.isInFavourites ? 'ion:star' : 'ion:star-outline'
+);
 </script>
 
 <style lang="scss" scoped>
