@@ -20,7 +20,8 @@ export const useQuizFormStore = defineStore<
     return {
       isLoading: false,
       quizForm: null,
-      isQuizLoading: false
+      isQuizLoading: false,
+      quizId: ''
     };
   },
 
@@ -29,6 +30,20 @@ export const useQuizFormStore = defineStore<
       try {
         this.isLoading = true;
         await QuizzesService.createQuiz(data);
+        return true;
+      } catch (e: any) {
+        if (e?.response?.data?.message) {
+          toast(e?.response.data.message);
+        }
+        return false;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    async editQuiz(data: IQuizFormValues) {
+      try {
+        this.isLoading = true;
+        await QuizzesService.editQuiz({ ...data, id: this.quizId });
         return true;
       } catch (e: any) {
         if (e?.response?.data?.message) {
@@ -48,6 +63,7 @@ export const useQuizFormStore = defineStore<
           return;
         }
         this.quizForm = mapQuizResponseToQuizForm(data);
+        this.quizId = quizId;
       } catch (e: any) {
         if (e?.response?.data?.message) {
           toast(e?.response.data.message);

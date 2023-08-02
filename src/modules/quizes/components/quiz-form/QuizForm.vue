@@ -46,6 +46,7 @@
     <AppButton
       appearence="success"
       type="submit"
+      size="lg"
       :text="title"
       :disabled="isLoading"
     />
@@ -126,7 +127,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 @import '../../../../assets/styles/colors';
 .form {
-  max-width: 400px;
+  max-width: 650px;
   width: 100%;
   background: $color-white;
   padding: 16px;

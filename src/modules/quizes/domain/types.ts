@@ -44,6 +44,10 @@ export interface IQuizFormValues {
   questions: IQuizFormQuestion[];
 }
 
+export interface IEditQuizRequest extends IQuizFormValues{
+  id: string;
+}
+
 export interface IGetQuizFormParams {
   quizId: string;
   userId: number;
@@ -53,10 +57,12 @@ export interface IQuizFormStoreState {
   isLoading: boolean;
   isQuizLoading: boolean;
   quizForm: IQuizFormValues | null;
+  quizId: string;
 }
 export type TQuizFormStoreGetters = {};
 export interface IQuizFormStoreActions {
   createQuiz: (data: IQuizFormValues) => Promise<boolean>;
+  editQuiz: (data: IQuizFormValues) => Promise<boolean>;
   getQuizForm: (params: IGetQuizFormParams) => void;
 }
 
