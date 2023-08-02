@@ -43,6 +43,19 @@
             height="25"
           />
         </AppButton>
+        <AppButton
+          class="tool-btn"
+          appearence="error"
+          with-icon
+          @click="isDeleteModalOpened = true"
+        >
+          <Icon
+            icon="ic:round-delete"
+            color="#fff"
+            width="25"
+            height="25"
+          />
+        </AppButton>
       </template>
       <AppButton
         appearence="dark"
@@ -51,6 +64,11 @@
       />
     </div>
   </li>
+  <DeleteQuizModal
+    v-model="isDeleteModalOpened"
+    :is-loading="isDeleteInProgress"
+    @delete="$emit('delete', quiz.id)"
+  />
 </template>
 
 <script setup lang="ts">
@@ -59,13 +77,21 @@ import AppButton from '@/components/AppButton.vue';
 import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
 import { Icon } from '@iconify/vue';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import DeleteQuizModal from '@/modules/quizes/components/DeleteQuizModal.vue';
 
 const router = useRouter();
+
+const isDeleteModalOpened = ref(false);
+
+defineEmits<{
+  delete: [id: number];
+}>();
 
 const props = defineProps<{
   quiz: IQuiz;
   userId: number;
+  isDeleteInProgress: boolean;
 }>();
 
 const goToQuiz = () => {

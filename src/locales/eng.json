@@ -68,5 +68,8 @@
   "quiz_created": "Quiz created",
   "quiz_creation": "Quiz creation",
   "quiz_editing": "Quiz editing",
-  "edit_quiz": "Edit quiz"
+  "edit_quiz": "Edit quiz",
+  "delete_quiz_question": "Delete quiz?",
+  "cancel": "Cancel",
+  "delete": "Delete"
 }

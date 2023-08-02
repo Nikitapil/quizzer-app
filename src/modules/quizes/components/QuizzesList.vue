@@ -32,6 +32,8 @@
         :key="quiz.id"
         :quiz="quiz"
         :user-id="userId"
+        :is-delete-in-progress="store.isDeleteInProgress"
+        @delete="onDelete"
       />
       <Pagination
         :total-items-count="store.totalCount"
@@ -75,6 +77,11 @@ const getQuizzes = async () => {
     page: page.value,
     search: search.value
   });
+};
+
+const onDelete = async (id: string) => {
+  await store.deleteQuiz(id);
+  await getQuizzes();
 };
 
 const onSearch = () => {

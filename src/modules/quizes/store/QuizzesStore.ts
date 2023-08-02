@@ -18,6 +18,7 @@ export const useQuizzesStore = defineStore<
     return {
       quizzes: [],
       isQuizzesLoading: false,
+      isDeleteInProgress: false,
       totalCount: 0
     };
   },
@@ -35,6 +36,20 @@ export const useQuizzesStore = defineStore<
         }
       } finally {
         this.isQuizzesLoading = false;
+      }
+    },
+    async deleteQuiz(id: string) {
+      try {
+        this.isDeleteInProgress = true;
+        await QuizzesService.deleteQuiz(id);
+        return true;
+      } catch (e: any) {
+        if (e?.response?.data?.message) {
+          toast(e?.response.data.message);
+        }
+        return false;
+      } finally {
+        this.isDeleteInProgress = false;
       }
     }
   }

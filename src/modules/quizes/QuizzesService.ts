@@ -34,4 +34,8 @@ export class QuizzesService {
   ): Promise<AxiosResponse<ISingleQuiz>> {
     return $api.get<ISingleQuiz>(`/quizes/quiz/${quizId}`);
   }
+
+  static async deleteQuiz(quizId: string) {
+    return $api.delete(`/quizes/quiz/${quizId}`);
+  }
 }

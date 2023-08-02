@@ -14,11 +14,13 @@ export interface IQuiz {
 export interface IQuizzesStoreState {
   quizzes: IQuiz[];
   isQuizzesLoading: boolean;
+  isDeleteInProgress: boolean;
   totalCount: number;
 }
 export type TQuizzesStoreGetters = {};
 export interface IQuizzesStoreActions {
   getAllQuizes: (request: IGetQuizzesRequest) => void;
+  deleteQuiz: (id: string) => Promise<boolean>;
 }
 
 export interface IGetQuizzesRequest {
@@ -44,7 +46,7 @@ export interface IQuizFormValues {
   questions: IQuizFormQuestion[];
 }
 
-export interface IEditQuizRequest extends IQuizFormValues{
+export interface IEditQuizRequest extends IQuizFormValues {
   id: string;
 }
 

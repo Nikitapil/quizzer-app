@@ -68,5 +68,8 @@
   "quiz_created": "Квиз создан",
   "quiz_creation": "Создание квиза",
   "quiz_editing": "Редактирование квиза",
-  "edit_quiz": "Редактировать квиз"
+  "edit_quiz": "Редактировать квиз",
+  "delete_quiz_question": "Удалить квиз?",
+  "cancel": "Отмена",
+  "delete": "Удалить"
 }
