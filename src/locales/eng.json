@@ -21,7 +21,7 @@
   "all_quizzes": "All Quizzes",
   "questions_pl": "questions",
   "rating": "Rating",
-  "author": "Author",
+  "author": "Authored by",
   "play": "Play",
   "no_quizzes_yet": "No quizzes yet",
   "search": "Search",
@@ -71,5 +71,7 @@
   "edit_quiz": "Edit quiz",
   "delete_quiz_question": "Delete quiz?",
   "cancel": "Cancel",
-  "delete": "Delete"
+  "delete": "Delete",
+  "user_quizzes": "Quizzes by user",
+  "my_quizzes": "My quizzes"
 }

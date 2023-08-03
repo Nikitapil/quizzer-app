@@ -21,7 +21,13 @@
         v-if="quiz.author"
         class="quiz-item__text"
       >
-        {{ $t('author') }}: {{ quiz.author }}
+        <span>{{ $t('author') }}: </span>
+        <RouterLink
+          class="user-link"
+          :to="{ name: ERoutesNames.USER_QUIZES, params: { id: quiz.userId } }"
+        >
+          {{ quiz.author }}
+        </RouterLink>
       </p>
     </div>
     <div class="controls">
@@ -145,6 +151,7 @@ const favouritesBtnIcon = computed(() =>
   &__text {
     color: $color-medium-blue;
     display: flex;
+    gap: 3px;
     align-items: center;
   }
 }
@@ -157,5 +164,9 @@ const favouritesBtnIcon = computed(() =>
 
 .tool-btn {
   padding: 2px !important;
+}
+
+.user-link {
+  color: inherit;
 }
 </style>

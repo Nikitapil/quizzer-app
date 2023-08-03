@@ -71,5 +71,7 @@
   "edit_quiz": "Редактировать квиз",
   "delete_quiz_question": "Удалить квиз?",
   "cancel": "Отмена",
-  "delete": "Удалить"
+  "delete": "Удалить",
+  "user_quizzes": "Квизы пользователя",
+  "my_quizzes": "Мои квизы"
 }

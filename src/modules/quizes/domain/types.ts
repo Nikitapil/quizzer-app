@@ -21,6 +21,7 @@ export interface IQuizzesStoreState {
 export type TQuizzesStoreGetters = {};
 export interface IQuizzesStoreActions {
   getAllQuizes: (request: IGetQuizzesRequest) => void;
+  getUserQuizzes: (request: IGetQuizzesRequest, userId: string) => void;
   deleteQuiz: (id: string) => Promise<boolean>;
   toggleFavouriteQuiz: (quiz: IQuiz) => void;
 }

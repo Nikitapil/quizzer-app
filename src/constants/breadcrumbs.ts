@@ -17,6 +17,14 @@ export const BREADCRUMBS = {
     title: 'all_quizzes',
     routeName: ERoutesNames.ALL_QUIZES
   },
+  USER_QUIZZES: {
+    title: 'user_quizzes',
+    routeName: ERoutesNames.USER_QUIZES
+  },
+  MY_QUIZZES: {
+    title: 'my_quizzes',
+    routeName: ERoutesNames.USER_QUIZES
+  },
   CREATE: {
     title: 'quiz_creation',
     routeName: ERoutesNames.CREATE_QUIZ

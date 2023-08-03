@@ -3,6 +3,7 @@ export enum ERoutesNames {
   ERROR = 'error',
   QUIZ = 'quiz',
   ALL_QUIZES = 'quizes.all',
+  USER_QUIZES = 'quizes.user',
   SIGN_UP = 'signup',
   SIGN_IN = 'signin',
   CREATE_QUIZ = 'create-quiz',

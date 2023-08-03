@@ -21,6 +21,17 @@ export class QuizzesService {
     });
   }
 
+  static async getUserQuizzes(
+    { page = 1, limit = 10, search = '' }: IGetQuizzesRequest,
+    userId: string
+  ): Promise<AxiosResponse<IGetQuizzesResponse>> {
+    return $api.post<IGetQuizzesResponse>(`/quizes/user/${userId}`, {
+      page,
+      limit,
+      search
+    });
+  }
+
   static async createQuiz(request: IQuizFormValues) {
     return $api.post('/quizes/create', request);
   }
