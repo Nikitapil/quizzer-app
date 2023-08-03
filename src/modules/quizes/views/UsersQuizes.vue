@@ -14,7 +14,7 @@ import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { useRoute } from 'vue-router';
 import { computed } from 'vue';
 import { useQuizzesStore } from '@/modules/quizes/store/QuizzesStore';
-import { IGetQuizzesRequest } from '@/modules/quizes/domain/types';
+import type { IGetQuizzesRequest } from '@/modules/quizes/domain/types';
 import QuizzesList from '@/modules/quizes/components/QuizzesList.vue';
 
 const { t } = useI18n();

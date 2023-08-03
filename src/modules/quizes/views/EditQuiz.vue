@@ -27,7 +27,7 @@ import { onMounted } from 'vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import RoundLoader from '@/components/loaders/RoundLoader.vue';
 import QuizForm from '@/modules/quizes/components/quiz-form/QuizForm.vue';
-import { IQuizFormValues } from '@/modules/quizes/domain/types';
+import type { IQuizFormValues } from '@/modules/quizes/domain/types';
 import { ERoutesNames } from '@/router/routes-names';
 
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.EDIT]);

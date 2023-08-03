@@ -38,14 +38,28 @@
               </RouterLink>
             </li>
           </template>
-          <li v-else>
-            <AppButton
-              appearence="error"
-              size="sm"
-              :text="$t('logout')"
-              @click="logout"
-            />
-          </li>
+          <template v-else>
+            <li>
+              <RouterLink
+                class="link"
+                active-class="active-link"
+                :to="{
+                  name: ERoutesNames.USER_QUIZES,
+                  params: { id: authStore.user.id }
+                }"
+              >
+                {{ $t('my_quizzes') }}
+              </RouterLink>
+            </li>
+            <li>
+              <AppButton
+                appearence="error"
+                size="sm"
+                :text="$t('logout')"
+                @click="logout"
+              />
+            </li>
+          </template>
         </ul>
       </nav>
     </div>
