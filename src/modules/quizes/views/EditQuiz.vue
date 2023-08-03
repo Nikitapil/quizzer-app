@@ -42,8 +42,10 @@ const authStore = useAuthStore();
 const onEdit = async (data: IQuizFormValues) => {
   const isEditted = await store.editQuiz(data);
   if (isEditted) {
-    // TODO change route to my quizes page
-    await router.push({ name: ERoutesNames.ALL_QUIZES });
+    await router.push({
+      name: ERoutesNames.USER_QUIZES,
+      params: { id: authStore.user?.id }
+    });
   }
 };
 

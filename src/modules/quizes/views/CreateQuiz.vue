@@ -18,6 +18,7 @@ import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
 import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/constants/breadcrumbs';
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.CREATE]);
 useAuthRedirect();
@@ -25,13 +26,16 @@ useAuthRedirect();
 const router = useRouter();
 
 const store = useQuizFormStore();
+const authStore = useAuthStore();
 
 const onCreate = async (data: IQuizFormValues) => {
   const isCreated = await store.createQuiz(data);
   if (isCreated) {
     toast.success('quiz_created');
-    // TODO change link to my quizzes page
-    await router.push({ name: ERoutesNames.ALL_QUIZES });
+    await router.push({
+      name: ERoutesNames.USER_QUIZES,
+      params: { id: authStore.user?.id }
+    });
   }
 };
 </script>

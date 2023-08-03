@@ -21,7 +21,10 @@ export interface IQuizzesStoreState {
 export type TQuizzesStoreGetters = {};
 export interface IQuizzesStoreActions {
   getAllQuizes: (request: IGetQuizzesRequest) => void;
-  getUserQuizzes: (request: IGetQuizzesRequest, userId: string) => void;
+  getUserQuizzes: (
+    request: IGetQuizzesRequest,
+    userId: string
+  ) => Promise<void>;
   deleteQuiz: (id: string) => Promise<boolean>;
   toggleFavouriteQuiz: (quiz: IQuiz) => void;
 }
@@ -68,7 +71,7 @@ export type TQuizFormStoreGetters = {};
 export interface IQuizFormStoreActions {
   createQuiz: (data: IQuizFormValues) => Promise<boolean>;
   editQuiz: (data: IQuizFormValues) => Promise<boolean>;
-  getQuizForm: (params: IGetQuizFormParams) => void;
+  getQuizForm: (params: IGetQuizFormParams) => Promise<void>;
 }
 
 export interface ISingleQuizQuestion {

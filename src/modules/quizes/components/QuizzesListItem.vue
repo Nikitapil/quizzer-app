@@ -37,7 +37,7 @@
         class="tool-btn"
         appearence="dark"
         :disabled="isToggleFavouritesInProgress"
-        @click="$emit('toggle-favourites', quiz)"
+        @click="$emit('toggleFavourites', quiz)"
       >
         <Icon
           :icon="favouritesBtnIcon"
@@ -106,7 +106,7 @@ const router = useRouter();
 const isDeleteModalOpened = ref(false);
 
 defineEmits<{
-  delete: [id: number];
+  delete: [id: string];
   toggleFavourites: [quiz: IQuiz];
 }>();
 

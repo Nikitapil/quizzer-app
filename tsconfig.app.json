@@ -7,7 +7,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "types": ["jest"]
   }
 }

@@ -12,7 +12,7 @@ import { useDocTitle } from '@/composables/useDocTitle';
 import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { useRoute } from 'vue-router';
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { useQuizzesStore } from '@/modules/quizes/store/QuizzesStore';
 import type { IGetQuizzesRequest } from '@/modules/quizes/domain/types';
 import QuizzesList from '@/modules/quizes/components/QuizzesList.vue';
@@ -40,6 +40,11 @@ useDocTitle(t(docTitle.value));
 const onGetQuizzes = async (params: IGetQuizzesRequest) => {
   await quizzesStore.getUserQuizzes(params, route.params.id as string);
 };
-</script>
 
-<style scoped></style>
+watch(
+  () => route.params.id,
+  () => {
+    onGetQuizzes({});
+  }
+);
+</script>

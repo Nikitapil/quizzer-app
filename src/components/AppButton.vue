@@ -3,8 +3,8 @@
     class="button"
     :class="{
       [appearence]: true,
-      'full-width': full,
       [size]: true,
+      'full-width': full,
       'with-icon': withIcon
     }"
     :type="type"
