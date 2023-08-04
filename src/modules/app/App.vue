@@ -18,7 +18,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import AppHeader from '@/modules/app/components/AppHeader.vue';
+import AppHeader from '@/modules/app/components/app-header/AppHeader.vue';
 import BreadCrumbs from '@/modules/app/components/BreadCrumbs.vue';
 import LangSwitcher from '@/modules/app/components/LangSwitcher.vue';
 import { useAppStore } from '@/modules/app/store/AppStore';
