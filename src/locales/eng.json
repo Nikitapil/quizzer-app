@@ -73,5 +73,6 @@
   "cancel": "Cancel",
   "delete": "Delete",
   "user_quizzes": "Quizzes by user",
-  "my_quizzes": "My quizzes"
+  "my_quizzes": "My quizzes",
+  "favourites": "Favourites"
 }

@@ -30,11 +30,11 @@ export interface IRestorePasswordRequest {
 
 export type TAuthStoreGetters = {};
 export interface IAuthStoreActions {
-  refresh: () => void;
-  login: (loginRequest: IBaseAuthRequest) => void;
-  register: (loginRequest: ISignUpAuthRequest) => void;
-  logout: () => void;
+  refresh: () => Promise<void>;
+  login: (loginRequest: IBaseAuthRequest) => Promise<void>;
+  register: (loginRequest: ISignUpAuthRequest) => Promise<void>;
+  logout: () => Promise<void>;
   getRestorePasswordKey: (email: string) => Promise<boolean>;
-  setAuthData: (data: IAuthResponse) => void;
-  restorePassword: (request: IRestorePasswordRequest) => void;
+  setAuthData: (data: IAuthResponse) => Promise<void>;
+  restorePassword: (request: IRestorePasswordRequest) => Promise<void>;
 }

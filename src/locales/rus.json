@@ -73,5 +73,6 @@
   "cancel": "Отмена",
   "delete": "Удалить",
   "user_quizzes": "Квизы пользователя",
-  "my_quizzes": "Мои квизы"
+  "my_quizzes": "Мои квизы",
+  "favourites": "Избранное"
 }

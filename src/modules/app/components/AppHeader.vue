@@ -52,6 +52,15 @@
               </RouterLink>
             </li>
             <li>
+              <RouterLink
+                class="link"
+                active-class="active-link"
+                :to="{ name: ERoutesNames.FAVOURITES }"
+              >
+                {{ $t('favourites') }}
+              </RouterLink>
+            </li>
+            <li>
               <AppButton
                 appearence="error"
                 size="sm"

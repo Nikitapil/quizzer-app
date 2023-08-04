@@ -54,6 +54,22 @@ export const useQuizzesStore = defineStore<
         this.isQuizzesLoading = false;
       }
     },
+
+    async getFavouritesQuizzes(request: IGetQuizzesRequest) {
+      try {
+        this.isQuizzesLoading = true;
+        const { data } = await QuizzesService.getFavouritesQuizzes(request);
+        this.quizzes = data.quizes;
+        this.totalCount = data.totalCount;
+      } catch (e: any) {
+        if (e?.response?.data?.message) {
+          toast(e?.response.data.message);
+        }
+      } finally {
+        this.isQuizzesLoading = false;
+      }
+    },
+
     async deleteQuiz(id: string) {
       try {
         this.isDeleteInProgress = true;

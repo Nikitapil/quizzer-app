@@ -64,6 +64,7 @@ defineProps<{
 
 const emit = defineEmits<{
   'get-quizzes': [quizParams: IGetQuizzesRequest];
+  'toggle-favourites': [quizParams: IGetQuizzesRequest];
 }>();
 
 const store = useQuizzesStore();
@@ -87,6 +88,7 @@ const onDelete = async (id: string) => {
 };
 const onAddToFavourites = async (quiz: IQuiz) => {
   await store.toggleFavouriteQuiz(quiz);
+  emit('toggle-favourites', {});
 };
 
 const onSearch = () => {

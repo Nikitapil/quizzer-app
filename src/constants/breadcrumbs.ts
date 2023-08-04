@@ -25,6 +25,10 @@ export const BREADCRUMBS = {
     title: 'my_quizzes',
     routeName: ERoutesNames.USER_QUIZES
   },
+  FAVOURITES: {
+    title: 'favourites',
+    routeName: ERoutesNames.FAVOURITES
+  },
   CREATE: {
     title: 'quiz_creation',
     routeName: ERoutesNames.CREATE_QUIZ

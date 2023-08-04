@@ -9,6 +9,7 @@ import SignIn from '@/modules/auth/views/SignIn.vue';
 import CreateQuiz from '@/modules/quizes/views/CreateQuiz.vue';
 import EditQuiz from '@/modules/quizes/views/EditQuiz.vue';
 import UsersQuizes from '@/modules/quizes/views/UsersQuizes.vue';
+import FavouritesQuizzes from '@/modules/quizes/views/FavouritesQuizzes.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,6 +38,11 @@ const router = createRouter({
       path: '/quizzes/user/:id',
       name: ERoutesNames.USER_QUIZES,
       component: UsersQuizes
+    },
+    {
+      path: '/quizzes/favourites',
+      name: ERoutesNames.FAVOURITES,
+      component: FavouritesQuizzes
     },
     {
       path: '/signup',

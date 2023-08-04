@@ -32,6 +32,18 @@ export class QuizzesService {
     });
   }
 
+  static async getFavouritesQuizzes({
+    page = 1,
+    limit = 10,
+    search = ''
+  }: IGetQuizzesRequest): Promise<AxiosResponse<IGetQuizzesResponse>> {
+    return $api.post<IGetQuizzesResponse>(`/quizes/favourite`, {
+      page,
+      limit,
+      search
+    });
+  }
+
   static async createQuiz(request: IQuizFormValues) {
     return $api.post('/quizes/create', request);
   }

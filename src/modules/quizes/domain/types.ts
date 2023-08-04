@@ -20,13 +20,14 @@ export interface IQuizzesStoreState {
 }
 export type TQuizzesStoreGetters = {};
 export interface IQuizzesStoreActions {
-  getAllQuizes: (request: IGetQuizzesRequest) => void;
+  getAllQuizes: (request: IGetQuizzesRequest) => Promise<void>;
+  getFavouritesQuizzes: (request: IGetQuizzesRequest) => Promise<void>;
   getUserQuizzes: (
     request: IGetQuizzesRequest,
     userId: string
   ) => Promise<void>;
   deleteQuiz: (id: string) => Promise<boolean>;
-  toggleFavouriteQuiz: (quiz: IQuiz) => void;
+  toggleFavouriteQuiz: (quiz: IQuiz) => Promise<void>;
 }
 
 export interface IGetQuizzesRequest {
