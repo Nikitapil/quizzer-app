@@ -17,17 +17,21 @@
     :placeholder="placeholder"
     :name="name"
     :disabled="disabled"
+    @blur="$parent?.$emit('blur')"
   />
 </template>
 
 <script setup lang="ts">
 import { v4 as uuidv4 } from 'uuid';
+import type { TInputType } from '@/components/inputs/types';
 
 const modelValue = defineModel();
 
+defineEmits(['blur']);
+
 withDefaults(
   defineProps<{
-    type?: 'text' | 'email' | 'password' | 'number';
+    type?: TInputType;
     placeholder?: string;
     isError?: boolean;
     name?: string;

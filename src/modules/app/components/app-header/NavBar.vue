@@ -56,7 +56,23 @@
           </RouterLink>
         </li>
         <li>
+          <RouterLink
+            class="link"
+            active-class="active-link"
+            :to="{ name: ERoutesNames.PROFILE }"
+          >
+            <Icon
+              class="link-icon"
+              icon="carbon:user-profile"
+              color="white"
+              width="22"
+              height="22"
+            />
+          </RouterLink>
+        </li>
+        <li>
           <AppButton
+            full
             appearence="error"
             size="sm"
             :text="$t('logout')"
@@ -73,6 +89,7 @@ import { ERoutesNames } from '@/router/routes-names';
 import AppButton from '@/components/AppButton.vue';
 import HorizontalLoader from '@/components/loaders/HorizontalLoader.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
+import { Icon } from '@iconify/vue';
 
 const authStore = useAuthStore();
 
@@ -86,6 +103,7 @@ const logout = async () => {
 
 .navigation {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 16px;
 
@@ -101,7 +119,19 @@ const logout = async () => {
 
     &.active-link {
       text-shadow: $text-shadow-white-big;
+
+      &:has(.link-icon) .link-icon {
+        filter: drop-shadow(1px 0 3px #fff);
+      }
     }
+  }
+}
+
+.link-icon {
+  transition: 0.4s;
+
+  &:hover {
+    filter: drop-shadow(1px 0 3px #fff);
   }
 }
 </style>

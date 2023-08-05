@@ -80,13 +80,13 @@ const toggleMobileBar = () =>
 }
 
 .desktop-bar {
-  @media (max-width: 525px) {
+  @media (max-width: 545px) {
     display: none;
   }
 }
 
 .burger-btn {
-  @media (min-width: 526px) {
+  @media (min-width: 546px) {
     display: none;
   }
 }
@@ -109,7 +109,7 @@ const toggleMobileBar = () =>
     }
   }
 
-  @media (min-width: 526px) {
+  @media (min-width: 546px) {
     display: none;
   }
 }

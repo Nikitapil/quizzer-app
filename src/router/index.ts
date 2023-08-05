@@ -10,6 +10,7 @@ import CreateQuiz from '@/modules/quizes/views/CreateQuiz.vue';
 import EditQuiz from '@/modules/quizes/views/EditQuiz.vue';
 import UsersQuizes from '@/modules/quizes/views/UsersQuizes.vue';
 import FavouritesQuizzes from '@/modules/quizes/views/FavouritesQuizzes.vue';
+import Profile from '@/modules/profile/views/Profile.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -63,6 +64,11 @@ const router = createRouter({
       path: '/edit/:id',
       name: ERoutesNames.EDIT_QUIZ,
       component: EditQuiz
+    },
+    {
+      path: '/profile',
+      name: ERoutesNames.PROFILE,
+      component: Profile
     }
   ]
 });

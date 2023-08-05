@@ -74,5 +74,6 @@
   "delete": "Delete",
   "user_quizzes": "Quizzes by user",
   "my_quizzes": "My quizzes",
-  "favourites": "Favourites"
+  "favourites": "Favourites",
+  "profile": "Profile"
 }

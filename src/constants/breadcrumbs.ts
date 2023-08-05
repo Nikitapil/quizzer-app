@@ -36,5 +36,9 @@ export const BREADCRUMBS = {
   EDIT: {
     title: 'quiz_editing',
     routeName: ERoutesNames.EDIT_QUIZ
+  },
+  Profile: {
+    title: 'profile',
+    routeName: ERoutesNames.PROFILE
   }
 };
