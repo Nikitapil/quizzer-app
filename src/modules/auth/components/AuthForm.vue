@@ -74,8 +74,8 @@ import FormField from '@/components/inputs/FormField.vue';
 import { ref } from 'vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/AppButton.vue';
-import { useForm } from 'vee-validate';
 import type { ISignUpAuthRequest } from '@/modules/auth/domain/types';
+import { useFormValidate } from '@/composables/useFormValidate';
 
 defineProps<{
   title: string;
@@ -87,7 +87,7 @@ const emit = defineEmits<{
   submit: [ISignUpAuthRequest];
 }>();
 
-const { validate } = useForm();
+const { validate } = useFormValidate();
 
 const values = ref({
   email: '',

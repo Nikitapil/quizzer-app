@@ -9,6 +9,7 @@
   </label>
   <input
     :id="id"
+    ref="inputRef"
     v-model="modelValue"
     class="input"
     data-test="app-input"
@@ -24,12 +25,13 @@
 <script setup lang="ts">
 import { v4 as uuidv4 } from 'uuid';
 import type { TInputType } from '@/components/inputs/types';
+import { onMounted, ref } from 'vue';
 
 const modelValue = defineModel();
 
 defineEmits(['blur']);
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     type?: TInputType;
     placeholder?: string;
@@ -38,15 +40,25 @@ withDefaults(
     id?: string;
     label?: string;
     disabled?: boolean;
+    focusOnMount?: boolean;
   }>(),
   {
     type: 'text',
     placeholder: '',
     isError: false,
     name: '',
-    id: uuidv4()
+    id: uuidv4(),
+    focusOnMount: false
   }
 );
+
+const inputRef = ref<HTMLInputElement | null>(null);
+
+onMounted(() => {
+  if (props.focusOnMount) {
+    inputRef.value?.focus();
+  }
+});
 </script>
 
 <style lang="scss" scoped>

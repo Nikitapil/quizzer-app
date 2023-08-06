@@ -54,13 +54,13 @@ import AppInput from '@/components/inputs/AppInput.vue';
 import { ref } from 'vue';
 import AppButton from '@/components/AppButton.vue';
 import type { IRestorePasswordRequest } from '@/modules/auth/domain/types';
-import { useForm } from 'vee-validate';
+import { useFormValidate } from '@/composables/useFormValidate';
 
 const emit = defineEmits<{
   submit: [data: IRestorePasswordRequest];
 }>();
 
-const { validate } = useForm();
+const { validate } = useFormValidate();
 
 const secretKey = ref('');
 const newPassword = ref('');

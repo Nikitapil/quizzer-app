@@ -36,6 +36,7 @@ module.exports = {
         ],
         alphabetical: false
       }
-    ]
+    ],
+    '@typescript-eslint/no-unused-vars': 'error'
   }
 };

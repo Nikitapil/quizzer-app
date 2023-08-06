@@ -83,12 +83,12 @@ import type {
 } from '@/modules/home/domain/types';
 import { useI18n } from 'vue-i18n';
 import FormField from '@/components/inputs/FormField.vue';
-import { useForm } from 'vee-validate';
 import AppButton from '@/components/AppButton.vue';
 import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
 import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
+import { useFormValidate } from '@/composables/useFormValidate';
 
 useBreadCrumbs([]);
 
@@ -100,7 +100,7 @@ const store = useHomeStore();
 const authStore = useAuthStore();
 const router = useRouter();
 
-const { validate } = useForm();
+const { validate } = useFormValidate();
 
 const generateQuizValues = ref<IGenerateQuizValues>({
   category: '',

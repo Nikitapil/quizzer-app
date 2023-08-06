@@ -6,7 +6,11 @@
     >
       {{ text }}
     </p>
-    <form v-else>
+    <form
+      v-else
+      class="form"
+      @submit.prevent="onSubmit"
+    >
       <FormField
         :name="name"
         :rules="rules"
@@ -19,9 +23,23 @@
             :type="inputType"
             :is-error="invalid"
             :disabled="isLoading"
+            focus-on-mount
           />
         </template>
       </FormField>
+      <AppButton
+        class="p-5"
+        type="submit"
+        appearence="transparent"
+        with-icon
+      >
+        <Icon
+          icon="simple-line-icons:check"
+          color="#0ba360"
+          width="24px"
+          height="24px"
+        />
+      </AppButton>
     </form>
     <AppButton
       class="p-5"
@@ -47,8 +65,9 @@ import type { RuleExpression } from 'vee-validate';
 import type { TInputType } from '@/components/inputs/types';
 import AppButton from '@/components/AppButton.vue';
 import { Icon } from '@iconify/vue';
+import { useFormValidate } from '@/composables/useFormValidate';
 
-defineProps<{
+const props = defineProps<{
   text: string;
   name: string;
   rules?: string | RuleExpression<unknown>;
@@ -56,6 +75,8 @@ defineProps<{
   isLoading: boolean;
   inputType: TInputType;
 }>();
+
+const { validate } = useFormValidate();
 
 const inputValue = ref('');
 const isFormOpened = ref(false);
@@ -72,7 +93,17 @@ const editButtonIcon = computed(() =>
       }
 );
 
-const toggleForm = () => (isFormOpened.value = !isFormOpened.value);
+const toggleForm = () => {
+  isFormOpened.value = !isFormOpened.value;
+  if (isFormOpened.value) {
+    inputValue.value = props.text;
+  }
+};
+
+const onSubmit = async () => {
+  const { valid } = await validate();
+  console.log(valid);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -84,5 +115,11 @@ const toggleForm = () => (isFormOpened.value = !isFormOpened.value);
 
 .text {
   font-size: 20px;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 </style>

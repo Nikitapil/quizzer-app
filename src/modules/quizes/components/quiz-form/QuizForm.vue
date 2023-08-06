@@ -61,7 +61,7 @@ import AppCheckboox from '@/components/inputs/AppCheckboox.vue';
 import QuizFormQuestion from '@/modules/quizes/components/quiz-form/QuizFormQuestion.vue';
 import type { IQuizFormValues } from '@/modules/quizes/domain/types';
 import AppButton from '@/components/AppButton.vue';
-import { useForm } from 'vee-validate';
+import { useFormValidate } from '@/composables/useFormValidate';
 
 const props = defineProps<{
   title: string;
@@ -73,7 +73,7 @@ const emit = defineEmits<{
   submit: [data: IQuizFormValues];
 }>();
 
-const { validate } = useForm();
+const { validate } = useFormValidate();
 
 const formValues = ref<IQuizFormValues>({
   name: '',
