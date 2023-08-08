@@ -8,11 +8,13 @@
       <span class="label">Email:</span>
       <EditableText
         id="email"
+        ref="email"
         name="email"
         input-type="text"
         rules="email|required"
-        :is-loading="false"
+        :is-loading="isLoading"
         :text="authStore.user.email"
+        @submit-handler="onChangeEmail"
       />
     </div>
   </div>
@@ -26,6 +28,8 @@ import { useDocTitle } from '@/composables/useDocTitle';
 import { useAuthRedirect } from '@/composables/useAuthRedirect';
 import EditableText from '@/components/inputs/ EditableText.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
+import { ref } from 'vue';
+import { useUpdateUser } from '@/modules/auth/features/useUpdateUser';
 
 const { t } = useI18n();
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.Profile]);
@@ -33,6 +37,17 @@ useDocTitle(t('profile'));
 useAuthRedirect();
 
 const authStore = useAuthStore();
+
+const { isLoading, editUser } = useUpdateUser();
+
+const email = ref<InstanceType<typeof EditableText>>();
+
+const onChangeEmail = async (newEmail: string) => {
+  const isUpdated = await editUser({ email: newEmail });
+  if (isUpdated && email.value) {
+    email.value.toggleForm();
+  }
+};
 </script>
 
 <style lang="scss" scoped>

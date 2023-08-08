@@ -6,6 +6,7 @@ import type {
   IBaseAuthRequest,
   IRestorePasswordRequest,
   ISignUpAuthRequest,
+  IUser,
   TAuthStoreGetters
 } from '@/modules/auth/domain/types';
 import { AuthService } from '@/modules/auth/AuthService';
@@ -30,6 +31,9 @@ export const useAuthStore = defineStore<
     setAuthData(data: IAuthResponse) {
       this.user = data.user;
       setAuthToken(data.accessToken);
+    },
+    updateUser(user: IUser) {
+      this.user = user;
     },
     async refresh() {
       try {

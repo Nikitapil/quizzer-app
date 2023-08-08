@@ -35,6 +35,9 @@ export interface IAuthStoreActions {
   register: (loginRequest: ISignUpAuthRequest) => Promise<void>;
   logout: () => Promise<void>;
   getRestorePasswordKey: (email: string) => Promise<boolean>;
-  setAuthData: (data: IAuthResponse) => Promise<void>;
+  setAuthData: (data: IAuthResponse) => void;
   restorePassword: (request: IRestorePasswordRequest) => Promise<void>;
+  updateUser: (user: IUser) => void;
 }
+
+export type TEditUserRequest = Partial<ISignUpAuthRequest>;

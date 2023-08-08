@@ -32,6 +32,7 @@
         type="submit"
         appearence="transparent"
         with-icon
+        :disabled="isLoading"
       >
         <Icon
           icon="simple-line-icons:check"
@@ -45,6 +46,7 @@
       class="p-5"
       with-icon
       appearence="transparent"
+      :disabled="isLoading"
       @click="toggleForm"
     >
       <Icon
@@ -76,6 +78,10 @@ const props = defineProps<{
   inputType: TInputType;
 }>();
 
+const emit = defineEmits<{
+  'submit-handler': [value: string];
+}>();
+
 const { validate } = useFormValidate();
 
 const inputValue = ref('');
@@ -102,8 +108,14 @@ const toggleForm = () => {
 
 const onSubmit = async () => {
   const { valid } = await validate();
-  console.log(valid);
+  if (valid) {
+    emit('submit-handler', inputValue.value);
+  }
 };
+
+defineExpose({
+  toggleForm
+});
 </script>
 
 <style lang="scss" scoped>

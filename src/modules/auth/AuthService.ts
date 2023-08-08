@@ -3,7 +3,9 @@ import type { AxiosResponse } from 'axios';
 import type {
   IAuthResponse,
   IBaseAuthRequest,
-  ISignUpAuthRequest
+  ISignUpAuthRequest,
+  IUser,
+  TEditUserRequest
 } from '@/modules/auth/domain/types';
 
 export class AuthService {
@@ -36,5 +38,11 @@ export class AuthService {
     password: string
   ): Promise<AxiosResponse<IAuthResponse>> {
     return $api.put<IAuthResponse>('/auth/restore_password', { key, password });
+  }
+
+  static async editUser(
+    editUserRequest: TEditUserRequest
+  ): Promise<AxiosResponse<IUser>> {
+    return $api.put<IUser>('/users/edit', editUserRequest);
   }
 }
