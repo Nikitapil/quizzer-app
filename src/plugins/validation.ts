@@ -48,4 +48,11 @@ export const validators = () => {
     }
     return true;
   });
+
+  defineRule('isEqual', (value: string, [param]: [string]) => {
+    if (value !== param) {
+      return i18n.global.t('passwords_should_be_equal');
+    }
+    return true;
+  });
 };

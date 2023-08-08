@@ -75,5 +75,9 @@
   "user_quizzes": "Quizzes by user",
   "my_quizzes": "My quizzes",
   "favourites": "Favourites",
-  "profile": "Profile"
+  "profile": "Profile",
+  "edit_password": "Edit password",
+  "repeat_password": "Repeat password",
+  "passwords_should_be_equal": "Passwords should be equal",
+  "change": "Change"
 }

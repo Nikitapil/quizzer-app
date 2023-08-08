@@ -75,5 +75,9 @@
   "user_quizzes": "Квизы пользователя",
   "my_quizzes": "Мои квизы",
   "favourites": "Избранное",
-  "profile": "Профиль"
+  "profile": "Профиль",
+  "edit_password": "Редактировать пароль",
+  "repeat_password": "Повторите пароль",
+  "passwords_should_be_equal": "Пароли должны быть одинаковые",
+  "change": "Изменить"
 }
