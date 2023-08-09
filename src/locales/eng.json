@@ -82,5 +82,7 @@
   "change": "Change",
   "save": "Save",
   "edit": "Edit",
-  "close": "Close"
+  "close": "Close",
+  "add_to_favourites": "Add to favourites",
+  "remove_from_favourites": "Remove from favourites"
 }

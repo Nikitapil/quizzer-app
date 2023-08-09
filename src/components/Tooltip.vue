@@ -20,7 +20,7 @@ defineProps<{
 
 .tip {
   position: absolute;
-  top: 140%;
+  top: 145%;
   left: 50%;
   width: 150px;
   min-height: 40px;
@@ -30,6 +30,8 @@ defineProps<{
   color: #fff;
   display: none;
   z-index: 100;
+  text-align: center;
+  padding: 5px;
 
   &:before {
     content: '';

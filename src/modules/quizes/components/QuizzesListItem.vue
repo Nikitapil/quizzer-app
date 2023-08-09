@@ -31,52 +31,60 @@
       </p>
     </div>
     <div class="controls">
-      <AppButton
+      <Tooltip
         v-if="userId"
-        with-icon
-        class="tool-btn"
-        appearence="dark"
-        :disabled="isToggleFavouritesInProgress"
-        @click="$emit('toggleFavourites', quiz)"
+        :tip="favouritesBtnTooltip"
       >
-        <Icon
-          :icon="favouritesBtnIcon"
-          color="#d2e000"
-          width="24"
-          height="24"
-        />
-      </AppButton>
+        <AppButton
+          with-icon
+          class="tool-btn"
+          appearence="dark"
+          :disabled="isToggleFavouritesInProgress"
+          @click="$emit('toggleFavourites', quiz)"
+        >
+          <Icon
+            :icon="favouritesBtnIcon"
+            color="#d2e000"
+            width="24"
+            height="24"
+          />
+        </AppButton>
+      </Tooltip>
       <template v-if="isShowQuizUserBtns">
-        <AppButton
-          class="tool-btn"
-          with-icon
-          @click="
-            router.push({
-              name: ERoutesNames.EDIT_QUIZ,
-              params: { id: quiz.id }
-            })
-          "
-        >
-          <Icon
-            icon="ic:twotone-edit"
-            color="#fff"
-            width="25"
-            height="25"
-          />
-        </AppButton>
-        <AppButton
-          class="tool-btn"
-          appearence="error"
-          with-icon
-          @click="isDeleteModalOpened = true"
-        >
-          <Icon
-            icon="ic:round-delete"
-            color="#fff"
-            width="25"
-            height="25"
-          />
-        </AppButton>
+        <Tooltip :tip="$t('edit')">
+          <AppButton
+            class="tool-btn"
+            with-icon
+            @click="
+              router.push({
+                name: ERoutesNames.EDIT_QUIZ,
+                params: { id: quiz.id }
+              })
+            "
+          >
+            <Icon
+              icon="ic:twotone-edit"
+              color="#fff"
+              width="25"
+              height="25"
+            />
+          </AppButton>
+        </Tooltip>
+        <Tooltip :tip="$t('delete')">
+          <AppButton
+            class="tool-btn"
+            appearence="error"
+            with-icon
+            @click="isDeleteModalOpened = true"
+          >
+            <Icon
+              icon="ic:round-delete"
+              color="#fff"
+              width="25"
+              height="25"
+            />
+          </AppButton>
+        </Tooltip>
       </template>
       <AppButton
         appearence="dark"
@@ -100,6 +108,10 @@ import { ERoutesNames } from '@/router/routes-names';
 import { Icon } from '@iconify/vue';
 import { computed, ref } from 'vue';
 import DeleteQuizModal from '@/modules/quizes/components/DeleteQuizModal.vue';
+import { useI18n } from 'vue-i18n';
+import Tooltip from '@/components/Tooltip.vue';
+
+const { t } = useI18n();
 
 const router = useRouter();
 
@@ -124,6 +136,12 @@ const goToQuiz = () => {
 const isShowQuizUserBtns = computed(() => props.quiz.userId === props.userId);
 const favouritesBtnIcon = computed(() =>
   props.quiz.isInFavourites ? 'ion:star' : 'ion:star-outline'
+);
+
+const favouritesBtnTooltip = computed(() =>
+  props.quiz.isInFavourites
+    ? t('remove_from_favourites')
+    : t('add_to_favourites')
 );
 </script>
 
