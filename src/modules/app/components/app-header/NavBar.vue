@@ -56,19 +56,21 @@
           </RouterLink>
         </li>
         <li>
-          <RouterLink
-            class="link"
-            active-class="active-link"
-            :to="{ name: ERoutesNames.PROFILE }"
-          >
-            <Icon
-              class="link-icon"
-              icon="carbon:user-profile"
-              color="white"
-              width="22"
-              height="22"
-            />
-          </RouterLink>
+          <Tooltip :tip="$t('profile')">
+            <RouterLink
+              class="link"
+              active-class="active-link"
+              :to="{ name: ERoutesNames.PROFILE }"
+            >
+              <Icon
+                class="link-icon"
+                icon="carbon:user-profile"
+                color="white"
+                width="22"
+                height="22"
+              />
+            </RouterLink>
+          </Tooltip>
         </li>
         <li>
           <AppButton
@@ -90,6 +92,7 @@ import AppButton from '@/components/AppButton.vue';
 import HorizontalLoader from '@/components/loaders/HorizontalLoader.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { Icon } from '@iconify/vue';
+import Tooltip from '@/components/Tooltip.vue';
 
 const authStore = useAuthStore();
 

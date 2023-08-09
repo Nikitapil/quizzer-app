@@ -27,35 +27,39 @@
           />
         </template>
       </FormField>
+      <Tooltip :tip="$t('save')">
+        <AppButton
+          class="p-5"
+          type="submit"
+          appearence="transparent"
+          with-icon
+          :disabled="isLoading"
+        >
+          <Icon
+            icon="simple-line-icons:check"
+            color="#0ba360"
+            width="24px"
+            height="24px"
+          />
+        </AppButton>
+      </Tooltip>
+    </form>
+    <Tooltip :tip="editButtonIcon.tip">
       <AppButton
         class="p-5"
-        type="submit"
-        appearence="transparent"
         with-icon
+        appearence="transparent"
         :disabled="isLoading"
+        @click="toggleForm"
       >
         <Icon
-          icon="simple-line-icons:check"
-          color="#0ba360"
+          :icon="editButtonIcon.icon"
+          :color="editButtonIcon.color"
           width="24px"
           height="24px"
         />
       </AppButton>
-    </form>
-    <AppButton
-      class="p-5"
-      with-icon
-      appearence="transparent"
-      :disabled="isLoading"
-      @click="toggleForm"
-    >
-      <Icon
-        :icon="editButtonIcon.icon"
-        :color="editButtonIcon.color"
-        width="24px"
-        height="24px"
-      />
-    </AppButton>
+    </Tooltip>
   </div>
 </template>
 
@@ -68,6 +72,10 @@ import type { TInputType } from '@/components/inputs/types';
 import AppButton from '@/components/AppButton.vue';
 import { Icon } from '@iconify/vue';
 import { useFormValidate } from '@/composables/useFormValidate';
+import Tooltip from '@/components/Tooltip.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps<{
   text: string;
@@ -91,11 +99,13 @@ const editButtonIcon = computed(() =>
   isFormOpened.value
     ? {
         icon: 'carbon:close-filled',
-        color: '#cd1f0e'
+        color: '#cd1f0e',
+        tip: t('close')
       }
     : {
         icon: 'ic:twotone-edit',
-        color: '#d2e000'
+        color: '#d2e000',
+        tip: t('edit')
       }
 );
 
