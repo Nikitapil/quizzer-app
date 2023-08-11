@@ -65,4 +65,18 @@ describe('AppInput component test', () => {
     expect((input.element as HTMLInputElement).value).toBe('test');
     expect(wrapper.props('modelValue')).toBe('test');
   });
+
+  it('should focus input on mount if props focusOnMount', async () => {
+    const wrapper = mount(AppInput, {
+      props: {
+        modelValue: '',
+        'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e }),
+        focusOnMount: true
+      },
+      attachTo: document.body
+    });
+    const input = wrapper.get('[data-test="app-input"]');
+
+    expect(input.element).toBe(document.activeElement);
+  });
 });
