@@ -7,7 +7,7 @@ describe('AppCheckbox tests', () => {
       props: {
         id: 'test-id',
         label: 'Test label',
-        modelValue: '',
+        modelValue: false,
         'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e })
       }
     });
@@ -22,12 +22,12 @@ describe('AppCheckbox tests', () => {
       props: {
         id: 'test-id',
         label: 'Test label',
-        modelValue: '',
+        modelValue: false,
         'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e })
       }
     });
 
-    const input = wrapper.get('input');
+    const input: any = wrapper.get('input');
 
     await input.setChecked();
 
