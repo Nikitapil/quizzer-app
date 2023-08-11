@@ -16,4 +16,21 @@ describe('AppCheckbox tests', () => {
 
     expect(labelText.text()).toBe('Test label');
   });
+
+  it('should change model value', async () => {
+    const wrapper = mount(AppCheckbox, {
+      props: {
+        id: 'test-id',
+        label: 'Test label',
+        modelValue: '',
+        'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e })
+      }
+    });
+
+    const input = wrapper.get('input');
+
+    await input.setChecked();
+
+    expect(wrapper.props().modelValue).toBe(true);
+  });
 });
