@@ -22,7 +22,7 @@
           />
         </Transition>
       </span>
-      <span>{{ label }}</span>
+      <span data-test="checkbox-label">{{ label }}</span>
     </label>
   </div>
 </template>

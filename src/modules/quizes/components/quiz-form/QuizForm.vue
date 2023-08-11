@@ -57,7 +57,7 @@
 import FormField from '@/components/inputs/FormField.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import { onMounted, ref } from 'vue';
-import AppCheckboox from '@/components/inputs/AppCheckboox.vue';
+import AppCheckboox from '@/components/inputs/AppCheckbox.vue';
 import QuizFormQuestion from '@/modules/quizes/components/quiz-form/QuizFormQuestion.vue';
 import type { IQuizFormValues } from '@/modules/quizes/domain/types';
 import AppButton from '@/components/AppButton.vue';
