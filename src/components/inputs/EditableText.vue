@@ -32,6 +32,7 @@
           class="p-5"
           type="submit"
           appearence="transparent"
+          data-test="submit-button"
           with-icon
           :disabled="isLoading"
         >
@@ -48,6 +49,7 @@
       <AppButton
         class="p-5"
         with-icon
+        data-test="toggle-button"
         appearence="transparent"
         :disabled="isLoading"
         @click="toggleForm"

@@ -1,7 +1,7 @@
 import { useDocTitle } from '@/composables/useDocTitle';
 
 describe('Composables', () => {
-  it('should word useDocTitle composable', () => {
+  it('should work useDocTitle composable', () => {
     const document = window.document;
 
     useDocTitle('Hello');
