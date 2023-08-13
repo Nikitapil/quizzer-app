@@ -5,7 +5,7 @@ describe('AppModal component tests', () => {
   it('should render modal with correct title', () => {
     const wrapper = mount(AppModal, {
       props: {
-        modelValue: '',
+        modelValue: true,
         'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e }),
         title: 'Test title'
       }
@@ -19,7 +19,7 @@ describe('AppModal component tests', () => {
   it('should close modal on click outside', async () => {
     const wrapper = mount(AppModal, {
       props: {
-        modelValue: '',
+        modelValue: true,
         'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e }),
         title: 'Test title'
       }
@@ -36,7 +36,7 @@ describe('AppModal component tests', () => {
   it('should close modal on click close btn', async () => {
     const wrapper = mount(AppModal, {
       props: {
-        modelValue: '',
+        modelValue: true,
         'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e }),
         title: 'Test title'
       }

@@ -1,11 +1,16 @@
 import { onMounted, onUnmounted } from 'vue';
+import type { Ref } from 'vue';
 
 export const useClickOutside = (
   callback: () => void,
-  ref: HTMLElement | null
+  ref: Ref<null>,
+  excludedRef?: Ref<null>
 ) => {
   const fn = (e: MouseEvent) => {
-    if (e.target !== ref) {
+    if (
+      e.target !== ref.value &&
+      e.target !== (excludedRef?.value as unknown)
+    ) {
       callback();
     }
   };

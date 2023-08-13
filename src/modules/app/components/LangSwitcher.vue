@@ -50,7 +50,7 @@ const switcher = ref(null);
 const open = () => (isOpened.value = true);
 const close = () => (isOpened.value = false);
 
-useClickOutside(close, switcher.value);
+useClickOutside(close, switcher);
 </script>
 
 <style lang="scss" scoped>

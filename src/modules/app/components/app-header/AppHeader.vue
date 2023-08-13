@@ -11,19 +11,23 @@
         class="burger-btn"
         with-icon
         appearence="transparent"
-        @click="toggleMobileBar"
       >
-        <Icon
-          icon="heroicons:bars-3-20-solid"
-          width="28"
-          height="28"
-        />
+        <div
+          ref="burgerRef"
+          @click.stop="toggleMobileBar"
+        >
+          <Icon
+            icon="heroicons:bars-3-20-solid"
+            width="28"
+            height="28"
+          />
+        </div>
       </AppButton>
       <Transition name="mobile">
         <div
           v-if="isMobileBarOpened"
+          ref="mobileRef"
           class="mobile-bar"
-          @click="toggleMobileBar"
         >
           <NavBar />
         </div>
@@ -38,11 +42,25 @@ import NavBar from '@/modules/app/components/app-header/NavBar.vue';
 import AppButton from '@/components/AppButton.vue';
 import { Icon } from '@iconify/vue';
 import { ref } from 'vue';
+import { useClickOutside } from '@/composables/useClickOutside';
 
 const isMobileBarOpened = ref(false);
 
 const toggleMobileBar = () =>
   (isMobileBarOpened.value = !isMobileBarOpened.value);
+
+const mobileRef = ref(null);
+const burgerRef = ref(null);
+
+useClickOutside(
+  () => {
+    if (isMobileBarOpened.value) {
+      isMobileBarOpened.value = false;
+    }
+  },
+  mobileRef,
+  burgerRef
+);
 </script>
 
 <style lang="scss" scoped>
