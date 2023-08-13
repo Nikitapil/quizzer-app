@@ -2,10 +2,12 @@
   <Transition name="modal">
     <div
       v-if="isOpened"
+      data-test="modal"
       class="modal"
     >
       <div
         class="modal__overlay"
+        data-test="overlay"
         @click="closeModal"
       ></div>
       <div class="modal__content">
