@@ -1,9 +1,17 @@
 <template>
   <div class="tooltip">
-    <div class="tip-content">
+    <div
+      data-test="tip-content"
+      class="tip-content"
+    >
       <slot></slot>
     </div>
-    <div class="tip">{{ tip }}</div>
+    <div
+      data-test="tip"
+      class="tip"
+    >
+      {{ tip }}
+    </div>
   </div>
 </template>
 
