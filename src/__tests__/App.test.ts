@@ -10,7 +10,7 @@ describe('App component test', () => {
   it('should render app with loader', () => {
     const pinia = createTestingPinia();
     const store = useAuthStore(pinia);
-    store.refresh = () => {};
+    store.refresh = async () => {};
 
     const wrapper = mount(App, {
       global: {
@@ -26,7 +26,7 @@ describe('App component test', () => {
   it('should render app with routerView', async () => {
     const pinia = createTestingPinia();
     const store = useAuthStore(pinia);
-    store.refresh = () => {};
+    store.refresh = async () => {};
 
     const wrapper = mount(App, {
       global: {
