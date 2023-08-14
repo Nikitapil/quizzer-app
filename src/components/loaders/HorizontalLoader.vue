@@ -1,5 +1,8 @@
 <template>
-  <div class="lds-ellipsis">
+  <div
+    data-test="horizontal-loader"
+    class="lds-ellipsis"
+  >
     <div></div>
     <div></div>
     <div></div>
