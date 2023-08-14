@@ -1,5 +1,6 @@
 <template>
   <div
+    data-test="round-loader"
     class="lds-dual-ring"
     :class="{ [color]: true }"
   ></div>
