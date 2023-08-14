@@ -39,7 +39,7 @@ describe('App component test', () => {
     await flushPromises();
 
     const loader = wrapper.find('[data-test="round-loader"]');
-    const view = wrapper.getComponent(RouterView);
+    const view = wrapper.findComponent(RouterView);
 
     expect(loader.exists()).toBeFalsy();
     expect(view.exists()).toBeTruthy();
