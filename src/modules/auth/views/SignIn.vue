@@ -8,6 +8,7 @@
     >
       <template #link>
         <AppButton
+          id="restore-btn"
           class="restore-btn"
           appearence="transparent"
           :text="$t('restore_password')"
