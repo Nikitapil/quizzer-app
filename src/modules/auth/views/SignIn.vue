@@ -34,6 +34,15 @@ import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import AppButton from '@/components/AppButton.vue';
 import RestorePasswordModal from '@/modules/auth/components/restore-form/RestorePasswordModal.vue';
+import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
+import { BREADCRUMBS } from '@/constants/breadcrumbs';
+import { useDocTitle } from '@/composables/useDocTitle';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+
+useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.SIGN_IN]);
+useDocTitle(t('sign_in'));
 
 const router = useRouter();
 const store = useAuthStore();

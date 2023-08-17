@@ -40,5 +40,13 @@ export const BREADCRUMBS = {
   Profile: {
     title: 'profile',
     routeName: ERoutesNames.PROFILE
+  },
+  SIGN_IN: {
+    title: 'sign_in',
+    routeName: ERoutesNames.SIGN_IN
+  },
+  SIGN_UP: {
+    title: 'sign_up',
+    routeName: ERoutesNames.SIGN_UP
   }
 };

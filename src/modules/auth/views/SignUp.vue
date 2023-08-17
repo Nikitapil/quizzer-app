@@ -25,6 +25,15 @@ import RoundLoader from '@/components/loaders/RoundLoader.vue';
 import type { ISignUpAuthRequest } from '@/modules/auth/domain/types';
 import { watch } from 'vue';
 import { useRouter } from 'vue-router';
+import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
+import { BREADCRUMBS } from '@/constants/breadcrumbs';
+import { useDocTitle } from '@/composables/useDocTitle';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+
+useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.SIGN_UP]);
+useDocTitle(t('sign_up'));
 
 const router = useRouter();
 const store = useAuthStore();
