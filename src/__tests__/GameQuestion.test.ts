@@ -6,7 +6,7 @@ describe('GameQuestion component tests', () => {
     const wrapper = mount(GameQuestion, {
       props: {
         question: {
-          id: 1,
+          id: '1',
           question: 'Is it Test?',
           answers: ['yes', 'no', "don't know", 'what']
         },
@@ -26,7 +26,7 @@ describe('GameQuestion component tests', () => {
     const wrapper = mount(GameQuestion, {
       props: {
         question: {
-          id: 1,
+          id: '1',
           question: 'Is it Test?',
           answers: ['yes', 'no', "don't know", 'what']
         },
@@ -44,7 +44,7 @@ describe('GameQuestion component tests', () => {
     const wrapper = mount(GameQuestion, {
       props: {
         question: {
-          id: 1,
+          id: '1',
           question: 'Is it Test?',
           answers: ['yes', 'no', "don't know", 'what']
         },
