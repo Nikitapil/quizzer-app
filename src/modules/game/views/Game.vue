@@ -4,10 +4,18 @@
     <div class="quiz-info">
       <RoundLoader v-if="store.isPageLoading" />
       <div v-else-if="!store.game">
-        <h2 class="not-found">{{ $t('quiz_not_found') }}</h2>
+        <h2
+          class="not-found"
+          data-test="error-text"
+        >
+          {{ $t('quiz_not_found') }}
+        </h2>
       </div>
       <div v-else-if="currentQuestion">
-        <p class="total">
+        <p
+          class="total"
+          data-test="total-info"
+        >
           {{ currentQuestionIndex + 1 }}/{{ store.totalQuestionsCount }}
         </p>
         <GameQuestion
@@ -20,8 +28,12 @@
       <div
         v-else
         class="result"
+        data-test="result"
       >
-        <p class="result-text">
+        <p
+          class="result-text"
+          data-test="result-text"
+        >
           {{ $t('your_result') }}: {{ correctAnswersCount }}/{{
             store.totalQuestionsCount
           }}

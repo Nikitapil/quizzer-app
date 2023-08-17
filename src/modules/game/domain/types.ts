@@ -22,7 +22,7 @@ export type TGameStoreGetters = {
   quizName(state: IGameStoreState): string;
 };
 export interface IGameStoreActions {
-  getGame: (id: string) => void;
+  getGame: (id: string) => Promise<void>;
   getCorrectAnswer: (id: string) => Promise<string>;
   rateQuiz: (rating: number) => void;
 }
