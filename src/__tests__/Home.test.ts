@@ -12,7 +12,7 @@ describe('Home component tests', () => {
 
   const homeStore = useHomeStore(pinia);
 
-  homeStore.getCategories = () => {
+  homeStore.getCategories = async () => {
     homeStore.questionCategories = [
       { name: 'All', value: '' },
       { name: 'Category1', value: '1' },
