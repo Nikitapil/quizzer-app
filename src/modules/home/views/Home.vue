@@ -3,6 +3,7 @@
     <div
       v-if="authStore.user"
       class="create-button"
+      data-test="create-btn"
     >
       <AppButton
         full

@@ -19,8 +19,8 @@ export interface IHomeStoreState {
 }
 export type THomeStoreGetters = {};
 export interface IHomeStoreActions {
-  getCategories: () => void;
-  getCategoryQuestionsCount: (id: string) => void;
+  getCategories: () => Promise<void>;
+  getCategoryQuestionsCount: (id: string) => Promise<void>;
   generateQuiz: (
     quizParams: IGenerateQuizRequest
   ) => Promise<string | undefined>;
