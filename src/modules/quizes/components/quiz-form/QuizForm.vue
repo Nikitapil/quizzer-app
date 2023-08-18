@@ -39,6 +39,7 @@
     />
     <AppButton
       :text="$t('add_question')"
+      data-test="add-question"
       appearence="dark"
       :disabled="isLoading"
       @click="onAddQuestion"

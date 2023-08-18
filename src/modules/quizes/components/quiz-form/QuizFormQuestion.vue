@@ -5,6 +5,7 @@
     </h3>
     <AppButton
       v-if="questionNumber > 3"
+      data-test="delete-question"
       class="delete-btn"
       with-icon
       appearence="transparent"
