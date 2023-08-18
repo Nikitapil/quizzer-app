@@ -79,11 +79,11 @@ describe('UpdatePasswordModal components tests', () => {
     const btns = wrapper.findAllComponents(AppButton);
 
     inputs.forEach((input) => {
-      expect(input.componentVM.disabled).toBe(true);
+      expect(input.props().disabled).toBe(true);
     });
 
     btns.slice(1).forEach((btn) => {
-      expect(btn.componentVM.disabled).toBe(true);
+      expect(btn.props().disabled).toBe(true);
     });
   });
 });
