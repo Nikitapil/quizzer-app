@@ -67,6 +67,7 @@
     />
     <AppButton
       v-if="questionFormValues.incorrectAnswers.length < 5"
+      data-test="add-incorrect-answer"
       full
       :text="$t('add_incorrect_answer')"
       :disabled="isLoading"
