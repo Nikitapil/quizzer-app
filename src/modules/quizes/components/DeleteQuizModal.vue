@@ -14,6 +14,7 @@
         />
         <AppButton
           full
+          data-test="delete-btn"
           appearence="error"
           :text="$t('delete')"
           :disabled="isLoading"
