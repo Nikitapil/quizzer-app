@@ -74,6 +74,7 @@ const userId = computed(() => authStore.user?.id || 0);
 
 const page = ref(1);
 const search = ref('');
+const isSearched = ref(false);
 
 const getQuizzes = async () => {
   emit('get-quizzes', {
@@ -93,6 +94,7 @@ const onAddToFavourites = async (quiz: IQuiz) => {
 
 const onSearch = () => {
   page.value = 1;
+  isSearched.value = !!search.value;
   getQuizzes();
 };
 
@@ -102,7 +104,9 @@ const onChangePage = (p: number) => {
 };
 
 const isShowSearch = computed(() => {
-  return !store.isQuizzesLoading && (!!store.quizzes.length || !!search.value);
+  return (
+    !store.isQuizzesLoading && (!!store.quizzes.length || !!isSearched.value)
+  );
 });
 
 onMounted(() => {
