@@ -12,6 +12,7 @@
       />
       <AppButton
         type="submit"
+        data-test="search"
         :text="$t('search')"
         @click="onSearch"
       />
@@ -22,7 +23,12 @@
     >
       <RoundLoader />
     </div>
-    <div v-else-if="!store.quizzes.length">{{ $t('no_quizzes_yet') }}.</div>
+    <div
+      v-else-if="!store.quizzes.length"
+      data-test="no-quizzes"
+    >
+      {{ $t('no_quizzes_yet') }}.
+    </div>
     <ul
       v-else
       class="quizzes-container"

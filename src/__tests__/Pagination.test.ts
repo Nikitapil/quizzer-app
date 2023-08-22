@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import Pagination from '@/components/Pagination.vue';
 
 describe('Pagination tests', () => {
-  it('should not rendered with 1 page', () => {
+  it('should not be rendered with 1 page', () => {
     const wrapper = mount(Pagination, {
       props: {
         totalItemsCount: 5,

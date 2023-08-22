@@ -38,6 +38,7 @@
         <AppButton
           with-icon
           class="tool-btn"
+          data-test="fav-button"
           appearence="dark"
           :disabled="isToggleFavouritesInProgress"
           @click="$emit('toggleFavourites', quiz)"
