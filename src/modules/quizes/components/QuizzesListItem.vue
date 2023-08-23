@@ -8,6 +8,7 @@
       <p
         v-if="quiz.rating"
         class="quiz-item__text"
+        data-test="rating"
       >
         {{ $t('rating') }}: {{ quiz.rating }}
         <Icon
@@ -20,6 +21,7 @@
       <p
         v-if="quiz.author"
         class="quiz-item__text"
+        data-test="author"
       >
         <span>{{ $t('author') }}: </span>
         <RouterLink
@@ -30,7 +32,10 @@
         </RouterLink>
       </p>
     </div>
-    <div class="controls">
+    <div
+      data-test="fav-block"
+      class="controls"
+    >
       <Tooltip
         v-if="userId"
         :tip="favouritesBtnTooltip"
@@ -55,6 +60,7 @@
         <Tooltip :tip="$t('edit')">
           <AppButton
             class="tool-btn"
+            data-test="edit"
             with-icon
             @click="
               router.push({
@@ -74,6 +80,7 @@
         <Tooltip :tip="$t('delete')">
           <AppButton
             class="tool-btn"
+            data-test="delete"
             appearence="error"
             with-icon
             @click="isDeleteModalOpened = true"
@@ -89,6 +96,7 @@
       </template>
       <AppButton
         appearence="dark"
+        data-test="play"
         :text="$t('play')"
         @click="goToQuiz"
       />
