@@ -4,6 +4,7 @@
     <div
       v-else-if="!store.quizForm"
       class="not-found"
+      data-test="not-found"
     >
       {{ $t('quiz_not_found') }}
     </div>

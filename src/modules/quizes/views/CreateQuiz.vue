@@ -39,5 +39,3 @@ const onCreate = async (data: IQuizFormValues) => {
   }
 };
 </script>
-
-<style scoped></style>
