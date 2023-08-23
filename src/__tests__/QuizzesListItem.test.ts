@@ -5,9 +5,10 @@ import router from '@/router';
 import { RouterLink } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
 import Tooltip from '@/components/Tooltip.vue';
+import type { IQuiz } from '@/modules/quizes/domain/types';
 
 describe('QuizzesList item tests', () => {
-  let quiz;
+  let quiz: IQuiz;
   beforeEach(() => {
     quiz = {
       id: 'string-id',
