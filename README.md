@@ -1,6 +1,6 @@
 # Quiz application
 
-Link to published project [https://github.com/Nikitapil/gamelandia-backend](https://nikitapil.github.io/quizzer-app/)
+Link to published project https://nikitapil.github.io/quizzer-app/
 
 Link to backend part https://github.com/Nikitapil/gamelandia-backend
 
