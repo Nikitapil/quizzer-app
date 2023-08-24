@@ -13,7 +13,7 @@ import FavouritesQuizzes from '@/modules/quizes/views/FavouritesQuizzes.vue';
 import Profile from '@/modules/profile/views/Profile.vue';
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory('/quizzer-app/'),
   routes: [
     {
       path: '/',

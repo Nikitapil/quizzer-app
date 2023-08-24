@@ -4,6 +4,12 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -33,13 +39,41 @@ jobs:
         run: npm ci
       - name: Lint application
         run: npm run lint
-  build:
+#  build:
+#    needs: [test, lint]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Get code
+#        uses: actions/checkout@v3
+#      - name: Install deps
+#        run: npm ci
+#      - name: Build projects
+#        run: CI=false npm run build
+  deploy:
     needs: [test, lint]
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Get code
+      - name: Checkout
         uses: actions/checkout@v3
-      - name: Install deps
-        run: npm ci
-      - name: Build projects
-        run: CI=false npm run build
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          # Upload dist repository
+          path: './dist'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
