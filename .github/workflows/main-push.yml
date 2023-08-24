@@ -2,9 +2,8 @@ name: GitHub Check
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+env:
+  VITE_API_BASE_URL: 'https://gamelandia-backend.vercel.app/api'
 permissions:
   contents: read
   pages: write
