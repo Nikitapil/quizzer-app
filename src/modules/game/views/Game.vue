@@ -18,6 +18,9 @@
         >
           {{ currentQuestionIndex + 1 }}/{{ store.totalQuestionsCount }}
         </p>
+        <div class="progress">
+          <ProgressBar :progress="progress" />
+        </div>
         <GameQuestion
           :is-loading="store.isAnswerLoading"
           :correct-answer="currentCorrectAnswer"
@@ -72,6 +75,7 @@ import { useDocTitle } from '@/composables/useDocTitle';
 import { useI18n } from 'vue-i18n';
 import StarRating from '@/components/StarRating.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
+import ProgressBar from '@/components/ProgressBar.vue';
 
 const { t } = useI18n();
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.GAME]);
@@ -87,6 +91,10 @@ const currentCorrectAnswer = ref<string | null>(null);
 
 const currentQuestion = computed(
   () => store.game?.questions[currentQuestionIndex.value] || null
+);
+
+const progress = computed(
+  () => (currentQuestionIndex.value / (store.totalQuestionsCount - 1)) * 100
 );
 
 const goToNextQuestion = () => {
@@ -172,5 +180,12 @@ onMounted(async () => {
   gap: 8px;
   align-items: center;
   font-size: 18px;
+}
+
+.progress {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 16px;
 }
 </style>
