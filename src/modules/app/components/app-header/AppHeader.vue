@@ -121,7 +121,7 @@ useClickOutside(
   background: $bg-medium-dark;
   transform-origin: top;
 
-  &::v-deep {
+  &:deep {
     .link {
       font-size: 16px;
     }

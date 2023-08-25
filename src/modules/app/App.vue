@@ -44,7 +44,14 @@ onMounted(() => {
   padding: 5px 10px;
 }
 
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .main {
-  min-height: $main-height;
+  flex: 1 1 auto;
+  width: 100%;
 }
 </style>
