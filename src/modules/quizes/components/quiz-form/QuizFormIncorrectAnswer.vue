@@ -11,9 +11,7 @@
             :id="`incorrect-${index}-${questionId}`"
             v-model="modelValue"
             :placeholder="$t('incorrect_answer_placeholder')"
-            :label="
-              $t('incorrect_answer_label', { incorrectNumber: index + 1 })
-            "
+            :label="`${$t('incorrect_answer_label')}${index + 1}:`"
             :disabled="isLoading"
             :is-error="invalid"
           />

@@ -1,8 +1,6 @@
 <template>
   <div class="question">
-    <h3 class="title">
-      {{ $t('question_number', { questionNumber: questionNumber }) }}
-    </h3>
+    <h3 class="title">{{ $t('question_number') }}{{ questionNumber }}</h3>
     <AppButton
       v-if="questionNumber > 3"
       data-test="delete-question"
