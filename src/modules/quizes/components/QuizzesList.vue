@@ -40,6 +40,7 @@
         :user-id="userId"
         :is-delete-in-progress="store.isDeleteInProgress"
         :is-toggle-favourites-in-progress="store.isToggleFavouritesInProgress"
+        :is-admin="authStore.isAdmin"
         @delete="onDelete"
         @toggle-favourites="onAddToFavourites"
       />

@@ -56,44 +56,48 @@
           />
         </AppButton>
       </Tooltip>
-      <template v-if="isShowQuizUserBtns">
-        <Tooltip :tip="$t('edit')">
-          <AppButton
-            class="tool-btn"
-            data-test="edit"
-            with-icon
-            @click="
-              router.push({
-                name: ERoutesNames.EDIT_QUIZ,
-                params: { id: quiz.id }
-              })
-            "
-          >
-            <Icon
-              icon="ic:twotone-edit"
-              color="#fff"
-              width="25"
-              height="25"
-            />
-          </AppButton>
-        </Tooltip>
-        <Tooltip :tip="$t('delete')">
-          <AppButton
-            class="tool-btn"
-            data-test="delete"
-            appearence="error"
-            with-icon
-            @click="isDeleteModalOpened = true"
-          >
-            <Icon
-              icon="ic:round-delete"
-              color="#fff"
-              width="25"
-              height="25"
-            />
-          </AppButton>
-        </Tooltip>
-      </template>
+      <Tooltip
+        v-if="isUsersIdsEquals"
+        :tip="$t('edit')"
+      >
+        <AppButton
+          class="tool-btn"
+          data-test="edit"
+          with-icon
+          @click="
+            router.push({
+              name: ERoutesNames.EDIT_QUIZ,
+              params: { id: quiz.id }
+            })
+          "
+        >
+          <Icon
+            icon="ic:twotone-edit"
+            color="#fff"
+            width="25"
+            height="25"
+          />
+        </AppButton>
+      </Tooltip>
+      <Tooltip
+        v-if="canDelete"
+        :tip="$t('delete')"
+      >
+        <AppButton
+          class="tool-btn"
+          data-test="delete"
+          appearence="error"
+          with-icon
+          @click="isDeleteModalOpened = true"
+        >
+          <Icon
+            icon="ic:round-delete"
+            color="#fff"
+            width="25"
+            height="25"
+          />
+        </AppButton>
+      </Tooltip>
       <AppButton
         appearence="dark"
         data-test="play"
@@ -136,13 +140,16 @@ const props = defineProps<{
   userId: number;
   isDeleteInProgress: boolean;
   isToggleFavouritesInProgress: boolean;
+  isAdmin: boolean;
 }>();
 
 const goToQuiz = () => {
   router.push({ name: ERoutesNames.QUIZ, params: { id: props.quiz.id } });
 };
 
-const isShowQuizUserBtns = computed(() => props.quiz.userId === props.userId);
+const isUsersIdsEquals = computed(() => props.quiz.userId === props.userId);
+const canDelete = computed(() => isUsersIdsEquals.value || props.isAdmin);
+
 const favouritesBtnIcon = computed(() =>
   props.quiz.isInFavourites ? 'ion:star' : 'ion:star-outline'
 );

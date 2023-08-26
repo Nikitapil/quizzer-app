@@ -2,6 +2,7 @@ export interface IUser {
   id: number;
   username: string;
   email: string;
+  role: 'Admin' | 'User';
 }
 export interface IBaseAuthRequest {
   email: string;
@@ -28,7 +29,9 @@ export interface IRestorePasswordRequest {
   password: string;
 }
 
-export type TAuthStoreGetters = {};
+export type TAuthStoreGetters = {
+  isAdmin(state: IAuthStoreState): boolean;
+};
 export interface IAuthStoreActions {
   refresh: () => Promise<void>;
   login: (loginRequest: IBaseAuthRequest) => Promise<void>;

@@ -27,6 +27,11 @@ export const useAuthStore = defineStore<
       isRestorePasswordLoading: false
     };
   },
+  getters: {
+    isAdmin(state: IAuthStoreState): boolean {
+      return state.user?.role === 'Admin';
+    }
+  },
   actions: {
     setAuthData(data: IAuthResponse) {
       this.user = data.user;

@@ -32,7 +32,8 @@ describe('QuizzesList item tests', () => {
         quiz,
         userId: 0,
         isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false
+        isToggleFavouritesInProgress: false,
+        isAdmin: false
       }
     });
 
@@ -50,7 +51,8 @@ describe('QuizzesList item tests', () => {
         quiz: { ...quiz, rating: 5 },
         userId: 0,
         isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false
+        isToggleFavouritesInProgress: false,
+        isAdmin: false
       }
     });
 
@@ -68,7 +70,8 @@ describe('QuizzesList item tests', () => {
         quiz: { ...quiz, author: null },
         userId: 0,
         isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false
+        isToggleFavouritesInProgress: false,
+        isAdmin: false
       }
     });
 
@@ -86,7 +89,8 @@ describe('QuizzesList item tests', () => {
         quiz: { ...quiz },
         userId: 0,
         isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false
+        isToggleFavouritesInProgress: false,
+        isAdmin: false
       }
     });
 
@@ -113,7 +117,8 @@ describe('QuizzesList item tests', () => {
         quiz: { ...quiz },
         userId: 0,
         isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false
+        isToggleFavouritesInProgress: false,
+        isAdmin: false
       }
     });
 
@@ -131,7 +136,8 @@ describe('QuizzesList item tests', () => {
         quiz,
         userId: 1,
         isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false
+        isToggleFavouritesInProgress: false,
+        isAdmin: false
       }
     });
 
@@ -167,15 +173,37 @@ describe('QuizzesList item tests', () => {
         quiz: { ...quiz },
         userId: 0,
         isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false
+        isToggleFavouritesInProgress: false,
+        isAdmin: false
       }
     });
 
     const editBtn = wrapper.find('[data-test="edit"]');
-    const deleteBtn = wrapper.find('[data-test="edit"]');
+    const deleteBtn = wrapper.find('[data-test="delete"]');
 
     expect(editBtn.exists()).toBe(false);
     expect(deleteBtn.exists()).toBe(false);
+  });
+
+  it('should render delete btn if admin and not render edit btn', async () => {
+    const wrapper = mount(QuizzesListItem, {
+      global: {
+        plugins: [i18n, router]
+      },
+      props: {
+        quiz: { ...quiz },
+        userId: 0,
+        isDeleteInProgress: false,
+        isToggleFavouritesInProgress: false,
+        isAdmin: true
+      }
+    });
+
+    const editBtn = wrapper.find('[data-test="edit"]');
+    const deleteBtn = wrapper.find('[data-test="delete"]');
+
+    expect(editBtn.exists()).toBe(false);
+    expect(deleteBtn.exists()).toBe(true);
   });
 
   it('should  render userBtns if userIds are equal', async () => {
@@ -187,7 +215,8 @@ describe('QuizzesList item tests', () => {
         quiz: { ...quiz },
         userId: 1,
         isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false
+        isToggleFavouritesInProgress: false,
+        isAdmin: false
       }
     });
 
@@ -207,7 +236,8 @@ describe('QuizzesList item tests', () => {
         quiz: { ...quiz },
         userId: 1,
         isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false
+        isToggleFavouritesInProgress: false,
+        isAdmin: false
       }
     });
 
@@ -232,7 +262,8 @@ describe('QuizzesList item tests', () => {
         quiz: { ...quiz },
         userId: 1,
         isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false
+        isToggleFavouritesInProgress: false,
+        isAdmin: false
       }
     });
 
@@ -256,7 +287,8 @@ describe('QuizzesList item tests', () => {
         quiz: { ...quiz },
         userId: 1,
         isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false
+        isToggleFavouritesInProgress: false,
+        isAdmin: false
       }
     });
 
