@@ -53,7 +53,8 @@ describe('SignIn component tests', () => {
     store.user = {
       id: 1,
       username: 'Test user',
-      email: 'test@test.test'
+      email: 'test@test.test',
+      role: 'User'
     };
 
     await flushPromises();
@@ -116,7 +117,8 @@ describe('SignIn component tests', () => {
       store.user = {
         id: 1,
         username: 'Test user',
-        email: 'test@test.test'
+        email: 'test@test.test',
+        role: 'User'
       };
     };
 

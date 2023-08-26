@@ -50,7 +50,8 @@ describe('Home component tests', () => {
     authStore.user = {
       id: 1,
       username: 'Test user',
-      email: 'test@test.test'
+      email: 'test@test.test',
+      role: 'User'
     };
 
     await flushPromises();

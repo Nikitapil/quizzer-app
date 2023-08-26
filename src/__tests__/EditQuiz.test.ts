@@ -15,7 +15,8 @@ describe('Edit quiz page test', () => {
     authStore.user = {
       id: 1,
       username: 'Test user',
-      email: 'test@test.test'
+      email: 'test@test.test',
+      role: 'User'
     };
 
     store.getQuizForm = async () => {};
@@ -40,7 +41,8 @@ describe('Edit quiz page test', () => {
     authStore.user = {
       id: 1,
       username: 'Test user',
-      email: 'test@test.test'
+      email: 'test@test.test',
+      role: 'User'
     };
 
     store.getQuizForm = async () => {};
@@ -63,7 +65,8 @@ describe('Edit quiz page test', () => {
     authStore.user = {
       id: 1,
       username: 'Test user',
-      email: 'test@test.test'
+      email: 'test@test.test',
+      role: 'User'
     };
 
     store.getQuizForm = async () => {};
