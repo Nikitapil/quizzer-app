@@ -7,6 +7,7 @@ import type {
 import { GameService } from '@/modules/game/GameService';
 import { i18n } from '@/main';
 import { toast } from 'vue3-toastify';
+import { QuizzesService } from '@/modules/quizes/QuizzesService';
 
 export const useGameStore = defineStore<
   'game',
@@ -19,7 +20,8 @@ export const useGameStore = defineStore<
       game: null,
       isPageLoading: true,
       isAnswerLoading: false,
-      isRateInProgress: false
+      isRateInProgress: false,
+      isToggleFavouritesInProgress: false
     };
   },
   getters: {
@@ -68,6 +70,26 @@ export const useGameStore = defineStore<
         }
       } finally {
         this.isRateInProgress = false;
+      }
+    },
+    async toggleFavouriteQuiz() {
+      if (!this.game) {
+        return;
+      }
+      try {
+        this.isToggleFavouritesInProgress = true;
+        if (!this.game.isInFavourites) {
+          await QuizzesService.addQuizToFavourites(this.game.id);
+        } else {
+          await QuizzesService.removeQuizToFavourites(this.game.id);
+        }
+        this.game.isInFavourites = !this.game.isInFavourites;
+      } catch (e: any) {
+        if (e?.response?.data?.message) {
+          toast(e?.response.data.message);
+        }
+      } finally {
+        this.isToggleFavouritesInProgress = false;
       }
     }
   }

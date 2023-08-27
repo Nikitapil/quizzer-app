@@ -7,6 +7,7 @@ import { useGameStore } from '@/modules/game/store/GameStore';
 import GameQuestion from '@/modules/game/components/GameQuestion.vue';
 import { ERoutesNames } from '@/router/routes-names';
 import { vi } from 'vitest';
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
 describe('Game component tests', () => {
   const mockGame = {
@@ -29,7 +30,8 @@ describe('Game component tests', () => {
         question: 'Super question 3',
         answers: ['incorrect', 'correct']
       }
-    ]
+    ],
+    isInFavourites: false
   };
 
   it('should render loader while getting game', () => {
@@ -68,30 +70,6 @@ describe('Game component tests', () => {
     const errorText = wrapper.find('[data-test="error-text"]');
 
     expect(errorText.exists()).toBe(true);
-  });
-
-  it('should render current question', async () => {
-    const pinia = createTestingPinia();
-    const store = useGameStore(pinia);
-
-    store.getGame = async () => {
-      store.game = mockGame;
-      store.isPageLoading = false;
-    };
-
-    await router.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
-
-    const wrapper = mount(Game, {
-      global: {
-        plugins: [i18n, router, pinia]
-      }
-    });
-
-    await flushPromises();
-
-    const questionComponent = wrapper.findComponent(GameQuestion);
-
-    expect(questionComponent.exists()).toBe(true);
   });
 
   it('should render current question', async () => {
@@ -190,5 +168,73 @@ describe('Game component tests', () => {
     const resultText = wrapper.find('[data-test="result-text"]');
 
     expect(resultText.text()).toBe('Your result: 1/3');
+  });
+
+  it('should not render user btns if not authenticated', async () => {
+    const pinia = createTestingPinia();
+    const store = useGameStore(pinia);
+
+    store.getGame = async () => {
+      store.game = {
+        id: '1234',
+        isPrivate: false,
+        name: 'Quiz 1',
+        questions: [],
+        isInFavourites: false
+      };
+      store.isPageLoading = false;
+    };
+
+    await router.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
+
+    const wrapper = mount(Game, {
+      global: {
+        plugins: [i18n, router, pinia]
+      }
+    });
+
+    await flushPromises();
+
+    const userBtns = wrapper.find('user-btns');
+
+    expect(userBtns.exists()).toBe(false);
+  });
+
+  it('should render user btns if is authenticated', async () => {
+    const pinia = createTestingPinia();
+    const store = useGameStore(pinia);
+
+    const authStore = useAuthStore(pinia);
+    authStore.user = {
+      id: 1,
+      email: 'test@test.test',
+      username: 'Test user',
+      role: 'User'
+    };
+
+    store.getGame = async () => {
+      store.game = {
+        id: '1234',
+        isPrivate: false,
+        name: 'Quiz 1',
+        questions: [],
+        isInFavourites: false
+      };
+      store.isPageLoading = false;
+    };
+
+    await router.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
+
+    const wrapper = mount(Game, {
+      global: {
+        plugins: [i18n, router, pinia]
+      }
+    });
+
+    await flushPromises();
+
+    const userBtns = wrapper.find('[data-test="user-btns"]');
+
+    expect(userBtns.exists()).toBe(true);
   });
 });

@@ -9,6 +9,7 @@ export interface IGame {
   name: string;
   isPrivate: boolean;
   questions: IQuestion[];
+  isInFavourites: boolean;
 }
 
 export interface IGameStoreState {
@@ -16,6 +17,7 @@ export interface IGameStoreState {
   isPageLoading: boolean;
   isAnswerLoading: boolean;
   isRateInProgress: boolean;
+  isToggleFavouritesInProgress: boolean;
 }
 export type TGameStoreGetters = {
   totalQuestionsCount(state: IGameStoreState): number;
@@ -24,7 +26,8 @@ export type TGameStoreGetters = {
 export interface IGameStoreActions {
   getGame: (id: string) => Promise<void>;
   getCorrectAnswer: (id: string) => Promise<string>;
-  rateQuiz: (rating: number) => void;
+  rateQuiz: (rating: number) => Promise<void>;
+  toggleFavouriteQuiz: (isInfavourites: boolean) => Promise<void>;
 }
 
 export interface ICorrectAnswer {

@@ -43,13 +43,30 @@
         </p>
         <div
           v-if="authStore.user"
-          class="rating"
+          data-test="user-btns"
         >
-          <span>{{ $t('rate_quiz') }}</span>
-          <StarRating
-            :is-loading="store.isRateInProgress"
-            @select="store.rateQuiz"
-          />
+          <div class="rating">
+            <span>{{ $t('rate_quiz') }}</span>
+            <StarRating
+              :is-loading="store.isRateInProgress"
+              @select="store.rateQuiz"
+            />
+          </div>
+          <AppButton
+            class="fav-btn"
+            data-test="fav-button"
+            appearence="dark"
+            :disabled="store.isToggleFavouritesInProgress"
+            @click="store.toggleFavouriteQuiz"
+          >
+            <span>{{ favouritesBtnText }}</span>
+            <Icon
+              :icon="favouritesBtnIcon"
+              color="#d2e000"
+              width="24"
+              height="24"
+            />
+          </AppButton>
         </div>
         <AppButton
           :text="$t('play_again')"
@@ -76,6 +93,7 @@ import { useI18n } from 'vue-i18n';
 import StarRating from '@/components/StarRating.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import ProgressBar from '@/components/ProgressBar.vue';
+import { Icon } from '@iconify/vue';
 
 const { t } = useI18n();
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.GAME]);
@@ -95,6 +113,16 @@ const currentQuestion = computed(
 
 const progress = computed(
   () => (currentQuestionIndex.value / (store.totalQuestionsCount - 1)) * 100
+);
+
+const favouritesBtnIcon = computed(() =>
+  store.game?.isInFavourites ? 'ion:star' : 'ion:star-outline'
+);
+
+const favouritesBtnText = computed(() =>
+  store.game?.isInFavourites
+    ? t('remove_from_favourites')
+    : t('add_to_favourites')
 );
 
 const goToNextQuestion = () => {
@@ -187,5 +215,12 @@ onMounted(async () => {
   width: 100%;
   justify-content: center;
   margin-bottom: 16px;
+}
+
+.fav-btn {
+  margin: 8px auto 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 </style>
