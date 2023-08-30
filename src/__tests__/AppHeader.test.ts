@@ -3,6 +3,7 @@ import AppHeader from '@/modules/app/components/app-header/AppHeader.vue';
 import { i18n } from '@/main';
 import router from '@/router';
 import { createTestingPinia } from '@pinia/testing';
+import type { ComponentPublicInstance } from 'vue';
 
 describe('AppHeader tests', () => {
   it('should open mobile bar', async () => {
@@ -13,7 +14,9 @@ describe('AppHeader tests', () => {
       attachTo: document.body
     });
 
-    wrapper.vm.toggleMobileBar();
+    (
+      wrapper.vm as ComponentPublicInstance & { toggleMobileBar: () => void }
+    ).toggleMobileBar();
 
     await flushPromises();
 
