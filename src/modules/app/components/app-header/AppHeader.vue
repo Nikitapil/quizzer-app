@@ -11,6 +11,7 @@
         class="burger-btn"
         with-icon
         appearence="transparent"
+        data-test="burger-btn"
       >
         <div
           ref="burgerRef"
@@ -28,6 +29,7 @@
           v-if="isMobileBarOpened"
           ref="mobileRef"
           class="mobile-bar"
+          data-test="mobile-bar"
         >
           <NavBar />
         </div>
