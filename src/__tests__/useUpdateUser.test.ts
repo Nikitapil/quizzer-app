@@ -7,7 +7,7 @@ import type { AxiosResponse } from 'axios';
 import type { IUser } from '@/modules/auth/domain/types';
 
 describe('useUpdateUser test', () => {
-  it('should work', async () => {
+  it('should edit user', async () => {
     const pinia = createTestingPinia({
       stubActions: false
     });
@@ -27,7 +27,7 @@ describe('useUpdateUser test', () => {
 
     await flushPromises();
 
-    const { editUser } = useUpdateUser();
+    const { editUser, isLoading } = useUpdateUser();
 
     await editUser({
       username: 'hello'
@@ -39,6 +39,34 @@ describe('useUpdateUser test', () => {
       id: 1,
       username: 'test user',
       email: 'test@test.test'
+    });
+    expect(isLoading.value).toBe(false);
+  });
+
+  it('should go catch block', async () => {
+    AuthService.editUser = async () => {
+      return Promise.reject({
+        response: {
+          data: {
+            message: 'Hello'
+          }
+        }
+      });
+    };
+
+    await flushPromises();
+
+    const { editUser, isLoading } = useUpdateUser();
+
+    const result = editUser({
+      username: 'hello'
+    });
+
+    expect(isLoading.value).toBe(true);
+
+    result.then((value) => {
+      expect(value).toBe(false);
+      expect(isLoading.value).toBe(false);
     });
   });
 });

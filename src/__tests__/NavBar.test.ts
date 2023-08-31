@@ -61,4 +61,35 @@ describe('NavBar tests', () => {
     expect(links.length).toBe(4);
     expect(logoutBtn.exists()).toBe(true);
   });
+
+  it('should trigger logout', async () => {
+    const pinia = createTestingPinia();
+
+    const authStore = useAuthStore(pinia);
+
+    authStore.isLoading = false;
+
+    authStore.user = {
+      id: 1,
+      username: 'Test user',
+      email: 'test@test.test',
+      role: 'User'
+    };
+
+    authStore.logout = async () => {
+      authStore.user = null;
+    };
+
+    const wrapper = mount(NavBar, {
+      global: {
+        plugins: [i18n, router, pinia]
+      }
+    });
+
+    const logoutBtn = wrapper.find('[data-test="logout"]');
+
+    await logoutBtn.trigger('click');
+
+    expect(authStore.user).toBe(null);
+  });
 });

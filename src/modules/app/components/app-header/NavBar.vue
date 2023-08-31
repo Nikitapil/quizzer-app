@@ -77,6 +77,7 @@
             full
             appearence="error"
             size="sm"
+            data-test="logout"
             :text="$t('logout')"
             @click="logout"
           />
