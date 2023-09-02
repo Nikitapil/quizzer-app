@@ -137,4 +137,24 @@ describe('SignIn component tests', () => {
 
     expect(router.currentRoute.value.name).toBe(ERoutesNames.HOME);
   });
+
+  it('should open restore password modal', async () => {
+    const pinia = createTestingPinia();
+    const store = useAuthStore(pinia);
+
+    store.isLoading = false;
+    const wrapper = mount(SignIn, {
+      global: {
+        plugins: [i18n, router, pinia]
+      }
+    });
+
+    const restoreBtn = wrapper.get('#restore-btn');
+
+    await restoreBtn.trigger('click');
+
+    const modal = wrapper.find('[data-test]="modal"');
+
+    expect(modal.exists()).toBe(true);
+  });
 });
