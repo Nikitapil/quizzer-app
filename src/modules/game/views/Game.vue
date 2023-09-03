@@ -59,7 +59,7 @@
             :disabled="store.isToggleFavouritesInProgress"
             @click="store.toggleFavouriteQuiz"
           >
-            <span>{{ favouritesBtnText }}</span>
+            <span data-test="fav-btn-text">{{ favouritesBtnText }}</span>
             <Icon
               :icon="favouritesBtnIcon"
               color="#d2e000"
@@ -70,6 +70,7 @@
         </div>
         <AppButton
           :text="$t('play_again')"
+          data-test="restart-btn"
           appearence="white"
           size="lg"
           @click="restart"

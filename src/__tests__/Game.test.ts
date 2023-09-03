@@ -96,7 +96,7 @@ describe('Game component tests', () => {
     expect(questionComponent.exists()).toBe(true);
   });
 
-  it('should answer questions', async () => {
+  it('should answer questions and should restart game', async () => {
     const pinia = createTestingPinia();
     const store = useGameStore(pinia);
     vi.useFakeTimers();
@@ -168,6 +168,14 @@ describe('Game component tests', () => {
     const resultText = wrapper.find('[data-test="result-text"]');
 
     expect(resultText.text()).toBe('Your result: 1/3');
+
+    const restartBtn = wrapper.find('[data-test="restart-btn"]');
+
+    await restartBtn.trigger('click');
+
+    const currentGameQuestion = wrapper.findComponent(GameQuestion);
+
+    expect(currentGameQuestion.exists()).toBe(true);
   });
 
   it('should not render user btns if not authenticated', async () => {
@@ -236,5 +244,43 @@ describe('Game component tests', () => {
     const userBtns = wrapper.find('[data-test="user-btns"]');
 
     expect(userBtns.exists()).toBe(true);
+  });
+
+  it('should be text "Remove from favourites" on favourites btn', async () => {
+    const pinia = createTestingPinia();
+    const store = useGameStore(pinia);
+
+    const authStore = useAuthStore(pinia);
+    authStore.user = {
+      id: 1,
+      email: 'test@test.test',
+      username: 'Test user',
+      role: 'User'
+    };
+
+    store.getGame = async () => {
+      store.game = {
+        id: '1234',
+        isPrivate: false,
+        name: 'Quiz 1',
+        questions: [],
+        isInFavourites: true
+      };
+      store.isPageLoading = false;
+    };
+
+    await router.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
+
+    const wrapper = mount(Game, {
+      global: {
+        plugins: [i18n, router, pinia]
+      }
+    });
+
+    await flushPromises();
+
+    const favBtn = wrapper.find('[data-test="fav-btn-text"]');
+
+    expect(favBtn.text()).toBe('Remove from favourites');
   });
 });
