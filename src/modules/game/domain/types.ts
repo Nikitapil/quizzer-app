@@ -27,7 +27,7 @@ export interface IGameStoreActions {
   getGame: (id: string) => Promise<void>;
   getCorrectAnswer: (id: string) => Promise<string>;
   rateQuiz: (rating: number) => Promise<void>;
-  toggleFavouriteQuiz: (isInfavourites: boolean) => Promise<void>;
+  toggleFavouriteQuiz: () => Promise<void>;
 }
 
 export interface ICorrectAnswer {

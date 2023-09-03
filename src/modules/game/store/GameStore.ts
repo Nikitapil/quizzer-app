@@ -66,7 +66,7 @@ export const useGameStore = defineStore<
         await GameService.rateQuiz({ quizId: this.game.id, rating });
       } catch (e: any) {
         if (e?.response?.data?.message) {
-          toast(i18n.global.t(e?.response?.data?.message));
+          toast.error(i18n.global.t(e?.response?.data?.message));
         }
       } finally {
         this.isRateInProgress = false;
@@ -86,7 +86,7 @@ export const useGameStore = defineStore<
         this.game.isInFavourites = !this.game.isInFavourites;
       } catch (e: any) {
         if (e?.response?.data?.message) {
-          toast(e?.response.data.message);
+          toast.error(e?.response.data.message);
         }
       } finally {
         this.isToggleFavouritesInProgress = false;

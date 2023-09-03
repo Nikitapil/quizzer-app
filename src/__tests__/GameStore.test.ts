@@ -1,6 +1,9 @@
 import { createTestingPinia } from '@pinia/testing';
 import { useGameStore } from '@/modules/game/store/GameStore';
 import { GameService } from '@/modules/game/GameService';
+import { vi } from 'vitest';
+import { toast } from 'vue3-toastify';
+import { QuizzesService } from '@/modules/quizes/QuizzesService';
 
 describe('GameStore tests', () => {
   const mockGame = {
@@ -26,6 +29,12 @@ describe('GameStore tests', () => {
     ],
     isInFavourites: false
   };
+
+  const toastMock = vi.spyOn(toast, 'error').mockImplementation((): any => {});
+
+  afterAll(() => {
+    vi.restoreAllMocks();
+  });
 
   it('should set default quiz name', () => {
     const pinia = createTestingPinia();
@@ -99,5 +108,134 @@ describe('GameStore tests', () => {
 
     expect(answer).toBe('');
     expect(store.isAnswerLoading).toBe(false);
+  });
+
+  it('should not rate quiz if no game', async () => {
+    const serviceMock = vi
+      .spyOn(GameService, 'rateQuiz')
+      .mockImplementation(async () => {
+        return {} as any;
+      });
+    const pinia = createTestingPinia({
+      stubActions: false
+    });
+    const store = useGameStore(pinia);
+
+    await store.rateQuiz(5);
+
+    expect(serviceMock).not.toHaveBeenCalled();
+  });
+
+  it('should rate quiz successfully', async () => {
+    const serviceMock = vi
+      .spyOn(GameService, 'rateQuiz')
+      .mockImplementation(async () => {
+        return {} as any;
+      });
+    const pinia = createTestingPinia({
+      stubActions: false
+    });
+    const store = useGameStore(pinia);
+
+    store.game = mockGame;
+
+    await store.rateQuiz(5);
+
+    expect(serviceMock).toHaveBeenCalled();
+    expect(store.isRateInProgress).toBe(false);
+  });
+
+  it('should go to catch block', async () => {
+    const serviceMock = vi
+      .spyOn(GameService, 'rateQuiz')
+      .mockImplementation(async () => {
+        throw {
+          response: {
+            data: {
+              message: 'error'
+            }
+          }
+        };
+      });
+    const pinia = createTestingPinia({
+      stubActions: false
+    });
+    const store = useGameStore(pinia);
+
+    store.game = mockGame;
+
+    await store.rateQuiz(5);
+
+    expect(serviceMock).toHaveBeenCalled();
+    expect(toastMock).toHaveBeenCalled();
+    expect(store.isRateInProgress).toBe(false);
+  });
+
+  describe('toggleFavouriteQuiz tests', () => {
+    const addToFavouritesMock = vi
+      .spyOn(QuizzesService, 'addQuizToFavourites')
+      .mockImplementation(async () => {
+        return {} as any;
+      });
+    const removeFromFavouritesMock = vi
+      .spyOn(QuizzesService, 'removeQuizToFavourites')
+      .mockImplementation(async () => {
+        return {} as any;
+      });
+
+    it('should not toggleFavourite if no game', async () => {
+      const pinia = createTestingPinia({
+        stubActions: false
+      });
+      const store = useGameStore(pinia);
+
+      await store.toggleFavouriteQuiz();
+
+      expect(addToFavouritesMock).not.toHaveBeenCalled();
+      expect(removeFromFavouritesMock).not.toHaveBeenCalled();
+    });
+
+    it('should add tofavourites and remove', async () => {
+      const pinia = createTestingPinia({
+        stubActions: false
+      });
+      const store = useGameStore(pinia);
+
+      store.game = mockGame;
+
+      await store.toggleFavouriteQuiz();
+
+      expect(addToFavouritesMock).toHaveBeenCalled();
+      expect(store.game.isInFavourites).toBe(true);
+
+      await store.toggleFavouriteQuiz();
+      expect(removeFromFavouritesMock).toHaveBeenCalled();
+      expect(store.game.isInFavourites).toBe(false);
+    });
+
+    it('should go to catch block in toggleFavourites method', async () => {
+      vi.spyOn(QuizzesService, 'addQuizToFavourites').mockImplementation(
+        async () => {
+          throw {
+            response: {
+              data: {
+                message: 'error'
+              }
+            }
+          };
+        }
+      );
+      const pinia = createTestingPinia({
+        stubActions: false
+      });
+      const store = useGameStore(pinia);
+
+      store.game = mockGame;
+
+      await store.toggleFavouriteQuiz();
+
+      expect(toastMock).toHaveBeenCalled();
+      expect(store.isToggleFavouritesInProgress).toBe(false);
+    });
   });
 });
