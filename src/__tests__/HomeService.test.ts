@@ -8,18 +8,21 @@ describe('HomeService tests', () => {
   });
 
   it('should return categories in correct format', async () => {
-    vi.spyOn($api, 'get').mockImplementation(() => ({
-      data: [
-        {
-          id: '1',
-          name: 'category 1'
-        },
-        {
-          id: '1',
-          name: 'category 2'
-        }
-      ]
-    }));
+    vi.spyOn($api, 'get').mockImplementation(
+      async () =>
+        ({
+          data: [
+            {
+              id: '1',
+              name: 'category 1'
+            },
+            {
+              id: '1',
+              name: 'category 2'
+            }
+          ]
+        } as Promise<any>)
+    );
 
     const options = await HomeService.getCategories();
 
@@ -37,14 +40,17 @@ describe('HomeService tests', () => {
   });
 
   it('should return categories question counts in correct format', async () => {
-    vi.spyOn($api, 'get').mockImplementation(() => ({
-      data: {
-        total_easy_question_count: 42,
-        total_medium_question_count: 43,
-        total_hard_question_count: 44,
-        total_question_count: 45
-      }
-    }));
+    vi.spyOn($api, 'get').mockImplementation(
+      async () =>
+        ({
+          data: {
+            total_easy_question_count: 42,
+            total_medium_question_count: 43,
+            total_hard_question_count: 44,
+            total_question_count: 45
+          }
+        } as Promise<any>)
+    );
 
     const categoryQuestionsCount = await HomeService.getCategoryQuestionCount(
       '123'
@@ -59,7 +65,7 @@ describe('HomeService tests', () => {
   });
 
   it('should return default values if error in getCategoryQuestionCount method', async () => {
-    vi.spyOn($api, 'get').mockImplementation(() => {
+    vi.spyOn($api, 'get').mockImplementation(async (): Promise<any> => {
       throw new Error();
     });
 
