@@ -84,5 +84,7 @@
   "edit": "Редактировать",
   "close": "Закрыть",
   "add_to_favourites": "Добавить в избранные",
-  "remove_from_favourites": "Удалить из избранных"
+  "remove_from_favourites": "Удалить из избранных",
+  "delete_profile": "Удалить аккаунт",
+  "confirm": "Подтвердить"
 }

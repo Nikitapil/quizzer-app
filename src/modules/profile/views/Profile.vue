@@ -37,6 +37,14 @@
         @click="isUpdatePasswordModalShowed = true"
       />
     </div>
+    <!--    <div class="profile-item">-->
+    <!--      <AppButton-->
+    <!--        appearence="error"-->
+    <!--        size="sm"-->
+    <!--        :text="$t('delete_profile')"-->
+    <!--        @click="isUpdatePasswordModalShowed = true"-->
+    <!--      />-->
+    <!--    </div>-->
   </div>
   <UpdatePasswordModal
     v-model="isUpdatePasswordModalShowed"

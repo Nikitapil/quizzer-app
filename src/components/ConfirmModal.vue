@@ -1,9 +1,15 @@
 <template>
   <AppModal
     v-model="isOpened"
-    :title="$t('delete_quiz_question')"
+    :title="title"
   >
     <template #content>
+      <p
+        v-if="text"
+        class="text"
+      >
+        {{ text }}
+      </p>
       <div class="buttons">
         <AppButton
           full
@@ -16,9 +22,9 @@
           full
           data-test="delete-btn"
           appearence="error"
-          :text="$t('delete')"
+          :text="confirmBtnTextInternal"
           :disabled="isLoading"
-          @click="$emit('delete')"
+          @click="$emit('confirm')"
         />
       </div>
     </template>
@@ -28,13 +34,24 @@
 <script setup lang="ts">
 import AppModal from '@/components/AppModal.vue';
 import AppButton from '@/components/AppButton.vue';
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const isOpened = defineModel<boolean>('modelValue');
-defineEmits(['delete']);
+defineEmits(['confirm']);
 
-defineProps<{
+const { t } = useI18n();
+
+const props = defineProps<{
   isLoading: boolean;
+  title: string;
+  text?: string;
+  confirmBtnText?: string;
 }>();
+
+const confirmBtnTextInternal = computed(
+  () => props.confirmBtnText || t('confirm')
+);
 </script>
 
 <style lang="scss" scoped>
@@ -42,5 +59,9 @@ defineProps<{
   display: flex;
   justify-content: space-between;
   gap: 10px;
+}
+
+.text {
+  margin-bottom: 16px;
 }
 </style>

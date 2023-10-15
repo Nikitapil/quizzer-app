@@ -84,5 +84,7 @@
   "edit": "Edit",
   "close": "Close",
   "add_to_favourites": "Add to favourites",
-  "remove_from_favourites": "Remove from favourites"
+  "remove_from_favourites": "Remove from favourites",
+  "delete_profile": "Delete profile",
+  "confirm": "Confirm"
 }

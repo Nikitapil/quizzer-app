@@ -106,10 +106,12 @@
       />
     </div>
   </li>
-  <DeleteQuizModal
+  <ConfirmModal
     v-model="isDeleteModalOpened"
+    :title="$t('delete_quiz_question')"
     :is-loading="isDeleteInProgress"
-    @delete="$emit('delete', quiz.id)"
+    :confirm-btn-text="$t('delete')"
+    @confirm="$emit('delete', quiz.id)"
   />
 </template>
 
@@ -120,9 +122,9 @@ import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
 import { Icon } from '@iconify/vue';
 import { computed, ref } from 'vue';
-import DeleteQuizModal from '@/modules/quizes/components/DeleteQuizModal.vue';
 import { useI18n } from 'vue-i18n';
 import Tooltip from '@/components/Tooltip.vue';
+import ConfirmModal from '@/components/ConfirmModal.vue';
 
 const { t } = useI18n();
 
