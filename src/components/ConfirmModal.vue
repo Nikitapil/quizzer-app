@@ -55,6 +55,8 @@ const confirmBtnTextInternal = computed(
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/styles/colors';
+
 .buttons {
   display: flex;
   justify-content: space-between;
@@ -63,5 +65,7 @@ const confirmBtnTextInternal = computed(
 
 .text {
   margin-bottom: 16px;
+  color: $color-dark-blue;
+  font-size: 18px;
 }
 </style>

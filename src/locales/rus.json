@@ -86,5 +86,6 @@
   "add_to_favourites": "Добавить в избранные",
   "remove_from_favourites": "Удалить из избранных",
   "delete_profile": "Удалить аккаунт",
-  "confirm": "Подтвердить"
+  "confirm": "Подтвердить",
+  "delete_profile_description": "Все ваши квизы будут удалены вместе с вашим аккаунтом"
 }

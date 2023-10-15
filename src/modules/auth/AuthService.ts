@@ -45,4 +45,8 @@ export class AuthService {
   ): Promise<AxiosResponse<IUser>> {
     return $api.put<IUser>('/users/edit', editUserRequest);
   }
+
+  static async deleteUser(userId: number) {
+    return $api.delete(`/users/delete/${userId}`);
+  }
 }

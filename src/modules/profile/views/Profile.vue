@@ -37,14 +37,22 @@
         @click="isUpdatePasswordModalShowed = true"
       />
     </div>
-    <!--    <div class="profile-item">-->
-    <!--      <AppButton-->
-    <!--        appearence="error"-->
-    <!--        size="sm"-->
-    <!--        :text="$t('delete_profile')"-->
-    <!--        @click="isUpdatePasswordModalShowed = true"-->
-    <!--      />-->
-    <!--    </div>-->
+    <div class="profile-item">
+      <AppButton
+        appearence="error"
+        size="sm"
+        :text="$t('delete_profile')"
+        @click="isDeleteProfileModalShowed = true"
+      />
+    </div>
+    <ConfirmModal
+      v-model="isDeleteProfileModalShowed"
+      :title="$t('delete_profile')"
+      :text="$t('delete_profile_description')"
+      :is-loading="isDeleteInProgress"
+      :confirm-btn-text="$t('delete')"
+      @confirm="deleteUser"
+    />
   </div>
   <UpdatePasswordModal
     v-model="isUpdatePasswordModalShowed"
@@ -65,6 +73,8 @@ import { ref } from 'vue';
 import { useUpdateUser } from '@/modules/auth/features/useUpdateUser';
 import UpdatePasswordModal from '@/modules/profile/components/UpdatePasswordModal.vue';
 import AppButton from '@/components/AppButton.vue';
+import { useDeleteUser } from '@/modules/auth/features/useDeleteUser';
+import ConfirmModal from '@/components/ConfirmModal.vue';
 
 const { t } = useI18n();
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.Profile]);
@@ -74,10 +84,12 @@ useAuthRedirect();
 const authStore = useAuthStore();
 
 const { isLoading, editUser } = useUpdateUser();
+const { deleteUser, isDeleteInProgress } = useDeleteUser();
 
 const email = ref<InstanceType<typeof EditableText>>();
 const username = ref<InstanceType<typeof EditableText>>();
 const isUpdatePasswordModalShowed = ref(false);
+const isDeleteProfileModalShowed = ref(false);
 
 const onChangeEmail = async (newEmail: string) => {
   const isUpdated = await editUser({ email: newEmail });

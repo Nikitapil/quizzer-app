@@ -86,5 +86,6 @@
   "add_to_favourites": "Add to favourites",
   "remove_from_favourites": "Remove from favourites",
   "delete_profile": "Delete profile",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+  "delete_profile_description": "All quizzes your quizzes will be deleted with your profile!"
 }

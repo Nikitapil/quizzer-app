@@ -117,6 +117,23 @@ export const useAuthStore = defineStore<
       } finally {
         this.isRestorePasswordLoading = false;
       }
+    },
+
+    async deleteUser() {
+      if (!this.user?.id) {
+        return false;
+      }
+      try {
+        await AuthService.deleteUser(this.user.id);
+        this.user = null;
+        removeAuthToken();
+        return true;
+      } catch (e: any) {
+        if (e?.response?.data?.message) {
+          toast(i18n.global.t(e?.response?.data?.message));
+        }
+        return false;
+      }
     }
   }
 });
