@@ -37,6 +37,7 @@ export const useGameStore = defineStore<
   actions: {
     async getGame(id: string) {
       try {
+        this.isPageLoading = true;
         const { data } = await GameService.getGame(id);
         this.game = data;
       } catch (e) {

@@ -1,6 +1,12 @@
 <template>
   <div class="page">
-    <h1 class="title">{{ store.quizName }}</h1>
+    <HorizontalLoader v-if="store.isPageLoading" />
+    <h1
+      v-else
+      class="title"
+    >
+      {{ store.quizName }}
+    </h1>
     <div class="quiz-info">
       <RoundLoader v-if="store.isPageLoading" />
       <div v-else-if="!store.game">
@@ -95,6 +101,7 @@ import StarRating from '@/components/StarRating.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import ProgressBar from '@/components/ProgressBar.vue';
 import { Icon } from '@iconify/vue';
+import HorizontalLoader from '@/components/loaders/HorizontalLoader.vue';
 
 const { t } = useI18n();
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.GAME]);
