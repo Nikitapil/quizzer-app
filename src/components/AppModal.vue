@@ -24,7 +24,12 @@
             height="32"
           />
         </AppButton>
-        <h1 class="modal__title">{{ title }}</h1>
+        <h1
+          class="modal__title"
+          data-test="modal-title"
+        >
+          {{ title }}
+        </h1>
         <div>
           <slot name="content"></slot>
         </div>

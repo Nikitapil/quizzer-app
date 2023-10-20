@@ -7,6 +7,7 @@
       <p
         v-if="text"
         class="text"
+        data-test="confirm-text"
       >
         {{ text }}
       </p>
@@ -14,13 +15,14 @@
         <AppButton
           full
           appearence="dark"
+          data-test="cancel-btn"
           :text="$t('cancel')"
           :disabled="isLoading"
           @click="isOpened = false"
         />
         <AppButton
           full
-          data-test="delete-btn"
+          data-test="confirm-btn"
           appearence="error"
           :text="confirmBtnTextInternal"
           :disabled="isLoading"
