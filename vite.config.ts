@@ -9,11 +9,7 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig({
   base: '/quizzer-app/',
   plugins: [
-    vue({
-      script: {
-        defineModel: true
-      }
-    }),
+    vue(),
     VueI18nPlugin({
       /* options */
       // locale messages resource pre-compile option
