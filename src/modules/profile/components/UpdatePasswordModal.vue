@@ -1,3 +1,36 @@
+<script setup lang="ts">
+import AppModal from '@/components/AppModal.vue';
+import FormField from '@/components/inputs/FormField.vue';
+import AppInput from '@/components/inputs/AppInput.vue';
+import { ref } from 'vue';
+import AppButton from '@/components/AppButton.vue';
+import { useFormValidate } from '@/composables/useFormValidate';
+
+const modelValue = defineModel<boolean>({ required: true });
+
+defineProps<{
+  isLoading: boolean;
+}>();
+
+const emit = defineEmits<{
+  submit: [password: string];
+}>();
+
+const { validate } = useFormValidate();
+
+const password = ref('');
+const repeatedPassword = ref('');
+
+const closeModal = () => (modelValue.value = false);
+
+const onSubmit = async () => {
+  const { valid } = await validate();
+  if (valid) {
+    emit('submit', password.value);
+  }
+};
+</script>
+
 <template>
   <AppModal
     v-model="modelValue"
@@ -65,39 +98,6 @@
     </template>
   </AppModal>
 </template>
-
-<script setup lang="ts">
-import AppModal from '@/components/AppModal.vue';
-import FormField from '@/components/inputs/FormField.vue';
-import AppInput from '@/components/inputs/AppInput.vue';
-import { ref } from 'vue';
-import AppButton from '@/components/AppButton.vue';
-import { useFormValidate } from '@/composables/useFormValidate';
-
-const modelValue = defineModel();
-
-defineProps<{
-  isLoading: boolean;
-}>();
-
-const emit = defineEmits<{
-  submit: [password: string];
-}>();
-
-const { validate } = useFormValidate();
-
-const password = ref('');
-const repeatedPassword = ref('');
-
-const closeModal = () => (modelValue.value = false);
-
-const onSubmit = async () => {
-  const { valid } = await validate();
-  if (valid) {
-    emit('submit', password.value);
-  }
-};
-</script>
 
 <style lang="scss" scoped>
 .form {

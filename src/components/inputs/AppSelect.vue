@@ -1,3 +1,25 @@
+<script setup lang="ts">
+import { v4 as uuidv4 } from 'uuid';
+import type { IOption } from '@/types/types';
+const modelValue = defineModel<string>({ default: '' });
+
+withDefaults(
+  defineProps<{
+    options: IOption[];
+    id?: string;
+    label?: string;
+    disabled?: boolean;
+  }>(),
+  {
+    id: uuidv4()
+  }
+);
+
+defineEmits<{
+  change: [value: string];
+}>();
+</script>
+
 <template>
   <label
     v-if="label"
@@ -24,29 +46,6 @@
     </option>
   </select>
 </template>
-
-<script setup lang="ts">
-import { v4 as uuidv4 } from 'uuid';
-import type { IOption } from '@/types/types';
-
-withDefaults(
-  defineProps<{
-    options: IOption[];
-    id?: string;
-    label?: string;
-    disabled?: boolean;
-  }>(),
-  {
-    id: uuidv4()
-  }
-);
-
-defineEmits<{
-  change: [value: string];
-}>();
-
-const modelValue = defineModel();
-</script>
 
 <style lang="scss" scoped>
 @import './styles';
