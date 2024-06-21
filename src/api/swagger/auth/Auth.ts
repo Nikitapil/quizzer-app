@@ -19,16 +19,16 @@ import type {
 } from './data-contracts';
 import { ContentType, HttpClient, type RequestParams } from './http-client';
 
-export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
    * @tags Authorization
-   * @name AuthControllerSignup
+   * @name Signup
    * @summary Sign up
    * @request POST:/api/auth/signup
    */
-  authControllerSignup = (data: CreateUserDto, params: RequestParams = {}) =>
+  signup = (data: CreateUserDto, params: RequestParams = {}) =>
     this.request<AuthResponseDto, any>({
       path: `/api/auth/signup`,
       method: 'POST',
@@ -41,11 +41,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Authorization
-   * @name AuthControllerSignin
+   * @name Signin
    * @summary Sign in
    * @request POST:/api/auth/signin
    */
-  authControllerSignin = (data: LoginUserDto, params: RequestParams = {}) =>
+  signin = (data: LoginUserDto, params: RequestParams = {}) =>
     this.request<AuthResponseDto, any>({
       path: `/api/auth/signin`,
       method: 'POST',
@@ -58,11 +58,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Authorization
-   * @name AuthControllerRefresh
+   * @name Refresh
    * @summary Refresh tokens
    * @request GET:/api/auth/refresh
    */
-  authControllerRefresh = (params: RequestParams = {}) =>
+  refresh = (params: RequestParams = {}) =>
     this.request<AuthResponseDto, any>({
       path: `/api/auth/refresh`,
       method: 'GET',
@@ -73,11 +73,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Authorization
-   * @name AuthControllerLogout
+   * @name Logout
    * @summary Logout
    * @request GET:/api/auth/logout
    */
-  authControllerLogout = (params: RequestParams = {}) =>
+  logout = (params: RequestParams = {}) =>
     this.request<SuccessMessageDto, any>({
       path: `/api/auth/logout`,
       method: 'GET',
@@ -88,11 +88,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Authorization
-   * @name AuthControllerGetRestorePasswordKey
+   * @name GetRestorePasswordKey
    * @summary Get restore password key to email
    * @request POST:/api/auth/get_restore_password_key
    */
-  authControllerGetRestorePasswordKey = (data: GetRestoreKeyDto, params: RequestParams = {}) =>
+  getRestorePasswordKey = (data: GetRestoreKeyDto, params: RequestParams = {}) =>
     this.request<SuccessMessageDto, any>({
       path: `/api/auth/get_restore_password_key`,
       method: 'POST',
@@ -105,11 +105,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Authorization
-   * @name AuthControllerRestorePassword
+   * @name RestorePassword
    * @summary Restore password
    * @request PUT:/api/auth/restore_password
    */
-  authControllerRestorePassword = (data: RestorePasswordDto, params: RequestParams = {}) =>
+  restorePassword = (data: RestorePasswordDto, params: RequestParams = {}) =>
     this.request<AuthResponseDto, any>({
       path: `/api/auth/restore_password`,
       method: 'PUT',

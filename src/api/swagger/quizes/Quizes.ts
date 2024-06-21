@@ -26,16 +26,16 @@ import type {
 } from './data-contracts';
 import { ContentType, HttpClient, type RequestParams } from './http-client';
 
-export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class QuizesApi<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
    * @tags Quizes
-   * @name QuizesControllerGenerateQuiz
+   * @name GenerateQuiz
    * @summary generate quiz from opentdb
    * @request POST:/api/quizes/generate
    */
-  quizesControllerGenerateQuiz = (data: GenerateQuizDto, params: RequestParams = {}) =>
+  generateQuiz = (data: GenerateQuizDto, params: RequestParams = {}) =>
     this.request<ReturnGeneratedQuizDto, any>({
       path: `/api/quizes/generate`,
       method: 'POST',
@@ -48,11 +48,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Quizes
-   * @name QuizesControllerCreateQuiz
+   * @name CreateQuiz
    * @summary create new quiz by user
    * @request POST:/api/quizes/create
    */
-  quizesControllerCreateQuiz = (data: CreateQuizDto, params: RequestParams = {}) =>
+  createQuiz = (data: CreateQuizDto, params: RequestParams = {}) =>
     this.request<SuccessMessageDto, any>({
       path: `/api/quizes/create`,
       method: 'POST',
@@ -65,11 +65,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Quizes
-   * @name QuizesControllerGetAllQuizes
+   * @name GetAllQuizes
    * @summary Get all available quizes
    * @request POST:/api/quizes/all
    */
-  quizesControllerGetAllQuizes = (data: GetAllQuizesDto, params: RequestParams = {}) =>
+  getAllQuizes = (data: GetAllQuizesDto, params: RequestParams = {}) =>
     this.request<AllQuizesReturnDto, any>({
       path: `/api/quizes/all`,
       method: 'POST',
@@ -82,11 +82,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Quizes
-   * @name QuizesControllerGetQuiz
+   * @name GetQuiz
    * @summary Get single quiz
    * @request GET:/api/quizes/quiz/{id}
    */
-  quizesControllerGetQuiz = (id: string, params: RequestParams = {}) =>
+  getQuiz = (id: string, params: RequestParams = {}) =>
     this.request<SingleQuizReturnDto, any>({
       path: `/api/quizes/quiz/${id}`,
       method: 'GET',
@@ -97,11 +97,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Quizes
-   * @name QuizesControllerDeleteQuiz
+   * @name DeleteQuiz
    * @summary delete quiz
    * @request DELETE:/api/quizes/quiz/{id}
    */
-  quizesControllerDeleteQuiz = (id: string, params: RequestParams = {}) =>
+  deleteQuiz = (id: string, params: RequestParams = {}) =>
     this.request<SuccessMessageDto, any>({
       path: `/api/quizes/quiz/${id}`,
       method: 'DELETE',
@@ -112,11 +112,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Quizes
-   * @name QuizesControllerGetPlayQuiz
+   * @name GetPlayQuiz
    * @summary Get quiz for play
    * @request GET:/api/quizes/play/{id}
    */
-  quizesControllerGetPlayQuiz = (id: string, params: RequestParams = {}) =>
+  getPlayQuiz = (id: string, params: RequestParams = {}) =>
     this.request<PlayQuizDto, any>({
       path: `/api/quizes/play/${id}`,
       method: 'GET',
@@ -127,11 +127,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Quizes
-   * @name QuizesControllerGetCorrectAnswer
+   * @name GetCorrectAnswer
    * @summary Get correct answer for question
    * @request GET:/api/quizes/question/{id}
    */
-  quizesControllerGetCorrectAnswer = (id: string, params: RequestParams = {}) =>
+  getCorrectAnswer = (id: string, params: RequestParams = {}) =>
     this.request<CorrectAnswerReturnDto, any>({
       path: `/api/quizes/question/${id}`,
       method: 'GET',
@@ -142,11 +142,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Quizes
-   * @name QuizesControllerGetCategories
+   * @name GetCategories
    * @summary Get available quiz categories
    * @request GET:/api/quizes/categories
    */
-  quizesControllerGetCategories = (params: RequestParams = {}) =>
+  getCategories = (params: RequestParams = {}) =>
     this.request<QuizCategoriesReturnDto[], any>({
       path: `/api/quizes/categories`,
       method: 'GET',
@@ -157,11 +157,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Quizes
-   * @name QuizesControllerGetCategoriesQuestionCount
+   * @name GetCategoriesQuestionCount
    * @summary Get category questions count
    * @request GET:/api/quizes/categories/count/{id}
    */
-  quizesControllerGetCategoriesQuestionCount = (id: string, params: RequestParams = {}) =>
+  getCategoriesQuestionCount = (id: string, params: RequestParams = {}) =>
     this.request<CategoryCountReturnDto, any>({
       path: `/api/quizes/categories/count/${id}`,
       method: 'GET',
@@ -172,11 +172,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Quizes
-   * @name QuizesControllerGetQuizesByUser
+   * @name GetQuizesByUser
    * @summary Get user quizes
    * @request POST:/api/quizes/user/{id}
    */
-  quizesControllerGetQuizesByUser = (id: number, data: GetAllQuizesDto, params: RequestParams = {}) =>
+  getQuizesByUser = (id: number, data: GetAllQuizesDto, params: RequestParams = {}) =>
     this.request<AllQuizesReturnDto, any>({
       path: `/api/quizes/user/${id}`,
       method: 'POST',
@@ -189,11 +189,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Quizes
-   * @name QuizesControllerEditQuiz
+   * @name EditQuiz
    * @summary edit quiz
    * @request PUT:/api/quizes/edit
    */
-  quizesControllerEditQuiz = (data: EditQuizDto, params: RequestParams = {}) =>
+  editQuiz = (data: EditQuizDto, params: RequestParams = {}) =>
     this.request<SuccessMessageDto, any>({
       path: `/api/quizes/edit`,
       method: 'PUT',
@@ -206,11 +206,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Quizes
-   * @name QuizesControllerRateQuiz
+   * @name RateQuiz
    * @summary rate quiz
    * @request POST:/api/quizes/rate
    */
-  quizesControllerRateQuiz = (data: RateQuizDto, params: RequestParams = {}) =>
+  rateQuiz = (data: RateQuizDto, params: RequestParams = {}) =>
     this.request<SuccessMessageDto, any>({
       path: `/api/quizes/rate`,
       method: 'POST',
@@ -223,11 +223,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Quizes
-   * @name QuizesControllerGetFavouritesQuizes
+   * @name GetFavouritesQuizes
    * @summary Get all quizes from favourites
    * @request POST:/api/quizes/favourite
    */
-  quizesControllerGetFavouritesQuizes = (data: GetAllQuizesDto, params: RequestParams = {}) =>
+  getFavouritesQuizes = (data: GetAllQuizesDto, params: RequestParams = {}) =>
     this.request<AllQuizesReturnDto, any>({
       path: `/api/quizes/favourite`,
       method: 'POST',
@@ -240,11 +240,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Quizes
-   * @name QuizesControllerAddQuizToFavourites
+   * @name AddQuizToFavourites
    * @summary Add quiz to favourites
    * @request POST:/api/quizes/favourite/{id}
    */
-  quizesControllerAddQuizToFavourites = (id: string, params: RequestParams = {}) =>
+  addQuizToFavourites = (id: string, params: RequestParams = {}) =>
     this.request<SuccessMessageDto, any>({
       path: `/api/quizes/favourite/${id}`,
       method: 'POST',
@@ -255,11 +255,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Quizes
-   * @name QuizesControllerRemoveQuizFromFavourites
+   * @name RemoveQuizFromFavourites
    * @summary Remove quiz from favourites
    * @request DELETE:/api/quizes/favourite/{id}
    */
-  quizesControllerRemoveQuizFromFavourites = (id: string, params: RequestParams = {}) =>
+  removeQuizFromFavourites = (id: string, params: RequestParams = {}) =>
     this.request<SuccessMessageDto, any>({
       path: `/api/quizes/favourite/${id}`,
       method: 'DELETE',

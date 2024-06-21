@@ -12,16 +12,16 @@
 import type { EditUserDto, SuccessMessageDto, UserReturnDto } from './data-contracts';
 import { ContentType, HttpClient, type RequestParams } from './http-client';
 
-export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class UsersApi<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
    * @tags Users
-   * @name UsersControllerEditUser
+   * @name EditUser
    * @summary Edit user
    * @request PUT:/api/users/edit
    */
-  usersControllerEditUser = (data: EditUserDto, params: RequestParams = {}) =>
+  editUser = (data: EditUserDto, params: RequestParams = {}) =>
     this.request<UserReturnDto, any>({
       path: `/api/users/edit`,
       method: 'PUT',
@@ -34,11 +34,11 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * No description
    *
    * @tags Users
-   * @name UsersControllerDeleteUser
+   * @name DeleteUser
    * @summary Delete user
    * @request DELETE:/api/users/delete/{id}
    */
-  usersControllerDeleteUser = (id: number, params: RequestParams = {}) =>
+  deleteUser = (id: number, params: RequestParams = {}) =>
     this.request<SuccessMessageDto, any>({
       path: `/api/users/delete/${id}`,
       method: 'DELETE',
