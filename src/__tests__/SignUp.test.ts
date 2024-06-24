@@ -6,6 +6,7 @@ import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { ERoutesNames } from '@/router/routes-names';
 import { RouterLink } from 'vue-router';
 import SignUp from '@/modules/auth/views/SignUp.vue';
+import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
 
 describe('SignUn component tests', () => {
   it('should render loader if auth isLoading', () => {
@@ -54,7 +55,7 @@ describe('SignUn component tests', () => {
       id: 1,
       username: 'Test user',
       email: 'test@test.test',
-      role: 'User'
+      role: UserRolesEnum.User
     };
 
     await flushPromises();
@@ -100,7 +101,7 @@ describe('SignUn component tests', () => {
         id: 1,
         username: 'Test user',
         email: 'test@test.test',
-        role: 'User'
+        role: UserRolesEnum.User
       };
     };
 

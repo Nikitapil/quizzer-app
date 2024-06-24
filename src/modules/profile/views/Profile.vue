@@ -1,3 +1,53 @@
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n';
+import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
+import { BREADCRUMBS } from '@/constants/breadcrumbs';
+import { useDocTitle } from '@/composables/useDocTitle';
+import { useAuthRedirect } from '@/composables/useAuthRedirect';
+import EditableText from '@/components/inputs/EditableText.vue';
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
+import { ref } from 'vue';
+import UpdatePasswordModal from '@/modules/profile/components/UpdatePasswordModal.vue';
+import AppButton from '@/components/AppButton.vue';
+import { useDeleteUser } from '@/modules/auth/features/useDeleteUser';
+import ConfirmModal from '@/components/ConfirmModal.vue';
+
+const { t } = useI18n();
+useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.Profile]);
+useDocTitle(t('profile'));
+useAuthRedirect();
+
+const authStore = useAuthStore();
+
+const { deleteUser, isDeleteInProgress } = useDeleteUser();
+
+const email = ref<InstanceType<typeof EditableText>>();
+const username = ref<InstanceType<typeof EditableText>>();
+const isUpdatePasswordModalShowed = ref(false);
+const isDeleteProfileModalShowed = ref(false);
+
+const onChangeEmail = async (newEmail: string) => {
+  const isUpdated = await authStore.editUser({ email: newEmail });
+  if (isUpdated && email.value) {
+    email.value.toggleForm();
+  }
+};
+
+const onChangeUsername = async (newUsername: string) => {
+  const isUpdated = await authStore.editUser({ username: newUsername });
+  if (isUpdated && username.value) {
+    username.value.toggleForm();
+  }
+};
+
+const onChangePassword = async (newPassword: string) => {
+  const isUpdated = await authStore.editUser({ password: newPassword });
+  if (isUpdated) {
+    isUpdatePasswordModalShowed.value = false;
+  }
+};
+</script>
+
 <template>
   <div
     v-if="authStore.user"
@@ -12,7 +62,7 @@
         name="email"
         input-type="text"
         rules="email|required"
-        :is-loading="isLoading"
+        :is-loading="authStore.isUpdateUserInProgress"
         :text="authStore.user.email"
         @submit-handler="onChangeEmail"
       />
@@ -25,7 +75,7 @@
         name="username"
         input-type="text"
         rules="required"
-        :is-loading="isLoading"
+        :is-loading="authStore.isUpdateUserInProgress"
         :text="authStore.user.username"
         @submit-handler="onChangeUsername"
       />
@@ -56,62 +106,10 @@
   </div>
   <UpdatePasswordModal
     v-model="isUpdatePasswordModalShowed"
-    :is-loading="isLoading"
+    :is-loading="authStore.isUpdateUserInProgress"
     @submit="onChangePassword"
   />
 </template>
-
-<script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
-import { BREADCRUMBS } from '@/constants/breadcrumbs';
-import { useDocTitle } from '@/composables/useDocTitle';
-import { useAuthRedirect } from '@/composables/useAuthRedirect';
-import EditableText from '@/components/inputs/EditableText.vue';
-import { useAuthStore } from '@/modules/auth/store/AuthStore';
-import { ref } from 'vue';
-import { useUpdateUser } from '@/modules/auth/features/useUpdateUser';
-import UpdatePasswordModal from '@/modules/profile/components/UpdatePasswordModal.vue';
-import AppButton from '@/components/AppButton.vue';
-import { useDeleteUser } from '@/modules/auth/features/useDeleteUser';
-import ConfirmModal from '@/components/ConfirmModal.vue';
-
-const { t } = useI18n();
-useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.Profile]);
-useDocTitle(t('profile'));
-useAuthRedirect();
-
-const authStore = useAuthStore();
-
-const { isLoading, editUser } = useUpdateUser();
-const { deleteUser, isDeleteInProgress } = useDeleteUser();
-
-const email = ref<InstanceType<typeof EditableText>>();
-const username = ref<InstanceType<typeof EditableText>>();
-const isUpdatePasswordModalShowed = ref(false);
-const isDeleteProfileModalShowed = ref(false);
-
-const onChangeEmail = async (newEmail: string) => {
-  const isUpdated = await editUser({ email: newEmail });
-  if (isUpdated && email.value) {
-    email.value.toggleForm();
-  }
-};
-
-const onChangeUsername = async (newUsername: string) => {
-  const isUpdated = await editUser({ username: newUsername });
-  if (isUpdated && username.value) {
-    username.value.toggleForm();
-  }
-};
-
-const onChangePassword = async (newPassword: string) => {
-  const isUpdated = await editUser({ password: newPassword });
-  if (isUpdated) {
-    isUpdatePasswordModalShowed.value = false;
-  }
-};
-</script>
 
 <style lang="scss" scoped>
 @import '../../../assets/styles/vars';

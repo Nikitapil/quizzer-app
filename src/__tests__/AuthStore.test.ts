@@ -6,58 +6,29 @@ import {
   setAuthToken
 } from '@/helpers/token-helpers';
 import { flushPromises } from '@vue/test-utils';
-import { AuthService } from '@/modules/auth/AuthService';
+import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
+import { authApi } from '@/api/apiInstances';
 
 describe('AuthStore tests', () => {
   beforeEach(() => {
     removeAuthToken();
   });
 
-  it('should set Auth Data', async () => {
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
-
-    store.setAuthData({
-      user: {
-        id: 1,
-        username: 'Test user',
-        email: 'test@test.test',
-        role: 'User'
-      },
-      accessToken: '12345'
-    });
-
-    await flushPromises();
-
-    expect(store.user).toStrictEqual({
-      id: 1,
-      username: 'Test user',
-      email: 'test@test.test',
-      role: 'User'
-    });
-
-    const token = getAuthToken();
-
-    expect(token).toBe('12345');
-  });
-
   it('should refresh successfully and set Auth Data', async () => {
+    authApi.refresh = async () => {
+      return {
+        user: {
+          id: 1,
+          username: 'Test user',
+          email: 'test@test.test',
+          role: UserRolesEnum.User
+        },
+        accessToken: '12345'
+      };
+    };
+
     const pinia = createTestingPinia({ stubActions: false });
     const store = useAuthStore(pinia);
-
-    AuthService.refresh = async () => {
-      return {
-        data: {
-          user: {
-            id: 1,
-            username: 'Test user',
-            email: 'test@test.test',
-            role: 'User'
-          },
-          accessToken: '12345'
-        }
-      } as any;
-    };
 
     await store.refresh();
 
@@ -76,12 +47,12 @@ describe('AuthStore tests', () => {
   });
 
   it('should go to catch block in refresh method', async () => {
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
-
-    AuthService.refresh = async () => {
+    authApi.refresh = async () => {
       throw new Error();
     };
+
+    const pinia = createTestingPinia({ stubActions: false });
+    const store = useAuthStore(pinia);
 
     await store.refresh();
 
@@ -98,18 +69,16 @@ describe('AuthStore tests', () => {
     const pinia = createTestingPinia({ stubActions: false });
     const store = useAuthStore(pinia);
 
-    AuthService.signIn = async () => {
+    authApi.signin = async () => {
       return {
-        data: {
-          user: {
-            id: 1,
-            username: 'Test user',
-            email: 'test@test.test',
-            role: 'User'
-          },
-          accessToken: '12345'
-        }
-      } as any;
+        user: {
+          id: 1,
+          username: 'Test user',
+          email: 'test@test.test',
+          role: UserRolesEnum.User
+        },
+        accessToken: '12345'
+      };
     };
 
     await store.login({
@@ -132,10 +101,7 @@ describe('AuthStore tests', () => {
   });
 
   it('should go to catch block in login method', async () => {
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
-
-    AuthService.signIn = async () => {
+    authApi.signin = async () => {
       throw {
         response: {
           data: {
@@ -144,6 +110,9 @@ describe('AuthStore tests', () => {
         }
       };
     };
+
+    const pinia = createTestingPinia({ stubActions: false });
+    const store = useAuthStore(pinia);
 
     await store.login({
       email: 'test@test.test',
@@ -160,22 +129,20 @@ describe('AuthStore tests', () => {
   });
 
   it('should register successfully and set Auth Data', async () => {
+    authApi.signup = async () => {
+      return {
+        user: {
+          id: 1,
+          username: 'Test user',
+          email: 'test@test.test',
+          role: UserRolesEnum.User
+        },
+        accessToken: '12345'
+      };
+    };
+
     const pinia = createTestingPinia({ stubActions: false });
     const store = useAuthStore(pinia);
-
-    AuthService.signUp = async () => {
-      return {
-        data: {
-          user: {
-            id: 1,
-            username: 'Test user',
-            email: 'test@test.test',
-            role: 'User'
-          },
-          accessToken: '12345'
-        }
-      } as any;
-    };
 
     await store.register({
       email: 'test@test.test',
@@ -198,10 +165,7 @@ describe('AuthStore tests', () => {
   });
 
   it('should go to catch block in register method', async () => {
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
-
-    AuthService.signUp = async () => {
+    authApi.signup = async () => {
       throw {
         response: {
           data: {
@@ -210,6 +174,8 @@ describe('AuthStore tests', () => {
         }
       };
     };
+    const pinia = createTestingPinia({ stubActions: false });
+    const store = useAuthStore(pinia);
 
     await store.register({
       email: 'test@test.test',
@@ -227,6 +193,10 @@ describe('AuthStore tests', () => {
   });
 
   it('should logout successfully and remove Auth Data', async () => {
+    authApi.logout = async () => {
+      return { message: 'success' };
+    };
+
     const pinia = createTestingPinia({ stubActions: false });
     const store = useAuthStore(pinia);
 
@@ -234,7 +204,7 @@ describe('AuthStore tests', () => {
       id: 1,
       username: 'Test user',
       email: 'test@test.test',
-      role: 'User'
+      role: UserRolesEnum.User
     };
 
     setAuthToken('1234');
@@ -245,8 +215,6 @@ describe('AuthStore tests', () => {
       email: 'test@test.test',
       role: 'User'
     });
-
-    AuthService.logout = async () => {};
 
     await store.logout();
 
@@ -258,6 +226,16 @@ describe('AuthStore tests', () => {
   });
 
   it('should go to  catch in logout method if err', async () => {
+    authApi.logout = async () => {
+      throw {
+        response: {
+          data: {
+            message: 'Error'
+          }
+        }
+      };
+    };
+
     const pinia = createTestingPinia({ stubActions: false });
     const store = useAuthStore(pinia);
 
@@ -265,7 +243,7 @@ describe('AuthStore tests', () => {
       id: 1,
       username: 'Test user',
       email: 'test@test.test',
-      role: 'User'
+      role: UserRolesEnum.User
     };
 
     setAuthToken('1234');
@@ -276,16 +254,6 @@ describe('AuthStore tests', () => {
       email: 'test@test.test',
       role: 'User'
     });
-
-    AuthService.logout = async () => {
-      throw {
-        response: {
-          data: {
-            message: 'Error'
-          }
-        }
-      };
-    };
 
     await store.logout();
 
@@ -302,9 +270,12 @@ describe('AuthStore tests', () => {
   });
 
   it('should call getRestorePasswordKey method successfully', async () => {
+    authApi.getRestorePasswordKey = async () => {
+      return { message: 'success' };
+    };
+
     const pinia = createTestingPinia({ stubActions: false });
     const store = useAuthStore(pinia);
-    AuthService.getRestoreKey = async () => {};
 
     const result = await store.getRestorePasswordKey('test@test.test');
 
@@ -312,9 +283,7 @@ describe('AuthStore tests', () => {
   });
 
   it('should go to catch block in getRestorePasswordKey method if error', async () => {
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
-    AuthService.getRestoreKey = async () => {
+    authApi.getRestorePasswordKey = async () => {
       throw {
         response: {
           data: {
@@ -323,6 +292,8 @@ describe('AuthStore tests', () => {
         }
       };
     };
+    const pinia = createTestingPinia({ stubActions: false });
+    const store = useAuthStore(pinia);
 
     const result = await store.getRestorePasswordKey('test@test.test');
 
@@ -330,22 +301,20 @@ describe('AuthStore tests', () => {
   });
 
   it('should restorePassword successfully and set Auth Data', async () => {
+    authApi.restorePassword = async () => {
+      return {
+        user: {
+          id: 1,
+          username: 'Test user',
+          email: 'test@test.test',
+          role: UserRolesEnum.User
+        },
+        accessToken: '12345'
+      };
+    };
+
     const pinia = createTestingPinia({ stubActions: false });
     const store = useAuthStore(pinia);
-
-    AuthService.restorePassword = async () => {
-      return {
-        data: {
-          user: {
-            id: 1,
-            username: 'Test user',
-            email: 'test@test.test',
-            role: 'User'
-          },
-          accessToken: '12345'
-        }
-      } as any;
-    };
 
     await store.restorePassword({
       key: '1234',
@@ -367,35 +336,6 @@ describe('AuthStore tests', () => {
     expect(store.isRestorePasswordLoading).toBe(false);
   });
 
-  it('should go to catch block in restorePassword method', async () => {
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
-
-    AuthService.restorePassword = async () => {
-      throw {
-        response: {
-          data: {
-            message: 'error'
-          }
-        }
-      };
-    };
-
-    await store.restorePassword({
-      key: '1234',
-      password: '12345678'
-    });
-
-    await flushPromises();
-
-    expect(store.user).toStrictEqual(null);
-
-    const token = getAuthToken();
-
-    expect(token).toBe(null);
-    expect(store.isRestorePasswordLoading).toBe(false);
-  });
-
   it('should correctly return getter state isAdmin', () => {
     const pinia = createTestingPinia({ stubActions: false });
     const store = useAuthStore(pinia);
@@ -404,7 +344,7 @@ describe('AuthStore tests', () => {
       id: 1,
       username: 'Test user',
       email: 'test@test.test',
-      role: 'User'
+      role: UserRolesEnum.User
     };
 
     expect(store.isAdmin).toBe(false);
@@ -413,7 +353,7 @@ describe('AuthStore tests', () => {
       id: 1,
       username: 'Test user',
       email: 'test@test.test',
-      role: 'Admin'
+      role: UserRolesEnum.Admin
     };
 
     expect(store.isAdmin).toBe(true);

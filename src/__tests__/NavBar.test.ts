@@ -5,6 +5,7 @@ import router from '@/router';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { RouterLink } from 'vue-router';
 import { createTestingPinia } from '@pinia/testing';
+import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
 
 describe('NavBar tests', () => {
   it('should render loader if authLoading', () => {
@@ -73,7 +74,7 @@ describe('NavBar tests', () => {
       id: 1,
       username: 'Test user',
       email: 'test@test.test',
-      role: 'User'
+      role: UserRolesEnum.User
     };
 
     authStore.logout = async () => {

@@ -6,6 +6,7 @@ import { i18n } from '@/main';
 import router from '@/router';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { ERoutesNames } from '@/router/routes-names';
+import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
 
 describe('Home component tests', () => {
   const pinia = createTestingPinia();
@@ -51,7 +52,7 @@ describe('Home component tests', () => {
       id: 1,
       username: 'Test user',
       email: 'test@test.test',
-      role: 'User'
+      role: UserRolesEnum.User
     };
 
     await flushPromises();

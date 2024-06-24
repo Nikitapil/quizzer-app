@@ -1,22 +1,3 @@
-<template>
-  <div class="centered-page">
-    <AuthForm
-      v-if="!store.isLoading"
-      :title="$t('sign_up')"
-      :submit-btn-text="$t('sign_up_action')"
-      use-sign-up
-      @submit="onRegister"
-    >
-      <template #link>
-        <RouterLink :to="{ name: ERoutesNames.SIGN_IN }">
-          {{ $t('sign_in_action') }}
-        </RouterLink>
-      </template>
-    </AuthForm>
-    <RoundLoader v-else />
-  </div>
-</template>
-
 <script lang="ts" setup>
 import AuthForm from '@/modules/auth/components/AuthForm.vue';
 import { ERoutesNames } from '@/router/routes-names';
@@ -52,3 +33,22 @@ watch(
   { immediate: true }
 );
 </script>
+
+<template>
+  <div class="centered-page">
+    <AuthForm
+      v-if="!store.isLoading"
+      :title="$t('sign_up')"
+      :submit-btn-text="$t('sign_up_action')"
+      use-sign-up
+      @submit="onRegister"
+    >
+      <template #link>
+        <RouterLink :to="{ name: ERoutesNames.SIGN_IN }">
+          {{ $t('sign_in_action') }}
+        </RouterLink>
+      </template>
+    </AuthForm>
+    <RoundLoader v-else />
+  </div>
+</template>

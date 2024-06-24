@@ -1,5 +1,5 @@
 /// <reference types="vitest" />
-import { fileURLToPath, URL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { resolve, dirname } from 'node:path';
 import { defineConfig } from 'vite';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
