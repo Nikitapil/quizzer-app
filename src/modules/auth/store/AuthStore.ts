@@ -7,12 +7,12 @@ import {
   type RestorePasswordDto,
   type UserReturnDto,
   UserRolesEnum
-} from '@/api/Auth/data-contracts';
+} from '@/api/swagger/Auth/data-contracts';
 import { useApiMethod } from '@/api/useApiMethod';
 import { authApi, usersApi } from '@/api/apiInstances';
 import { removeAuthToken, setAuthToken } from '@/helpers/token-helpers';
 import { toast } from 'vue3-toastify';
-import type { EditUserDto } from '@/api/Users/data-contracts';
+import type { EditUserDto } from '@/api/swagger/Users/data-contracts';
 
 export const useAuthStore = defineStore('AuthStore', () => {
   const user = ref<UserReturnDto | null>(null);

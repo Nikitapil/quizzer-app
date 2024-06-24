@@ -8,7 +8,7 @@ import GameQuestion from '@/modules/game/components/GameQuestion.vue';
 import { ERoutesNames } from '@/router/routes-names';
 import { vi } from 'vitest';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
-import { UserRolesEnum } from '@/api/Auth/data-contracts';
+import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
 
 describe('Game component tests', () => {
   const mockGame = {

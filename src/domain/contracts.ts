@@ -1,1 +1,1 @@
-export * from '@/api/Auth/data-contracts';
+export * from '@/api/swagger/Auth/data-contracts';

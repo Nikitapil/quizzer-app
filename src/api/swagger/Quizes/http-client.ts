@@ -11,7 +11,7 @@
 
 import type { AxiosInstance, AxiosRequestConfig, HeadersDefaults, ResponseType } from 'axios';
 
-import axiosInstance from '../apiV2';
+import axiosInstance from '../../apiV2';
 
 export type QueryParamsType = Record<string | number, any>;
 
