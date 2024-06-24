@@ -6,6 +6,7 @@ import { createTestingPinia } from '@pinia/testing';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { ERoutesNames } from '@/router/routes-names';
 import { RouterLink } from 'vue-router';
+import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
 
 describe('SignIn component tests', () => {
   it('should render loader if auth isLoading', () => {
@@ -54,7 +55,7 @@ describe('SignIn component tests', () => {
       id: 1,
       username: 'Test user',
       email: 'test@test.test',
-      role: 'User'
+      role: UserRolesEnum.User
     };
 
     await flushPromises();
@@ -118,7 +119,7 @@ describe('SignIn component tests', () => {
         id: 1,
         username: 'Test user',
         email: 'test@test.test',
-        role: 'User'
+        role: UserRolesEnum.User
       };
     };
 

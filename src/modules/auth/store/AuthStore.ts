@@ -1,139 +1,130 @@
 import { defineStore } from 'pinia';
-import type {
-  IAuthResponse,
-  IAuthStoreActions,
-  IAuthStoreState,
-  IBaseAuthRequest,
-  IRestorePasswordRequest,
-  ISignUpAuthRequest,
-  IUser,
-  TAuthStoreGetters
-} from '@/modules/auth/domain/types';
-import { AuthService } from '@/modules/auth/AuthService';
+import { computed, ref } from 'vue';
+import {
+  type AuthResponseDto,
+  type CreateUserDto,
+  type LoginUserDto,
+  type RestorePasswordDto,
+  type UserReturnDto,
+  UserRolesEnum
+} from '@/api/swagger/Auth/data-contracts';
+import { useApiMethod } from '@/api/useApiMethod';
+import { authApi, usersApi } from '@/api/apiInstances';
 import { removeAuthToken, setAuthToken } from '@/helpers/token-helpers';
 import { toast } from 'vue3-toastify';
-import { i18n } from '@/main';
+import type { EditUserDto } from '@/api/swagger/Users/data-contracts';
 
-export const useAuthStore = defineStore<
-  'auth-store',
-  IAuthStoreState,
-  TAuthStoreGetters,
-  IAuthStoreActions
->('auth-store', {
-  state: () => {
-    return {
-      user: null,
-      isLoading: true,
-      isRestorePasswordLoading: false
-    };
-  },
-  getters: {
-    isAdmin(state: IAuthStoreState): boolean {
-      return state.user?.role === 'Admin';
-    }
-  },
-  actions: {
-    setAuthData(data: IAuthResponse) {
-      this.user = data.user;
-      setAuthToken(data.accessToken);
-    },
-    updateUser(user: IUser) {
-      this.user = user;
-    },
-    async refresh() {
-      try {
-        this.isLoading = true;
-        const { data } = await AuthService.refresh();
-        this.setAuthData(data);
-      } catch (e) {
-        this.user = null;
-      } finally {
-        this.isLoading = false;
-      }
-    },
-    async login(request: IBaseAuthRequest) {
-      try {
-        this.isLoading = true;
-        const { data } = await AuthService.signIn(request);
-        this.setAuthData(data);
-      } catch (e: any) {
-        if (e?.response?.data?.message) {
-          toast(i18n.global.t(e?.response?.data?.message));
-        }
-      } finally {
-        this.isLoading = false;
-      }
-    },
-    async register(request: ISignUpAuthRequest) {
-      try {
-        this.isLoading = true;
-        const { data } = await AuthService.signUp(request);
-        this.setAuthData(data);
-      } catch (e: any) {
-        if (e?.response?.data?.message) {
-          toast(i18n.global.t(e?.response?.data?.message));
-        }
-      } finally {
-        this.isLoading = false;
-      }
-    },
-    async logout() {
-      try {
-        this.isLoading = true;
-        await AuthService.logout();
-        this.user = null;
-        removeAuthToken();
-      } catch (e: any) {
-        if (e?.response?.data?.message) {
-          toast(i18n.global.t(e?.response?.data?.message));
-        }
-      } finally {
-        this.isLoading = false;
-      }
-    },
-    async getRestorePasswordKey(email: string) {
-      try {
-        this.isRestorePasswordLoading = true;
-        await AuthService.getRestoreKey(email);
-        return true;
-      } catch (e: any) {
-        if (e?.response?.data?.message) {
-          toast(i18n.global.t(e?.response?.data?.message));
-        }
-        return false;
-      } finally {
-        this.isRestorePasswordLoading = false;
-      }
-    },
-    async restorePassword({ key, password }: IRestorePasswordRequest) {
-      try {
-        this.isRestorePasswordLoading = true;
-        const { data } = await AuthService.restorePassword(key, password);
-        this.setAuthData(data);
-      } catch (e: any) {
-        if (e?.response?.data?.message) {
-          toast(i18n.global.t(e?.response?.data?.message));
-        }
-      } finally {
-        this.isRestorePasswordLoading = false;
-      }
-    },
+export const useAuthStore = defineStore('AuthStore', () => {
+  const user = ref<UserReturnDto | null>(null);
+  const isLoading = ref(true);
 
-    async deleteUser() {
-      if (!this.user?.id) {
-        return false;
-      }
-      try {
-        await AuthService.deleteUser(this.user.id);
-        this.user = null;
-        removeAuthToken();
-        return true;
-      } catch (e: any) {
-        if (e?.response?.data?.message) {
-          toast(i18n.global.t(e?.response?.data?.message));
-        }
-        return false;
-      }
+  const { call: restorePasswordApi, isLoading: isRestorePasswordApiLoading } =
+    useApiMethod(authApi.restorePassword);
+
+  const {
+    call: getRestorePasswordKeyApi,
+    isLoading: isGetRestorePaswordKeyLoading
+  } = useApiMethod(authApi.getRestorePasswordKey);
+
+  const { call: logoutApi } = useApiMethod(authApi.logout);
+
+  const { call: deleteUserApi } = useApiMethod(usersApi.deleteUser);
+
+  const { call: editUserApi, isLoading: isUpdateUserInProgress } = useApiMethod(
+    usersApi.editUser
+  );
+
+  const isAdmin = computed(() => user.value?.role === UserRolesEnum.Admin);
+
+  const isRestorePasswordLoading = computed(
+    () =>
+      isRestorePasswordApiLoading.value || isGetRestorePaswordKeyLoading.value
+  );
+
+  const getApiData = async (
+    method: () => Promise<AuthResponseDto>,
+    errorMethod = console.error
+  ) => {
+    try {
+      isLoading.value = true;
+      const { accessToken, user: userFromApi } = await method();
+      user.value = userFromApi;
+      setAuthToken(accessToken);
+    } catch (e: any) {
+      errorMethod(e?.response?.data?.message || 'Error');
+    } finally {
+      isLoading.value = false;
     }
-  }
+  };
+
+  const refresh = async () => {
+    return getApiData(() => authApi.refresh());
+  };
+
+  const login = async (request: LoginUserDto) => {
+    return getApiData(() => authApi.signin(request), toast.error);
+  };
+
+  const register = async (request: CreateUserDto) => {
+    return getApiData(() => authApi.signup(request), toast.error);
+  };
+
+  const logout = async () => {
+    const isSuccess = await logoutApi();
+    if (isSuccess) {
+      user.value = null;
+      removeAuthToken();
+    }
+  };
+
+  const getRestorePasswordKey = async (email: string) => {
+    const isSuccess = await getRestorePasswordKeyApi({ email });
+    return !!isSuccess;
+  };
+
+  const restorePassword = async (request: RestorePasswordDto) => {
+    const response = await restorePasswordApi(request);
+    if (response) {
+      user.value = response.user;
+      setAuthToken(response.accessToken);
+    }
+  };
+
+  const deleteUser = async () => {
+    if (!user.value) {
+      return false;
+    }
+    const isSuccess = await deleteUserApi(user.value.id);
+
+    if (isSuccess) {
+      user.value = null;
+      removeAuthToken();
+    }
+
+    return !!isSuccess;
+  };
+
+  const editUser = async (request: EditUserDto) => {
+    const updatedUser = await editUserApi(request);
+    if (updatedUser) {
+      user.value = updatedUser;
+    }
+    return !!updatedUser;
+  };
+
+  return {
+    user,
+    isAdmin,
+    isLoading,
+    isRestorePasswordLoading,
+    isUpdateUserInProgress,
+    refresh,
+    login,
+    register,
+    logout,
+    getRestorePasswordKey,
+    restorePassword,
+    deleteUser,
+    editUser
+  };
 });

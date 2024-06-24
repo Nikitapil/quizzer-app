@@ -6,6 +6,7 @@ import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { i18n } from '@/main';
 import router from '@/router';
 import QuizForm from '@/modules/quizes/components/quiz-form/QuizForm.vue';
+import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
 
 describe('Edit quiz page test', () => {
   it('should render loader if isQuizLoading', () => {
@@ -16,7 +17,7 @@ describe('Edit quiz page test', () => {
       id: 1,
       username: 'Test user',
       email: 'test@test.test',
-      role: 'User'
+      role: UserRolesEnum.User
     };
 
     store.getQuizForm = async () => {};
@@ -42,7 +43,7 @@ describe('Edit quiz page test', () => {
       id: 1,
       username: 'Test user',
       email: 'test@test.test',
-      role: 'User'
+      role: UserRolesEnum.User
     };
 
     store.getQuizForm = async () => {};
@@ -66,7 +67,7 @@ describe('Edit quiz page test', () => {
       id: 1,
       username: 'Test user',
       email: 'test@test.test',
-      role: 'User'
+      role: UserRolesEnum.User
     };
 
     store.getQuizForm = async () => {};

@@ -1,10 +1,8 @@
-// @deprecated TODO выпилить эту апи
-
 import axios from 'axios';
 import { getAuthToken, setAuthToken } from '@/helpers/token-helpers';
 
 const $api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: import.meta.env.VITE_API_BASE_URL_V2,
   withCredentials: true
 });
 
