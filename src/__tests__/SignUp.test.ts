@@ -6,7 +6,7 @@ import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { ERoutesNames } from '@/router/routes-names';
 import { RouterLink } from 'vue-router';
 import SignUp from '@/modules/auth/views/SignUp.vue';
-import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
+import { UserRolesEnum } from '@/domain/contracts';
 
 describe('SignUn component tests', () => {
   it('should render loader if auth isLoading', () => {
