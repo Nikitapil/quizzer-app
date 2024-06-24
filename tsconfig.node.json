@@ -11,6 +11,9 @@
     "composite": true,
     "module": "ESNext",
     "types": ["node"],
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   }
 }
