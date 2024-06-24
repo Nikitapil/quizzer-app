@@ -26,7 +26,6 @@
     "swagger-typescript-api": "^13.0.8",
     "uuid": "^9.0.0",
     "vee-validate": "^4.10.6",
-    "vite-tsconfig-paths": "^4.3.2",
     "vue": "^3.4.29",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.2.2",

@@ -4,7 +4,6 @@ import { resolve, dirname } from 'node:path';
 import { defineConfig } from 'vite';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import vue from '@vitejs/plugin-vue';
-import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -19,8 +18,7 @@ export default defineConfig({
         dirname(fileURLToPath(import.meta.url)),
         '/src/locales/**'
       )
-    }),
-    tsconfigPaths()
+    })
   ],
   test: {
     globals: true,
@@ -30,6 +28,8 @@ export default defineConfig({
     }
   },
   resolve: {
-    alias: [{ find: '@', replacement: resolve(__dirname, './src') }]
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
   }
 });
