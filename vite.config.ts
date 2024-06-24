@@ -22,12 +22,12 @@ export default defineConfig({
   ],
   test: {
     globals: true,
-    environment: 'happy-dom'
-    // coverage: {
-    //   exclude: ['src/api']
-    // }
+    environment: 'happy-dom',
+    coverage: {
+      exclude: ['src/api']
+    }
   },
   resolve: {
-    alias: [{ find: '@', replacement: resolve(__dirname, 'src') }]
+    alias: [{ find: '@', replacement: resolve(__dirname, './src') }]
   }
 });
