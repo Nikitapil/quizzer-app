@@ -6,7 +6,7 @@ import { i18n } from '@/main';
 import router from '@/router';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { ERoutesNames } from '@/router/routes-names';
-import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
+import { UserRolesEnum } from '@/api/Auth/data-contracts';
 
 describe('Home component tests', () => {
   const pinia = createTestingPinia();

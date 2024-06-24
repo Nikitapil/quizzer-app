@@ -7,7 +7,7 @@ import {
   type RestorePasswordDto,
   type UserReturnDto,
   UserRolesEnum
-} from '@/api/swagger/Auth/data-contracts';
+} from '@/api/Auth/data-contracts';
 import { useApiMethod } from '@/api/useApiMethod';
 import { authApi, usersApi } from '@/api/apiInstances';
 import { removeAuthToken, setAuthToken } from '@/helpers/token-helpers';

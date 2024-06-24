@@ -5,7 +5,7 @@ import router from '@/router';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { RouterLink } from 'vue-router';
 import { createTestingPinia } from '@pinia/testing';
-import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
+import { UserRolesEnum } from '@/api/Auth/data-contracts';
 
 describe('NavBar tests', () => {
   it('should render loader if authLoading', () => {

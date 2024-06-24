@@ -6,7 +6,7 @@ import {
   setAuthToken
 } from '@/helpers/token-helpers';
 import { flushPromises } from '@vue/test-utils';
-import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
+import { UserRolesEnum } from '@/api/Auth/data-contracts';
 import { authApi } from '@/api/apiInstances';
 
 describe('AuthStore tests', () => {

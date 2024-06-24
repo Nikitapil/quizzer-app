@@ -25,9 +25,6 @@ export default defineConfig({
     environment: 'happy-dom',
     coverage: {
       exclude: ['src/api']
-    },
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
   resolve: {

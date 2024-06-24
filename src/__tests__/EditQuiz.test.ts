@@ -6,7 +6,7 @@ import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { i18n } from '@/main';
 import router from '@/router';
 import QuizForm from '@/modules/quizes/components/quiz-form/QuizForm.vue';
-import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
+import { UserRolesEnum } from '@/api/Auth/data-contracts';
 
 describe('Edit quiz page test', () => {
   it('should render loader if isQuizLoading', () => {
