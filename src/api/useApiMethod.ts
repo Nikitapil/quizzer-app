@@ -1,8 +1,13 @@
 import { ref } from 'vue';
 import { toast } from 'vue3-toastify';
 
-export const useApiMethod = <T extends (...args: any) => any>(method: T) => {
-  const isLoading = ref(false);
+export const useApiMethod = <T extends (...args: any) => any>(
+  method: T,
+  settings: { initialLoading: boolean } = {
+    initialLoading: false
+  }
+) => {
+  const isLoading = ref(settings.initialLoading);
 
   const call = async (
     ...args: Parameters<typeof method>

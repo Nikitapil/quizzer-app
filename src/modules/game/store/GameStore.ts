@@ -1,97 +1,88 @@
 import { defineStore } from 'pinia';
-import type {
-  IGameStoreActions,
-  IGameStoreState,
-  TGameStoreGetters
-} from '@/modules/game/domain/types';
-import { GameService } from '@/modules/game/GameService';
+import { computed, ref } from 'vue';
+import type { PlayQuizDto } from '@/api/swagger/Quizes/data-contracts';
+import { useApiMethod } from '@/api/useApiMethod';
+import { quizApi } from '@/api/apiInstances';
 import { i18n } from '@/main';
-import { toast } from 'vue3-toastify';
-import { QuizzesService } from '@/modules/quizes/QuizzesService';
 
-export const useGameStore = defineStore<
-  'game',
-  IGameStoreState,
-  TGameStoreGetters,
-  IGameStoreActions
->('game', {
-  state: () => {
-    return {
-      game: null,
-      isPageLoading: true,
-      isAnswerLoading: false,
-      isRateInProgress: false,
-      isToggleFavouritesInProgress: false
-    };
-  },
-  getters: {
-    totalQuestionsCount(state) {
-      return state.game?.questions?.length || 0;
-    },
-    quizName(state: IGameStoreState): string {
-      return state.game?.name === 'Untitled'
-        ? i18n.global.t('generated_quiz')
-        : state.game?.name || '';
-    }
-  },
-  actions: {
-    async getGame(id: string) {
-      try {
-        this.isPageLoading = true;
-        const { data } = await GameService.getGame(id);
-        this.game = data;
-      } catch (e) {
-        this.game = null;
-      } finally {
-        this.isPageLoading = false;
-      }
-    },
+export const useGameStore = defineStore('game', () => {
+  const game = ref<PlayQuizDto | null>(null);
 
-    async getCorrectAnswer(id: string) {
-      try {
-        this.isAnswerLoading = true;
-        const { data } = await GameService.getCorrectAnswer(id);
-        return data.answer;
-      } catch (e) {
-        return '';
-      } finally {
-        this.isAnswerLoading = false;
-      }
-    },
-    async rateQuiz(rating: number) {
-      if (!this.game) {
-        return;
-      }
-      try {
-        this.isRateInProgress = true;
-        await GameService.rateQuiz({ quizId: this.game.id, rating });
-      } catch (e: any) {
-        if (e?.response?.data?.message) {
-          toast.error(i18n.global.t(e?.response?.data?.message));
-        }
-      } finally {
-        this.isRateInProgress = false;
-      }
-    },
-    async toggleFavouriteQuiz() {
-      if (!this.game) {
-        return;
-      }
-      try {
-        this.isToggleFavouritesInProgress = true;
-        if (!this.game.isInFavourites) {
-          await QuizzesService.addQuizToFavourites(this.game.id);
-        } else {
-          await QuizzesService.removeQuizToFavourites(this.game.id);
-        }
-        this.game.isInFavourites = !this.game.isInFavourites;
-      } catch (e: any) {
-        if (e?.response?.data?.message) {
-          toast.error(e?.response.data.message);
-        }
-      } finally {
-        this.isToggleFavouritesInProgress = false;
-      }
+  const { call: getGameApi, isLoading: isPageLoading } = useApiMethod(
+    quizApi.getPlayQuiz,
+    { initialLoading: true }
+  );
+
+  const { call: getCorrectAnswerApi, isLoading: isAnswerLoading } =
+    useApiMethod(quizApi.getCorrectAnswer);
+
+  const { call: rateQuizApi, isLoading: isRateInProgress } = useApiMethod(
+    quizApi.rateQuiz
+  );
+
+  const { call: addToFavorites, isLoading: isAddToFavoritesInProgress } =
+    useApiMethod(quizApi.addQuizToFavourites);
+
+  const {
+    call: removeFromFavorites,
+    isLoading: isRemoveFromFavoritesInProgress
+  } = useApiMethod(quizApi.removeQuizFromFavourites);
+
+  const isToggleFavouritesInProgress = computed(
+    () =>
+      isAddToFavoritesInProgress.value || isRemoveFromFavoritesInProgress.value
+  );
+
+  const totalQuestionsCount = computed(() => game.value?.questions.length || 0);
+
+  const quizName = computed(() =>
+    game.value?.name === 'Untitled'
+      ? i18n.global.t('generated_quiz')
+      : game.value?.name
+  );
+
+  const getGame = async (id: string) => {
+    game.value = await getGameApi(id);
+  };
+
+  const getCorrectAnswer = async (id: string) => {
+    const correctAnswer = await getCorrectAnswerApi(id);
+
+    return correctAnswer?.answer || '';
+  };
+
+  const rateQuiz = async (rating: number) => {
+    if (!game.value) {
+      return;
     }
-  }
+    await rateQuizApi({ quizId: game.value.id, rating });
+  };
+
+  const toggleFavouriteQuiz = async () => {
+    if (!game.value) {
+      return;
+    }
+
+    if (!game.value.isInFavourites) {
+      await addToFavorites(game.value.id);
+    } else {
+      await removeFromFavorites(game.value.id);
+    }
+
+    game.value.isInFavourites = !game.value.isInFavourites;
+  };
+
+  return {
+    game,
+    isPageLoading,
+    isAnswerLoading,
+    isRateInProgress,
+    isToggleFavouritesInProgress,
+    totalQuestionsCount,
+    quizName,
+    getGame,
+    getCorrectAnswer,
+    rateQuiz,
+    toggleFavouriteQuiz
+  };
 });

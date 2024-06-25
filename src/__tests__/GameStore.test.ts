@@ -1,9 +1,9 @@
 import { createTestingPinia } from '@pinia/testing';
 import { useGameStore } from '@/modules/game/store/GameStore';
-import { GameService } from '@/modules/game/GameService';
 import { vi } from 'vitest';
 import { toast } from 'vue3-toastify';
 import { QuizzesService } from '@/modules/quizes/QuizzesService';
+import { quizApi } from '@/api/apiInstances';
 
 describe('GameStore tests', () => {
   const mockGame = {
@@ -45,10 +45,8 @@ describe('GameStore tests', () => {
   });
 
   it('should work getGame', async () => {
-    GameService.getGame = async () => {
-      return {
-        data: mockGame
-      } as any;
+    quizApi.getPlayQuiz = async () => {
+      return mockGame;
     };
     const pinia = createTestingPinia({
       stubActions: false
@@ -62,7 +60,7 @@ describe('GameStore tests', () => {
   });
 
   it('should go to catch block in getGame method if error', async () => {
-    GameService.getGame = async () => {
+    quizApi.getPlayQuiz = async () => {
       throw new Error();
     };
     const pinia = createTestingPinia({
@@ -77,12 +75,10 @@ describe('GameStore tests', () => {
   });
 
   it('should work getCorrectAnswer method', async () => {
-    GameService.getCorrectAnswer = async () => {
+    quizApi.getCorrectAnswer = async () => {
       return {
-        data: {
-          answer: '1234'
-        }
-      } as any;
+        answer: '1234'
+      };
     };
     const pinia = createTestingPinia({
       stubActions: false
@@ -96,7 +92,7 @@ describe('GameStore tests', () => {
   });
 
   it('should go to catch bock if error in getCorrectAnswer method', async () => {
-    GameService.getCorrectAnswer = async () => {
+    quizApi.getCorrectAnswer = async () => {
       throw new Error();
     };
     const pinia = createTestingPinia({
@@ -112,7 +108,7 @@ describe('GameStore tests', () => {
 
   it('should not rate quiz if no game', async () => {
     const serviceMock = vi
-      .spyOn(GameService, 'rateQuiz')
+      .spyOn(quizApi, 'rateQuiz')
       .mockImplementation(async () => {
         return {} as any;
       });
@@ -128,7 +124,7 @@ describe('GameStore tests', () => {
 
   it('should rate quiz successfully', async () => {
     const serviceMock = vi
-      .spyOn(GameService, 'rateQuiz')
+      .spyOn(quizApi, 'rateQuiz')
       .mockImplementation(async () => {
         return {} as any;
       });
@@ -147,7 +143,7 @@ describe('GameStore tests', () => {
 
   it('should go to catch block', async () => {
     const serviceMock = vi
-      .spyOn(GameService, 'rateQuiz')
+      .spyOn(quizApi, 'rateQuiz')
       .mockImplementation(async () => {
         throw {
           response: {
@@ -173,12 +169,12 @@ describe('GameStore tests', () => {
 
   describe('toggleFavouriteQuiz tests', () => {
     const addToFavouritesMock = vi
-      .spyOn(QuizzesService, 'addQuizToFavourites')
+      .spyOn(quizApi, 'addQuizToFavourites')
       .mockImplementation(async () => {
         return {} as any;
       });
     const removeFromFavouritesMock = vi
-      .spyOn(QuizzesService, 'removeQuizToFavourites')
+      .spyOn(quizApi, 'removeQuizFromFavourites')
       .mockImplementation(async () => {
         return {} as any;
       });
