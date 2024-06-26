@@ -24,7 +24,7 @@
         v-model="generateQuizValues.category"
         :options="store.questionCategories"
         :label="$t('select_category')"
-        :disabled="store.isCategoriesLoading"
+        :disabled="store.isLoading"
         @change="onChangeCategory"
       />
       <AppSelect
@@ -32,14 +32,14 @@
         v-model="generateQuizValues.difficulty"
         :options="difficultiesOptions"
         :label="$t('select_difficulty')"
-        :disabled="store.isCategoriesLoading"
+        :disabled="store.isLoading"
       />
       <AppSelect
         id="select_questions_type"
         v-model="generateQuizValues.type"
         :options="questionTypeOptions"
         :label="$t('select_questions_type')"
-        :disabled="store.isCategoriesLoading"
+        :disabled="store.isLoading"
       />
       <FormField
         name="questions-amount"
@@ -53,7 +53,7 @@
               v-model="generateQuizValues.amount"
               type="number"
               :label="amountLabel"
-              :disabled="store.isCategoriesLoading"
+              :disabled="store.isLoading"
               :is-error="invalid"
             />
           </div>
@@ -63,7 +63,7 @@
         full
         type="submit"
         :text="$t('lets_go')"
-        :disabled="store.isCategoriesLoading"
+        :disabled="store.isLoading"
       />
     </form>
   </div>
@@ -130,8 +130,10 @@ const onSubmit = async () => {
   const { valid } = await validate();
   if (valid) {
     const id = await store.generateQuiz({
-      ...generateQuizValues.value,
-      category: +generateQuizValues.value.category
+      amount: generateQuizValues.value.amount,
+      category: +generateQuizValues.value.category || undefined,
+      difficulty: generateQuizValues.value.difficulty || undefined,
+      type: generateQuizValues.value.type || undefined
     });
     if (id) {
       await router.push({ name: ERoutesNames.QUIZ, params: { id } });
