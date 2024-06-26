@@ -1,15 +1,27 @@
 import { createTestingPinia } from '@pinia/testing';
 import { useHomeStore } from '@/modules/home/store/HomeStore';
 import { flushPromises } from '@vue/test-utils';
-import { HomeService } from '@/modules/home/HomeService';
 import { beforeAll } from 'vitest';
 import type { TestingPinia } from '@pinia/testing';
+import { quizApi } from '@/api/apiInstances';
 
 describe('HomeStore tests', () => {
+  const categories = [
+    {
+      id: 1,
+      name: 'category 1'
+    },
+    {
+      id: 2,
+      name: 'category 2'
+    }
+  ];
+
   let pinia: TestingPinia;
   let store: ReturnType<typeof useHomeStore>;
 
   beforeAll(() => {
+    quizApi.getCategories = async () => categories;
     pinia = createTestingPinia({
       stubActions: false
     });
@@ -25,12 +37,10 @@ describe('HomeStore tests', () => {
         name: 'category 1'
       },
       {
-        value: '1',
+        value: '2',
         name: 'category 2'
       }
     ];
-
-    HomeService.getCategories = async () => options;
 
     await store.getCategories();
 
@@ -38,6 +48,6 @@ describe('HomeStore tests', () => {
 
     expect(store.questionCategories).toStrictEqual(options);
 
-    expect(store.isCategoriesLoading).toBe(false);
+    expect(store.isLoading).toBe(false);
   });
 });

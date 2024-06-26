@@ -1,4 +1,8 @@
 import type { IOption } from '@/types/types';
+import {
+  QuizDifficultiesEnum,
+  QuizQuestionTypeEnum
+} from '@/api/swagger/Quizes/data-contracts';
 
 export interface ICategory {
   id: string;
@@ -35,8 +39,8 @@ export interface IGetCategoryQuestionsCountResponse {
 
 export interface IGenerateQuizValues {
   category: string;
-  difficulty: '' | 'easy' | 'medium' | 'hard';
-  type: string;
+  difficulty: '' | QuizDifficultiesEnum;
+  type: '' | QuizQuestionTypeEnum;
   amount: number;
 }
 
