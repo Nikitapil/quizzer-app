@@ -1,3 +1,5 @@
+import type { EditQuizDto } from '@/api/swagger/Quizes/data-contracts';
+
 export interface IQuiz {
   id: string;
   createdAt: Date;
@@ -86,7 +88,7 @@ export interface ISingleQuizQuestion {
 }
 
 export interface ISingleQuiz {
-  rating: number;
+  rating?: number;
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -95,3 +97,5 @@ export interface ISingleQuiz {
   userId: number;
   questions: ISingleQuizQuestion[];
 }
+
+export type TEditQuizParams = Omit<EditQuizDto, 'id'>;
