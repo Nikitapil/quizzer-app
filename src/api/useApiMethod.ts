@@ -1,9 +1,13 @@
 import { ref } from 'vue';
 import { toast } from 'vue3-toastify';
 
+interface IUseApiMethodSettings {
+  initialLoading: boolean;
+}
+
 export const useApiMethod = <T extends (...args: any) => any>(
   method: T,
-  settings: { initialLoading: boolean } = {
+  settings: IUseApiMethodSettings = {
     initialLoading: false
   }
 ) => {
