@@ -1,17 +1,15 @@
 import { generateApi } from 'swagger-typescript-api';
 import * as path from 'node:path';
 
-const apisPaths = ['Auth-yaml', 'Users-yaml', 'Quizes-yaml'];
+const apisPaths = ['Auth', 'Users', 'Quizes'];
 
-const generateApiByPath = (apiPath: string) => {
-  const apiName = apiPath.split('-')[0];
-
+const generateApiByPath = (apiName: string) => {
   generateApi({
     name: apiName,
     moduleNameIndex: 1,
     output: path.resolve(process.cwd(), `./src/api/swagger/${apiName}`),
     templates: path.resolve(process.cwd(), './bin/ApiGenerator/templates'),
-    url: `http://localhost:5000/api/docs/${apiPath}`,
+    url: `http://localhost:5000/api/docs/${apiName}-yaml`,
     httpClientType: 'axios',
     extractEnums: true,
     extractRequestParams: true,
