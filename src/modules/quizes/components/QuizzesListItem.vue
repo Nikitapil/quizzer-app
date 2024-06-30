@@ -116,7 +116,6 @@
 </template>
 
 <script setup lang="ts">
-import type { IQuiz } from '@/modules/quizes/domain/types';
 import AppButton from '@/components/AppButton.vue';
 import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
@@ -125,6 +124,7 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import Tooltip from '@/components/Tooltip.vue';
 import ConfirmModal from '@/components/ConfirmModal.vue';
+import type { QuizDto } from '@/api/swagger/Quizes/data-contracts';
 
 const { t } = useI18n();
 
@@ -134,11 +134,11 @@ const isDeleteModalOpened = ref(false);
 
 defineEmits<{
   delete: [id: string];
-  toggleFavourites: [quiz: IQuiz];
+  toggleFavourites: [quiz: QuizDto];
 }>();
 
 const props = defineProps<{
-  quiz: IQuiz;
+  quiz: QuizDto;
   userId: number;
   isDeleteInProgress: boolean;
   isToggleFavouritesInProgress: boolean;

@@ -1,108 +1,101 @@
 import { defineStore } from 'pinia';
+import { computed, ref } from 'vue';
+import { useApiMethod } from '@/api/useApiMethod';
+import { quizApi } from '@/api/apiInstances';
 import type {
-  IQuizzesStoreActions,
-  IQuizzesStoreState,
-  TQuizzesStoreGetters,
-  IGetQuizzesRequest,
-  IQuiz
-} from '@/modules/quizes/domain/types';
-import { toast } from 'vue3-toastify';
-import { QuizzesService } from '@/modules/quizes/QuizzesService';
+  AllQuizesReturnDto,
+  GetAllQuizesDto,
+  QuizDto
+} from '@/api/swagger/Quizes/data-contracts';
+import type { IGetUserQuizzesParams } from '@/modules/quizes/domain/types';
 
-export const useQuizzesStore = defineStore<
-  'all-quizzes',
-  IQuizzesStoreState,
-  TQuizzesStoreGetters,
-  IQuizzesStoreActions
->('all-quizzes', {
-  state: () => {
-    return {
-      quizzes: [],
-      isQuizzesLoading: false,
-      isDeleteInProgress: false,
-      isToggleFavouritesInProgress: false,
-      totalCount: 0
-    };
-  },
-  getters: {},
-  actions: {
-    async getAllQuizes(request: IGetQuizzesRequest) {
-      try {
-        this.isQuizzesLoading = true;
-        const { data } = await QuizzesService.getAllQuizzes(request);
-        this.quizzes = data.quizes;
-        this.totalCount = data.totalCount;
-      } catch (e: any) {
-        if (e?.response?.data?.message) {
-          toast(e?.response.data.message);
-        }
-      } finally {
-        this.isQuizzesLoading = false;
-      }
-    },
-    async getUserQuizzes(request: IGetQuizzesRequest, userId: string) {
-      try {
-        this.isQuizzesLoading = true;
-        const { data } = await QuizzesService.getUserQuizzes(request, userId);
-        this.quizzes = data.quizes;
-        this.totalCount = data.totalCount;
-      } catch (e: any) {
-        if (e?.response?.data?.message) {
-          toast(e?.response.data.message);
-        }
-      } finally {
-        this.isQuizzesLoading = false;
-      }
-    },
+export const useQuizzesStore = defineStore('quizzesStore', () => {
+  const quizzes = ref<QuizDto[]>([]);
+  const totalCount = ref(0);
 
-    async getFavouritesQuizzes(request: IGetQuizzesRequest) {
-      try {
-        this.isQuizzesLoading = true;
-        const { data } = await QuizzesService.getFavouritesQuizzes(request);
-        this.quizzes = data.quizes;
-        this.totalCount = data.totalCount;
-      } catch (e: any) {
-        if (e?.response?.data?.message) {
-          toast(e?.response.data.message);
-        }
-      } finally {
-        this.isQuizzesLoading = false;
-      }
-    },
+  const { call: getAllQuizzesApi, isLoading: isGetAllQuizzesLoading } =
+    useApiMethod(quizApi.getAllQuizes);
 
-    async deleteQuiz(id: string) {
-      try {
-        this.isDeleteInProgress = true;
-        await QuizzesService.deleteQuiz(id);
-        return true;
-      } catch (e: any) {
-        if (e?.response?.data?.message) {
-          toast(e?.response.data.message);
-        }
-        return false;
-      } finally {
-        this.isDeleteInProgress = false;
-      }
-    },
-    async toggleFavouriteQuiz(quiz: IQuiz) {
-      try {
-        this.isToggleFavouritesInProgress = true;
-        if (!quiz.isInFavourites) {
-          await QuizzesService.addQuizToFavourites(quiz.id);
-        } else {
-          await QuizzesService.removeQuizToFavourites(quiz.id);
-        }
-        const idx = this.quizzes.findIndex((q) => q.id === quiz.id);
-        if (idx !== -1) {
-          this.quizzes[idx].isInFavourites = !this.quizzes[idx].isInFavourites;
-        }
-      } catch (e: any) {
-        if (e?.response?.data?.message) {
-          toast(e?.response.data.message);
-        }
-      } finally {
-        this.isToggleFavouritesInProgress = false;
+  const { call: getUserQuizzesApi, isLoading: isGetQuizzesByUserLoading } =
+    useApiMethod(quizApi.getQuizesByUser);
+
+  const {
+    call: getFavoritesQuizzesApi,
+    isLoading: isGetFavoritesQuizzesLoading
+  } = useApiMethod(quizApi.getFavouritesQuizes);
+
+  const { call: deleteQuizApi, isLoading: isDeleteInProgress } = useApiMethod(
+    quizApi.deleteQuiz
+  );
+
+  const { call: addQuizToFavourites, isLoading: isAddQuizToFavouritesLoading } =
+    useApiMethod(quizApi.addQuizToFavourites);
+
+  const {
+    call: removeQuizFromFavourites,
+    isLoading: isRemoveQuizFromFavourites
+  } = useApiMethod(quizApi.removeQuizFromFavourites);
+
+  const isQuizzesLoading = computed(
+    () =>
+      isGetAllQuizzesLoading.value ||
+      isGetQuizzesByUserLoading.value ||
+      isGetFavoritesQuizzesLoading.value
+  );
+
+  const isToggleFavouritesInProgress = computed(
+    () => isAddQuizToFavouritesLoading.value || isRemoveQuizFromFavourites.value
+  );
+
+  const getQuizesMethod = async (
+    method: () => Promise<AllQuizesReturnDto | null>
+  ) => {
+    const response = await method();
+    if (response) {
+      quizzes.value = response.quizes;
+      totalCount.value = response.totalCount;
+    }
+  };
+
+  const getAllQuizes = async (data: GetAllQuizesDto) => {
+    await getQuizesMethod(async () => getAllQuizzesApi(data));
+  };
+
+  const getUserQuizzes = async ({ data, userId }: IGetUserQuizzesParams) => {
+    await getQuizesMethod(async () => getUserQuizzesApi(userId, data));
+  };
+
+  const getFavouritesQuizzes = async (data: GetAllQuizesDto) => {
+    await getQuizesMethod(async () => getFavoritesQuizzesApi(data));
+  };
+
+  const deleteQuiz = async (id: string) => {
+    const response = await deleteQuizApi(id);
+    return !!response;
+  };
+
+  const toggleFavouriteQuiz = async (quiz: QuizDto) => {
+    const response = quiz.isInFavourites
+      ? await removeQuizFromFavourites(quiz.id)
+      : await addQuizToFavourites(quiz.id);
+
+    if (response) {
+      const idx = quizzes.value.findIndex((q) => q.id === quiz.id);
+      if (idx !== -1) {
+        quizzes.value[idx].isInFavourites = !quiz.isInFavourites;
       }
     }
-  }
+  };
+  return {
+    quizzes,
+    totalCount,
+    isQuizzesLoading,
+    isDeleteInProgress,
+    isToggleFavouritesInProgress,
+    getAllQuizes,
+    getUserQuizzes,
+    getFavouritesQuizzes,
+    deleteQuiz,
+    toggleFavouriteQuiz
+  };
 });

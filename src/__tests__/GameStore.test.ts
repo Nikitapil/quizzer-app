@@ -2,7 +2,6 @@ import { createTestingPinia } from '@pinia/testing';
 import { useGameStore } from '@/modules/game/store/GameStore';
 import { vi } from 'vitest';
 import { toast } from 'vue3-toastify';
-import { QuizzesService } from '@/modules/quizes/QuizzesService';
 import { quizApi } from '@/api/apiInstances';
 
 describe('GameStore tests', () => {
@@ -210,17 +209,15 @@ describe('GameStore tests', () => {
     });
 
     it('should go to catch block in toggleFavourites method', async () => {
-      vi.spyOn(QuizzesService, 'addQuizToFavourites').mockImplementation(
-        async () => {
-          throw {
-            response: {
-              data: {
-                message: 'error'
-              }
+      vi.spyOn(quizApi, 'addQuizToFavourites').mockImplementation(async () => {
+        throw {
+          response: {
+            data: {
+              message: 'error'
             }
-          };
-        }
-      );
+          }
+        };
+      });
       const pinia = createTestingPinia({
         stubActions: false
       });

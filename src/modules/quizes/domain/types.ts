@@ -1,4 +1,7 @@
-import type { EditQuizDto } from '@/api/swagger/Quizes/data-contracts';
+import type {
+  EditQuizDto,
+  GetAllQuizesDto
+} from '@/api/swagger/Quizes/data-contracts';
 
 export interface IQuiz {
   id: string;
@@ -99,3 +102,8 @@ export interface ISingleQuiz {
 }
 
 export type TEditQuizParams = Omit<EditQuizDto, 'id'>;
+
+export interface IGetUserQuizzesParams {
+  userId: number;
+  data: GetAllQuizesDto;
+}

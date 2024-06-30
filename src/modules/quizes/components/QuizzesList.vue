@@ -62,16 +62,19 @@ import QuizzesListItem from '@/modules/quizes/components/QuizzesListItem.vue';
 import Pagination from '@/components/Pagination.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/AppButton.vue';
-import type { IGetQuizzesRequest, IQuiz } from '@/modules/quizes/domain/types';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
+import type {
+  GetAllQuizesDto,
+  QuizDto
+} from '@/api/swagger/Quizes/data-contracts';
 
 defineProps<{
   title: string;
 }>();
 
 const emit = defineEmits<{
-  'get-quizzes': [quizParams: IGetQuizzesRequest];
-  'toggle-favourites': [quizParams: IGetQuizzesRequest];
+  'get-quizzes': [quizParams: GetAllQuizesDto];
+  'toggle-favourites': [quizParams: GetAllQuizesDto];
 }>();
 
 const store = useQuizzesStore();
@@ -86,7 +89,8 @@ const isSearched = ref(false);
 const getQuizzes = async () => {
   emit('get-quizzes', {
     page: page.value,
-    search: search.value
+    search: search.value,
+    limit: 10
   });
 };
 
@@ -94,9 +98,13 @@ const onDelete = async (id: string) => {
   await store.deleteQuiz(id);
   await getQuizzes();
 };
-const onAddToFavourites = async (quiz: IQuiz) => {
+const onAddToFavourites = async (quiz: QuizDto) => {
   await store.toggleFavouriteQuiz(quiz);
-  emit('toggle-favourites', {});
+  emit('toggle-favourites', {
+    page: page.value,
+    search: search.value,
+    limit: 10
+  });
 };
 
 const onSearch = () => {
@@ -145,8 +153,7 @@ onMounted(() => {
   display: flex;
   gap: 8px;
   align-items: center;
-  margin: 0 auto;
-  margin-bottom: 16px;
+  margin: 0 auto 16px;
   max-width: 800px;
 }
 </style>
