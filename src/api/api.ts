@@ -1,5 +1,3 @@
-// @deprecated TODO выпилить эту апи
-
 import axios from 'axios';
 import { getAuthToken, setAuthToken } from '@/helpers/token-helpers';
 
