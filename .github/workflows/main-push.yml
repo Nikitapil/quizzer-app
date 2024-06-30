@@ -3,8 +3,7 @@ on:
   push:
     branches: [ main ]
 env:
-  VITE_API_BASE_URL: 'https://gamelandia-backend.vercel.app/api'
-  VITE_API_BASE_URL_V2: 'https://gamelandia-backend.vercel.app'
+  VITE_API_BASE_URL: 'https://gamelandia-backend.vercel.app'
 permissions:
   contents: read
   pages: write
