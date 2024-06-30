@@ -14,8 +14,8 @@ import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { useRoute } from 'vue-router';
 import { computed, watch } from 'vue';
 import { useQuizzesStore } from '@/modules/quizes/store/QuizzesStore';
-import type { IGetQuizzesRequest } from '@/modules/quizes/domain/types';
 import QuizzesList from '@/modules/quizes/components/QuizzesList.vue';
+import type { GetAllQuizesDto } from '@/api/swagger/Quizes/data-contracts';
 
 const { t } = useI18n();
 
@@ -37,14 +37,21 @@ const docTitle = computed(() =>
 useBreadCrumbs([BREADCRUMBS.MAIN, dynamicBreadCrumb.value]);
 useDocTitle(t(docTitle.value));
 
-const onGetQuizzes = async (params: IGetQuizzesRequest) => {
-  await quizzesStore.getUserQuizzes(params, route.params.id as string);
+const onGetQuizzes = async (data: GetAllQuizesDto) => {
+  await quizzesStore.getUserQuizzes({
+    data,
+    userId: +route.params.id
+  });
 };
 
 watch(
   () => route.params.id,
   () => {
-    onGetQuizzes({});
+    onGetQuizzes({
+      page: 1,
+      limit: 10,
+      search: ''
+    });
   }
 );
 </script>

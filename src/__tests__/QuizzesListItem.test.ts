@@ -5,15 +5,15 @@ import router from '@/router';
 import { RouterLink } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
 import Tooltip from '@/components/Tooltip.vue';
-import type { IQuiz } from '@/modules/quizes/domain/types';
+import type { QuizDto } from '@/api/swagger/Quizes/data-contracts';
 
 describe('QuizzesList item tests', () => {
-  let quiz: IQuiz;
+  let quiz: QuizDto;
   beforeEach(() => {
     quiz = {
       id: 'string-id',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: '',
+      updatedAt: '',
       name: 'Test quiz',
       isPrivate: false,
       userId: 1,

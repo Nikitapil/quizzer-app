@@ -7,7 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import type { IGetQuizzesRequest } from '@/modules/quizes/domain/types';
 import { useQuizzesStore } from '@/modules/quizes/store/QuizzesStore';
 import QuizzesList from '@/modules/quizes/components/QuizzesList.vue';
 import { useI18n } from 'vue-i18n';
@@ -15,6 +14,7 @@ import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/constants/breadcrumbs';
 import { useDocTitle } from '@/composables/useDocTitle';
 import { useAuthRedirect } from '@/composables/useAuthRedirect';
+import type { GetAllQuizesDto } from '@/api/swagger/Quizes/data-contracts';
 
 const { t } = useI18n();
 
@@ -24,7 +24,7 @@ useAuthRedirect();
 
 const quizzesStore = useQuizzesStore();
 
-const onGetQuizzes = async (params: IGetQuizzesRequest) => {
+const onGetQuizzes = async (params: GetAllQuizesDto) => {
   await quizzesStore.getFavouritesQuizzes(params);
 };
 </script>
