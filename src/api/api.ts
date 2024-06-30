@@ -27,7 +27,7 @@ $api.interceptors.response.use(
         // eslint-disable-next-line no-underscore-dangle
         originalRequest._isRetry = true;
         const response = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/auth/refresh`,
+          `${import.meta.env.VITE_API_BASE_URL}/api/auth/refresh`,
           {
             withCredentials: true
           }
