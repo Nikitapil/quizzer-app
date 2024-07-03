@@ -8,8 +8,8 @@
       <template #default="{ invalid }">
         <div class="input">
           <AppInput
-            :id="`incorrect-${index}-${questionId}`"
             v-model="modelValue"
+            :id="`incorrect-${index}-${questionId}`"
             :placeholder="$t('incorrect_answer_placeholder')"
             :label="`${$t('incorrect_answer_label')}${index + 1}:`"
             :disabled="isLoading"

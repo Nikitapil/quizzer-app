@@ -18,8 +18,8 @@
       >
         <template #default="{ invalid }">
           <AppInput
-            :id="id"
             v-model="inputValue"
+            :id="id"
             :type="inputType"
             :is-error="invalid"
             :disabled="isLoading"

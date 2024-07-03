@@ -13,8 +13,8 @@
         <template #default="{ invalid }">
           <div class="input">
             <AppInput
-              id="email"
               v-model="values.email"
+              id="email"
               :placeholder="$t('email_placeholder')"
               label="Email:"
               :is-error="invalid"
@@ -30,8 +30,8 @@
         <template #default="{ invalid }">
           <div class="input">
             <AppInput
-              id="password"
               v-model="values.password"
+              id="password"
               :placeholder="$t('password_placeholder')"
               type="password"
               :label="$t('password_label')"
@@ -49,8 +49,8 @@
         <template #default="{ invalid }">
           <div class="input">
             <AppInput
-              id="username"
               v-model="values.username"
+              id="username"
               :placeholder="$t('username_placeholder')"
               :label="$t('username_label')"
               :is-error="invalid"

@@ -30,8 +30,8 @@ defineEmits<{
     {{ label }}
   </label>
   <select
-    :id="id"
     v-model="modelValue"
+    :id="id"
     class="input"
     data-test="app-select"
     :disabled="disabled"

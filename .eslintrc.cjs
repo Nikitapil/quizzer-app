@@ -26,10 +26,10 @@ module.exports = {
           'LIST_RENDERING',
           'CONDITIONALS',
           'RENDER_MODIFIERS',
-          'GLOBAL',
           ['UNIQUE', 'SLOT'],
           'TWO_WAY_BINDING',
           'OTHER_DIRECTIVES',
+          'GLOBAL',
           'OTHER_ATTR',
           'EVENTS',
           'CONTENT'

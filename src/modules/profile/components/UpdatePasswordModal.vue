@@ -49,8 +49,8 @@ const onSubmit = async () => {
           <template #default="{ invalid }">
             <div class="input">
               <AppInput
-                id="password"
                 v-model="password"
+                id="password"
                 :placeholder="$t('password_placeholder')"
                 type="password"
                 :label="$t('password_label')"
@@ -68,8 +68,8 @@ const onSubmit = async () => {
           <template #default="{ invalid }">
             <div class="input">
               <AppInput
-                id="repeated-password"
                 v-model="repeatedPassword"
+                id="repeated-password"
                 :placeholder="$t('password_placeholder')"
                 type="password"
                 :label="$t('repeat_password')"

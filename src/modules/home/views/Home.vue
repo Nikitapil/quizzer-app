@@ -20,23 +20,23 @@
     >
       <h2 class="generation-form__title">{{ $t('generate_quiz') }}</h2>
       <AppSelect
-        id="select_category"
         v-model="generateQuizValues.category"
+        id="select_category"
         :options="store.questionCategories"
         :label="$t('select_category')"
         :disabled="store.isLoading"
         @change="onChangeCategory"
       />
       <AppSelect
-        id="select_difficulty"
         v-model="generateQuizValues.difficulty"
+        id="select_difficulty"
         :options="difficultiesOptions"
         :label="$t('select_difficulty')"
         :disabled="store.isLoading"
       />
       <AppSelect
-        id="select_questions_type"
         v-model="generateQuizValues.type"
+        id="select_questions_type"
         :options="questionTypeOptions"
         :label="$t('select_questions_type')"
         :disabled="store.isLoading"
@@ -49,8 +49,8 @@
         <template #default="{ invalid }">
           <div class="amount-input">
             <AppInput
-              id="set_amount_of_questions"
               v-model="generateQuizValues.amount"
+              id="set_amount_of_questions"
               type="number"
               :label="amountLabel"
               :disabled="store.isLoading"

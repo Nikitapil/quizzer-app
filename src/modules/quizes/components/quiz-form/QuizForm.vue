@@ -12,8 +12,8 @@
       <template #default="{ invalid }">
         <div class="input">
           <AppInput
-            id="quiz-name"
             v-model="formValues.name"
+            id="quiz-name"
             :placeholder="$t('quiz_name_placeholder')"
             :label="$t('quiz_name_label')"
             :is-error="invalid"
@@ -23,8 +23,8 @@
       </template>
     </FormField>
     <AppCheckboox
-      id="is-private"
       v-model="formValues.isPrivate"
+      id="is-private"
       :label="$t('access_only_by_link')"
       :disabled="isLoading"
     />

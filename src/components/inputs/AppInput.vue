@@ -8,9 +8,9 @@
     {{ label }}
   </label>
   <input
-    :id="id"
     ref="inputRef"
     v-model="modelValue"
+    :id="id"
     class="input"
     data-test="app-input"
     :class="{ error: isError }"

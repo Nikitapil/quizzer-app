@@ -1,15 +1,33 @@
+<script setup lang="ts">
+import { Icon } from '@iconify/vue';
+
+const modelValue = defineModel<boolean>();
+
+const props = withDefaults(
+  defineProps<{
+    id: string;
+    label: string;
+    disabled?: boolean;
+  }>(),
+  {
+    disabled: false
+  }
+);
+</script>
+
 <template>
   <div>
     <input
-      :id="id"
       v-model="modelValue"
-      :disabled="disabled"
+      :id="props.id"
+      :disabled="props.disabled"
       class="checkbox-input"
       type="checkbox"
     />
+
     <label
       class="label"
-      :for="id"
+      :for="props.id"
     >
       <span class="checkbox">
         <Transition name="checkbox">
@@ -22,27 +40,11 @@
           />
         </Transition>
       </span>
-      <span data-test="checkbox-label">{{ label }}</span>
+
+      <span data-test="checkbox-label">{{ props.label }}</span>
     </label>
   </div>
 </template>
-
-<script setup lang="ts">
-import { Icon } from '@iconify/vue';
-
-const modelValue = defineModel<boolean>();
-
-withDefaults(
-  defineProps<{
-    id: string;
-    label: string;
-    disabled?: boolean;
-  }>(),
-  {
-    disabled: false
-  }
-);
-</script>
 
 <style lang="scss" scoped>
 @import '../../assets/styles/colors';
@@ -77,6 +79,7 @@ withDefaults(
   }
 }
 </style>
+
 <style>
 .checkbox-enter-active,
 .checkbox-leave-active {

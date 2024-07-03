@@ -57,8 +57,8 @@ const onChangePassword = async (newPassword: string) => {
     <div class="profile-item">
       <span class="label">Email:</span>
       <EditableText
-        id="email"
         ref="email"
+        id="email"
         name="email"
         input-type="text"
         rules="email|required"
@@ -70,8 +70,8 @@ const onChangePassword = async (newPassword: string) => {
     <div class="profile-item">
       <span class="label">{{ $t('username_label') }}</span>
       <EditableText
-        id="username"
         ref="username"
+        id="username"
         name="username"
         input-type="text"
         rules="required"

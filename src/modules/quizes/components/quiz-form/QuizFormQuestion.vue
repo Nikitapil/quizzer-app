@@ -25,8 +25,8 @@
       <template #default="{ invalid }">
         <div class="input">
           <AppInput
-            :id="localId"
             v-model="questionFormValues.question"
+            :id="localId"
             :placeholder="$t('question_placeholder')"
             :label="$t('question_label')"
             :is-error="invalid"
@@ -43,8 +43,8 @@
       <template #default="{ invalid }">
         <div class="input">
           <AppInput
-            :id="`correct-${localId}`"
             v-model="questionFormValues.correctAnswer"
+            :id="`correct-${localId}`"
             :placeholder="$t('correct_answer_placeholder')"
             :label="$t('correct_answer_label')"
             :is-error="invalid"

@@ -12,8 +12,8 @@
         <template #default="{ invalid }">
           <div class="input">
             <AppInput
-              id="restore_email"
               v-model="email"
+              id="restore_email"
               :placeholder="$t('email_placeholder')"
               label="Email:"
               :is-error="invalid"

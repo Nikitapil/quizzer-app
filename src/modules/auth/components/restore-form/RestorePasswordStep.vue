@@ -12,8 +12,8 @@
       <template #default="{ invalid }">
         <div class="input">
           <AppInput
-            id="restore_key"
             v-model="secretKey"
+            id="restore_key"
             :placeholder="$t('secret_key_placeholder')"
             type="text"
             :label="$t('secret_key_label')"
@@ -30,8 +30,8 @@
       <template #default="{ invalid }">
         <div class="input">
           <AppInput
-            id="new_password"
             v-model="newPassword"
+            id="new_password"
             :placeholder="$t('new_password_placeholder')"
             type="password"
             :label="$t('new_password_label')"
