@@ -34,8 +34,6 @@ onMounted(() => {
 });
 </script>
 <style lang="scss" scoped>
-@import '../../assets/styles/vars';
-
 .panel {
   width: 100%;
   display: flex;

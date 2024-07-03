@@ -51,7 +51,7 @@ const onChangePassword = async (newPassword: string) => {
 <template>
   <div
     v-if="authStore.user"
-    class="page"
+    class="centered-page page"
   >
     <h2 class="title">{{ $t('profile') }}</h2>
     <div class="profile-item">
@@ -112,15 +112,10 @@ const onChangePassword = async (newPassword: string) => {
 </template>
 
 <style lang="scss" scoped>
-@import '../../../assets/styles/vars';
 @import '../../../assets/styles/colors';
 
 .page {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
-  min-height: $main-height;
+  justify-content: flex-start;
 }
 
 .title {

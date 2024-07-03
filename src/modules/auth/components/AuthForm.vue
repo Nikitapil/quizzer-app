@@ -104,7 +104,6 @@ const onSubmit = async () => {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../assets/styles/vars';
 @import '../../../assets/styles/colors';
 
 .form-container {

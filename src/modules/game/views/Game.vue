@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="centered-page">
     <HorizontalLoader v-if="store.isPageLoading" />
     <h1
       v-else
@@ -167,18 +167,10 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../assets/styles/vars';
-
-.page {
-  min-height: $main-height;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
 .title {
   font-size: 24px;
   font-weight: 700;
+  align-self: flex-start;
 }
 
 .quiz-info {
