@@ -25,7 +25,8 @@ export default defineConfig({
     environment: 'happy-dom',
     coverage: {
       exclude: ['src/api']
-    }
+    },
+    setupFiles: ['vitest.setup.ts']
   },
   resolve: {
     alias: {

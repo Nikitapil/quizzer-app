@@ -17,42 +17,24 @@
         height="24"
       />
     </AppButton>
-    <FormField
+    <AppInput
+      v-model="questionFormValues.question"
+      :id="localId"
       :name="localId"
+      :placeholder="$t('question_placeholder')"
+      :label="$t('question_label')"
+      :disabled="isLoading"
       rules="required"
-      :model-value="questionFormValues.question"
-    >
-      <template #default="{ invalid }">
-        <div class="input">
-          <AppInput
-            v-model="questionFormValues.question"
-            :id="localId"
-            :placeholder="$t('question_placeholder')"
-            :label="$t('question_label')"
-            :is-error="invalid"
-            :disabled="isLoading"
-          />
-        </div>
-      </template>
-    </FormField>
-    <FormField
+    />
+    <AppInput
+      v-model="questionFormValues.correctAnswer"
+      :id="`correct-${localId}`"
       :name="`correct-${localId}`"
+      :placeholder="$t('correct_answer_placeholder')"
+      :label="$t('correct_answer_label')"
+      :disabled="isLoading"
       rules="required"
-      :model-value="questionFormValues.correctAnswer"
-    >
-      <template #default="{ invalid }">
-        <div class="input">
-          <AppInput
-            v-model="questionFormValues.correctAnswer"
-            :id="`correct-${localId}`"
-            :placeholder="$t('correct_answer_placeholder')"
-            :label="$t('correct_answer_label')"
-            :is-error="invalid"
-            :disabled="isLoading"
-          />
-        </div>
-      </template>
-    </FormField>
+    />
     <h4 class="incorrect-title">{{ $t('incorrect_answers') }}</h4>
     <QuizFormIncorrectAnswer
       v-for="(_, index) in questionFormValues.incorrectAnswers"
@@ -76,7 +58,6 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import FormField from '@/components/inputs/FormField.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import type { IQuizFormQuestion } from '@/modules/quizes/domain/types';
 import AppButton from '@/components/AppButton.vue';

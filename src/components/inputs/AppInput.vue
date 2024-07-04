@@ -1,58 +1,40 @@
-<template>
-  <label
-    v-if="label"
-    class="label"
-    data-test="app-input-label"
-    :for="id"
-  >
-    {{ label }}
-  </label>
-  <input
-    ref="inputRef"
-    v-model="modelValue"
-    :id="id"
-    class="input"
-    data-test="app-input"
-    :class="{ error: isError }"
-    :type="type"
-    :placeholder="placeholder"
-    :name="name"
-    :disabled="disabled"
-    @blur="$parent?.$emit('blur')"
-  />
-</template>
-
 <script setup lang="ts">
-import { v4 as uuidv4 } from 'uuid';
+import { type MaybeRef, onMounted, ref } from 'vue';
+import { type RuleExpression, useField } from 'vee-validate';
+
 import type { TInputType } from '@/components/inputs/types';
-import { onMounted, ref } from 'vue';
 
-const modelValue = defineModel();
+import ErrorMessage from '@/components/ErrorMessage.vue';
 
-defineEmits(['blur']);
+const modelValue = defineModel<string | number>();
 
 const props = withDefaults(
   defineProps<{
     type?: TInputType;
     placeholder?: string;
-    isError?: boolean;
-    name?: string;
-    id?: string;
+    name: string;
+    id: string;
     label?: string;
     disabled?: boolean;
     focusOnMount?: boolean;
+    rules?: MaybeRef<RuleExpression<unknown>>;
+    fullWidth?: boolean;
   }>(),
   {
     type: 'text',
     placeholder: '',
-    isError: false,
-    name: '',
-    id: uuidv4(),
-    focusOnMount: false
+    rules: '',
+    focusOnMount: false,
+    fullWidth: false
   }
 );
 
 const inputRef = ref<HTMLInputElement | null>(null);
+
+const { errorMessage, handleBlur } = useField(props.name, props.rules, {
+  syncVModel: true,
+  validateOnValueUpdate: false
+});
 
 onMounted(() => {
   if (props.focusOnMount) {
@@ -60,6 +42,39 @@ onMounted(() => {
   }
 });
 </script>
+
+<template>
+  <div :class="{ full: fullWidth }">
+    <label
+      v-if="label"
+      class="label"
+      data-test="app-input-label"
+      :for="id"
+    >
+      {{ label }}
+    </label>
+
+    <input
+      ref="inputRef"
+      v-model="modelValue"
+      :id="id"
+      class="input"
+      data-test="app-input"
+      :class="{ error: errorMessage, full: fullWidth }"
+      :type="type"
+      :placeholder="placeholder"
+      :name="name"
+      :disabled="disabled"
+      @blur="handleBlur($event, true)"
+    />
+
+    <ErrorMessage
+      v-if="errorMessage"
+      class="mt-s"
+      :message="errorMessage"
+    />
+  </div>
+</template>
 
 <style lang="scss" scoped>
 @import './styles';

@@ -5,59 +5,32 @@
       @submit.prevent="onSubmit"
     >
       <h2 class="title">{{ title }}</h2>
-      <FormField
+      <AppInput
+        v-model="values.email"
+        id="email"
         name="email"
         rules="required|email"
-        :model-value="values.email"
-      >
-        <template #default="{ invalid }">
-          <div class="input">
-            <AppInput
-              v-model="values.email"
-              id="email"
-              :placeholder="$t('email_placeholder')"
-              label="Email:"
-              :is-error="invalid"
-            />
-          </div>
-        </template>
-      </FormField>
-      <FormField
+        :placeholder="$t('email_placeholder')"
+        label="Email:"
+      />
+      <AppInput
+        v-model="values.password"
+        id="password"
         name="password"
         :rules="{ required: true, minLength: 8 }"
-        :model-value="values.password"
-      >
-        <template #default="{ invalid }">
-          <div class="input">
-            <AppInput
-              v-model="values.password"
-              id="password"
-              :placeholder="$t('password_placeholder')"
-              type="password"
-              :label="$t('password_label')"
-              :is-error="invalid"
-            />
-          </div>
-        </template>
-      </FormField>
-      <FormField
+        :placeholder="$t('password_placeholder')"
+        type="password"
+        :label="$t('password_label')"
+      />
+      <AppInput
         v-if="useSignUp"
+        v-model="values.username"
+        id="username"
         name="username"
         rules="required"
-        :model-value="values.username"
-      >
-        <template #default="{ invalid }">
-          <div class="input">
-            <AppInput
-              v-model="values.username"
-              id="username"
-              :placeholder="$t('username_placeholder')"
-              :label="$t('username_label')"
-              :is-error="invalid"
-            />
-          </div>
-        </template>
-      </FormField>
+        :placeholder="$t('username_placeholder')"
+        :label="$t('username_label')"
+      />
       <AppButton
         :text="submitBtnText"
         type="submit"
@@ -70,7 +43,6 @@
 </template>
 
 <script setup lang="ts">
-import FormField from '@/components/inputs/FormField.vue';
 import { ref } from 'vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/AppButton.vue';
@@ -129,12 +101,6 @@ const onSubmit = async () => {
     font-weight: 700;
     align-self: center;
     color: $color-white;
-  }
-
-  .input {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
   }
 }
 

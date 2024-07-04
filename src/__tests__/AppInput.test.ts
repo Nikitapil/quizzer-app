@@ -1,10 +1,15 @@
-import { describe } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import AppInput from '../components/inputs/AppInput.vue';
 
 describe('AppInput component test', () => {
   it('should render input without label', () => {
-    const wrapper = mount(AppInput);
+    const wrapper = mount(AppInput, {
+      props: {
+        name: 'test-name',
+        id: 'test-id'
+      }
+    });
 
     const input = wrapper.get('[data-test="app-input"]');
 
@@ -40,22 +45,14 @@ describe('AppInput component test', () => {
     expect(label.attributes('for')).toBe('test-input-id');
   });
 
-  it('should render with error class', () => {
-    const wrapper = mount(AppInput, {
-      props: {
-        placeholder: 'Test placeholder',
-        isError: true
-      }
-    });
-    const input = wrapper.get('[data-test="app-input"]');
-    expect(input.classes()).toContain('error');
-  });
-
   it('should handle update modelValue', async () => {
     const wrapper = mount(AppInput, {
       props: {
         modelValue: '',
-        'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e })
+        name: 'test-name',
+        id: 'test-id',
+        'onUpdate:modelValue': (e: string) =>
+          wrapper.setProps({ modelValue: e })
       }
     });
     const input = wrapper.get('[data-test="app-input"]');
@@ -70,7 +67,10 @@ describe('AppInput component test', () => {
     const wrapper = mount(AppInput, {
       props: {
         modelValue: '',
-        'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e }),
+        name: 'test-name',
+        id: 'test-id',
+        'onUpdate:modelValue': (e: string) =>
+          wrapper.setProps({ modelValue: e }),
         focusOnMount: true
       },
       attachTo: document.body

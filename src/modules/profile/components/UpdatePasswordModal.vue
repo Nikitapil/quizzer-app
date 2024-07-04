@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import AppModal from '@/components/AppModal.vue';
-import FormField from '@/components/inputs/FormField.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import { ref } from 'vue';
 import AppButton from '@/components/AppButton.vue';
@@ -41,44 +40,26 @@ const onSubmit = async () => {
         class="form"
         @submit.prevent="onSubmit"
       >
-        <FormField
+        <AppInput
+          v-model="password"
+          id="password"
+          :placeholder="$t('password_placeholder')"
+          type="password"
           name="password"
           :rules="{ required: true, minLength: 8 }"
-          :model-value="password"
-        >
-          <template #default="{ invalid }">
-            <div class="input">
-              <AppInput
-                v-model="password"
-                id="password"
-                :placeholder="$t('password_placeholder')"
-                type="password"
-                :label="$t('password_label')"
-                :is-error="invalid"
-                :disabled="isLoading"
-              />
-            </div>
-          </template>
-        </FormField>
-        <FormField
+          :label="$t('password_label')"
+          :disabled="isLoading"
+        />
+        <AppInput
+          v-model="repeatedPassword"
+          id="repeated-password"
+          :placeholder="$t('password_placeholder')"
+          type="password"
           name="repeated-password"
-          :rules="{ isEqual: password }"
-          :model-value="repeatedPassword"
-        >
-          <template #default="{ invalid }">
-            <div class="input">
-              <AppInput
-                v-model="repeatedPassword"
-                id="repeated-password"
-                :placeholder="$t('password_placeholder')"
-                type="password"
-                :label="$t('repeat_password')"
-                :is-error="invalid"
-                :disabled="isLoading"
-              />
-            </div>
-          </template>
-        </FormField>
+          rules="confirmed:password"
+          :label="$t('repeat_password')"
+          :disabled="isLoading"
+        />
         <div class="controls">
           <AppButton
             full

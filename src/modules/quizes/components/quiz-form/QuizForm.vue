@@ -4,24 +4,16 @@
     @submit.prevent="onSubmit"
   >
     <h2 class="title">{{ title }}</h2>
-    <FormField
-      name="quiz-name"
+    <AppInput
+      v-model="formValues.name"
+      id="quiz-name"
+      name="name"
       rules="required"
-      :model-value="formValues.name"
-    >
-      <template #default="{ invalid }">
-        <div class="input">
-          <AppInput
-            v-model="formValues.name"
-            id="quiz-name"
-            :placeholder="$t('quiz_name_placeholder')"
-            :label="$t('quiz_name_label')"
-            :is-error="invalid"
-            :disabled="isLoading"
-          />
-        </div>
-      </template>
-    </FormField>
+      :placeholder="$t('quiz_name_placeholder')"
+      :label="$t('quiz_name_label')"
+      :disabled="isLoading"
+    />
+
     <AppCheckboox
       v-model="formValues.isPrivate"
       id="is-private"
@@ -55,7 +47,6 @@
 </template>
 
 <script setup lang="ts">
-import FormField from '@/components/inputs/FormField.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import { onMounted, ref } from 'vue';
 import AppCheckboox from '@/components/inputs/AppCheckbox.vue';

@@ -4,42 +4,26 @@
     @submit.prevent="onSubmit"
   >
     <p class="restore-key-description">{{ $t('secret_key_description') }}</p>
-    <FormField
+    <AppInput
+      v-model="secretKey"
+      id="restore_key"
       name="restore_key"
-      :rules="{ required: true }"
-      :model-value="secretKey"
-    >
-      <template #default="{ invalid }">
-        <div class="input">
-          <AppInput
-            v-model="secretKey"
-            id="restore_key"
-            :placeholder="$t('secret_key_placeholder')"
-            type="text"
-            :label="$t('secret_key_label')"
-            :is-error="invalid"
-          />
-        </div>
-      </template>
-    </FormField>
-    <FormField
+      rules="required"
+      full-width
+      :placeholder="$t('secret_key_placeholder')"
+      type="text"
+      :label="$t('secret_key_label')"
+    />
+    <AppInput
+      v-model="newPassword"
+      id="new_password"
       name="new_password"
+      full-width
+      :placeholder="$t('new_password_placeholder')"
       :rules="{ required: true, minLength: 8 }"
-      :model-value="newPassword"
-    >
-      <template #default="{ invalid }">
-        <div class="input">
-          <AppInput
-            v-model="newPassword"
-            id="new_password"
-            :placeholder="$t('new_password_placeholder')"
-            type="password"
-            :label="$t('new_password_label')"
-            :is-error="invalid"
-          />
-        </div>
-      </template>
-    </FormField>
+      type="password"
+      :label="$t('new_password_label')"
+    />
     <AppButton
       full
       type="submit"
@@ -49,7 +33,6 @@
 </template>
 
 <script setup lang="ts">
-import FormField from '@/components/inputs/FormField.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import { ref } from 'vue';
 import AppButton from '@/components/AppButton.vue';

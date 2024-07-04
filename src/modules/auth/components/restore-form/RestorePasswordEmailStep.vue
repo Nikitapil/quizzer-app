@@ -4,23 +4,16 @@
       class="form"
       @submit.prevent="onSubmit"
     >
-      <FormField
+      <AppInput
+        v-model="email"
+        id="restore_email"
         name="restore_email"
         rules="required|email"
-        :model-value="email"
-      >
-        <template #default="{ invalid }">
-          <div class="input">
-            <AppInput
-              v-model="email"
-              id="restore_email"
-              :placeholder="$t('email_placeholder')"
-              label="Email:"
-              :is-error="invalid"
-            />
-          </div>
-        </template>
-      </FormField>
+        full-width
+        :placeholder="$t('email_placeholder')"
+        label="Email:"
+      />
+
       <AppButton
         :text="$t('next')"
         type="submit"
@@ -31,10 +24,9 @@
 
 <script setup lang="ts">
 import AppInput from '@/components/inputs/AppInput.vue';
-import FormField from '@/components/inputs/FormField.vue';
 import { ref } from 'vue';
-import AppButton from '@/components/AppButton.vue';
 import { useFormValidate } from '@/composables/useFormValidate';
+import AppButton from '@/components/AppButton.vue';
 
 const emit = defineEmits<{
   submit: [email: string];

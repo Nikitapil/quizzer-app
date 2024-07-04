@@ -8,6 +8,9 @@
     >
       <AppInput
         v-model="search"
+        id="search"
+        name="search"
+        full-width
         :placeholder="$t('search')"
       />
       <AppButton

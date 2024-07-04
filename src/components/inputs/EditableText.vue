@@ -11,22 +11,15 @@
       class="form"
       @submit.prevent="onSubmit"
     >
-      <FormField
+      <AppInput
+        v-model="inputValue"
+        :id="id"
         :name="name"
+        :type="inputType"
+        :disabled="isLoading"
         :rules="rules"
-        :model-value="inputValue"
-      >
-        <template #default="{ invalid }">
-          <AppInput
-            v-model="inputValue"
-            :id="id"
-            :type="inputType"
-            :is-error="invalid"
-            :disabled="isLoading"
-            focus-on-mount
-          />
-        </template>
-      </FormField>
+        focus-on-mount
+      />
       <Tooltip :tip="$t('save')">
         <AppButton
           class="p-5"
@@ -68,7 +61,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import AppInput from '@/components/inputs/AppInput.vue';
-import FormField from '@/components/inputs/FormField.vue';
 import type { RuleExpression } from 'vee-validate';
 import type { TInputType } from '@/components/inputs/types';
 import AppButton from '@/components/AppButton.vue';

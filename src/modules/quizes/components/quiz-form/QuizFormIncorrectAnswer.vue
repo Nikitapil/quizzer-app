@@ -1,23 +1,15 @@
 <template>
   <div class="incorrect-answer">
-    <FormField
+    <AppInput
+      v-model="modelValue"
+      :id="`incorrect-${index}-${questionId}`"
       :name="`incorrect-${index}-${questionId}`"
+      :placeholder="$t('incorrect_answer_placeholder')"
+      :label="`${$t('incorrect_answer_label')}${index + 1}:`"
+      :disabled="isLoading"
+      full-width
       rules="required"
-      :model-value="modelValue"
-    >
-      <template #default="{ invalid }">
-        <div class="input">
-          <AppInput
-            v-model="modelValue"
-            :id="`incorrect-${index}-${questionId}`"
-            :placeholder="$t('incorrect_answer_placeholder')"
-            :label="`${$t('incorrect_answer_label')}${index + 1}:`"
-            :disabled="isLoading"
-            :is-error="invalid"
-          />
-        </div>
-      </template>
-    </FormField>
+    />
     <AppButton
       v-if="index > 0"
       class="delete-btn"
@@ -37,7 +29,6 @@
 </template>
 
 <script setup lang="ts">
-import FormField from '@/components/inputs/FormField.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/AppButton.vue';
 import { Icon } from '@iconify/vue';

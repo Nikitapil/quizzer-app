@@ -49,10 +49,10 @@ export const validators = () => {
     return true;
   });
 
-  defineRule('isEqual', (value: string, [param]: [string]) => {
-    if (value !== param) {
-      return i18n.global.t('passwords_should_be_equal');
+  defineRule('confirmed', (value, [target]: any[], ctx) => {
+    if (value === ctx.form[target]) {
+      return true;
     }
-    return true;
+    return i18n.global.t('passwords_should_be_equal');
   });
 };

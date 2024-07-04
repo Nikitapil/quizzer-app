@@ -41,24 +41,21 @@
         :label="$t('select_questions_type')"
         :disabled="store.isLoading"
       />
-      <FormField
+      <AppInput
+        v-model="generateQuizValues.amount"
+        id="set_amount_of_questions"
+        class="amount-input"
         name="questions-amount"
-        :rules="{ max_value: maxQuestionsCount, min_value: 1, required: true }"
-        :modelValue="generateQuizValues.amount"
-      >
-        <template #default="{ invalid }">
-          <div class="amount-input">
-            <AppInput
-              v-model="generateQuizValues.amount"
-              id="set_amount_of_questions"
-              type="number"
-              :label="amountLabel"
-              :disabled="store.isLoading"
-              :is-error="invalid"
-            />
-          </div>
-        </template>
-      </FormField>
+        type="number"
+        full-width
+        :rules="{
+          max_value: maxQuestionsCount,
+          min_value: 1,
+          required: true
+        }"
+        :label="amountLabel"
+        :disabled="store.isLoading"
+      />
       <AppButton
         full
         type="submit"
@@ -83,7 +80,6 @@ import type {
   IQuestionsCount
 } from '@/modules/home/domain/types';
 import { useI18n } from 'vue-i18n';
-import FormField from '@/components/inputs/FormField.vue';
 import AppButton from '@/components/AppButton.vue';
 import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
@@ -169,12 +165,9 @@ onMounted(async () => {
   }
 }
 
-.amount-input {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
+.amount-input:deep(label) {
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .create-button {
