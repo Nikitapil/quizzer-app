@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { v4 as uuidv4 } from 'uuid';
 import type { IOption } from '@/types/types';
+
 const modelValue = defineModel<string>({ default: '' });
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     options: IOption[];
     id?: string;
@@ -22,23 +23,24 @@ defineEmits<{
 
 <template>
   <label
-    v-if="label"
+    v-if="props.label"
     class="label"
     data-test="app-select-label"
-    :for="id"
+    :for="props.id"
   >
-    {{ label }}
+    {{ props.label }}
   </label>
+
   <select
     v-model="modelValue"
-    :id="id"
-    class="input"
+    :id="props.id"
+    class="input cursor-pointer"
     data-test="app-select"
-    :disabled="disabled"
+    :disabled="props.disabled"
     @change="$emit('change', modelValue)"
   >
     <option
-      v-for="option in options"
+      v-for="option in props.options"
       :key="option.value"
       :value="option.value"
     >
