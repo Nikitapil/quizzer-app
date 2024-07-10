@@ -1,84 +1,31 @@
-<template>
-  <div class="editable-text">
-    <p
-      v-if="!isFormOpened"
-      class="text"
-    >
-      {{ text }}
-    </p>
-    <form
-      v-else
-      class="form"
-      @submit.prevent="onSubmit"
-    >
-      <AppInput
-        v-model="inputValue"
-        :id="id"
-        :name="name"
-        :type="inputType"
-        :disabled="isLoading"
-        :rules="rules"
-        focus-on-mount
-      />
-      <Tooltip :tip="$t('save')">
-        <AppButton
-          class="p-5"
-          type="submit"
-          appearence="transparent"
-          data-test="submit-button"
-          with-icon
-          :disabled="isLoading"
-        >
-          <Icon
-            icon="simple-line-icons:check"
-            color="#0ba360"
-            width="24px"
-            height="24px"
-          />
-        </AppButton>
-      </Tooltip>
-    </form>
-    <Tooltip :tip="editButtonIcon.tip">
-      <AppButton
-        class="p-5"
-        with-icon
-        data-test="toggle-button"
-        appearence="transparent"
-        :disabled="isLoading"
-        @click="toggleForm"
-      >
-        <Icon
-          :icon="editButtonIcon.icon"
-          :color="editButtonIcon.color"
-          width="24px"
-          height="24px"
-        />
-      </AppButton>
-    </Tooltip>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import AppInput from '@/components/inputs/AppInput.vue';
+
 import type { RuleExpression } from 'vee-validate';
 import type { TInputType } from '@/components/inputs/types';
-import AppButton from '@/components/AppButton.vue';
-import { Icon } from '@iconify/vue';
+
 import { useFormValidate } from '@/composables/useFormValidate';
-import Tooltip from '@/components/Tooltip.vue';
 import { useI18n } from 'vue-i18n';
+
+import AppInput from '@/components/inputs/AppInput.vue';
+import Tooltip from '@/components/Tooltip.vue';
+import IconButton from '@/components/IconButton.vue';
 
 const { t } = useI18n();
 
-const props = defineProps<{
-  text: string;
-  name: string;
-  rules?: string | RuleExpression<unknown>;
-  id: string;
-  isLoading: boolean;
-  inputType: TInputType;
-}>();
+const props = withDefaults(
+  defineProps<{
+    text: string;
+    name: string;
+    id: string;
+    isLoading: boolean;
+    inputType: TInputType;
+    rules?: string | RuleExpression<unknown>;
+  }>(),
+  {
+    rules: ''
+  }
+);
 
 const emit = defineEmits<{
   'submit-handler': [value: string];
@@ -105,6 +52,7 @@ const editButtonIcon = computed(() =>
 
 const toggleForm = () => {
   isFormOpened.value = !isFormOpened.value;
+
   if (isFormOpened.value) {
     inputValue.value = props.text;
   }
@@ -112,6 +60,7 @@ const toggleForm = () => {
 
 const onSubmit = async () => {
   const { valid } = await validate();
+
   if (valid) {
     emit('submit-handler', inputValue.value);
   }
@@ -122,20 +71,66 @@ defineExpose({
 });
 </script>
 
+<template>
+  <div class="editable-text">
+    <p
+      v-if="!isFormOpened"
+      class="text"
+    >
+      {{ text }}
+    </p>
+
+    <form
+      v-else
+      class="form"
+      @submit.prevent="onSubmit"
+    >
+      <AppInput
+        v-model="inputValue"
+        :id="id"
+        :name="name"
+        :type="inputType"
+        :disabled="isLoading"
+        :rules="rules"
+        focus-on-mount
+      />
+
+      <Tooltip :tip="$t('save')">
+        <IconButton
+          type="submit"
+          icon="simple-line-icons:check"
+          color="#0ba360"
+          data-test="submit-button"
+          :disabled="isLoading"
+        />
+      </Tooltip>
+    </form>
+
+    <Tooltip :tip="editButtonIcon.tip">
+      <IconButton
+        :icon="editButtonIcon.icon"
+        :color="editButtonIcon.color"
+        data-test="toggle-button"
+        :disabled="isLoading"
+        @click="toggleForm"
+      />
+    </Tooltip>
+  </div>
+</template>
+
 <style lang="scss" scoped>
-.editable-text {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.text {
-  font-size: 20px;
-}
-
+.editable-text,
 .form {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.editable-text {
+  min-height: 40px;
+}
+
+.text {
+  font-size: 20px;
 }
 </style>

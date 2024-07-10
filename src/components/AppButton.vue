@@ -16,10 +16,12 @@
 </template>
 
 <script setup lang="ts">
+import type { ButtonType } from '@/components/domain';
+
 withDefaults(
   defineProps<{
     text?: string | number;
-    type?: 'button' | 'submit';
+    type?: ButtonType;
     full?: boolean;
     size?: 'sm' | 'md' | 'lg';
     disabled?: boolean;
@@ -118,7 +120,7 @@ defineEmits(['click']);
 
   &.with-icon {
     line-height: 0;
-    padding: 0;
+    padding: 3px;
   }
 }
 </style>
