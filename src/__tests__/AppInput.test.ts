@@ -1,16 +1,24 @@
 import { describe, it, expect } from 'vitest';
-import { mount } from '@vue/test-utils';
+import { flushPromises, mount } from '@vue/test-utils';
 import AppInput from '../components/inputs/AppInput.vue';
+import ErrorMessage from '@/components/ErrorMessage.vue';
 
 describe('AppInput component test', () => {
-  it('should render input without label', () => {
-    const wrapper = mount(AppInput, {
-      props: {
-        name: 'test-name',
-        id: 'test-id'
-      }
-    });
+  const defaultProps = {
+    name: 'test-name',
+    id: 'test-id',
+    'onUpdate:modelValue': (e: string) => wrapper.setProps({ modelValue: e })
+  };
 
+  const wrapper = mount(AppInput, {
+    props: defaultProps
+  });
+
+  beforeEach(async () => {
+    await wrapper.setProps(defaultProps);
+  });
+
+  it('should render input without label', () => {
     const input = wrapper.get('[data-test="app-input"]');
 
     const label = wrapper.find('label');
@@ -19,42 +27,38 @@ describe('AppInput component test', () => {
     expect(label.exists()).toBeFalsy();
   });
 
-  it('should render input with correct props', () => {
-    const wrapper = mount(AppInput, {
-      props: {
-        type: 'email',
-        placeholder: 'Test placeholder',
-        isError: false,
-        name: 'test-input',
-        id: 'test-input-id',
-        label: 'super test',
-        disabled: false
-      }
-    });
+  it('should render input with correct props', async () => {
+    const props = {
+      type: 'email',
+      placeholder: 'Test placeholder',
+      name: 'test-input',
+      id: 'test-input-id',
+      label: 'super test',
+      disabled: false
+    } as const;
+
+    await wrapper.setProps(props);
 
     const input = wrapper.get('[data-test="app-input"]');
 
     const label = wrapper.get('[data-test="app-input-label"]');
 
-    expect(input.attributes('type')).toBe('email');
-    expect(label.text()).toBe('super test');
-    expect(input.attributes('placeholder')).toBe('Test placeholder');
+    expect(input.attributes('type')).toBe(props.type);
+    expect(label.text()).toBe(props.label);
+    expect(input.attributes('placeholder')).toBe(props.placeholder);
     expect(input.classes()).not.toContain('error');
-    expect(input.attributes('name')).toBe('test-input');
-    expect(input.attributes('id')).toBe('test-input-id');
-    expect(label.attributes('for')).toBe('test-input-id');
+    expect(input.attributes('name')).toBe(props.name);
+    expect(input.attributes('id')).toBe(props.id);
+    expect(label.attributes('for')).toBe(props.id);
   });
 
   it('should handle update modelValue', async () => {
-    const wrapper = mount(AppInput, {
-      props: {
-        modelValue: '',
-        name: 'test-name',
-        id: 'test-id',
-        'onUpdate:modelValue': (e: string) =>
-          wrapper.setProps({ modelValue: e })
-      }
+    await wrapper.setProps({
+      modelValue: '',
+      name: 'test-name',
+      id: 'test-id'
     });
+
     const input = wrapper.get('[data-test="app-input"]');
 
     await input.setValue('test');
@@ -78,5 +82,32 @@ describe('AppInput component test', () => {
     const input = wrapper.get('[data-test="app-input"]');
 
     expect(input.element).toBe(document.activeElement);
+  });
+
+  test('should validate correct', async () => {
+    const wrapper = mount(AppInput, {
+      props: {
+        id: 'test-input',
+        name: 'test-input',
+        rules: 'required',
+        modelValue: '',
+        'onUpdate:modelValue': (e: string) =>
+          wrapper.setProps({ modelValue: e })
+      }
+    });
+
+    const input = wrapper.find('input');
+
+    await input.trigger('focus');
+
+    await input.trigger('blur');
+
+    await flushPromises();
+
+    const error = wrapper.findComponent(ErrorMessage);
+
+    expect(input.classes()).toContain('error');
+    expect(error.exists()).toBe(true);
+    expect(error.text()).toBe('Field is required');
   });
 });
