@@ -17,13 +17,18 @@ describe('AppSelect tests', () => {
     }
   ];
 
-  it('should render select without label', () => {
-    const wrapper = mount(AppSelect, {
-      props: {
-        options
-      }
-    });
+  const wrapper = mount(AppSelect, {
+    props: {
+      options,
+      'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e })
+    }
+  });
 
+  beforeEach(async () => {
+    await wrapper.setProps({ options });
+  });
+
+  it('should render select without label', () => {
     const select = wrapper.get('[data-test="app-select"]');
     const label = wrapper.find('[data-test="app-select-label"]');
 
@@ -31,41 +36,25 @@ describe('AppSelect tests', () => {
     expect(label.exists()).toBeFalsy();
   });
 
-  it('should render select with label', () => {
-    const wrapper = mount(AppSelect, {
-      props: {
-        options,
-        label: 'Test label'
-      }
-    });
+  it('should render select with label', async () => {
+    const labelText = 'Test label';
+    await wrapper.setProps({ label: labelText });
 
     const select = wrapper.get('[data-test="app-select"]');
     const label = wrapper.get('[data-test="app-select-label"]');
 
     expect(select.classes()).toContain('input');
-    expect(label.text()).toBe('Test label');
+    expect(label.text()).toBe(labelText);
   });
 
   it('should contain 3 options', () => {
-    const wrapper = mount(AppSelect, {
-      props: {
-        options
-      }
-    });
-
     const optionsEls = wrapper.findAll('option');
 
-    expect(optionsEls).toHaveLength(3);
+    expect(optionsEls).toHaveLength(options.length);
   });
 
   it('should handle select change', async () => {
-    const wrapper = mount(AppSelect, {
-      props: {
-        options,
-        modelValue: 'option_1',
-        'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e })
-      }
-    });
+    await wrapper.setProps({ modelValue: 'option_1' });
 
     const select = wrapper.get('[data-test="app-select"]');
 
