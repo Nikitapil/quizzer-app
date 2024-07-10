@@ -44,14 +44,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div :class="{ full: fullWidth }">
+  <div :class="{ full: props.fullWidth }">
     <label
-      v-if="label"
+      v-if="props.label"
       class="label"
       data-test="app-input-label"
       :for="id"
     >
-      {{ label }}
+      {{ props.label }}
     </label>
 
     <input
@@ -60,11 +60,11 @@ onMounted(() => {
       :id="id"
       class="input"
       data-test="app-input"
-      :class="{ error: errorMessage, full: fullWidth }"
-      :type="type"
-      :placeholder="placeholder"
-      :name="name"
-      :disabled="disabled"
+      :class="{ error: errorMessage, full: props.fullWidth }"
+      :type="props.type"
+      :placeholder="props.placeholder"
+      :name="props.name"
+      :disabled="props.disabled"
       @blur="handleBlur($event, true)"
     />
 
