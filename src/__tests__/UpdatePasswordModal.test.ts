@@ -1,6 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import UpdatePasswordModal from '@/modules/profile/components/UpdatePasswordModal.vue';
-import { i18n } from '@/main';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/AppButton.vue';
 
@@ -10,9 +9,6 @@ describe('UpdatePasswordModal components tests', () => {
       props: {
         modelValue: true,
         isLoading: false
-      },
-      global: {
-        plugins: [i18n]
       }
     });
 
@@ -69,9 +65,6 @@ describe('UpdatePasswordModal components tests', () => {
       props: {
         modelValue: true,
         isLoading: true
-      },
-      global: {
-        plugins: [i18n]
       }
     });
 

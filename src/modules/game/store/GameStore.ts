@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 import type { PlayQuizDto } from '@/api/swagger/Quizes/data-contracts';
 import { useApiMethod } from '@/api/useApiMethod';
 import { quizApi } from '@/api/apiInstances';
-import { i18n } from '@/main';
+import { i18n } from '@/plugins/i18n';
 
 export const useGameStore = defineStore('game', () => {
   const game = ref<PlayQuizDto | null>(null);

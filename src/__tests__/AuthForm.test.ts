@@ -1,6 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import AuthForm from '@/modules/auth/components/AuthForm.vue';
-import { i18n } from '@/main';
 import router from '@/router';
 
 describe('AuthForm component tests', () => {
@@ -12,7 +11,7 @@ describe('AuthForm component tests', () => {
         useSignUp: false
       },
       global: {
-        plugins: [i18n, router]
+        plugins: [router]
       }
     });
 
@@ -31,7 +30,7 @@ describe('AuthForm component tests', () => {
         useSignUp: true
       },
       global: {
-        plugins: [i18n, router]
+        plugins: [router]
       }
     });
 
@@ -50,7 +49,7 @@ describe('AuthForm component tests', () => {
         useSignUp: true
       },
       global: {
-        plugins: [i18n, router]
+        plugins: [router]
       }
     });
 

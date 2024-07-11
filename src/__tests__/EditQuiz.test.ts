@@ -3,7 +3,6 @@ import { useQuizFormStore } from '@/modules/quizes/store/QuizFormStore';
 import { mount } from '@vue/test-utils';
 import EditQuiz from '@/modules/quizes/views/EditQuiz.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
-import { i18n } from '@/main';
 import router from '@/router';
 import QuizForm from '@/modules/quizes/components/quiz-form/QuizForm.vue';
 import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
@@ -26,7 +25,7 @@ describe('Edit quiz page test', () => {
 
     const wrapper = mount(EditQuiz, {
       global: {
-        plugins: [i18n, pinia, router]
+        plugins: [pinia, router]
       }
     });
 
@@ -50,7 +49,7 @@ describe('Edit quiz page test', () => {
 
     const wrapper = mount(EditQuiz, {
       global: {
-        plugins: [i18n, pinia, router]
+        plugins: [pinia, router]
       }
     });
 
@@ -96,7 +95,7 @@ describe('Edit quiz page test', () => {
 
     const wrapper = mount(EditQuiz, {
       global: {
-        plugins: [i18n, pinia, router]
+        plugins: [pinia, router]
       }
     });
 

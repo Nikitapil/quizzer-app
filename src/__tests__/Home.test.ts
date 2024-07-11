@@ -2,7 +2,6 @@ import { createTestingPinia } from '@pinia/testing';
 import { useHomeStore } from '@/modules/home/store/HomeStore';
 import { flushPromises, mount } from '@vue/test-utils';
 import Home from '@/modules/home/views/Home.vue';
-import { i18n } from '@/main';
 import router from '@/router';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { ERoutesNames } from '@/router/routes-names';
@@ -26,7 +25,7 @@ describe('Home component tests', () => {
   it('should render only generation form', async () => {
     const wrapper = mount(Home, {
       global: {
-        plugins: [i18n, router, pinia]
+        plugins: [router, pinia]
       }
     });
 
@@ -42,7 +41,7 @@ describe('Home component tests', () => {
   it('should render create btn if authenticated', async () => {
     const wrapper = mount(Home, {
       global: {
-        plugins: [i18n, router, pinia]
+        plugins: [router, pinia]
       }
     });
 
@@ -67,7 +66,7 @@ describe('Home component tests', () => {
   it('should redirect to quiz page after generating', async () => {
     const wrapper = mount(Home, {
       global: {
-        plugins: [i18n, router, pinia]
+        plugins: [router, pinia]
       }
     });
 

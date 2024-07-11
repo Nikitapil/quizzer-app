@@ -1,6 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import SignIn from '@/modules/auth/views/SignIn.vue';
-import { i18n } from '@/main';
 import router from '@/router';
 import { createTestingPinia } from '@pinia/testing';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
@@ -12,7 +11,7 @@ describe('SignIn component tests', () => {
   it('should render loader if auth isLoading', () => {
     const wrapper = mount(SignIn, {
       global: {
-        plugins: [i18n, router, createTestingPinia()]
+        plugins: [router, createTestingPinia()]
       }
     });
 
@@ -24,7 +23,7 @@ describe('SignIn component tests', () => {
   it('should render sign in form', async () => {
     const wrapper = mount(SignIn, {
       global: {
-        plugins: [i18n, router, createTestingPinia()]
+        plugins: [router, createTestingPinia()]
       }
     });
 
@@ -44,7 +43,7 @@ describe('SignIn component tests', () => {
   it('should redirect if is authenticated', async () => {
     mount(SignIn, {
       global: {
-        plugins: [i18n, router, createTestingPinia()]
+        plugins: [router, createTestingPinia()]
       }
     });
 
@@ -66,7 +65,7 @@ describe('SignIn component tests', () => {
   it('should render restore password button', async () => {
     const wrapper = mount(SignIn, {
       global: {
-        plugins: [i18n, router, createTestingPinia()]
+        plugins: [router, createTestingPinia()]
       }
     });
 
@@ -84,7 +83,7 @@ describe('SignIn component tests', () => {
   it('should navigate to sign up page', async () => {
     const wrapper = mount(SignIn, {
       global: {
-        plugins: [i18n, router, createTestingPinia()]
+        plugins: [router, createTestingPinia()]
       }
     });
 
@@ -106,7 +105,7 @@ describe('SignIn component tests', () => {
   it('should call store login function on login', async () => {
     const wrapper = mount(SignIn, {
       global: {
-        plugins: [i18n, router, createTestingPinia()]
+        plugins: [router, createTestingPinia()]
       }
     });
 
@@ -146,7 +145,7 @@ describe('SignIn component tests', () => {
     store.isLoading = false;
     const wrapper = mount(SignIn, {
       global: {
-        plugins: [i18n, router, pinia]
+        plugins: [router, pinia]
       }
     });
 

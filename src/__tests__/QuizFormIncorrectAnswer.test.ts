@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils';
 import QuizFormIncorrectAnswer from '@/modules/quizes/components/quiz-form/QuizFormIncorrectAnswer.vue';
-import { i18n } from '@/main';
 import AppButton from '@/components/AppButton.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 
@@ -11,9 +10,6 @@ describe('QuizFormIncorrectAnswer component tests', () => {
         index: 0,
         questionId: '123',
         isLoading: false
-      },
-      global: {
-        plugins: [i18n]
       }
     });
 
@@ -28,9 +24,6 @@ describe('QuizFormIncorrectAnswer component tests', () => {
         index: 1,
         questionId: '123',
         isLoading: false
-      },
-      global: {
-        plugins: [i18n]
       }
     });
 
@@ -45,9 +38,6 @@ describe('QuizFormIncorrectAnswer component tests', () => {
         index: 1,
         questionId: '123',
         isLoading: true
-      },
-      global: {
-        plugins: [i18n]
       }
     });
 
@@ -64,9 +54,6 @@ describe('QuizFormIncorrectAnswer component tests', () => {
         index: 1,
         questionId: '123',
         isLoading: false
-      },
-      global: {
-        plugins: [i18n]
       }
     });
 

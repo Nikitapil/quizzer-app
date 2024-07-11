@@ -1,17 +1,21 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import NavBar from '@/modules/app/components/app-header/NavBar.vue';
-import { i18n } from '@/main';
 import router from '@/router';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { RouterLink } from 'vue-router';
 import { createTestingPinia } from '@pinia/testing';
 import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
+import { createPinia, setActivePinia } from 'pinia';
 
 describe('NavBar tests', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia());
+  });
+
   it('should render loader if authLoading', () => {
     const wrapper = mount(NavBar, {
       global: {
-        plugins: [i18n, router]
+        plugins: [router]
       }
     });
     const store = useAuthStore();
@@ -25,7 +29,7 @@ describe('NavBar tests', () => {
   it('should render auth links', async () => {
     const wrapper = mount(NavBar, {
       global: {
-        plugins: [i18n, router, createTestingPinia()]
+        plugins: [router, createTestingPinia()]
       }
     });
     const store = useAuthStore();
@@ -41,7 +45,7 @@ describe('NavBar tests', () => {
   it('should render user links', async () => {
     const wrapper = mount(NavBar, {
       global: {
-        plugins: [i18n, router, createTestingPinia()]
+        plugins: [router, createTestingPinia()]
       }
     });
     const store = useAuthStore();
@@ -83,7 +87,7 @@ describe('NavBar tests', () => {
 
     const wrapper = mount(NavBar, {
       global: {
-        plugins: [i18n, router, pinia]
+        plugins: [router, pinia]
       }
     });
 

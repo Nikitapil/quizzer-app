@@ -1,6 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import QuizzesListItem from '@/modules/quizes/components/QuizzesListItem.vue';
-import { i18n } from '@/main';
 import router from '@/router';
 import { RouterLink } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
@@ -26,7 +25,7 @@ describe('QuizzesList item tests', () => {
   it('should not render quiz rating if it does not exists', () => {
     const wrapper = mount(QuizzesListItem, {
       global: {
-        plugins: [i18n, router]
+        plugins: [router]
       },
       props: {
         quiz,
@@ -45,7 +44,7 @@ describe('QuizzesList item tests', () => {
   it('should render quiz rating if rating in quiz', () => {
     const wrapper = mount(QuizzesListItem, {
       global: {
-        plugins: [i18n, router]
+        plugins: [router]
       },
       props: {
         quiz: { ...quiz, rating: 5 },
@@ -64,7 +63,7 @@ describe('QuizzesList item tests', () => {
   it('should not render quiz author if no author in quiz', () => {
     const wrapper = mount(QuizzesListItem, {
       global: {
-        plugins: [i18n, router]
+        plugins: [router]
       },
       props: {
         quiz: { ...quiz, author: null },
@@ -83,7 +82,7 @@ describe('QuizzesList item tests', () => {
   it('should render quiz author if author in quiz', async () => {
     const wrapper = mount(QuizzesListItem, {
       global: {
-        plugins: [i18n, router]
+        plugins: [router]
       },
       props: {
         quiz: { ...quiz },
@@ -111,7 +110,7 @@ describe('QuizzesList item tests', () => {
   it('should not render fav button if no userId', async () => {
     const wrapper = mount(QuizzesListItem, {
       global: {
-        plugins: [i18n, router]
+        plugins: [router]
       },
       props: {
         quiz: { ...quiz },
@@ -130,7 +129,7 @@ describe('QuizzesList item tests', () => {
   it('should render fav button userId', async () => {
     const wrapper = mount(QuizzesListItem, {
       global: {
-        plugins: [i18n, router]
+        plugins: [router]
       },
       props: {
         quiz,
@@ -167,7 +166,7 @@ describe('QuizzesList item tests', () => {
   it('should not render userBtns if userIds are not equal', async () => {
     const wrapper = mount(QuizzesListItem, {
       global: {
-        plugins: [i18n, router]
+        plugins: [router]
       },
       props: {
         quiz: { ...quiz },
@@ -188,7 +187,7 @@ describe('QuizzesList item tests', () => {
   it('should render delete btn if admin and not render edit btn', async () => {
     const wrapper = mount(QuizzesListItem, {
       global: {
-        plugins: [i18n, router]
+        plugins: [router]
       },
       props: {
         quiz: { ...quiz },
@@ -209,7 +208,7 @@ describe('QuizzesList item tests', () => {
   it('should  render userBtns if userIds are equal', async () => {
     const wrapper = mount(QuizzesListItem, {
       global: {
-        plugins: [i18n, router]
+        plugins: [router]
       },
       props: {
         quiz: { ...quiz },
@@ -230,7 +229,7 @@ describe('QuizzesList item tests', () => {
   it('should  redirect to edit quiz page on edit click', async () => {
     const wrapper = mount(QuizzesListItem, {
       global: {
-        plugins: [i18n, router]
+        plugins: [router]
       },
       props: {
         quiz: { ...quiz },
@@ -256,7 +255,7 @@ describe('QuizzesList item tests', () => {
   it('should  open delete modal', async () => {
     const wrapper = mount(QuizzesListItem, {
       global: {
-        plugins: [i18n, router]
+        plugins: [router]
       },
       props: {
         quiz: { ...quiz },
@@ -281,7 +280,7 @@ describe('QuizzesList item tests', () => {
   it('should open play quiz', async () => {
     const wrapper = mount(QuizzesListItem, {
       global: {
-        plugins: [i18n, router]
+        plugins: [router]
       },
       props: {
         quiz: { ...quiz },

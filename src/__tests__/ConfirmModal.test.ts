@@ -1,14 +1,10 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import ConfirmModal from '@/components/ConfirmModal.vue';
-import { i18n } from '@/main';
 import AppButton from '@/components/AppButton.vue';
 
 describe('ConfirmModal component tests', () => {
   it('should not render confirm modal if nodelvalue is false', () => {
     const wrapper = mount(ConfirmModal, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         modelValue: false,
         isLoading: false,
@@ -23,9 +19,6 @@ describe('ConfirmModal component tests', () => {
 
   it('should render confirm modal with true modelvalue', () => {
     const wrapper = mount(ConfirmModal, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         modelValue: true,
         isLoading: false,
@@ -40,9 +33,6 @@ describe('ConfirmModal component tests', () => {
 
   it('should render confirm modal with correct title', () => {
     const wrapper = mount(ConfirmModal, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         modelValue: true,
         isLoading: false,
@@ -57,9 +47,6 @@ describe('ConfirmModal component tests', () => {
 
   it('should not render text part if text is not provided', () => {
     const wrapper = mount(ConfirmModal, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         modelValue: true,
         isLoading: false,
@@ -74,9 +61,6 @@ describe('ConfirmModal component tests', () => {
 
   it('should  render text part if text is provided', () => {
     const wrapper = mount(ConfirmModal, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         modelValue: true,
         isLoading: false,
@@ -92,9 +76,6 @@ describe('ConfirmModal component tests', () => {
 
   it('should disable buttons if isLoading', () => {
     const wrapper = mount(ConfirmModal, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         modelValue: true,
         isLoading: true,
@@ -112,9 +93,6 @@ describe('ConfirmModal component tests', () => {
 
   it('should close modal on click cancel', async () => {
     const wrapper = mount(ConfirmModal, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         modelValue: true,
         isLoading: false,
@@ -137,9 +115,6 @@ describe('ConfirmModal component tests', () => {
 
   it('should render confirm button with default text', async () => {
     const wrapper = mount(ConfirmModal, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         modelValue: true,
         isLoading: false,
@@ -154,9 +129,6 @@ describe('ConfirmModal component tests', () => {
 
   it('should render confirm button with text from prop', async () => {
     const wrapper = mount(ConfirmModal, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         modelValue: true,
         isLoading: false,
@@ -172,9 +144,6 @@ describe('ConfirmModal component tests', () => {
 
   it('should emit confirm event on click confirm btn', async () => {
     const wrapper = mount(ConfirmModal, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         modelValue: true,
         isLoading: false,

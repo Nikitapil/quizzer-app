@@ -1,6 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import QuizForm from '@/modules/quizes/components/quiz-form/QuizForm.vue';
-import { i18n } from '@/main';
 import QuizFormQuestion from '@/modules/quizes/components/quiz-form/QuizFormQuestion.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/AppButton.vue';
@@ -12,9 +11,6 @@ describe('QuizForm component tests', () => {
       props: {
         title: 'Quiz form',
         isLoading: false
-      },
-      global: {
-        plugins: [i18n]
       }
     });
 
@@ -40,9 +36,6 @@ describe('QuizForm component tests', () => {
       props: {
         title: 'Quiz form',
         isLoading: true
-      },
-      global: {
-        plugins: [i18n]
       }
     });
 
@@ -68,9 +61,6 @@ describe('QuizForm component tests', () => {
       props: {
         title: 'Quiz form',
         isLoading: false
-      },
-      global: {
-        plugins: [i18n]
       }
     });
 
@@ -122,9 +112,6 @@ describe('QuizForm component tests', () => {
             }
           ]
         }
-      },
-      global: {
-        plugins: [i18n]
       }
     });
 

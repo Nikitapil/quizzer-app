@@ -1,6 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import Game from '@/modules/game/views/Game.vue';
-import { i18n } from '@/main';
 import router from '@/router';
 import { createTestingPinia } from '@pinia/testing';
 import { useGameStore } from '@/modules/game/store/GameStore';
@@ -43,7 +42,7 @@ describe('Game component tests', () => {
 
     const wrapper = mount(Game, {
       global: {
-        plugins: [i18n, router, pinia]
+        plugins: [router, pinia]
       }
     });
 
@@ -60,7 +59,7 @@ describe('Game component tests', () => {
 
     const wrapper = mount(Game, {
       global: {
-        plugins: [i18n, router, pinia]
+        plugins: [router, pinia]
       }
     });
 
@@ -86,7 +85,7 @@ describe('Game component tests', () => {
 
     const wrapper = mount(Game, {
       global: {
-        plugins: [i18n, router, pinia]
+        plugins: [router, pinia]
       }
     });
 
@@ -113,7 +112,7 @@ describe('Game component tests', () => {
 
     const wrapper = mount(Game, {
       global: {
-        plugins: [i18n, router, pinia]
+        plugins: [router, pinia]
       }
     });
 
@@ -198,7 +197,7 @@ describe('Game component tests', () => {
 
     const wrapper = mount(Game, {
       global: {
-        plugins: [i18n, router, pinia]
+        plugins: [router, pinia]
       }
     });
 
@@ -236,7 +235,7 @@ describe('Game component tests', () => {
 
     const wrapper = mount(Game, {
       global: {
-        plugins: [i18n, router, pinia]
+        plugins: [router, pinia]
       }
     });
 
@@ -274,7 +273,7 @@ describe('Game component tests', () => {
 
     const wrapper = mount(Game, {
       global: {
-        plugins: [i18n, router, pinia]
+        plugins: [router, pinia]
       }
     });
 

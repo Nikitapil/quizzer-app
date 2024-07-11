@@ -1,7 +1,6 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import type { ComponentMountingOptions } from '@vue/test-utils';
 import EditableText from '@/components/inputs/EditableText.vue';
-import { i18n } from '@/main';
 
 describe('EditableText component tests', () => {
   let options: ComponentMountingOptions<typeof EditableText>;
@@ -15,9 +14,6 @@ describe('EditableText component tests', () => {
         isLoading: false,
         inputType: 'text',
         rules: ''
-      },
-      global: {
-        plugins: [i18n]
       }
     };
   });
@@ -77,9 +73,6 @@ describe('EditableText component tests', () => {
         isLoading: false,
         inputType: 'text',
         rules: 'email'
-      },
-      global: {
-        plugins: [i18n]
       }
     });
 
@@ -103,9 +96,6 @@ describe('EditableText component tests', () => {
         isLoading: false,
         inputType: 'text',
         rules: ''
-      },
-      global: {
-        plugins: [i18n]
       }
     });
 

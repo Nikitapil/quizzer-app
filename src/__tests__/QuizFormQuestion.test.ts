@@ -1,6 +1,5 @@
 import QuizFormQuestion from '@/modules/quizes/components/quiz-form/QuizFormQuestion.vue';
 import { mount } from '@vue/test-utils';
-import { i18n } from '@/main';
 import QuizFormIncorrectAnswer from '@/modules/quizes/components/quiz-form/QuizFormIncorrectAnswer.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/AppButton.vue';
@@ -8,9 +7,6 @@ import AppButton from '@/components/AppButton.vue';
 describe('QuizFormQuestion component tests', () => {
   it('should render component without delete button if question Number < 4', () => {
     const wrapper = mount(QuizFormQuestion, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         modelValue: {
           question: 'Is it Test?',
@@ -29,9 +25,6 @@ describe('QuizFormQuestion component tests', () => {
 
   it('should render component with delete button if question Number > 3', () => {
     const wrapper = mount(QuizFormQuestion, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         modelValue: {
           question: 'Is it Test?',
@@ -50,9 +43,6 @@ describe('QuizFormQuestion component tests', () => {
 
   it('should emit delete-question event', async () => {
     const wrapper = mount(QuizFormQuestion, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         modelValue: {
           question: 'Is it Test?',
@@ -73,9 +63,6 @@ describe('QuizFormQuestion component tests', () => {
 
   it('should correct amount of incorrect answers and add it while it amount < 5', async () => {
     const wrapper = mount(QuizFormQuestion, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         modelValue: {
           question: 'Is it Test?',
@@ -119,9 +106,6 @@ describe('QuizFormQuestion component tests', () => {
 
   it('should disable all inputs if isLoading', () => {
     const wrapper = mount(QuizFormQuestion, {
-      global: {
-        plugins: [i18n]
-      },
       props: {
         modelValue: {
           question: 'Is it Test?',

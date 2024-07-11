@@ -1,5 +1,4 @@
 import { flushPromises, mount } from '@vue/test-utils';
-import { i18n } from '@/main';
 import router from '@/router';
 import { createTestingPinia } from '@pinia/testing';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
@@ -12,7 +11,7 @@ describe('SignUn component tests', () => {
   it('should render loader if auth isLoading', () => {
     const wrapper = mount(SignUp, {
       global: {
-        plugins: [i18n, router, createTestingPinia()]
+        plugins: [router, createTestingPinia()]
       }
     });
 
@@ -24,7 +23,7 @@ describe('SignUn component tests', () => {
   it('should render sign up form', async () => {
     const wrapper = mount(SignUp, {
       global: {
-        plugins: [i18n, router, createTestingPinia()]
+        plugins: [router, createTestingPinia()]
       }
     });
 
@@ -44,7 +43,7 @@ describe('SignUn component tests', () => {
   it('should redirect if is authenticated', async () => {
     mount(SignUp, {
       global: {
-        plugins: [i18n, router, createTestingPinia()]
+        plugins: [router, createTestingPinia()]
       }
     });
 
@@ -66,7 +65,7 @@ describe('SignUn component tests', () => {
   it('should navigate to sign in page', async () => {
     const wrapper = mount(SignUp, {
       global: {
-        plugins: [i18n, router, createTestingPinia()]
+        plugins: [router, createTestingPinia()]
       }
     });
 
@@ -88,7 +87,7 @@ describe('SignUn component tests', () => {
   it('should call store register function on login', async () => {
     const wrapper = mount(SignUp, {
       global: {
-        plugins: [i18n, router, createTestingPinia()]
+        plugins: [router, createTestingPinia()]
       }
     });
 

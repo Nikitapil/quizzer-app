@@ -2,22 +2,13 @@ import './assets/styles/main.scss';
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import { createI18n } from 'vue-i18n';
-import messages from './locales/index';
 import Vue3Toasity, { type ToastContainerOptions } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
 import App from './modules/app/App.vue';
 import router from './router';
 import { validators } from '@/plugins/validation';
-
-export const i18n = createI18n({
-  availableLocales: ['rus', 'eng'],
-  locale: localStorage.getItem('lang') || 'eng',
-  fallbackLocale: 'rus',
-  legacy: false,
-  messages
-});
+import { i18n } from '@/plugins/i18n';
 
 const app = createApp(App);
 

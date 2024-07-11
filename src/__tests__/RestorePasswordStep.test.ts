@@ -1,14 +1,9 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import RestorePasswordStep from '@/modules/auth/components/restore-form/RestorePasswordStep.vue';
-import { i18n } from '@/main';
 
 describe('RestorePasswordStep tests', () => {
   it('should validate values before submit', async () => {
-    const wrapper = mount(RestorePasswordStep, {
-      global: {
-        plugins: [i18n]
-      }
-    });
+    const wrapper = mount(RestorePasswordStep);
 
     const form = wrapper.get('form');
     await form.trigger('submit');
@@ -18,11 +13,7 @@ describe('RestorePasswordStep tests', () => {
   });
 
   it('should emit submit event', async () => {
-    const wrapper = mount(RestorePasswordStep, {
-      global: {
-        plugins: [i18n]
-      }
-    });
+    const wrapper = mount(RestorePasswordStep);
 
     const restoreKeyInput = wrapper.get('#restore_key');
     const newPasswordInput = wrapper.get('#new_password');

@@ -1,6 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import RestorePasswordModal from '@/modules/auth/components/restore-form/RestorePasswordModal.vue';
-import { i18n } from '@/main';
 import router from '@/router';
 import { createTestingPinia } from '@pinia/testing';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
@@ -31,7 +30,7 @@ describe('RestorePasswordModal component tests', () => {
   it('should render change steps inside modal', async () => {
     const wrapper = mount(RestorePasswordModal, {
       global: {
-        plugins: [i18n, router, createTestingPinia()]
+        plugins: [router, createTestingPinia()]
       },
       props: {
         modelValue: true

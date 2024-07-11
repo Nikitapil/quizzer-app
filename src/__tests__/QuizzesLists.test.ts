@@ -1,6 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import QuizzesList from '@/modules/quizes/components/QuizzesList.vue';
-import { i18n } from '@/main';
 import { createTestingPinia } from '@pinia/testing';
 import { useQuizzesStore } from '@/modules/quizes/store/QuizzesStore';
 import QuizzesListItem from '@/modules/quizes/components/QuizzesListItem.vue';
@@ -10,7 +9,7 @@ describe('QuizzesList component tests', () => {
   it('should emit get-quizzes event on mount', () => {
     const wrapper = mount(QuizzesList, {
       global: {
-        plugins: [i18n, createTestingPinia()]
+        plugins: [createTestingPinia()]
       },
       props: {
         title: 'Test list'
@@ -30,7 +29,7 @@ describe('QuizzesList component tests', () => {
   it('should not render search form if no quizzes and not searched', () => {
     const wrapper = mount(QuizzesList, {
       global: {
-        plugins: [i18n, createTestingPinia()]
+        plugins: [createTestingPinia()]
       },
       props: {
         title: 'Test list'
@@ -62,7 +61,7 @@ describe('QuizzesList component tests', () => {
 
     const wrapper = mount(QuizzesList, {
       global: {
-        plugins: [i18n, pinia]
+        plugins: [pinia]
       },
       props: {
         title: 'Test list'
@@ -94,7 +93,7 @@ describe('QuizzesList component tests', () => {
 
     const wrapper = mount(QuizzesList, {
       global: {
-        plugins: [i18n, pinia]
+        plugins: [pinia]
       },
       props: {
         title: 'Test list'
@@ -126,7 +125,7 @@ describe('QuizzesList component tests', () => {
 
     const wrapper = mount(QuizzesList, {
       global: {
-        plugins: [i18n, pinia]
+        plugins: [pinia]
       },
       props: {
         title: 'Test list'
@@ -162,7 +161,7 @@ describe('QuizzesList component tests', () => {
 
     const wrapper = mount(QuizzesList, {
       global: {
-        plugins: [i18n, pinia]
+        plugins: [pinia]
       },
       props: {
         title: 'Test list'
@@ -179,7 +178,7 @@ describe('QuizzesList component tests', () => {
 
     const wrapper = mount(QuizzesList, {
       global: {
-        plugins: [i18n, pinia]
+        plugins: [pinia]
       },
       props: {
         title: 'Test list'
@@ -211,7 +210,7 @@ describe('QuizzesList component tests', () => {
 
     const wrapper = mount(QuizzesList, {
       global: {
-        plugins: [i18n, pinia]
+        plugins: [pinia]
       },
       props: {
         title: 'Test list'
@@ -245,7 +244,7 @@ describe('QuizzesList component tests', () => {
 
     const wrapper = mount(QuizzesList, {
       global: {
-        plugins: [i18n, pinia]
+        plugins: [pinia]
       },
       props: {
         title: 'Test list'

@@ -1,14 +1,10 @@
 import { mount } from '@vue/test-utils';
 import LangSwitcher from '@/modules/app/components/LangSwitcher.vue';
-import { i18n } from '@/main';
+import { i18n } from '@/plugins/i18n';
 
 describe('LangSwitcher tests', () => {
   it('should not show buttons on initial render', () => {
-    const wrapper = mount(LangSwitcher, {
-      global: {
-        plugins: [i18n]
-      }
-    });
+    const wrapper = mount(LangSwitcher);
 
     const buttons = wrapper.findAll('button');
 
@@ -16,11 +12,7 @@ describe('LangSwitcher tests', () => {
   });
 
   it('should open', async () => {
-    const wrapper = mount(LangSwitcher, {
-      global: {
-        plugins: [i18n]
-      }
-    });
+    const wrapper = mount(LangSwitcher);
 
     const switcher = wrapper.get('svg');
     await switcher.trigger('click');
@@ -30,11 +22,7 @@ describe('LangSwitcher tests', () => {
   });
 
   it('should change lang', async () => {
-    const wrapper = mount(LangSwitcher, {
-      global: {
-        plugins: [i18n]
-      }
-    });
+    const wrapper = mount(LangSwitcher);
 
     const switcher = wrapper.get('svg');
     await switcher.trigger('click');
