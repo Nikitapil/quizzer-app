@@ -1,34 +1,31 @@
 import { flushPromises, mount } from '@vue/test-utils';
-import type { ComponentMountingOptions } from '@vue/test-utils';
 import EditableText from '@/components/inputs/EditableText.vue';
 
 describe('EditableText component tests', () => {
-  let options: ComponentMountingOptions<typeof EditableText>;
+  const props = {
+    text: 'test text',
+    name: 'test-name',
+    id: 'test-id',
+    isLoading: false,
+    inputType: 'text',
+    rules: ''
+  } as const;
 
-  beforeEach(() => {
-    options = {
-      props: {
-        text: 'test text',
-        name: 'test-name',
-        id: 'test-id',
-        isLoading: false,
-        inputType: 'text',
-        rules: ''
-      }
-    };
+  const wrapper = mount(EditableText, {
+    props
+  });
+
+  beforeEach(async () => {
+    await wrapper.setProps(props);
   });
 
   it('should render component with right text element', () => {
-    const wrapper = mount(EditableText, options);
-
     const textEl = wrapper.get('p');
 
     expect(textEl.text()).toBe('test text');
   });
 
   it('should toggle form correctly', async () => {
-    const wrapper = mount(EditableText, options);
-
     const btn = wrapper.get('[data-test="toggle-button"]');
 
     await btn.trigger('click');
@@ -47,8 +44,6 @@ describe('EditableText component tests', () => {
   });
 
   it('should toggle form correctly outside from component', async () => {
-    const wrapper = mount(EditableText, options);
-
     await wrapper.vm.toggleForm();
 
     let staticTextEl = wrapper.find('p');
@@ -65,15 +60,8 @@ describe('EditableText component tests', () => {
   });
 
   it('should validate form', async () => {
-    const wrapper = mount(EditableText, {
-      props: {
-        text: 'test text',
-        name: 'test-name',
-        id: 'test-id',
-        isLoading: false,
-        inputType: 'text',
-        rules: 'email'
-      }
+    await wrapper.setProps({
+      rules: 'email'
     });
 
     const toggleBtn = wrapper.get('[data-test="toggle-button"]');
