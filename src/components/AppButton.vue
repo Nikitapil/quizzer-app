@@ -1,24 +1,16 @@
-<template>
-  <button
-    class="button"
-    :class="{
-      [appearence]: true,
-      [size]: true,
-      'full-width': full,
-      'with-icon': withIcon
-    }"
-    :type="type"
-    :disabled="disabled"
-    @click="$emit('click')"
-  >
-    <slot>{{ text }}</slot>
-  </button>
-</template>
-
 <script setup lang="ts">
+import { computed } from 'vue';
 import type { ButtonType } from '@/components/domain';
 
-withDefaults(
+type ButtonAppearance =
+  | 'primary'
+  | 'dark'
+  | 'transparent'
+  | 'success'
+  | 'error'
+  | 'white';
+
+const props = withDefaults(
   defineProps<{
     text?: string | number;
     type?: ButtonType;
@@ -26,25 +18,39 @@ withDefaults(
     size?: 'sm' | 'md' | 'lg';
     disabled?: boolean;
     withIcon?: boolean;
-    appearence?:
-      | 'primary'
-      | 'dark'
-      | 'transparent'
-      | 'success'
-      | 'error'
-      | 'white';
+    appearence?: ButtonAppearance;
   }>(),
   {
     appearence: 'primary',
     type: 'button',
     full: false,
     withIcon: false,
+    disabled: false,
     size: 'md'
   }
 );
 
 defineEmits(['click']);
+
+const classes = computed(() => ({
+  [props.appearence]: true,
+  [props.size]: true,
+  'full-width': props.full,
+  'with-icon': props.withIcon
+}));
 </script>
+
+<template>
+  <button
+    class="button"
+    :class="classes"
+    :type="props.type"
+    :disabled="props.disabled"
+    @click="$emit('click')"
+  >
+    <slot>{{ props.text }}</slot>
+  </button>
+</template>
 
 <style lang="scss" scoped>
 @import '../assets/styles/colors';
