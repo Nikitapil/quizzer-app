@@ -9,6 +9,7 @@
     <div></div>
   </div>
 </template>
+
 <style scoped>
 .lds-ellipsis {
   display: inline-block;

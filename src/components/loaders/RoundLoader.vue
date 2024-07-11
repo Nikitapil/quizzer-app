@@ -1,13 +1,5 @@
-<template>
-  <div
-    data-test="round-loader"
-    class="lds-dual-ring"
-    :class="{ [color]: true }"
-  ></div>
-</template>
-
 <script setup lang="ts">
-withDefaults(
+const props = withDefaults(
   defineProps<{
     color?: 'white' | 'blue';
   }>(),
@@ -16,6 +8,14 @@ withDefaults(
   }
 );
 </script>
+
+<template>
+  <div
+    data-test="round-loader"
+    class="lds-dual-ring"
+    :class="{ [props.color]: true }"
+  ></div>
+</template>
 
 <style lang="scss" scoped>
 @import '../../assets/styles/colors';
@@ -31,7 +31,7 @@ withDefaults(
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid #fff;
+  border: 6px solid;
   border-color: #fff transparent #fff transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
