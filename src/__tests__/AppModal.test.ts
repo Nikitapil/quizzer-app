@@ -2,29 +2,22 @@ import { mount } from '@vue/test-utils';
 import AppModal from '@/components/AppModal.vue';
 
 describe('AppModal component tests', () => {
-  it('should render modal with correct title', () => {
-    const wrapper = mount(AppModal, {
-      props: {
-        modelValue: true,
-        'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e }),
-        title: 'Test title'
-      }
-    });
+  const titleText = 'Test title';
+  const wrapper = mount(AppModal, {
+    props: {
+      modelValue: true,
+      'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e }),
+      title: titleText
+    }
+  });
 
+  it('should render modal with correct title', () => {
     const title = wrapper.get('h1');
 
-    expect(title.text()).toBe('Test title');
+    expect(title.text()).toBe(titleText);
   });
 
   it('should close modal on click outside', async () => {
-    const wrapper = mount(AppModal, {
-      props: {
-        modelValue: true,
-        'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e }),
-        title: 'Test title'
-      }
-    });
-
     const overlay = wrapper.get('[data-test="overlay"]');
 
     await overlay.trigger('click');
@@ -34,14 +27,7 @@ describe('AppModal component tests', () => {
   });
 
   it('should close modal on click close btn', async () => {
-    const wrapper = mount(AppModal, {
-      props: {
-        modelValue: true,
-        'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e }),
-        title: 'Test title'
-      }
-    });
-
+    await wrapper.setValue({ modelValue: false });
     const closeBtn = wrapper.get('button');
 
     await closeBtn.trigger('click');
