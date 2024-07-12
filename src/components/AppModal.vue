@@ -1,48 +1,8 @@
-<template>
-  <Transition name="modal">
-    <div
-      v-if="isOpened"
-      data-test="modal"
-      class="modal"
-    >
-      <div
-        class="modal__overlay"
-        data-test="overlay"
-        @click="closeModal"
-      ></div>
-      <div class="modal__content">
-        <AppButton
-          class="close-button"
-          appearence="transparent"
-          with-icon
-          @click="closeModal"
-        >
-          <Icon
-            icon="iconamoon:close-bold"
-            color="#174473"
-            width="32"
-            height="32"
-          />
-        </AppButton>
-        <h1
-          class="modal__title"
-          data-test="modal-title"
-        >
-          {{ title }}
-        </h1>
-        <div>
-          <slot name="content"></slot>
-        </div>
-      </div>
-    </div>
-  </Transition>
-</template>
-
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue';
 import { Icon } from '@iconify/vue';
 
-const isOpened = defineModel<boolean>('modelValue');
+const isOpened = defineModel<boolean>();
 defineProps<{
   title?: string;
 }>();
@@ -50,8 +10,54 @@ defineProps<{
 const closeModal = () => (isOpened.value = false);
 </script>
 
+<template>
+  <Teleport to="body">
+    <Transition name="modal">
+      <div
+        v-if="isOpened"
+        data-test="modal"
+        class="modal"
+      >
+        <div
+          class="modal__overlay"
+          data-test="overlay"
+          @click="closeModal"
+        ></div>
+
+        <div class="modal__content">
+          <AppButton
+            class="close-button"
+            appearence="transparent"
+            with-icon
+            @click="closeModal"
+          >
+            <Icon
+              icon="iconamoon:close-bold"
+              color="#174473"
+              width="32"
+              height="32"
+            />
+          </AppButton>
+
+          <h1
+            class="modal__title"
+            data-test="modal-title"
+          >
+            {{ title }}
+          </h1>
+
+          <div>
+            <slot name="content"></slot>
+          </div>
+        </div>
+      </div>
+    </Transition>
+  </Teleport>
+</template>
+
 <style lang="scss" scoped>
 @import '../assets/styles/colors';
+
 .modal {
   &__overlay {
     position: fixed;

@@ -8,7 +8,8 @@ describe('AppHeader tests', () => {
   it('should open mobile bar', async () => {
     const wrapper = mount(AppHeader, {
       global: {
-        plugins: [router, createTestingPinia()]
+        plugins: [router, createTestingPinia()],
+        stubs: undefined
       },
       attachTo: document.body
     });
@@ -24,6 +25,8 @@ describe('AppHeader tests', () => {
     expect(mobileBar.exists()).toBe(true);
 
     await wrapper.trigger('click');
+
+    await flushPromises();
 
     mobileBar = wrapper.find('[data-test="mobile-bar"]');
     expect(mobileBar.exists()).toBe(false);
