@@ -1,3 +1,31 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+
+import { useI18n } from 'vue-i18n';
+
+import AppModal from '@/components/AppModal.vue';
+import AppButton from '@/components/AppButton.vue';
+
+const { t } = useI18n();
+
+const isOpened = defineModel<boolean>('modelValue');
+
+const props = defineProps<{
+  isLoading: boolean;
+  title: string;
+  text?: string;
+  confirmBtnText?: string;
+}>();
+
+defineEmits<{
+  confirm: [];
+}>();
+
+const confirmBtnTextInternal = computed(
+  () => props.confirmBtnText || t('confirm')
+);
+</script>
+
 <template>
   <AppModal
     v-model="isOpened"
@@ -11,6 +39,7 @@
       >
         {{ text }}
       </p>
+
       <div class="buttons">
         <AppButton
           full
@@ -20,6 +49,7 @@
           :disabled="isLoading"
           @click="isOpened = false"
         />
+
         <AppButton
           full
           data-test="confirm-btn"
@@ -32,29 +62,6 @@
     </template>
   </AppModal>
 </template>
-
-<script setup lang="ts">
-import AppModal from '@/components/AppModal.vue';
-import AppButton from '@/components/AppButton.vue';
-import { computed } from 'vue';
-import { useI18n } from 'vue-i18n';
-
-const isOpened = defineModel<boolean>('modelValue');
-defineEmits(['confirm']);
-
-const { t } = useI18n();
-
-const props = defineProps<{
-  isLoading: boolean;
-  title: string;
-  text?: string;
-  confirmBtnText?: string;
-}>();
-
-const confirmBtnTextInternal = computed(
-  () => props.confirmBtnText || t('confirm')
-);
-</script>
 
 <style lang="scss" scoped>
 @import '../assets/styles/colors';
