@@ -2,13 +2,13 @@ import { mount } from '@vue/test-utils';
 import AppButton from '@/components/AppButton.vue';
 
 describe('AppButton tests', () => {
-  it('should render button with correct classes', () => {
-    const wrapper = mount(AppButton, {
-      props: {
-        appearence: 'primary',
-        full: true,
-        size: 'md'
-      }
+  const wrapper = mount(AppButton);
+
+  it('should render button with correct classes', async () => {
+    await wrapper.setProps({
+      appearence: 'primary',
+      full: true,
+      size: 'md'
     });
 
     const button = wrapper.get('button');
@@ -20,14 +20,6 @@ describe('AppButton tests', () => {
   });
 
   it('should emit click event', () => {
-    const wrapper = mount(AppButton, {
-      props: {
-        appearence: 'primary',
-        full: true,
-        size: 'md'
-      }
-    });
-
     const button = wrapper.get('button');
 
     button.trigger('click');
