@@ -6,7 +6,7 @@ import RoundLoader from '@/components/loaders/RoundLoader.vue';
 import type { ISignUpAuthRequest } from '@/modules/auth/domain/types';
 import { watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
+import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/constants/breadcrumbs';
 import { useDocTitle } from '@/composables/useDocTitle';
 import { useI18n } from 'vue-i18n';

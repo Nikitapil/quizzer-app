@@ -22,7 +22,7 @@
 import { useRoute, useRouter } from 'vue-router';
 import { useQuizFormStore } from '@/modules/quizes/store/QuizFormStore';
 import { useAuthRedirect } from '@/modules/auth/composables/useAuthRedirect';
-import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
+import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/constants/breadcrumbs';
 import { onMounted } from 'vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';

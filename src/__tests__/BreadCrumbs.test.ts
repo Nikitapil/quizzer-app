@@ -3,7 +3,7 @@ import BreadCrumbs from '@/modules/app/components/BreadCrumbs.vue';
 import { useAppStore } from '@/modules/app/store/AppStore';
 import { BREADCRUMBS } from '@/constants/breadcrumbs';
 import router from '@/router';
-import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
+import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
 import { createPinia, type Pinia, setActivePinia } from 'pinia';
 
 describe('Breadcrumbs tests', () => {

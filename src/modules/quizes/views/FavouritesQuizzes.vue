@@ -10,7 +10,7 @@
 import { useQuizzesStore } from '@/modules/quizes/store/QuizzesStore';
 import QuizzesList from '@/modules/quizes/components/QuizzesList.vue';
 import { useI18n } from 'vue-i18n';
-import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
+import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/constants/breadcrumbs';
 import { useDocTitle } from '@/composables/useDocTitle';
 import { useAuthRedirect } from '@/modules/auth/composables/useAuthRedirect';

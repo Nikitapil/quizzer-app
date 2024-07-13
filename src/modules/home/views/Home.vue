@@ -83,7 +83,7 @@ import { useI18n } from 'vue-i18n';
 import AppButton from '@/components/buttons/AppButton.vue';
 import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
-import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
+import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { useFormValidate } from '@/composables/useFormValidate';
 

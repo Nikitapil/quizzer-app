@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
+import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/constants/breadcrumbs';
 import { useDocTitle } from '@/composables/useDocTitle';
 import { useI18n } from 'vue-i18n';
