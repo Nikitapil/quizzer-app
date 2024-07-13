@@ -1,17 +1,18 @@
-<template>
-  <div class="progress-bar">
-    <div
-      class="progress-bar__bar"
-      :style="{ width: `${progress}%` }"
-    ></div>
-  </div>
-</template>
-
 <script setup lang="ts">
-defineProps<{
+import { computed } from 'vue';
+
+const props = defineProps<{
   progress: number;
 }>();
+
+const width = computed(() => props.progress + '%');
 </script>
+
+<template>
+  <div class="progress-bar">
+    <div class="progress-bar__bar"></div>
+  </div>
+</template>
 
 <style scoped lang="scss">
 @import '../assets/styles/colors';
@@ -26,6 +27,7 @@ defineProps<{
     height: 100%;
     background: $bg-success;
     border-radius: 20px;
+    width: v-bind(width);
   }
 }
 </style>
