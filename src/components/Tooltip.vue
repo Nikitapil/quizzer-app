@@ -1,3 +1,9 @@
+<script setup lang="ts">
+const props = defineProps<{
+  tip: string;
+}>();
+</script>
+
 <template>
   <div class="tooltip">
     <div
@@ -6,20 +12,15 @@
     >
       <slot></slot>
     </div>
+
     <div
       data-test="tip"
       class="tip"
     >
-      {{ tip }}
+      {{ props.tip }}
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-defineProps<{
-  tip: string;
-}>();
-</script>
 
 <style lang="scss" scoped>
 .tooltip {
