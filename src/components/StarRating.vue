@@ -1,8 +1,41 @@
+<script setup lang="ts">
+import { Icon } from '@iconify/vue';
+import { ref } from 'vue';
+
+import AppButton from '@/components/buttons/AppButton.vue';
+import HorizontalLoader from '@/components/loaders/HorizontalLoader.vue';
+
+const props = withDefaults(
+  defineProps<{
+    starsCount?: number;
+    isLoading?: boolean;
+    defaultValue?: number;
+  }>(),
+  {
+    starsCount: 5,
+    defaultValue: 0,
+    isLoading: false
+  }
+);
+
+const emit = defineEmits<{
+  select: [rating: number];
+}>();
+
+const selectedNum = ref(props.defaultValue);
+
+const onSelect = (num: number) => {
+  selectedNum.value = num;
+  emit('select', num);
+};
+</script>
+
 <template>
-  <HorizontalLoader v-if="isLoading" />
+  <HorizontalLoader v-if="props.isLoading" />
+
   <div v-else>
     <AppButton
-      v-for="star in starsCount"
+      v-for="star in props.starsCount"
       :key="star"
       class="star"
       :class="{ selected: star <= selectedNum }"
@@ -19,35 +52,6 @@
     </AppButton>
   </div>
 </template>
-
-<script setup lang="ts">
-import AppButton from '@/components/buttons/AppButton.vue';
-import { Icon } from '@iconify/vue';
-import { ref } from 'vue';
-import HorizontalLoader from '@/components/loaders/HorizontalLoader.vue';
-
-withDefaults(
-  defineProps<{
-    starsCount?: number;
-    isLoading?: boolean;
-  }>(),
-  {
-    starsCount: 5,
-    isLoading: false
-  }
-);
-
-const emit = defineEmits<{
-  select: [rating: number];
-}>();
-
-const selectedNum = ref(0);
-
-const onSelect = (num: number) => {
-  selectedNum.value = num;
-  emit('select', num);
-};
-</script>
 
 <style lang="scss">
 @import '../assets/styles/colors';
