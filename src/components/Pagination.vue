@@ -1,19 +1,3 @@
-<template>
-  <div
-    v-if="pagesCount > 1"
-    class="pagination"
-    data-testid="pagination"
-  >
-    <AppButton
-      v-for="page in pagesCount"
-      :key="page"
-      :text="page"
-      :appearence="page === currentPage ? 'primary' : 'transparent'"
-      @click="$emit('change-page', page)"
-    />
-  </div>
-</template>
-
 <script setup lang="ts">
 import { computed } from 'vue';
 import AppButton from '@/components/buttons/AppButton.vue';
@@ -32,6 +16,22 @@ const pagesCount = computed(() =>
   Math.ceil(props.totalItemsCount / props.limit)
 );
 </script>
+
+<template>
+  <div
+    v-if="pagesCount > 1"
+    class="pagination"
+    data-testid="pagination"
+  >
+    <AppButton
+      v-for="page in pagesCount"
+      :key="page"
+      :text="page"
+      :appearence="page === currentPage ? 'primary' : 'transparent'"
+      @click="$emit('change-page', page)"
+    />
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .pagination {
