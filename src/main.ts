@@ -9,6 +9,7 @@ import App from './modules/app/App.vue';
 import router from './router';
 import { validators } from '@/plugins/validation';
 import { i18n } from '@/plugins/i18n';
+import { DirectivePlugin } from '@/directives/DirectivePlugin';
 
 const app = createApp(App);
 
@@ -20,5 +21,6 @@ app.use(Vue3Toasity, {
   theme: 'dark'
 } as ToastContainerOptions);
 app.use(validators);
+app.use(DirectivePlugin);
 
 app.mount('#app');

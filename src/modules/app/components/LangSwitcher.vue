@@ -1,6 +1,6 @@
 <template>
   <div
-    ref="switcher"
+    v-click-outside="close"
     class="switcher"
   >
     <Icon
@@ -34,7 +34,6 @@
 import { Icon } from '@iconify/vue';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useClickOutside } from '@/composables/useClickOutside';
 
 const { locale, availableLocales } = useI18n();
 
@@ -45,12 +44,9 @@ const changeLang = (lang: string) => {
 };
 
 const isOpened = ref(false);
-const switcher = ref(null);
 
 const open = () => (isOpened.value = true);
 const close = () => (isOpened.value = false);
-
-useClickOutside(close, switcher);
 </script>
 
 <style lang="scss" scoped>
