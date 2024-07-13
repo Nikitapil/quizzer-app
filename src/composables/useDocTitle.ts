@@ -1,11 +1,7 @@
-import { toRef, watch } from 'vue';
+import { onMounted } from 'vue';
 
 export const useDocTitle = (title: string) => {
-  watch(
-    toRef(title),
-    () => {
-      document.title = title ? `Quizzer | ${title}` : 'Quizzer';
-    },
-    { immediate: true }
-  );
+  onMounted(() => {
+    document.title = title ? `Quizzer | ${title}` : 'Quizzer';
+  });
 };
