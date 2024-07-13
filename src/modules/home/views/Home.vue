@@ -85,7 +85,7 @@ import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
 import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
-import { useFormValidate } from '@/composables/useFormValidate';
+import { useForm } from 'vee-validate';
 
 useBreadCrumbs([]);
 
@@ -97,7 +97,7 @@ const store = useHomeStore();
 const authStore = useAuthStore();
 const router = useRouter();
 
-const { validate } = useFormValidate();
+const { validate } = useForm();
 
 const generateQuizValues = ref<IGenerateQuizValues>({
   category: '',

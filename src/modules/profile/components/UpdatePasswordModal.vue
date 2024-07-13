@@ -3,7 +3,7 @@ import AppModal from '@/components/modals/AppModal.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import { ref } from 'vue';
 import AppButton from '@/components/buttons/AppButton.vue';
-import { useFormValidate } from '@/composables/useFormValidate';
+import { useForm } from 'vee-validate';
 
 const modelValue = defineModel<boolean>({ required: true });
 
@@ -15,7 +15,7 @@ const emit = defineEmits<{
   submit: [password: string];
 }>();
 
-const { validate } = useFormValidate();
+const { validate } = useForm();
 
 const password = ref('');
 const repeatedPassword = ref('');

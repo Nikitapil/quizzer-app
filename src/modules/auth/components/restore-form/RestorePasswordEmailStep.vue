@@ -25,14 +25,14 @@
 <script setup lang="ts">
 import AppInput from '@/components/inputs/AppInput.vue';
 import { ref } from 'vue';
-import { useFormValidate } from '@/composables/useFormValidate';
 import AppButton from '@/components/buttons/AppButton.vue';
+import { useForm } from 'vee-validate';
 
 const emit = defineEmits<{
   submit: [email: string];
 }>();
 
-const { validate } = useFormValidate();
+const { validate } = useForm();
 
 const email = ref('');
 

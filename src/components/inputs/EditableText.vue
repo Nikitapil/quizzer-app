@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
-import type { RuleExpression } from 'vee-validate';
+import { type RuleExpression, useForm } from 'vee-validate';
 import type { TInputType } from '@/components/inputs/types';
 
-import { useFormValidate } from '@/composables/useFormValidate';
 import { useI18n } from 'vue-i18n';
 
 import AppInput from '@/components/inputs/AppInput.vue';
@@ -31,7 +30,7 @@ const emit = defineEmits<{
   'submit-handler': [value: string];
 }>();
 
-const { validate } = useFormValidate();
+const { validate } = useForm();
 
 const inputValue = ref('');
 const isFormOpened = ref(false);
