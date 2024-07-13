@@ -13,7 +13,7 @@ import { useI18n } from 'vue-i18n';
 import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/constants/breadcrumbs';
 import { useDocTitle } from '@/composables/useDocTitle';
-import { useAuthRedirect } from '@/composables/useAuthRedirect';
+import { useAuthRedirect } from '@/modules/auth/composables/useAuthRedirect';
 import type { GetAllQuizesDto } from '@/api/swagger/Quizes/data-contracts';
 
 const { t } = useI18n();

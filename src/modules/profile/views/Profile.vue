@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n';
 import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/constants/breadcrumbs';
 import { useDocTitle } from '@/composables/useDocTitle';
-import { useAuthRedirect } from '@/composables/useAuthRedirect';
+import { useAuthRedirect } from '@/modules/auth/composables/useAuthRedirect';
 import EditableText from '@/components/inputs/EditableText.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { ref } from 'vue';

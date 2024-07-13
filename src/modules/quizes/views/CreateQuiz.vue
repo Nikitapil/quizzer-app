@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import QuizForm from '@/modules/quizes/components/quiz-form/QuizForm.vue';
-import { useAuthRedirect } from '@/composables/useAuthRedirect';
+import { useAuthRedirect } from '@/modules/auth/composables/useAuthRedirect';
 import { useQuizFormStore } from '@/modules/quizes/store/QuizFormStore';
 import type { IQuizFormValues } from '@/modules/quizes/domain/types';
 import { toast } from 'vue3-toastify';

@@ -21,7 +21,7 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router';
 import { useQuizFormStore } from '@/modules/quizes/store/QuizFormStore';
-import { useAuthRedirect } from '@/composables/useAuthRedirect';
+import { useAuthRedirect } from '@/modules/auth/composables/useAuthRedirect';
 import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/constants/breadcrumbs';
 import { onMounted } from 'vue';
