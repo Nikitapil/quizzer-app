@@ -8,9 +8,9 @@ import EditableText from '@/components/inputs/EditableText.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { ref } from 'vue';
 import UpdatePasswordModal from '@/modules/profile/components/UpdatePasswordModal.vue';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import { useDeleteUser } from '@/modules/auth/features/useDeleteUser';
-import ConfirmModal from '@/components/ConfirmModal.vue';
+import ConfirmModal from '@/components/modals/ConfirmModal.vue';
 
 const { t } = useI18n();
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.Profile]);

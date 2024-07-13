@@ -3,8 +3,8 @@ import { computed } from 'vue';
 
 import { useI18n } from 'vue-i18n';
 
-import AppModal from '@/components/AppModal.vue';
-import AppButton from '@/components/AppButton.vue';
+import AppModal from '@/components/modals/AppModal.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 
 const { t } = useI18n();
 
@@ -64,7 +64,7 @@ const confirmBtnTextInternal = computed(
 </template>
 
 <style lang="scss" scoped>
-@import '../assets/styles/colors';
+@import '../../assets/styles/colors';
 
 .buttons {
   display: flex;

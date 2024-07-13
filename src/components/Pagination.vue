@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 
 const props = defineProps<{
   limit: number;

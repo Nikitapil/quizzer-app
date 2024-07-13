@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import QuizFormIncorrectAnswer from '@/modules/quizes/components/quiz-form/QuizFormIncorrectAnswer.vue';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 
 describe('QuizFormIncorrectAnswer component tests', () => {

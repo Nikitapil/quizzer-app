@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import { Icon } from '@iconify/vue';
 
 const isOpened = defineModel<boolean>();
@@ -56,7 +56,7 @@ const closeModal = () => (isOpened.value = false);
 </template>
 
 <style lang="scss" scoped>
-@import '../assets/styles/colors';
+@import '../../assets/styles/colors';
 
 .modal {
   &__overlay {

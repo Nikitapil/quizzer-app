@@ -1,7 +1,7 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import UpdatePasswordModal from '@/modules/profile/components/UpdatePasswordModal.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 
 describe('UpdatePasswordModal components tests', () => {
   it('should validate values before submit', async () => {

@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import AppInput from '@/components/inputs/AppInput.vue';
 import { ref } from 'vue';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import type { IRestorePasswordRequest } from '@/modules/auth/domain/types';
 import { useFormValidate } from '@/composables/useFormValidate';
 

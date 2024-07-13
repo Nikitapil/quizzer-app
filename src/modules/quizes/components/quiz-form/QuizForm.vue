@@ -52,7 +52,7 @@ import { onMounted, ref } from 'vue';
 import AppCheckboox from '@/components/inputs/AppCheckbox.vue';
 import QuizFormQuestion from '@/modules/quizes/components/quiz-form/QuizFormQuestion.vue';
 import type { IQuizFormValues } from '@/modules/quizes/domain/types';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import { useFormValidate } from '@/composables/useFormValidate';
 
 const props = defineProps<{

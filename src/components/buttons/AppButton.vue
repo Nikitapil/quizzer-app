@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { ButtonType } from '@/components/domain';
+import type { ButtonType } from '@/components/buttons/domain';
 
 type ButtonAppearance =
   | 'primary'
@@ -53,7 +53,7 @@ const classes = computed(() => ({
 </template>
 
 <style lang="scss" scoped>
-@import '../assets/styles/colors';
+@import '../../assets/styles/colors';
 .button {
   border: none;
   background: none;

@@ -2,7 +2,7 @@ import { flushPromises, mount } from '@vue/test-utils';
 import QuizForm from '@/modules/quizes/components/quiz-form/QuizForm.vue';
 import QuizFormQuestion from '@/modules/quizes/components/quiz-form/QuizFormQuestion.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import AppCheckbox from '@/components/inputs/AppCheckbox.vue';
 
 describe('QuizForm component tests', () => {

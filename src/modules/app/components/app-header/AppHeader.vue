@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import { ERoutesNames } from '@/router/routes-names';
 import NavBar from '@/modules/app/components/app-header/NavBar.vue';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import { Icon } from '@iconify/vue';
 import { ref } from 'vue';
 import { useClickOutside } from '@/composables/useClickOutside';

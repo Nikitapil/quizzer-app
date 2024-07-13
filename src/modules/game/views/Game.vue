@@ -92,7 +92,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useGameStore } from '@/modules/game/store/GameStore';
 import RoundLoader from '@/components/loaders/RoundLoader.vue';
 import GameQuestion from '@/modules/game/components/GameQuestion.vue';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/constants/breadcrumbs';
 import { useDocTitle } from '@/composables/useDocTitle';

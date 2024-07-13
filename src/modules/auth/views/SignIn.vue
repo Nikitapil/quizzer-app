@@ -32,7 +32,7 @@ import type { ISignUpAuthRequest } from '@/modules/auth/domain/types';
 import RoundLoader from '@/components/loaders/RoundLoader.vue';
 import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import RestorePasswordModal from '@/modules/auth/components/restore-form/RestorePasswordModal.vue';
 import { useBreadCrumbs } from '@/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/constants/breadcrumbs';

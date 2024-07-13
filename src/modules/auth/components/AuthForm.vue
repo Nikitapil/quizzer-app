@@ -45,7 +45,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import AppInput from '@/components/inputs/AppInput.vue';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import type { ISignUpAuthRequest } from '@/modules/auth/domain/types';
 import { useFormValidate } from '@/composables/useFormValidate';
 

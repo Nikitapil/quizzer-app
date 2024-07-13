@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import type { IQuestion } from '@/modules/game/domain/types';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 
 defineProps<{
   question: IQuestion;

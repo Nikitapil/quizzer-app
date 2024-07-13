@@ -89,7 +89,7 @@
 
 <script setup lang="ts">
 import { ERoutesNames } from '@/router/routes-names';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import HorizontalLoader from '@/components/loaders/HorizontalLoader.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { Icon } from '@iconify/vue';

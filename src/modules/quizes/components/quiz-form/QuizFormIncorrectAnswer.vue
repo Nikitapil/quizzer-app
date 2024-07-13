@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import AppInput from '@/components/inputs/AppInput.vue';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import { Icon } from '@iconify/vue';
 
 const modelValue = defineModel<string>();

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import AppModal from '@/components/AppModal.vue';
+import AppModal from '@/components/modals/AppModal.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import { ref } from 'vue';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import { useFormValidate } from '@/composables/useFormValidate';
 
 const modelValue = defineModel<boolean>({ required: true });

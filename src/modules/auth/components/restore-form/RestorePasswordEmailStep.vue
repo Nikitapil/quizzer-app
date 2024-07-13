@@ -26,7 +26,7 @@
 import AppInput from '@/components/inputs/AppInput.vue';
 import { ref } from 'vue';
 import { useFormValidate } from '@/composables/useFormValidate';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 
 const emit = defineEmits<{
   submit: [email: string];

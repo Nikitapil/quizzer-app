@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import AppModal from '@/components/AppModal.vue';
+import AppModal from '@/components/modals/AppModal.vue';
 import RestorePasswordEmailStep from '@/modules/auth/components/restore-form/RestorePasswordEmailStep.vue';
 import { ref } from 'vue';
 import { ERestorePasswordSteps } from '@/modules/auth/domain/constants';

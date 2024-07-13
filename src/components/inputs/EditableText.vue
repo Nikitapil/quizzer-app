@@ -9,7 +9,7 @@ import { useI18n } from 'vue-i18n';
 
 import AppInput from '@/components/inputs/AppInput.vue';
 import Tooltip from '@/components/Tooltip.vue';
-import IconButton from '@/components/IconButton.vue';
+import IconButton from '@/components/buttons/IconButton.vue';
 
 const { t } = useI18n();
 

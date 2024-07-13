@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import AppModal from '@/components/AppModal.vue';
+import AppModal from '@/components/modals/AppModal.vue';
 
 describe('AppModal component tests', () => {
   const titleText = 'Test title';

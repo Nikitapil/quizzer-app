@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import { Icon } from '@iconify/vue';
-import type { ButtonType } from '@/components/domain';
+import type { ButtonType } from '@/components/buttons/domain';
 
 const props = withDefaults(
   defineProps<{

@@ -2,7 +2,7 @@ import QuizFormQuestion from '@/modules/quizes/components/quiz-form/QuizFormQues
 import { mount } from '@vue/test-utils';
 import QuizFormIncorrectAnswer from '@/modules/quizes/components/quiz-form/QuizFormIncorrectAnswer.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 
 describe('QuizFormQuestion component tests', () => {
   it('should render component without delete button if question Number < 4', () => {

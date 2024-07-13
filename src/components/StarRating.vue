@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import { Icon } from '@iconify/vue';
 import { ref } from 'vue';
 import HorizontalLoader from '@/components/loaders/HorizontalLoader.vue';

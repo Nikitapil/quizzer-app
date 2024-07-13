@@ -116,14 +116,14 @@
 </template>
 
 <script setup lang="ts">
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
 import { Icon } from '@iconify/vue';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import Tooltip from '@/components/Tooltip.vue';
-import ConfirmModal from '@/components/ConfirmModal.vue';
+import ConfirmModal from '@/components/modals/ConfirmModal.vue';
 import type { QuizDto } from '@/api/swagger/Quizes/data-contracts';
 
 const { t } = useI18n();

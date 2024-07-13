@@ -64,7 +64,7 @@ import RoundLoader from '@/components/loaders/RoundLoader.vue';
 import QuizzesListItem from '@/modules/quizes/components/QuizzesListItem.vue';
 import Pagination from '@/components/Pagination.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
-import AppButton from '@/components/AppButton.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import type {
   GetAllQuizesDto,

@@ -1,6 +1,6 @@
 import { flushPromises, mount } from '@vue/test-utils';
-import ConfirmModal from '@/components/ConfirmModal.vue';
-import AppButton from '@/components/AppButton.vue';
+import ConfirmModal from '@/components/modals/ConfirmModal.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 
 describe('ConfirmModal component tests', () => {
   const titleText = 'Test model';
