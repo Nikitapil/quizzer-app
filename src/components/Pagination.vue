@@ -27,7 +27,8 @@ const pagesCount = computed(() =>
       v-for="page in pagesCount"
       :key="page"
       :text="page"
-      :appearence="page === currentPage ? 'primary' : 'transparent'"
+      :appearence="page === props.currentPage ? 'primary' : 'transparent'"
+      size="lg"
       @click="$emit('change-page', page)"
     />
   </div>
@@ -36,6 +37,6 @@ const pagesCount = computed(() =>
 <style lang="scss" scoped>
 .pagination {
   display: flex;
-  gap: 5px;
+  gap: 8px;
 }
 </style>
