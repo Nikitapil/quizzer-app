@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
-import { BREADCRUMBS } from '@/constants/breadcrumbs';
+import { BREADCRUMBS } from '@/modules/app/domain/breadcrumbs';
 import { useDocTitle } from '@/composables/useDocTitle';
 import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';

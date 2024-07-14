@@ -1,6 +1,8 @@
+import { ERoutesNames } from '@/router/routes-names';
+
 export interface IBreadcrumb {
   title: string;
-  routeName: string;
+  routeName: ERoutesNames;
 }
 
 export interface IAppStoreState {

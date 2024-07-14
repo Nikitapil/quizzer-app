@@ -1,6 +1,7 @@
 import { ERoutesNames } from '@/router/routes-names';
+import type { IBreadcrumb } from '@/modules/app/domain/types';
 
-export const BREADCRUMBS = {
+export const BREADCRUMBS: Record<string, IBreadcrumb> = {
   MAIN: {
     title: 'main',
     routeName: ERoutesNames.HOME

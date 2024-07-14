@@ -24,7 +24,7 @@ import { ERoutesNames } from '@/router/routes-names';
 import { useDocTitle } from '@/composables/useDocTitle';
 import { Icon } from '@iconify/vue';
 import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
-import { BREADCRUMBS } from '@/constants/breadcrumbs';
+import { BREADCRUMBS } from '@/modules/app/domain/breadcrumbs';
 useDocTitle('404');
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.ERROR]);
 </script>

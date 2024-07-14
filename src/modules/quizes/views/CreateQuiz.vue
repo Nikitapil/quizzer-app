@@ -17,7 +17,7 @@ import { toast } from 'vue3-toastify';
 import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
 import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
-import { BREADCRUMBS } from '@/constants/breadcrumbs';
+import { BREADCRUMBS } from '@/modules/app/domain/breadcrumbs';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.CREATE]);

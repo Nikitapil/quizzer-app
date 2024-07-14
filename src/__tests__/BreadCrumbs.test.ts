@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import BreadCrumbs from '@/modules/app/components/BreadCrumbs.vue';
 import { useAppStore } from '@/modules/app/store/AppStore';
-import { BREADCRUMBS } from '@/constants/breadcrumbs';
+import { BREADCRUMBS } from '@/modules/app/domain/breadcrumbs';
 import router from '@/router';
 import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
 import { createPinia, type Pinia, setActivePinia } from 'pinia';

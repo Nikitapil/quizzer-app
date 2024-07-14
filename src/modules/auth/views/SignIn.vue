@@ -35,7 +35,7 @@ import { useRouter } from 'vue-router';
 import AppButton from '@/components/buttons/AppButton.vue';
 import RestorePasswordModal from '@/modules/auth/components/restore-form/RestorePasswordModal.vue';
 import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
-import { BREADCRUMBS } from '@/constants/breadcrumbs';
+import { BREADCRUMBS } from '@/modules/app/domain/breadcrumbs';
 import { useDocTitle } from '@/composables/useDocTitle';
 import { useI18n } from 'vue-i18n';
 

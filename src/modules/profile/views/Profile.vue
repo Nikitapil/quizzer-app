@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
-import { BREADCRUMBS } from '@/constants/breadcrumbs';
+import { BREADCRUMBS } from '@/modules/app/domain/breadcrumbs';
 import { useDocTitle } from '@/composables/useDocTitle';
 import { useAuthRedirect } from '@/modules/auth/composables/useAuthRedirect';
 import EditableText from '@/components/inputs/EditableText.vue';
