@@ -76,7 +76,7 @@ const onSubmit = async () => {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../assets/styles/colors';
+@import '../../../assets/styles/vars';
 
 .form-container {
   max-width: 400px;

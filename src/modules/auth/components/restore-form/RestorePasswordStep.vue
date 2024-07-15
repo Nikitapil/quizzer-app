@@ -60,7 +60,7 @@ const onSubmit = async () => {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../../assets/styles/colors';
+@import '../../../../assets/styles/vars';
 .restore-key-description {
   color: $color-medium-blue;
   font-size: 18px;

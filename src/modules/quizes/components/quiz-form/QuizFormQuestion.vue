@@ -83,7 +83,7 @@ const onDeleteIncorrectAnswer = (index: number) =>
 </script>
 
 <style lang="scss" scoped>
-@import '../../../../assets/styles/colors';
+@import '../../../../assets/styles/vars';
 .title {
   font-size: 24px;
   text-align: center;

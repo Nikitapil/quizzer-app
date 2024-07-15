@@ -112,7 +112,7 @@ const onChangePassword = async (newPassword: string) => {
 </template>
 
 <style lang="scss" scoped>
-@import '../../../assets/styles/colors';
+@import '../../../assets/styles/vars';
 
 .page {
   justify-content: flex-start;

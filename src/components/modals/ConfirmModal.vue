@@ -64,7 +64,7 @@ const confirmBtnTextInternal = computed(
 </template>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/colors';
+@import '../../assets/styles/vars';
 
 .buttons {
   display: flex;

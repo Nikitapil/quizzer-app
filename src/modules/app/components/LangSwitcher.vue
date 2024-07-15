@@ -50,7 +50,7 @@ const close = () => (isOpened.value = false);
 </script>
 
 <style lang="scss" scoped>
-@import '../../../assets/styles/colors';
+@import '../../../assets/styles/vars';
 
 .switcher {
   position: relative;

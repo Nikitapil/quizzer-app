@@ -54,7 +54,7 @@ const onSelect = (num: number) => {
 </template>
 
 <style lang="scss">
-@import '../assets/styles/colors';
+@import '../assets/styles/vars';
 .star {
   &:hover,
   &:has(~ .star:hover),

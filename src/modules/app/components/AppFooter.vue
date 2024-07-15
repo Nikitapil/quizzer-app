@@ -22,7 +22,7 @@
   </footer>
 </template>
 <style scoped lang="scss">
-@import '../../../assets/styles/colors';
+@import '../../../assets/styles/vars';
 
 .footer {
   padding: 10px 10px 5px 10px;

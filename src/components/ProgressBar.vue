@@ -15,7 +15,7 @@ const width = computed(() => props.progress + '%');
 </template>
 
 <style scoped lang="scss">
-@import '../assets/styles/colors';
+@import '../assets/styles/vars';
 
 .progress-bar {
   width: 240px;

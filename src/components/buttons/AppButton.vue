@@ -53,7 +53,7 @@ const classes = computed(() => ({
 </template>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/colors';
+@import '../../assets/styles/vars';
 .button {
   border: none;
   background: none;

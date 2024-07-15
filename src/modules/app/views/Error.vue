@@ -30,7 +30,7 @@ useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.ERROR]);
 </script>
 
 <style lang="scss" scoped>
-@import '../../../assets/styles/colors';
+@import '../../../assets/styles/vars';
 .error-page {
   display: flex;
   flex-direction: column;

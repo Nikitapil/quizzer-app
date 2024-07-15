@@ -164,7 +164,7 @@ const favouritesBtnTooltip = computed(() =>
 </script>
 
 <style lang="scss" scoped>
-@import '../../../assets/styles/colors';
+@import '../../../assets/styles/vars';
 
 .quiz-item {
   max-width: 800px;

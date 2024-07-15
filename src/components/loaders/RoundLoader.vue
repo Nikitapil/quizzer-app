@@ -18,7 +18,7 @@ const props = withDefaults(
 </template>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/colors';
+@import '../../assets/styles/vars';
 .lds-dual-ring {
   display: inline-block;
   width: 80px;

@@ -142,7 +142,7 @@ onMounted(async () => {
 });
 </script>
 <style lang="scss" scoped>
-@import '../../../assets/styles/colors';
+@import '../../../assets/styles/vars';
 
 .generation-form {
   max-width: 400px;

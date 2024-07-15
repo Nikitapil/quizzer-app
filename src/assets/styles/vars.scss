@@ -20,4 +20,8 @@ $color-success: #0ba360;
 
 // shadows
 $shadow-black-common: #000000 0 0 12px;
-$text-shadow-white-big: #fff 1px 0 7px
+$text-shadow-white-big: #fff 1px 0 7px;
+$filter-white-shadow: drop-shadow(1px 0 3px #fff);
+
+//transitions
+$default-transition: 0.4s;

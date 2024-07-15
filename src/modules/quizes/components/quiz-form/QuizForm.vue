@@ -117,7 +117,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../../assets/styles/colors';
+@import '../../../../assets/styles/vars';
 .form {
   max-width: 650px;
   width: 100%;

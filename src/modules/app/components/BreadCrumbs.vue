@@ -25,7 +25,7 @@ defineProps<{
 </script>
 
 <style lang="scss" scoped>
-@import '../../../assets/styles/colors';
+@import '../../../assets/styles/vars';
 .breadcrumbs-container {
   width: 100%;
   display: flex;

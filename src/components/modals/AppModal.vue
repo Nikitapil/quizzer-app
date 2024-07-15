@@ -56,7 +56,7 @@ const closeModal = () => (isOpened.value = false);
 </template>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/colors';
+@import '../../assets/styles/vars';
 
 .modal {
   &__overlay {

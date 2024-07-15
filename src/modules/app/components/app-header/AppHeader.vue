@@ -60,7 +60,7 @@ const closeMobileBar = () => (isMobileBarOpened.value = false);
 </template>
 
 <style lang="scss" scoped>
-@import '../../../../assets/styles/colors';
+@import '../../../../assets/styles/vars';
 .header {
   display: flex;
   align-items: center;
