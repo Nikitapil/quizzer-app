@@ -1,3 +1,11 @@
+<script setup lang="ts">
+import type { IBreadcrumb } from '@/modules/app/domain/types';
+
+defineProps<{
+  breadcrumbs: IBreadcrumb[];
+}>();
+</script>
+
 <template>
   <div class="breadcrumbs-container">
     <div
@@ -11,18 +19,11 @@
       >
         {{ $t(breadcrumb.title) }} /
       </router-link>
+
       <span v-else>{{ $t(breadcrumb.title) }}</span>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import type { IBreadcrumb } from '@/modules/app/domain/types';
-
-defineProps<{
-  breadcrumbs: IBreadcrumb[];
-}>();
-</script>
 
 <style lang="scss" scoped>
 @import '../../../assets/styles/vars';
@@ -35,10 +36,10 @@ defineProps<{
 .breadcrumb-link {
   color: inherit;
   text-decoration: none;
-  transition: 0.4s;
+  transition: $default-transition;
 
   &:hover {
-    color: $color-dark-blue;
+    text-shadow: $text-shadow-white-big;
   }
 }
 </style>
