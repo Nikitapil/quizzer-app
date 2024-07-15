@@ -1,12 +1,35 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue';
+import { Icon } from '@iconify/vue';
+
+import { ERoutesNames } from '@/router/routes-names';
+
+import NavBar from '@/modules/app/components/app-header/NavBar.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
+
+const isMobileBarOpened = ref(false);
+
+const burgerButtonIcon = computed(() =>
+  isMobileBarOpened.value ? 'iconamoon:close-bold' : 'heroicons:bars-3-20-solid'
+);
+
+const toggleMobileBar = () =>
+  (isMobileBarOpened.value = !isMobileBarOpened.value);
+
+const closeMobileBar = () => (isMobileBarOpened.value = false);
+</script>
+
 <template>
   <header class="header">
     <div class="container w-100 header-container">
       <h1 class="logo">
         <RouterLink :to="{ name: ERoutesNames.HOME }">Quizzer</RouterLink>
       </h1>
+
       <div class="desktop-bar">
         <NavBar />
       </div>
+
       <AppButton
         class="burger-btn"
         with-icon
@@ -15,12 +38,13 @@
       >
         <div @click.stop="toggleMobileBar">
           <Icon
-            icon="heroicons:bars-3-20-solid"
+            :icon="burgerButtonIcon"
             width="28"
             height="28"
           />
         </div>
       </AppButton>
+
       <Transition name="mobile">
         <div
           v-if="isMobileBarOpened"
@@ -34,21 +58,6 @@
     </div>
   </header>
 </template>
-
-<script setup lang="ts">
-import { ERoutesNames } from '@/router/routes-names';
-import NavBar from '@/modules/app/components/app-header/NavBar.vue';
-import AppButton from '@/components/buttons/AppButton.vue';
-import { Icon } from '@iconify/vue';
-import { ref } from 'vue';
-
-const isMobileBarOpened = ref(false);
-
-const toggleMobileBar = () =>
-  (isMobileBarOpened.value = !isMobileBarOpened.value);
-
-const closeMobileBar = () => (isMobileBarOpened.value = false);
-</script>
 
 <style lang="scss" scoped>
 @import '../../../../assets/styles/colors';
@@ -66,7 +75,7 @@ const closeMobileBar = () => (isMobileBarOpened.value = false);
   font-size: 32px;
   transition: 0.4s;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 
   &:hover {
     text-shadow: $text-shadow-white-big;
@@ -99,7 +108,7 @@ const closeMobileBar = () => (isMobileBarOpened.value = false);
 .mobile-bar {
   position: absolute;
   z-index: 5;
-  top: 60px;
+  top: 100%;
   left: 0;
   width: 100%;
   display: flex;

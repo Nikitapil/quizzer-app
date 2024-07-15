@@ -8,6 +8,7 @@ const props = withDefaults(
     type?: ButtonType;
     dataTest?: string;
     disabled?: boolean;
+    size?: `${string}px`;
     icon: string;
     color: string;
   }>(),
@@ -15,7 +16,8 @@ const props = withDefaults(
     type: 'button',
     dataTest: '',
     disabled: false,
-    color: 'black'
+    color: 'black',
+    size: '24px'
   }
 );
 </script>
@@ -32,8 +34,8 @@ const props = withDefaults(
     <Icon
       :icon="props.icon"
       :color="props.color"
-      width="24px"
-      height="24px"
+      :width="props.size"
+      :height="props.size"
     />
   </AppButton>
 </template>
