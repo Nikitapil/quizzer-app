@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { Icon } from '@iconify/vue';
+</script>
+
 <template>
   <footer class="footer">
     <a
@@ -12,6 +16,7 @@
         color="white"
       />
     </a>
+
     <a
       class="footer__link"
       href="https://nikitapil.github.io/gamelandia/"
@@ -21,11 +26,12 @@
     </a>
   </footer>
 </template>
+
 <style scoped lang="scss">
 @import '../../../assets/styles/vars';
 
 .footer {
-  padding: 10px 10px 5px 10px;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,7 +42,7 @@
     font-size: 18px;
     text-decoration: none;
     color: inherit;
-    transition: 0.4s;
+    transition: $default-transition;
 
     &:hover {
       text-shadow: $text-shadow-white-big;
@@ -46,10 +52,7 @@
 
 .hoverable-icon {
   &:hover {
-    filter: drop-shadow(0.2px -0.2px 5px #fff);
+    filter: $filter-white-shadow;
   }
 }
 </style>
-<script setup lang="ts">
-import { Icon } from '@iconify/vue';
-</script>
