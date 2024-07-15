@@ -18,7 +18,7 @@ describe('Composables', () => {
   it('should work useAuthRedirect', async () => {
     mount(Profile, {
       global: {
-        plugins: [createTestingPinia(), router]
+        plugins: [createTestingPinia()]
       }
     });
 
@@ -30,7 +30,7 @@ describe('Composables', () => {
   it('should work useClickOutside', async () => {
     const wrapper = mount(App, {
       global: {
-        plugins: [createTestingPinia(), router]
+        plugins: [createTestingPinia()]
       },
       attachTo: document.body
     });

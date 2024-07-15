@@ -1,6 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import NavBar from '@/modules/app/components/app-header/NavBar.vue';
-import router from '@/router';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { RouterLink } from 'vue-router';
 import { createTestingPinia } from '@pinia/testing';
@@ -13,11 +12,7 @@ describe('NavBar tests', () => {
   });
 
   it('should render loader if authLoading', () => {
-    const wrapper = mount(NavBar, {
-      global: {
-        plugins: [router]
-      }
-    });
+    const wrapper = mount(NavBar);
     const store = useAuthStore();
     store.isLoading = true;
 
@@ -29,7 +24,7 @@ describe('NavBar tests', () => {
   it('should render auth links', async () => {
     const wrapper = mount(NavBar, {
       global: {
-        plugins: [router, createTestingPinia()]
+        plugins: [createTestingPinia()]
       }
     });
     const store = useAuthStore();
@@ -45,7 +40,7 @@ describe('NavBar tests', () => {
   it('should render user links', async () => {
     const wrapper = mount(NavBar, {
       global: {
-        plugins: [router, createTestingPinia()]
+        plugins: [createTestingPinia()]
       }
     });
     const store = useAuthStore();
@@ -87,7 +82,7 @@ describe('NavBar tests', () => {
 
     const wrapper = mount(NavBar, {
       global: {
-        plugins: [router, pinia]
+        plugins: [pinia]
       }
     });
 

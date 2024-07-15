@@ -2,7 +2,6 @@ import { mount } from '@vue/test-utils';
 import BreadCrumbs from '@/modules/app/components/BreadCrumbs.vue';
 import { useAppStore } from '@/modules/app/store/AppStore';
 import { BREADCRUMBS } from '@/modules/app/domain/breadcrumbs';
-import router from '@/router';
 import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
 import { createPinia, type Pinia, setActivePinia } from 'pinia';
 
@@ -18,9 +17,6 @@ describe('Breadcrumbs tests', () => {
     store.setBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.GAME]);
 
     const wrapper = mount(BreadCrumbs, {
-      global: {
-        plugins: [router]
-      },
       props: {
         breadcrumbs: store.breadCrumbs
       }
@@ -40,7 +36,7 @@ describe('Breadcrumbs tests', () => {
 
     const wrapper = mount(BreadCrumbs, {
       global: {
-        plugins: [router, pinia]
+        plugins: [pinia]
       },
       props: {
         breadcrumbs: store.breadCrumbs

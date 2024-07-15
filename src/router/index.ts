@@ -12,65 +12,67 @@ import UsersQuizes from '@/modules/quizes/views/UsersQuizes.vue';
 import FavouritesQuizzes from '@/modules/quizes/views/FavouritesQuizzes.vue';
 import Profile from '@/modules/profile/views/Profile.vue';
 
+export const routes = [
+  {
+    path: '/',
+    name: ERoutesNames.HOME,
+    component: Home
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: ERoutesNames.ERROR,
+    component: Error
+  },
+  {
+    path: '/quiz/:id',
+    name: ERoutesNames.QUIZ,
+    component: Game
+  },
+  {
+    path: '/quizzes/all',
+    name: ERoutesNames.ALL_QUIZES,
+    component: AllQuizes
+  },
+  {
+    path: '/quizzes/user/:id',
+    name: ERoutesNames.USER_QUIZES,
+    component: UsersQuizes
+  },
+  {
+    path: '/quizzes/favourites',
+    name: ERoutesNames.FAVOURITES,
+    component: FavouritesQuizzes
+  },
+  {
+    path: '/signup',
+    name: ERoutesNames.SIGN_UP,
+    component: SignUp
+  },
+  {
+    path: '/signin',
+    name: ERoutesNames.SIGN_IN,
+    component: SignIn
+  },
+  {
+    path: '/create',
+    name: ERoutesNames.CREATE_QUIZ,
+    component: CreateQuiz
+  },
+  {
+    path: '/edit/:id',
+    name: ERoutesNames.EDIT_QUIZ,
+    component: EditQuiz
+  },
+  {
+    path: '/profile',
+    name: ERoutesNames.PROFILE,
+    component: Profile
+  }
+];
+
 const router = createRouter({
   history: createWebHistory('/quizzer-app/'),
-  routes: [
-    {
-      path: '/',
-      name: ERoutesNames.HOME,
-      component: Home
-    },
-    {
-      path: '/:catchAll(.*)',
-      name: ERoutesNames.ERROR,
-      component: Error
-    },
-    {
-      path: '/quiz/:id',
-      name: ERoutesNames.QUIZ,
-      component: Game
-    },
-    {
-      path: '/quizzes/all',
-      name: ERoutesNames.ALL_QUIZES,
-      component: AllQuizes
-    },
-    {
-      path: '/quizzes/user/:id',
-      name: ERoutesNames.USER_QUIZES,
-      component: UsersQuizes
-    },
-    {
-      path: '/quizzes/favourites',
-      name: ERoutesNames.FAVOURITES,
-      component: FavouritesQuizzes
-    },
-    {
-      path: '/signup',
-      name: ERoutesNames.SIGN_UP,
-      component: SignUp
-    },
-    {
-      path: '/signin',
-      name: ERoutesNames.SIGN_IN,
-      component: SignIn
-    },
-    {
-      path: '/create',
-      name: ERoutesNames.CREATE_QUIZ,
-      component: CreateQuiz
-    },
-    {
-      path: '/edit/:id',
-      name: ERoutesNames.EDIT_QUIZ,
-      component: EditQuiz
-    },
-    {
-      path: '/profile',
-      name: ERoutesNames.PROFILE,
-      component: Profile
-    }
-  ]
+  routes
 });
 
 export default router;

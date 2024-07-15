@@ -11,7 +11,7 @@ describe('SignUn component tests', () => {
   it('should render loader if auth isLoading', () => {
     const wrapper = mount(SignUp, {
       global: {
-        plugins: [router, createTestingPinia()]
+        plugins: [createTestingPinia()]
       }
     });
 
@@ -23,7 +23,7 @@ describe('SignUn component tests', () => {
   it('should render sign up form', async () => {
     const wrapper = mount(SignUp, {
       global: {
-        plugins: [router, createTestingPinia()]
+        plugins: [createTestingPinia()]
       }
     });
 
@@ -43,7 +43,7 @@ describe('SignUn component tests', () => {
   it('should redirect if is authenticated', async () => {
     mount(SignUp, {
       global: {
-        plugins: [router, createTestingPinia()]
+        plugins: [createTestingPinia()]
       }
     });
 
@@ -65,7 +65,7 @@ describe('SignUn component tests', () => {
   it('should navigate to sign in page', async () => {
     const wrapper = mount(SignUp, {
       global: {
-        plugins: [router, createTestingPinia()]
+        plugins: [createTestingPinia()]
       }
     });
 
@@ -87,7 +87,7 @@ describe('SignUn component tests', () => {
   it('should call store register function on login', async () => {
     const wrapper = mount(SignUp, {
       global: {
-        plugins: [router, createTestingPinia()]
+        plugins: [createTestingPinia()]
       }
     });
 

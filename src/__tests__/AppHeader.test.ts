@@ -1,14 +1,16 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import AppHeader from '@/modules/app/components/app-header/AppHeader.vue';
-import router from '@/router';
-import { createTestingPinia } from '@pinia/testing';
 import type { ComponentPublicInstance } from 'vue';
+import { createPinia, setActivePinia } from 'pinia';
 
 describe('AppHeader tests', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia());
+  });
+
   it('should open mobile bar', async () => {
     const wrapper = mount(AppHeader, {
       global: {
-        plugins: [router, createTestingPinia()],
         stubs: undefined
       },
       attachTo: document.body

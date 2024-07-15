@@ -1,6 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import AuthForm from '@/modules/auth/components/AuthForm.vue';
-import router from '@/router';
 
 describe('AuthForm component tests', () => {
   it('should render sign in form', () => {
@@ -9,9 +8,6 @@ describe('AuthForm component tests', () => {
         title: 'Auth form',
         submitBtnText: 'Sign up',
         useSignUp: false
-      },
-      global: {
-        plugins: [router]
       }
     });
 
@@ -28,9 +24,6 @@ describe('AuthForm component tests', () => {
         title: 'Auth form',
         submitBtnText: 'Sign up',
         useSignUp: true
-      },
-      global: {
-        plugins: [router]
       }
     });
 
@@ -47,9 +40,6 @@ describe('AuthForm component tests', () => {
         title: 'Auth form',
         submitBtnText: 'Sign up',
         useSignUp: true
-      },
-      global: {
-        plugins: [router]
       }
     });
 

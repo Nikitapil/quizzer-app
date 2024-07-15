@@ -25,7 +25,7 @@ describe('Home component tests', () => {
   it('should render only generation form', async () => {
     const wrapper = mount(Home, {
       global: {
-        plugins: [router, pinia]
+        plugins: [pinia]
       }
     });
 
@@ -41,7 +41,7 @@ describe('Home component tests', () => {
   it('should render create btn if authenticated', async () => {
     const wrapper = mount(Home, {
       global: {
-        plugins: [router, pinia]
+        plugins: [pinia]
       }
     });
 
@@ -66,7 +66,7 @@ describe('Home component tests', () => {
   it('should redirect to quiz page after generating', async () => {
     const wrapper = mount(Home, {
       global: {
-        plugins: [router, pinia]
+        plugins: [pinia]
       }
     });
 

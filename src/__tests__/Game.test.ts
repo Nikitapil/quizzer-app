@@ -42,7 +42,7 @@ describe('Game component tests', () => {
 
     const wrapper = mount(Game, {
       global: {
-        plugins: [router, pinia]
+        plugins: [pinia]
       }
     });
 
@@ -59,7 +59,7 @@ describe('Game component tests', () => {
 
     const wrapper = mount(Game, {
       global: {
-        plugins: [router, pinia]
+        plugins: [pinia]
       }
     });
 
@@ -81,11 +81,13 @@ describe('Game component tests', () => {
       store.isPageLoading = false;
     };
 
-    await router.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
+    // await router.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
+
+    await router.replace({ name: ERoutesNames.QUIZ, params: { id: 1 } });
 
     const wrapper = mount(Game, {
       global: {
-        plugins: [router, pinia]
+        plugins: [pinia]
       }
     });
 
@@ -112,7 +114,7 @@ describe('Game component tests', () => {
 
     const wrapper = mount(Game, {
       global: {
-        plugins: [router, pinia]
+        plugins: [pinia]
       }
     });
 
@@ -197,7 +199,7 @@ describe('Game component tests', () => {
 
     const wrapper = mount(Game, {
       global: {
-        plugins: [router, pinia]
+        plugins: [pinia]
       }
     });
 
@@ -235,7 +237,7 @@ describe('Game component tests', () => {
 
     const wrapper = mount(Game, {
       global: {
-        plugins: [router, pinia]
+        plugins: [pinia]
       }
     });
 
@@ -273,7 +275,7 @@ describe('Game component tests', () => {
 
     const wrapper = mount(Game, {
       global: {
-        plugins: [router, pinia]
+        plugins: [pinia]
       }
     });
 

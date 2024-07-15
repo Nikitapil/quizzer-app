@@ -10,11 +10,7 @@ describe('Error page tests', () => {
   });
 
   it('should redirect to error page', async () => {
-    const wrapper = mount(App, {
-      global: {
-        plugins: [router]
-      }
-    });
+    const wrapper = mount(App);
     const store = useAuthStore();
     store.isLoading = false;
     await router.push('/not_existed_route');

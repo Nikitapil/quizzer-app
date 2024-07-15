@@ -11,7 +11,7 @@ describe('SignIn component tests', () => {
   it('should render loader if auth isLoading', () => {
     const wrapper = mount(SignIn, {
       global: {
-        plugins: [router, createTestingPinia()]
+        plugins: [createTestingPinia()]
       }
     });
 
@@ -23,7 +23,7 @@ describe('SignIn component tests', () => {
   it('should render sign in form', async () => {
     const wrapper = mount(SignIn, {
       global: {
-        plugins: [router, createTestingPinia()]
+        plugins: [createTestingPinia()]
       }
     });
 
@@ -43,7 +43,7 @@ describe('SignIn component tests', () => {
   it('should redirect if is authenticated', async () => {
     mount(SignIn, {
       global: {
-        plugins: [router, createTestingPinia()]
+        plugins: [createTestingPinia()]
       }
     });
 
@@ -65,7 +65,7 @@ describe('SignIn component tests', () => {
   it('should render restore password button', async () => {
     const wrapper = mount(SignIn, {
       global: {
-        plugins: [router, createTestingPinia()]
+        plugins: [createTestingPinia()]
       }
     });
 
@@ -83,7 +83,7 @@ describe('SignIn component tests', () => {
   it('should navigate to sign up page', async () => {
     const wrapper = mount(SignIn, {
       global: {
-        plugins: [router, createTestingPinia()]
+        plugins: [createTestingPinia()]
       }
     });
 
@@ -105,7 +105,7 @@ describe('SignIn component tests', () => {
   it('should call store login function on login', async () => {
     const wrapper = mount(SignIn, {
       global: {
-        plugins: [router, createTestingPinia()]
+        plugins: [createTestingPinia()]
       }
     });
 
@@ -145,7 +145,7 @@ describe('SignIn component tests', () => {
     store.isLoading = false;
     const wrapper = mount(SignIn, {
       global: {
-        plugins: [router, pinia]
+        plugins: [pinia]
       }
     });
 

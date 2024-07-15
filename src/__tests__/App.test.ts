@@ -2,7 +2,6 @@ import { createTestingPinia } from '@pinia/testing';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { flushPromises, mount } from '@vue/test-utils';
 import App from '@/modules/app/App.vue';
-import router from '@/router';
 import { RouterView } from 'vue-router';
 
 describe('App component test', () => {
@@ -13,7 +12,7 @@ describe('App component test', () => {
 
     const wrapper = mount(App, {
       global: {
-        plugins: [router, pinia]
+        plugins: [pinia]
       }
     });
 
@@ -29,7 +28,7 @@ describe('App component test', () => {
 
     const wrapper = mount(App, {
       global: {
-        plugins: [router, pinia]
+        plugins: [pinia]
       }
     });
 

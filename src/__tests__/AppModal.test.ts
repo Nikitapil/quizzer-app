@@ -27,7 +27,7 @@ describe('AppModal component tests', () => {
   });
 
   it('should close modal on click close btn', async () => {
-    await wrapper.setValue({ modelValue: false });
+    await wrapper.setValue(true);
     const closeBtn = wrapper.get('button');
 
     await closeBtn.trigger('click');
