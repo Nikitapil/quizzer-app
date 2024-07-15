@@ -1,6 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import AppHeader from '@/modules/app/components/app-header/AppHeader.vue';
-import type { ComponentPublicInstance } from 'vue';
 import { createPinia, setActivePinia } from 'pinia';
 
 describe('AppHeader tests', () => {
@@ -8,17 +7,14 @@ describe('AppHeader tests', () => {
     setActivePinia(createPinia());
   });
 
-  it('should open mobile bar', async () => {
+  it('should open and close mobile bar', async () => {
     const wrapper = mount(AppHeader, {
-      global: {
-        stubs: undefined
-      },
       attachTo: document.body
     });
 
-    (
-      wrapper.vm as ComponentPublicInstance & { toggleMobileBar: () => void }
-    ).toggleMobileBar();
+    const burgerBtn = wrapper.get('[data-test="burger-btn"]');
+
+    await burgerBtn.trigger('click');
 
     await flushPromises();
 

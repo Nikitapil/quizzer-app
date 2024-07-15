@@ -34,13 +34,13 @@ const closeMobileBar = () => (isMobileBarOpened.value = false);
         class="burger-btn"
         with-icon
         appearence="transparent"
-        data-test="burger-btn"
       >
         <div @click.stop="toggleMobileBar">
           <Icon
             :icon="burgerButtonIcon"
             width="28"
             height="28"
+            data-test="burger-btn"
           />
         </div>
       </AppButton>
