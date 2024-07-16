@@ -1,34 +1,31 @@
+import { createPinia, setActivePinia } from 'pinia';
 import { flushPromises, mount } from '@vue/test-utils';
-import NavBar from '@/modules/app/components/app-header/NavBar.vue';
+
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { RouterLink } from 'vue-router';
-import { createTestingPinia } from '@pinia/testing';
 import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
-import { createPinia, setActivePinia } from 'pinia';
+
+import NavBar from '@/modules/app/components/app-header/NavBar.vue';
 
 describe('NavBar tests', () => {
+  setActivePinia(createPinia());
+
   beforeEach(() => {
     setActivePinia(createPinia());
   });
 
-  it('should render loader if authLoading', () => {
-    const wrapper = mount(NavBar);
-    const store = useAuthStore();
-    store.isLoading = true;
+  const wrapper = mount(NavBar);
 
+  it('should render loader if authLoading', () => {
     const loader = wrapper.find('[data-test="horizontal-loader"]');
 
     expect(loader.exists()).toBeTruthy();
   });
 
   it('should render auth links', async () => {
-    const wrapper = mount(NavBar, {
-      global: {
-        plugins: [createTestingPinia()]
-      }
-    });
+    const wrapper = mount(NavBar);
     const store = useAuthStore();
-    store.$patch({ isLoading: false });
+    store.isLoading = false;
 
     await flushPromises();
 
@@ -38,14 +35,12 @@ describe('NavBar tests', () => {
   });
 
   it('should render user links', async () => {
-    const wrapper = mount(NavBar, {
-      global: {
-        plugins: [createTestingPinia()]
-      }
-    });
+    const wrapper = mount(NavBar);
+
     const store = useAuthStore();
-    store.$patch({ isLoading: false });
+
     store.$patch({
+      isLoading: false,
       user: {
         id: 1,
         username: 'Test user',
@@ -63,9 +58,7 @@ describe('NavBar tests', () => {
   });
 
   it('should trigger logout', async () => {
-    const pinia = createTestingPinia();
-
-    const authStore = useAuthStore(pinia);
+    const authStore = useAuthStore();
 
     authStore.isLoading = false;
 
@@ -80,11 +73,7 @@ describe('NavBar tests', () => {
       authStore.user = null;
     };
 
-    const wrapper = mount(NavBar, {
-      global: {
-        plugins: [pinia]
-      }
-    });
+    const wrapper = mount(NavBar);
 
     const logoutBtn = wrapper.find('[data-test="logout"]');
 
