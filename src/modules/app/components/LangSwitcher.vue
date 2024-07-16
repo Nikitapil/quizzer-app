@@ -1,3 +1,24 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { Icon } from '@iconify/vue';
+
+import { setLangToStorage } from '@/helpers/lang-helpers';
+
+const { locale, availableLocales } = useI18n();
+
+const changeLang = (lang: string) => {
+  locale.value = lang;
+  setLangToStorage(lang);
+  isOpened.value = false;
+};
+
+const isOpened = ref(false);
+
+const open = () => (isOpened.value = true);
+const close = () => (isOpened.value = false);
+</script>
+
 <template>
   <div
     v-click-outside="close"
@@ -11,6 +32,7 @@
       width="28"
       @click.stop="open"
     />
+
     <Transition name="switcher">
       <div
         v-if="isOpened"
@@ -30,25 +52,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { Icon } from '@iconify/vue';
-import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-
-const { locale, availableLocales } = useI18n();
-
-const changeLang = (lang: string) => {
-  locale.value = lang;
-  localStorage.setItem('lang', lang);
-  isOpened.value = false;
-};
-
-const isOpened = ref(false);
-
-const open = () => (isOpened.value = true);
-const close = () => (isOpened.value = false);
-</script>
-
 <style lang="scss" scoped>
 @import '../../../assets/styles/vars';
 
@@ -58,10 +61,10 @@ const close = () => (isOpened.value = false);
 
 .switcher-icon {
   cursor: pointer;
-  transition: 0.4s;
+  transition: $default-transition;
 
   &:hover {
-    filter: drop-shadow(1px 0 1px #fff);
+    filter: $filter-white-shadow;
   }
 }
 
@@ -77,14 +80,15 @@ const close = () => (isOpened.value = false);
     font-weight: 600;
     padding: 2px 16px;
     border: none;
-    background: none;
+    background: #222;
     color: inherit;
-    transition: 0.4s;
+    transition: $default-transition;
     letter-spacing: 0.5px;
     overflow: hidden;
 
     &.active {
-      background: $color-dark-blue;
+      background: #888;
+      color: #000;
     }
 
     &:hover {
