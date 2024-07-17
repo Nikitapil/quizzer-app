@@ -1,7 +1,6 @@
 import { ERoutesNames } from '@/router/routes-names';
-import type { IBreadcrumb } from '@/modules/app/domain/types';
 
-export const BREADCRUMBS: Record<string, IBreadcrumb> = {
+export const BREADCRUMBS = {
   MAIN: {
     title: 'main',
     routeName: ERoutesNames.HOME
@@ -38,7 +37,7 @@ export const BREADCRUMBS: Record<string, IBreadcrumb> = {
     title: 'quiz_editing',
     routeName: ERoutesNames.EDIT_QUIZ
   },
-  Profile: {
+  PROFILE: {
     title: 'profile',
     routeName: ERoutesNames.PROFILE
   },

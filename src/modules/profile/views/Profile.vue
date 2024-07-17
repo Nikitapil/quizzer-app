@@ -13,7 +13,7 @@ import { useDeleteUser } from '@/modules/auth/features/useDeleteUser';
 import ConfirmModal from '@/components/modals/ConfirmModal.vue';
 
 const { t } = useI18n();
-useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.Profile]);
+useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.PROFILE]);
 useDocTitle(t('profile'));
 useAuthRedirect();
 
