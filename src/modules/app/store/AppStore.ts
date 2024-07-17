@@ -1,26 +1,16 @@
+import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import type {
-  IAppStoreActions,
-  IAppStoreState,
-  IBreadcrumb,
-  TAppStoreGetters
-} from '@/modules/app/domain/types';
+import type { IBreadcrumb } from '@/modules/app/domain/types';
 
-export const useAppStore = defineStore<
-  'app',
-  IAppStoreState,
-  TAppStoreGetters,
-  IAppStoreActions
->('app', {
-  state: () => {
-    return {
-      breadCrumbs: []
-    };
-  },
-  getters: {},
-  actions: {
-    setBreadCrumbs(breadcrumbs: IBreadcrumb[]) {
-      this.breadCrumbs = breadcrumbs;
-    }
-  }
+export const useAppStore = defineStore('app', () => {
+  const breadcrumbs = ref<IBreadcrumb[]>([]);
+
+  const setBreadCrumbs = (breadCrumbs: IBreadcrumb[]) => {
+    breadcrumbs.value = breadCrumbs;
+  };
+
+  return {
+    breadcrumbs,
+    setBreadCrumbs
+  };
 });
