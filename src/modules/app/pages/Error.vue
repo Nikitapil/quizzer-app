@@ -1,7 +1,22 @@
+<script setup lang="ts">
+import { Icon } from '@iconify/vue';
+
+import { ERoutesNames } from '@/router/routes-names';
+import { BREADCRUMBS } from '@/modules/app/domain/breadcrumbs';
+
+import { useDocTitle } from '@/composables/useDocTitle';
+import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
+
+useDocTitle('404');
+useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.ERROR]);
+</script>
+
 <template>
   <div class="error-page">
     <h2 class="error-page__title">{{ $t('page_not_found') }}</h2>
+
     <div class="error-page__numbers">404</div>
+
     <div class="error-page__link-container">
       <RouterLink
         class="error-page__link"
@@ -19,16 +34,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ERoutesNames } from '@/router/routes-names';
-import { useDocTitle } from '@/composables/useDocTitle';
-import { Icon } from '@iconify/vue';
-import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
-import { BREADCRUMBS } from '@/modules/app/domain/breadcrumbs';
-useDocTitle('404');
-useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.ERROR]);
-</script>
-
 <style lang="scss" scoped>
 @import '../../../assets/styles/vars';
 .error-page {
@@ -43,12 +48,13 @@ useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.ERROR]);
   }
 
   &__numbers {
-    font-size: 120px;
+    font-size: 190px;
     font-weight: 700;
+    margin-bottom: 60px;
   }
 
   &__link {
-    font-size: 24px;
+    font-size: 28px;
     color: inherit;
     text-decoration: none;
     display: flex;
@@ -60,9 +66,9 @@ useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.ERROR]);
     display: flex;
     align-items: center;
     gap: 5px;
-    transition: 0.4s;
+    transition: $default-transition;
     &:hover {
-      filter: drop-shadow($text-shadow-white-big);
+      filter: $filter-white-shadow;
     }
   }
 }
