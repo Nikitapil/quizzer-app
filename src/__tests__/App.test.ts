@@ -3,18 +3,21 @@ import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { flushPromises, mount } from '@vue/test-utils';
 import App from '@/modules/app/App.vue';
 import { RouterView } from 'vue-router';
+import { createPinia, setActivePinia } from 'pinia';
 
 describe('App component test', () => {
+  const setup = () => {
+    setActivePinia(createPinia());
+  };
+
+  beforeEach(() => {
+    setup();
+  });
   it('should render app with loader', () => {
-    const pinia = createTestingPinia();
-    const store = useAuthStore(pinia);
+    const store = useAuthStore();
     store.refresh = async () => {};
 
-    const wrapper = mount(App, {
-      global: {
-        plugins: [pinia]
-      }
-    });
+    const wrapper = mount(App);
 
     const loader = wrapper.find('[data-test="round-loader"]');
 
@@ -22,15 +25,10 @@ describe('App component test', () => {
   });
 
   it('should render app with routerView', async () => {
-    const pinia = createTestingPinia();
-    const store = useAuthStore(pinia);
+    const store = useAuthStore();
     store.refresh = async () => {};
 
-    const wrapper = mount(App, {
-      global: {
-        plugins: [pinia]
-      }
-    });
+    const wrapper = mount(App);
 
     store.isLoading = false;
 
