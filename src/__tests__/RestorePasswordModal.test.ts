@@ -1,36 +1,17 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import RestorePasswordModal from '@/modules/auth/components/restore-form/RestorePasswordModal.vue';
-import { createTestingPinia } from '@pinia/testing';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import RestorePasswordEmailStep from '@/modules/auth/components/restore-form/RestorePasswordEmailStep.vue';
 import RestorePasswordStep from '@/modules/auth/components/restore-form/RestorePasswordStep.vue';
+import { createPinia, setActivePinia } from 'pinia';
 
 describe('RestorePasswordModal component tests', () => {
-  // it('should render loader while restore is loading', async () => {
-  //   const wrapper = mount(RestorePasswordModal, {
-  //     global: {
-  //       plugins: [i18n, router, createTestingPinia()]
-  //     },
-  //     props: {
-  //       modelValue: true
-  //     }
-  //   });
-  //   const store = useAuthStore();
-  //
-  //   store.isRestorePasswordLoading = true;
-  //
-  //   await flushPromises();
-  //
-  //   const loader = wrapper.find('[data-test="round-loader"]');
-  //
-  //   expect(loader.exists()).toBe(true);
-  // });
+  beforeEach(() => {
+    setActivePinia(createPinia());
+  });
 
   it('should render change steps inside modal', async () => {
     const wrapper = mount(RestorePasswordModal, {
-      global: {
-        plugins: [createTestingPinia()]
-      },
       props: {
         modelValue: true
       }
