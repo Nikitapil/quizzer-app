@@ -1,4 +1,3 @@
-import { createTestingPinia } from '@pinia/testing';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { flushPromises, mount } from '@vue/test-utils';
 import App from '@/modules/app/App.vue';
