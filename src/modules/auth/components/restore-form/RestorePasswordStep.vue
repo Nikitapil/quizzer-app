@@ -1,43 +1,11 @@
-<template>
-  <form
-    class="form"
-    @submit.prevent="onSubmit"
-  >
-    <p class="restore-key-description">{{ $t('secret_key_description') }}</p>
-    <AppInput
-      v-model="secretKey"
-      id="restore_key"
-      name="restore_key"
-      rules="required"
-      full-width
-      :placeholder="$t('secret_key_placeholder')"
-      type="text"
-      :label="$t('secret_key_label')"
-    />
-    <AppInput
-      v-model="newPassword"
-      id="new_password"
-      name="new_password"
-      full-width
-      :placeholder="$t('new_password_placeholder')"
-      :rules="{ required: true, minLength: 8 }"
-      type="password"
-      :label="$t('new_password_label')"
-    />
-    <AppButton
-      full
-      type="submit"
-      :text="$t('update_password')"
-    />
-  </form>
-</template>
-
 <script setup lang="ts">
-import AppInput from '@/components/inputs/AppInput.vue';
 import { ref } from 'vue';
-import AppButton from '@/components/buttons/AppButton.vue';
-import type { IRestorePasswordRequest } from '@/modules/auth/domain/types';
 import { useForm } from 'vee-validate';
+
+import type { IRestorePasswordRequest } from '@/modules/auth/domain/types';
+
+import AppInput from '@/components/inputs/AppInput.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
 
 const emit = defineEmits<{
   submit: [data: IRestorePasswordRequest];
@@ -50,6 +18,7 @@ const newPassword = ref('');
 
 const onSubmit = async () => {
   const { valid } = await validate();
+
   if (valid) {
     emit('submit', {
       key: secretKey.value,
@@ -58,6 +27,43 @@ const onSubmit = async () => {
   }
 };
 </script>
+
+<template>
+  <form
+    class="form"
+    @submit.prevent="onSubmit"
+  >
+    <p class="restore-key-description">{{ $t('secret_key_description') }}</p>
+
+    <AppInput
+      v-model="secretKey"
+      id="restore_key"
+      name="restore_key"
+      rules="required"
+      full-width
+      :placeholder="$t('secret_key_placeholder')"
+      type="text"
+      :label="$t('secret_key_label')"
+    />
+
+    <AppInput
+      v-model="newPassword"
+      id="new_password"
+      name="new_password"
+      full-width
+      :placeholder="$t('new_password_placeholder')"
+      :rules="{ required: true, minLength: 8 }"
+      type="password"
+      :label="$t('new_password_label')"
+    />
+
+    <AppButton
+      full
+      type="submit"
+      :text="$t('update_password')"
+    />
+  </form>
+</template>
 
 <style lang="scss" scoped>
 @import '../../../../assets/styles/vars';
