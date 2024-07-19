@@ -13,13 +13,16 @@ describe('RestorePasswordStep tests', () => {
   });
 
   it('should emit submit event', async () => {
+    const keyValue = '123456';
+    const passwordValue = '12345678';
+
     const wrapper = mount(RestorePasswordStep);
 
     const restoreKeyInput = wrapper.get('#restore_key');
     const newPasswordInput = wrapper.get('#new_password');
 
-    await restoreKeyInput.setValue('123456');
-    await newPasswordInput.setValue('12345678');
+    await restoreKeyInput.setValue(keyValue);
+    await newPasswordInput.setValue(passwordValue);
 
     const form = wrapper.get('form');
     await form.trigger('submit');
@@ -28,8 +31,8 @@ describe('RestorePasswordStep tests', () => {
     expect(wrapper.emitted('submit')).toBeTruthy();
     expect(wrapper.emitted('submit')?.[0]).toEqual([
       {
-        key: '123456',
-        password: '12345678'
+        key: keyValue,
+        password: passwordValue
       }
     ]);
   });
