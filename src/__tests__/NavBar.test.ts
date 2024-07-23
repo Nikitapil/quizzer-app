@@ -3,7 +3,6 @@ import { flushPromises, mount } from '@vue/test-utils';
 
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { RouterLink } from 'vue-router';
-import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
 
 import NavBar from '@/modules/app/components/app-header/NavBar.vue';
 import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
