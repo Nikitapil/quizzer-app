@@ -1,10 +1,11 @@
 import { generateApi } from 'swagger-typescript-api';
 import * as path from 'node:path';
+import { MockGenerator } from 'ts-mocker';
 
 const apisPaths = ['Auth', 'Users', 'Quizes'];
 
-const generateApiByPath = (apiName: string) => {
-  generateApi({
+const generateApiByPath = async (apiName: string) => {
+  await generateApi({
     name: apiName,
     moduleNameIndex: 1,
     output: path.resolve(process.cwd(), `./src/api/swagger/${apiName}`),
@@ -17,6 +18,22 @@ const generateApiByPath = (apiName: string) => {
     cleanOutput: true,
     modular: true
   });
+
+  const mockGenerator = new MockGenerator({
+    filePath: path.resolve(
+      process.cwd(),
+      `./src/api/swagger/${apiName}/data-contracts.ts`
+    ),
+    outputPath: path.resolve(
+      process.cwd(),
+      `./src/api/swagger/${apiName}`,
+      'mock.ts'
+    ),
+    needImportsTypePrefix: true,
+    allowImportingTsExtensions: false
+  });
+
+  mockGenerator.generate();
 };
 
 apisPaths.forEach((path) => generateApiByPath(path));
