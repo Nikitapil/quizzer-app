@@ -6,6 +6,7 @@ import { RouterLink } from 'vue-router';
 import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
 
 import NavBar from '@/modules/app/components/app-header/NavBar.vue';
+import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
 
 describe('NavBar tests', () => {
   setActivePinia(createPinia());
@@ -41,11 +42,7 @@ describe('NavBar tests', () => {
 
     store.$patch({
       isLoading: false,
-      user: {
-        id: 1,
-        username: 'Test user',
-        email: 'test@test.test'
-      }
+      user: UserReturnDtoMock.create()
     });
 
     await flushPromises();
@@ -62,12 +59,7 @@ describe('NavBar tests', () => {
 
     authStore.isLoading = false;
 
-    authStore.user = {
-      id: 1,
-      username: 'Test user',
-      email: 'test@test.test',
-      role: UserRolesEnum.User
-    };
+    authStore.user = UserReturnDtoMock.create();
 
     authStore.logout = async () => {
       authStore.user = null;
