@@ -22,6 +22,7 @@ $color-success: #0ba360;
 $shadow-black-common: #000000 0 0 12px;
 $text-shadow-white-big: #fff 1px 0 7px;
 $filter-white-shadow: drop-shadow(1px 0 3px #fff);
+$form-shadow: $shadow-black-common, inset 0 65px 45px -15px $color-blue;
 
 //transitions
 $default-transition: 0.4s;

@@ -36,7 +36,7 @@ describe('SignUn component tests', () => {
     const inputs = wrapper.findAll('input');
     const usernameInput = wrapper.find('#username');
 
-    expect(inputs.length).toBe(3);
+    expect(inputs.length).toBe(4);
     expect(usernameInput.exists()).toBe(true);
   });
 
@@ -109,10 +109,12 @@ describe('SignUn component tests', () => {
     const form = wrapper.get('form');
     const emailInput = wrapper.find('#email');
     const passwordInput = wrapper.find('#password');
+    const passwordConfirm = wrapper.find('#confirm-password');
     const usernameInput = wrapper.find('#username');
 
     await emailInput.setValue('test@test.test');
     await passwordInput.setValue('12345678');
+    await passwordConfirm.setValue('12345678');
     await usernameInput.setValue('test user');
 
     await form.trigger('submit');

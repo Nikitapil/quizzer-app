@@ -12,6 +12,7 @@ describe('App component test', () => {
   beforeEach(() => {
     setup();
   });
+
   it('should render app with loader', () => {
     const store = useAuthStore();
     store.refresh = async () => {};

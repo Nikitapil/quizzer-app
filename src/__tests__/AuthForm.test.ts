@@ -30,7 +30,7 @@ describe('AuthForm component tests', () => {
     const inputs = wrapper.findAll('input');
     const usernameInput = wrapper.find('#username');
 
-    expect(inputs.length).toBe(3);
+    expect(inputs.length).toBe(4);
     expect(usernameInput.exists()).toBe(true);
   });
 
@@ -46,6 +46,7 @@ describe('AuthForm component tests', () => {
     const form = wrapper.get('form');
     const emailInput = wrapper.find('#email');
     const passwordInput = wrapper.find('#password');
+    const passwordConfirmInput = wrapper.find('#confirm-password');
     const usernameInput = wrapper.find('#username');
 
     await form.trigger('submit');
@@ -72,6 +73,7 @@ describe('AuthForm component tests', () => {
     expect(wrapper.emitted('submit')).toBeFalsy();
 
     await passwordInput.setValue('12345678');
+    await passwordConfirmInput.setValue('12345678');
 
     await form.trigger('submit');
 

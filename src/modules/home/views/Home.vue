@@ -154,7 +154,7 @@ onMounted(async () => {
   align-items: center;
   gap: 10px;
   border-radius: 16px;
-  box-shadow: $shadow-black-common, inset 0 65px 45px -15px $color-blue;
+  box-shadow: $form-shadow;
   color: $color-blue;
 
   &__title {
