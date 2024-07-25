@@ -2,52 +2,43 @@ import { flushPromises, mount } from '@vue/test-utils';
 import AuthForm from '@/modules/auth/components/AuthForm.vue';
 
 describe('AuthForm component tests', () => {
-  it('should render sign in form', () => {
-    const wrapper = mount(AuthForm, {
-      props: {
-        title: 'Auth form',
-        submitBtnText: 'Sign up',
-        useSignUp: false
-      }
-    });
+  const usernameInputSelector = '#username';
+  const confirmPasswordInputSelector = '#confirm-password';
+  const emailInputSelector = '#email';
+  const passwordInputSelector = '#password';
 
-    const inputs = wrapper.findAll('input');
-    const usernameInput = wrapper.find('#username');
-
-    expect(inputs.length).toBe(2);
-    expect(usernameInput.exists()).toBe(false);
+  const wrapper = mount(AuthForm, {
+    props: {
+      title: 'Auth form',
+      submitBtnText: 'Sign up',
+      useSignUp: false
+    }
   });
 
-  it('should render sign up form', () => {
-    const wrapper = mount(AuthForm, {
-      props: {
-        title: 'Auth form',
-        submitBtnText: 'Sign up',
-        useSignUp: true
-      }
-    });
+  it('should not render inputs for sign up in sign in form', () => {
+    const usernameInput = wrapper.find(usernameInputSelector);
+    const confirmPasswordInput = wrapper.find(confirmPasswordInputSelector);
 
-    const inputs = wrapper.findAll('input');
-    const usernameInput = wrapper.find('#username');
+    expect(usernameInput.exists()).toBe(false);
+    expect(confirmPasswordInput.exists()).toBe(false);
+  });
 
-    expect(inputs.length).toBe(4);
+  it('should render sign up form inputs', async () => {
+    await wrapper.setProps({ useSignUp: true });
+
+    const usernameInput = wrapper.find(usernameInputSelector);
+    const confirmPasswordInput = wrapper.find(confirmPasswordInputSelector);
+
     expect(usernameInput.exists()).toBe(true);
+    expect(confirmPasswordInput.exists()).toBe(true);
   });
 
   it('should validate form correctly', async () => {
-    const wrapper = mount(AuthForm, {
-      props: {
-        title: 'Auth form',
-        submitBtnText: 'Sign up',
-        useSignUp: true
-      }
-    });
-
     const form = wrapper.get('form');
-    const emailInput = wrapper.find('#email');
-    const passwordInput = wrapper.find('#password');
-    const passwordConfirmInput = wrapper.find('#confirm-password');
-    const usernameInput = wrapper.find('#username');
+    const emailInput = wrapper.find(emailInputSelector);
+    const passwordInput = wrapper.find(passwordInputSelector);
+    const passwordConfirmInput = wrapper.find(confirmPasswordInputSelector);
+    const usernameInput = wrapper.find(usernameInputSelector);
 
     await form.trigger('submit');
 
