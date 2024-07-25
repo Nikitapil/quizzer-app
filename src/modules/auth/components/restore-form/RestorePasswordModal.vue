@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
-import { ERestorePasswordSteps } from '@/modules/auth/domain/constants';
+import { ERestorePasswordSteps } from '@/modules/auth/components/restore-form/constants';
 
 import RestorePasswordStep from '@/modules/auth/components/restore-form/RestorePasswordStep.vue';
 import RestorePasswordEmailStep from '@/modules/auth/components/restore-form/RestorePasswordEmailStep.vue';
