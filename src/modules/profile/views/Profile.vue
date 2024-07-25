@@ -8,16 +8,17 @@ import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { ref } from 'vue';
 import UpdatePasswordModal from '@/modules/profile/components/UpdatePasswordModal.vue';
 import AppButton from '@/components/buttons/AppButton.vue';
-import { useDeleteUser } from '@/modules/auth/features/useDeleteUser';
 import ConfirmModal from '@/components/modals/ConfirmModal.vue';
+import { useRouter } from 'vue-router';
+import { ERoutesNames } from '@/router/routes-names';
 
 const { t } = useI18n();
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.PROFILE]);
 useDocTitle(t('profile'));
 
-const authStore = useAuthStore();
+const router = useRouter();
 
-const { deleteUser, isDeleteInProgress } = useDeleteUser();
+const authStore = useAuthStore();
 
 const email = ref<InstanceType<typeof EditableText>>();
 const username = ref<InstanceType<typeof EditableText>>();
@@ -42,6 +43,13 @@ const onChangePassword = async (newPassword: string) => {
   const isUpdated = await authStore.editUser({ password: newPassword });
   if (isUpdated) {
     isUpdatePasswordModalShowed.value = false;
+  }
+};
+
+const onDeleteUser = async () => {
+  const isDeleted = await authStore.deleteUser();
+  if (isDeleted) {
+    router.push({ name: ERoutesNames.HOME });
   }
 };
 </script>
@@ -97,9 +105,9 @@ const onChangePassword = async (newPassword: string) => {
       v-model="isDeleteProfileModalShowed"
       :title="$t('delete_profile')"
       :text="$t('delete_profile_description')"
-      :is-loading="isDeleteInProgress"
+      :is-loading="authStore.isDeleteUserInProgress"
       :confirm-btn-text="$t('delete')"
-      @confirm="deleteUser"
+      @confirm="onDeleteUser"
     />
   </div>
   <UpdatePasswordModal

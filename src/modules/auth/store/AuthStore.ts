@@ -28,7 +28,8 @@ export const useAuthStore = defineStore('AuthStore', () => {
 
   const { call: logoutApi } = useApiMethod(authApi.logout);
 
-  const { call: deleteUserApi } = useApiMethod(usersApi.deleteUser);
+  const { call: deleteUserApi, isLoading: isDeleteUserInProgress } =
+    useApiMethod(usersApi.deleteUser);
 
   const { call: editUserApi, isLoading: isUpdateUserInProgress } = useApiMethod(
     usersApi.editUser
@@ -118,6 +119,7 @@ export const useAuthStore = defineStore('AuthStore', () => {
     isLoading,
     isRestorePasswordLoading,
     isUpdateUserInProgress,
+    isDeleteUserInProgress,
     refresh,
     login,
     register,
