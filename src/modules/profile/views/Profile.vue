@@ -3,7 +3,6 @@ import { useI18n } from 'vue-i18n';
 import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/modules/app/domain/breadcrumbs';
 import { useDocTitle } from '@/composables/useDocTitle';
-import { useAuthRedirect } from '@/modules/auth/composables/useAuthRedirect';
 import EditableText from '@/components/inputs/EditableText.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { ref } from 'vue';
@@ -15,7 +14,6 @@ import ConfirmModal from '@/components/modals/ConfirmModal.vue';
 const { t } = useI18n();
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.PROFILE]);
 useDocTitle(t('profile'));
-useAuthRedirect();
 
 const authStore = useAuthStore();
 

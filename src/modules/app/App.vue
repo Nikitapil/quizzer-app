@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-
 import { useAppStore } from '@/modules/app/store/AppStore';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
@@ -12,10 +10,6 @@ import RoundLoader from '@/components/loaders/RoundLoader.vue';
 
 const store = useAppStore();
 const authStore = useAuthStore();
-
-onMounted(() => {
-  authStore.refresh();
-});
 </script>
 
 <template>

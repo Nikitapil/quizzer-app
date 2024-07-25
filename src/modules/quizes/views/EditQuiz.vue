@@ -21,7 +21,6 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router';
 import { useQuizFormStore } from '@/modules/quizes/store/QuizFormStore';
-import { useAuthRedirect } from '@/modules/auth/composables/useAuthRedirect';
 import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/modules/app/domain/breadcrumbs';
 import { onMounted } from 'vue';
@@ -32,7 +31,6 @@ import type { IQuizFormValues } from '@/modules/quizes/domain/types';
 import { ERoutesNames } from '@/router/routes-names';
 
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.EDIT]);
-useAuthRedirect();
 
 const route = useRoute();
 const router = useRouter();

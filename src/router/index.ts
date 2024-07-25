@@ -11,6 +11,7 @@ import EditQuiz from '@/modules/quizes/views/EditQuiz.vue';
 import UsersQuizes from '@/modules/quizes/views/UsersQuizes.vue';
 import FavouritesQuizzes from '@/modules/quizes/views/FavouritesQuizzes.vue';
 import Profile from '@/modules/profile/views/Profile.vue';
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
 export const routes = [
   {
@@ -41,7 +42,8 @@ export const routes = [
   {
     path: '/quizzes/favourites',
     name: ERoutesNames.FAVOURITES,
-    component: FavouritesQuizzes
+    component: FavouritesQuizzes,
+    meta: { needAuth: true }
   },
   {
     path: '/signup',
@@ -56,23 +58,38 @@ export const routes = [
   {
     path: '/create',
     name: ERoutesNames.CREATE_QUIZ,
-    component: CreateQuiz
+    component: CreateQuiz,
+    meta: { needAuth: true }
   },
   {
     path: '/edit/:id',
     name: ERoutesNames.EDIT_QUIZ,
-    component: EditQuiz
+    component: EditQuiz,
+    meta: { needAuth: true }
   },
   {
     path: '/profile',
     name: ERoutesNames.PROFILE,
-    component: Profile
+    component: Profile,
+    meta: { needAuth: true }
   }
 ];
 
 const router = createRouter({
   history: createWebHistory('/quizzer-app/'),
   routes
+});
+
+router.beforeResolve(async (to, from, next) => {
+  const authStore = useAuthStore();
+  if (!from.name) {
+    await authStore.refresh();
+  }
+  if (to.meta?.needAuth && !authStore.user) {
+    next({ name: ERoutesNames.SIGN_IN });
+  } else {
+    next();
+  }
 });
 
 export default router;

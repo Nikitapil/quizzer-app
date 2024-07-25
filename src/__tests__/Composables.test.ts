@@ -1,9 +1,6 @@
 import { useDocTitle } from '@/composables/useDocTitle';
 import { flushPromises, mount } from '@vue/test-utils';
-import Profile from '@/modules/profile/views/Profile.vue';
 import { createTestingPinia } from '@pinia/testing';
-import router from '@/router';
-import { ERoutesNames } from '@/router/routes-names';
 import App from '@/modules/app/App.vue';
 import LangSwitcher from '@/modules/app/components/LangSwitcher.vue';
 
@@ -13,18 +10,6 @@ describe('Composables', () => {
     const document = window.document;
 
     expect(document.title).toBe('Quizzer | Hello');
-  });
-
-  it('should work useAuthRedirect', async () => {
-    mount(Profile, {
-      global: {
-        plugins: [createTestingPinia()]
-      }
-    });
-
-    await flushPromises();
-
-    expect(router.currentRoute.value.name).toBe(ERoutesNames.SIGN_IN);
   });
 
   it('should work useClickOutside', async () => {

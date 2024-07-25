@@ -13,14 +13,12 @@ import { useI18n } from 'vue-i18n';
 import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/modules/app/domain/breadcrumbs';
 import { useDocTitle } from '@/composables/useDocTitle';
-import { useAuthRedirect } from '@/modules/auth/composables/useAuthRedirect';
 import type { GetAllQuizesDto } from '@/api/swagger/Quizes/data-contracts';
 
 const { t } = useI18n();
 
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.FAVOURITES]);
 useDocTitle(t('favourites'));
-useAuthRedirect();
 
 const quizzesStore = useQuizzesStore();
 

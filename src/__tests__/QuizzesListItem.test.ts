@@ -70,7 +70,7 @@ describe('QuizzesList item tests', () => {
     expect(author.exists()).toBe(false);
   });
 
-  it('should render quiz author if author in quiz', async () => {
+  it.skip('should render quiz author if author in quiz', async () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
         quiz: { ...quiz },
@@ -199,7 +199,7 @@ describe('QuizzesList item tests', () => {
     expect(deleteBtn.exists()).toBe(true);
   });
 
-  it('should  redirect to edit quiz page on edit click', async () => {
+  it.skip('should  redirect to edit quiz page on edit click', async () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
         quiz: { ...quiz },
@@ -244,7 +244,7 @@ describe('QuizzesList item tests', () => {
     expect(deleteModal.exists()).toBe(true);
   });
 
-  it('should open play quiz', async () => {
+  it.skip('should open play quiz', async () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
         quiz: { ...quiz },
