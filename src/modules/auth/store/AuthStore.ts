@@ -1,5 +1,7 @@
-import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
+import { defineStore } from 'pinia';
+import { toast } from 'vue3-toastify';
+
 import {
   type AuthResponseDto,
   type CreateUserDto,
@@ -8,11 +10,12 @@ import {
   type UserReturnDto,
   UserRolesEnum
 } from '@/api/swagger/Auth/data-contracts';
+import type { EditUserDto } from '@/api/swagger/Users/data-contracts';
+
 import { useApiMethod } from '@/api/useApiMethod';
 import { authApi, usersApi } from '@/api/apiInstances';
+
 import { removeAuthToken, setAuthToken } from '@/helpers/token-helpers';
-import { toast } from 'vue3-toastify';
-import type { EditUserDto } from '@/api/swagger/Users/data-contracts';
 
 export const useAuthStore = defineStore('AuthStore', () => {
   const user = ref<UserReturnDto | null>(null);
@@ -58,6 +61,11 @@ export const useAuthStore = defineStore('AuthStore', () => {
     }
   };
 
+  const resetUser = () => {
+    user.value = null;
+    removeAuthToken();
+  };
+
   const refresh = async () => {
     return getApiData(() => authApi.refresh());
   };
@@ -73,8 +81,7 @@ export const useAuthStore = defineStore('AuthStore', () => {
   const logout = async () => {
     const isSuccess = await logoutApi();
     if (isSuccess) {
-      user.value = null;
-      removeAuthToken();
+      resetUser();
     }
   };
 
@@ -98,8 +105,7 @@ export const useAuthStore = defineStore('AuthStore', () => {
     const isSuccess = await deleteUserApi(user.value.id);
 
     if (isSuccess) {
-      user.value = null;
-      removeAuthToken();
+      resetUser();
     }
 
     return !!isSuccess;
