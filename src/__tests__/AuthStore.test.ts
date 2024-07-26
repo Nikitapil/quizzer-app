@@ -1,49 +1,40 @@
-import { createTestingPinia } from '@pinia/testing';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import {
   getAuthToken,
   removeAuthToken,
   setAuthToken
 } from '@/helpers/token-helpers';
-import { flushPromises } from '@vue/test-utils';
 import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
-import { authApi } from '@/api/apiInstances';
+import { authApi, usersApi } from '@/api/apiInstances';
+import {
+  AuthResponseDtoMock,
+  SuccessMessageDtoMock,
+  UserReturnDtoMock
+} from '@/api/swagger/Auth/mock';
+import { createPinia, setActivePinia } from 'pinia';
 
 describe('AuthStore tests', () => {
+  const authResponse = AuthResponseDtoMock.create();
+
   beforeEach(() => {
     removeAuthToken();
+    setActivePinia(createPinia());
   });
 
   it('should refresh successfully and set Auth Data', async () => {
     authApi.refresh = async () => {
-      return {
-        user: {
-          id: 1,
-          username: 'Test user',
-          email: 'test@test.test',
-          role: UserRolesEnum.User
-        },
-        accessToken: '12345'
-      };
+      return authResponse;
     };
 
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
+    const store = useAuthStore();
 
     await store.refresh();
 
-    await flushPromises();
-
-    expect(store.user).toStrictEqual({
-      id: 1,
-      username: 'Test user',
-      email: 'test@test.test',
-      role: 'User'
-    });
+    expect(store.user).toStrictEqual(authResponse.user);
 
     const token = getAuthToken();
 
-    expect(token).toBe('12345');
+    expect(token).toBe(authResponse.accessToken);
   });
 
   it('should go to catch block in refresh method', async () => {
@@ -51,12 +42,9 @@ describe('AuthStore tests', () => {
       throw new Error();
     };
 
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
+    const store = useAuthStore();
 
     await store.refresh();
-
-    await flushPromises();
 
     expect(store.user).toStrictEqual(null);
 
@@ -66,19 +54,10 @@ describe('AuthStore tests', () => {
   });
 
   it('should login successfully and set Auth Data', async () => {
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
+    const store = useAuthStore();
 
     authApi.signin = async () => {
-      return {
-        user: {
-          id: 1,
-          username: 'Test user',
-          email: 'test@test.test',
-          role: UserRolesEnum.User
-        },
-        accessToken: '12345'
-      };
+      return authResponse;
     };
 
     await store.login({
@@ -86,18 +65,11 @@ describe('AuthStore tests', () => {
       password: '12345'
     });
 
-    await flushPromises();
-
-    expect(store.user).toStrictEqual({
-      id: 1,
-      username: 'Test user',
-      email: 'test@test.test',
-      role: 'User'
-    });
+    expect(store.user).toStrictEqual(authResponse.user);
 
     const token = getAuthToken();
 
-    expect(token).toBe('12345');
+    expect(token).toBe(authResponse.accessToken);
   });
 
   it('should go to catch block in login method', async () => {
@@ -111,15 +83,12 @@ describe('AuthStore tests', () => {
       };
     };
 
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
+    const store = useAuthStore();
 
     await store.login({
       email: 'test@test.test',
       password: '12345'
     });
-
-    await flushPromises();
 
     expect(store.user).toStrictEqual(null);
 
@@ -130,19 +99,10 @@ describe('AuthStore tests', () => {
 
   it('should register successfully and set Auth Data', async () => {
     authApi.signup = async () => {
-      return {
-        user: {
-          id: 1,
-          username: 'Test user',
-          email: 'test@test.test',
-          role: UserRolesEnum.User
-        },
-        accessToken: '12345'
-      };
+      return authResponse;
     };
 
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
+    const store = useAuthStore();
 
     await store.register({
       email: 'test@test.test',
@@ -150,18 +110,11 @@ describe('AuthStore tests', () => {
       username: 'Test user'
     });
 
-    await flushPromises();
-
-    expect(store.user).toStrictEqual({
-      id: 1,
-      username: 'Test user',
-      email: 'test@test.test',
-      role: 'User'
-    });
+    expect(store.user).toStrictEqual(authResponse.user);
 
     const token = getAuthToken();
 
-    expect(token).toBe('12345');
+    expect(token).toBe(authResponse.accessToken);
   });
 
   it('should go to catch block in register method', async () => {
@@ -174,16 +127,14 @@ describe('AuthStore tests', () => {
         }
       };
     };
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
+
+    const store = useAuthStore();
 
     await store.register({
       email: 'test@test.test',
       password: '12345',
       username: 'Test user'
     });
-
-    await flushPromises();
 
     expect(store.user).toStrictEqual(null);
 
@@ -194,27 +145,14 @@ describe('AuthStore tests', () => {
 
   it('should logout successfully and remove Auth Data', async () => {
     authApi.logout = async () => {
-      return { message: 'success' };
+      return SuccessMessageDtoMock.create();
     };
 
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
+    const store = useAuthStore();
 
-    store.user = {
-      id: 1,
-      username: 'Test user',
-      email: 'test@test.test',
-      role: UserRolesEnum.User
-    };
+    store.user = authResponse.user;
 
-    setAuthToken('1234');
-
-    expect(store.user).toStrictEqual({
-      id: 1,
-      username: 'Test user',
-      email: 'test@test.test',
-      role: 'User'
-    });
+    setAuthToken(authResponse.accessToken);
 
     await store.logout();
 
@@ -236,48 +174,29 @@ describe('AuthStore tests', () => {
       };
     };
 
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
+    const store = useAuthStore();
 
-    store.user = {
-      id: 1,
-      username: 'Test user',
-      email: 'test@test.test',
-      role: UserRolesEnum.User
-    };
+    store.user = authResponse.user;
 
-    setAuthToken('1234');
-
-    expect(store.user).toStrictEqual({
-      id: 1,
-      username: 'Test user',
-      email: 'test@test.test',
-      role: 'User'
-    });
+    setAuthToken(authResponse.accessToken);
 
     await store.logout();
 
-    expect(store.user).toStrictEqual({
-      id: 1,
-      username: 'Test user',
-      email: 'test@test.test',
-      role: 'User'
-    });
+    expect(store.user).toStrictEqual(authResponse.user);
 
     const token = getAuthToken();
 
-    expect(token).toBe('1234');
+    expect(token).toBe(authResponse.accessToken);
   });
 
   it('should call getRestorePasswordKey method successfully', async () => {
     authApi.getRestorePasswordKey = async () => {
-      return { message: 'success' };
+      return SuccessMessageDtoMock.create();
     };
 
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
+    const store = useAuthStore();
 
-    const result = await store.getRestorePasswordKey('test@test.test');
+    const result = await store.getRestorePasswordKey('');
 
     expect(result).toBe(true);
   });
@@ -292,70 +211,78 @@ describe('AuthStore tests', () => {
         }
       };
     };
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
 
-    const result = await store.getRestorePasswordKey('test@test.test');
+    const store = useAuthStore();
+
+    const result = await store.getRestorePasswordKey('');
 
     expect(result).toBe(false);
   });
 
   it('should restorePassword successfully and set Auth Data', async () => {
     authApi.restorePassword = async () => {
-      return {
-        user: {
-          id: 1,
-          username: 'Test user',
-          email: 'test@test.test',
-          role: UserRolesEnum.User
-        },
-        accessToken: '12345'
-      };
+      return authResponse;
     };
 
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
+    const store = useAuthStore();
 
     await store.restorePassword({
       key: '1234',
       password: '12345678'
     });
 
-    await flushPromises();
-
-    expect(store.user).toStrictEqual({
-      id: 1,
-      username: 'Test user',
-      email: 'test@test.test',
-      role: 'User'
-    });
+    expect(store.user).toStrictEqual(authResponse.user);
 
     const token = getAuthToken();
 
-    expect(token).toBe('12345');
+    expect(token).toBe(authResponse.accessToken);
     expect(store.isRestorePasswordLoading).toBe(false);
   });
 
   it('should correctly return getter state isAdmin', () => {
-    const pinia = createTestingPinia({ stubActions: false });
-    const store = useAuthStore(pinia);
+    const store = useAuthStore();
 
-    store.user = {
-      id: 1,
-      username: 'Test user',
-      email: 'test@test.test',
-      role: UserRolesEnum.User
-    };
+    store.user = UserReturnDtoMock.create({ role: UserRolesEnum.User });
 
     expect(store.isAdmin).toBe(false);
 
-    store.user = {
-      id: 1,
-      username: 'Test user',
-      email: 'test@test.test',
-      role: UserRolesEnum.Admin
-    };
+    store.user = UserReturnDtoMock.create({ role: UserRolesEnum.Admin });
 
     expect(store.isAdmin).toBe(true);
+  });
+
+  it('should return false if no user when delete method', async () => {
+    const store = useAuthStore();
+
+    const result = await store.deleteUser();
+
+    expect(result).toBe(false);
+  });
+
+  it('should delete user', async () => {
+    usersApi.deleteUser = async () => {
+      return SuccessMessageDtoMock.create();
+    };
+
+    const store = useAuthStore();
+
+    store.user = UserReturnDtoMock.create();
+
+    const result = await store.deleteUser();
+
+    expect(result).toBe(true);
+  });
+
+  it('should update user', async () => {
+    const newUser = UserReturnDtoMock.create();
+    usersApi.editUser = async () => {
+      return newUser;
+    };
+
+    const store = useAuthStore();
+
+    await store.editUser({});
+
+    expect(store.user).toStrictEqual(newUser);
   });
 });
