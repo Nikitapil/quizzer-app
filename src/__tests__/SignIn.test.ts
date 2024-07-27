@@ -1,5 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
-import SignIn from '@/modules/auth/views/SignIn.vue';
+import SignIn from '@/modules/auth/pages/SignIn.vue';
 import router from '@/router';
 import { createTestingPinia } from '@pinia/testing';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';

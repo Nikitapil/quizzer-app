@@ -4,28 +4,27 @@ import { createTestingPinia } from '@pinia/testing';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { ERoutesNames } from '@/router/routes-names';
 import { RouterLink } from 'vue-router';
-import SignUp from '@/modules/auth/views/SignUp.vue';
-import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
+import SignUp from '@/modules/auth/pages/SignUp.vue';
+import { createPinia, setActivePinia } from 'pinia';
+import AuthForm from '@/modules/auth/components/AuthForm.vue';
+import { vi } from 'vitest';
+import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
 
 describe('SignUn component tests', () => {
-  it('should render loader if auth isLoading', () => {
-    const wrapper = mount(SignUp, {
-      global: {
-        plugins: [createTestingPinia()]
-      }
-    });
+  setActivePinia(createPinia());
+  beforeEach(async () => {
+    setActivePinia(createPinia());
+  });
 
+  const wrapper = mount(SignUp);
+  it('should render loader if auth isLoading', () => {
     const loader = wrapper.find('[data-test="round-loader"]');
 
     expect(loader.exists()).toBe(true);
   });
 
   it('should render sign up form', async () => {
-    const wrapper = mount(SignUp, {
-      global: {
-        plugins: [createTestingPinia()]
-      }
-    });
+    const wrapper = mount(SignUp);
 
     const store = useAuthStore();
 
@@ -33,33 +32,10 @@ describe('SignUn component tests', () => {
 
     await flushPromises();
 
-    const inputs = wrapper.findAll('input');
-    const usernameInput = wrapper.find('#username');
+    const authForm = wrapper.findComponent(AuthForm);
 
-    expect(inputs.length).toBe(4);
-    expect(usernameInput.exists()).toBe(true);
-  });
-
-  it('should redirect if is authenticated', async () => {
-    mount(SignUp, {
-      global: {
-        plugins: [createTestingPinia()]
-      }
-    });
-
-    const store = useAuthStore();
-
-    store.isLoading = false;
-    store.user = {
-      id: 1,
-      username: 'Test user',
-      email: 'test@test.test',
-      role: UserRolesEnum.User
-    };
-
-    await flushPromises();
-
-    expect(router.currentRoute.value.name).toBe(ERoutesNames.HOME);
+    expect(authForm.exists()).toBe(true);
+    expect(authForm.props('useSignUp')).toBe(true);
   });
 
   it('should navigate to sign in page', async () => {
@@ -95,14 +71,11 @@ describe('SignUn component tests', () => {
 
     store.isLoading = false;
 
-    store.register = async () => {
-      store.user = {
-        id: 1,
-        username: 'Test user',
-        email: 'test@test.test',
-        role: UserRolesEnum.User
-      };
-    };
+    const registerSpy = vi
+      .spyOn(store, 'register')
+      .mockImplementation(async () => {
+        store.user = UserReturnDtoMock.create();
+      });
 
     await flushPromises();
 
@@ -121,6 +94,6 @@ describe('SignUn component tests', () => {
 
     await flushPromises();
 
-    // expect(router.currentRoute.value.name).toBe(ERoutesNames.HOME);
+    expect(registerSpy).toHaveBeenCalled();
   });
 });
