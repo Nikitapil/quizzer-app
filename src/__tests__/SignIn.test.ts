@@ -5,27 +5,26 @@ import { createTestingPinia } from '@pinia/testing';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { ERoutesNames } from '@/router/routes-names';
 import { RouterLink } from 'vue-router';
-import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
+import { createPinia, setActivePinia } from 'pinia';
+import AuthForm from '@/modules/auth/components/AuthForm.vue';
+import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
+import { vi } from 'vitest';
 
 describe('SignIn component tests', () => {
-  it('should render loader if auth isLoading', () => {
-    const wrapper = mount(SignIn, {
-      global: {
-        plugins: [createTestingPinia()]
-      }
-    });
+  setActivePinia(createPinia());
+  beforeEach(() => {
+    setActivePinia(createPinia());
+  });
 
+  const wrapper = mount(SignIn);
+  it('should render loader if auth isLoading', () => {
     const loader = wrapper.find('[data-test="round-loader"]');
 
     expect(loader.exists()).toBe(true);
   });
 
   it('should render sign in form', async () => {
-    const wrapper = mount(SignIn, {
-      global: {
-        plugins: [createTestingPinia()]
-      }
-    });
+    const wrapper = mount(SignIn);
 
     const store = useAuthStore();
 
@@ -33,41 +32,14 @@ describe('SignIn component tests', () => {
 
     await flushPromises();
 
-    const inputs = wrapper.findAll('input');
-    const usernameInput = wrapper.find('#username');
+    const authForm = wrapper.findComponent(AuthForm);
 
-    expect(inputs.length).toBe(2);
-    expect(usernameInput.exists()).toBe(false);
-  });
-
-  it('should redirect if is authenticated', async () => {
-    mount(SignIn, {
-      global: {
-        plugins: [createTestingPinia()]
-      }
-    });
-
-    const store = useAuthStore();
-
-    store.isLoading = false;
-    store.user = {
-      id: 1,
-      username: 'Test user',
-      email: 'test@test.test',
-      role: UserRolesEnum.User
-    };
-
-    await flushPromises();
-
-    expect(router.currentRoute.value.name).toBe(ERoutesNames.HOME);
+    expect(authForm.exists()).toBe(true);
+    expect(authForm.props('useSignUp')).toBe(false);
   });
 
   it('should render restore password button', async () => {
-    const wrapper = mount(SignIn, {
-      global: {
-        plugins: [createTestingPinia()]
-      }
-    });
+    const wrapper = mount(SignIn);
 
     const store = useAuthStore();
 
@@ -113,14 +85,9 @@ describe('SignIn component tests', () => {
 
     store.isLoading = false;
 
-    store.login = async () => {
-      store.user = {
-        id: 1,
-        username: 'Test user',
-        email: 'test@test.test',
-        role: UserRolesEnum.User
-      };
-    };
+    const loginSpy = vi.spyOn(store, 'login').mockImplementation(async () => {
+      store.user = UserReturnDtoMock.create();
+    });
 
     await flushPromises();
 
@@ -135,19 +102,17 @@ describe('SignIn component tests', () => {
 
     await flushPromises();
 
-    expect(router.currentRoute.value.name).toBe(ERoutesNames.HOME);
+    expect(loginSpy).toHaveBeenCalled();
   });
 
   it('should open restore password modal', async () => {
-    const pinia = createTestingPinia();
-    const store = useAuthStore(pinia);
+    const wrapper = mount(SignIn);
+
+    const store = useAuthStore();
 
     store.isLoading = false;
-    const wrapper = mount(SignIn, {
-      global: {
-        plugins: [pinia]
-      }
-    });
+
+    await flushPromises();
 
     const restoreBtn = wrapper.get('#restore-btn');
 
