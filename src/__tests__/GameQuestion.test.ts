@@ -11,7 +11,8 @@ describe('GameQuestion component tests', () => {
           answers: ['yes', 'no', "don't know", 'what']
         },
         correctAnswer: null,
-        isLoading: false
+        isLoading: false,
+        isGenerated: false
       }
     });
 
@@ -31,7 +32,8 @@ describe('GameQuestion component tests', () => {
           answers: ['yes', 'no', "don't know", 'what']
         },
         correctAnswer: 'yes',
-        isLoading: false
+        isLoading: false,
+        isGenerated: false
       }
     });
 
@@ -49,7 +51,8 @@ describe('GameQuestion component tests', () => {
           answers: ['yes', 'no', "don't know", 'what']
         },
         correctAnswer: 'yes',
-        isLoading: false
+        isLoading: false,
+        isGenerated: false
       }
     });
 

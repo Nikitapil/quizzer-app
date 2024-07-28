@@ -3,31 +3,10 @@ import { useGameStore } from '@/modules/game/store/GameStore';
 import { vi } from 'vitest';
 import { toast } from 'vue3-toastify';
 import { quizApi } from '@/api/apiInstances';
+import { PlayQuizDtoMock } from '@/api/swagger/Quizes/mock';
 
 describe('GameStore tests', () => {
-  const mockGame = {
-    id: '1234',
-    isPrivate: false,
-    name: 'Untitled',
-    questions: [
-      {
-        id: '5678',
-        question: 'Super question',
-        answers: ['not corr', 'correct', 'very not corr']
-      },
-      {
-        id: '9012',
-        question: 'Super question 2',
-        answers: ['correct', 'incorrect']
-      },
-      {
-        id: '3456',
-        question: 'Super question 3',
-        answers: ['incorrect', 'correct']
-      }
-    ],
-    isInFavourites: false
-  };
+  const mockGame = PlayQuizDtoMock.create();
 
   const toastMock = vi.spyOn(toast, 'error').mockImplementation((): any => {});
 
@@ -38,7 +17,7 @@ describe('GameStore tests', () => {
   it('should set default quiz name', () => {
     const pinia = createTestingPinia();
     const store = useGameStore(pinia);
-    store.game = mockGame;
+    store.game = PlayQuizDtoMock.create({ name: 'Untitled' });
 
     expect(store.quizName).toBe('Generated Quiz');
   });
@@ -190,13 +169,13 @@ describe('GameStore tests', () => {
       expect(removeFromFavouritesMock).not.toHaveBeenCalled();
     });
 
-    it('should add tofavourites and remove', async () => {
+    it('should add to favourites and remove', async () => {
       const pinia = createTestingPinia({
         stubActions: false
       });
       const store = useGameStore(pinia);
 
-      store.game = mockGame;
+      store.game = PlayQuizDtoMock.create({ isInFavourites: false });
 
       await store.toggleFavouriteQuiz();
 

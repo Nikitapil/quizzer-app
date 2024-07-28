@@ -31,6 +31,7 @@
           :is-loading="store.isAnswerLoading"
           :correct-answer="currentCorrectAnswer"
           :question="currentQuestion"
+          :is-generated="store.game.isGenerated"
           @answer="onAnswer"
         />
       </div>

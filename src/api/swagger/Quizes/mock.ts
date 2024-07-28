@@ -225,6 +225,7 @@ export class SingleQuizReturnDtoMock {
         QuizQuestionReturnDtoMock.create()
       ],
       isInFavourites: faker.datatype.boolean(),
+      isGenerated: faker.datatype.boolean(),
       ...overrides
     };
   }
@@ -263,6 +264,7 @@ export class PlayQuizDtoMock {
       id: faker.lorem.word(),
       name: faker.lorem.word(),
       isPrivate: faker.datatype.boolean(),
+      isGenerated: faker.datatype.boolean(),
       questions: [PlayQuestionDtoMock.create(), PlayQuestionDtoMock.create()],
       isInFavourites: faker.datatype.boolean(),
       ...overrides

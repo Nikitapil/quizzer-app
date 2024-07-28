@@ -137,6 +137,8 @@ export interface SingleQuizReturnDto {
   questions: QuizQuestionReturnDto[];
   /** is Quiz in favourites by current user */
   isInFavourites: boolean;
+  /** is Quiz in favourites by current user */
+  isGenerated: boolean;
 }
 
 export interface PlayQuestionDto {
@@ -155,6 +157,8 @@ export interface PlayQuizDto {
   name: string;
   /** quiz privacy */
   isPrivate: boolean;
+  /** is Quiz generated or created by user */
+  isGenerated: boolean;
   /** quiz questions */
   questions: PlayQuestionDto[];
   /** is Quiz in favourites by current user */
