@@ -1,40 +1,29 @@
 import { mount } from '@vue/test-utils';
 import GameQuestion from '@/modules/game/components/GameQuestion.vue';
+import { PlayQuestionDtoMock } from '@/api/swagger/Quizes/mock';
 
 describe('GameQuestion component tests', () => {
-  it('should render GameQuestion component with correct props', () => {
-    const wrapper = mount(GameQuestion, {
-      props: {
-        question: {
-          id: '1',
-          question: 'Is it Test?',
-          answers: ['yes', 'no', "don't know", 'what']
-        },
-        correctAnswer: null,
-        isLoading: false,
-        isGenerated: false
-      }
-    });
+  const question = PlayQuestionDtoMock.create();
+  const wrapper = mount(GameQuestion, {
+    props: {
+      question,
+      correctAnswer: null,
+      isLoading: false,
+      isGenerated: false
+    }
+  });
 
+  it('should render GameQuestion component with correct props', () => {
     const title = wrapper.get('h3');
     const btns = wrapper.findAll('button');
 
-    expect(title.text()).toBe('Is it Test?');
-    expect(btns.length).toBe(4);
+    expect(title.text()).toBe(question.question);
+    expect(btns.length).toBe(question.answers.length);
   });
 
-  it('should highlight correct answer', () => {
-    const wrapper = mount(GameQuestion, {
-      props: {
-        question: {
-          id: '1',
-          question: 'Is it Test?',
-          answers: ['yes', 'no', "don't know", 'what']
-        },
-        correctAnswer: 'yes',
-        isLoading: false,
-        isGenerated: false
-      }
+  it('should highlight correct answer', async () => {
+    await wrapper.setProps({
+      correctAnswer: question.answers[0]
     });
 
     const btns = wrapper.findAll('button');
@@ -43,24 +32,11 @@ describe('GameQuestion component tests', () => {
   });
 
   it('should emit answer event', async () => {
-    const wrapper = mount(GameQuestion, {
-      props: {
-        question: {
-          id: '1',
-          question: 'Is it Test?',
-          answers: ['yes', 'no', "don't know", 'what']
-        },
-        correctAnswer: 'yes',
-        isLoading: false,
-        isGenerated: false
-      }
-    });
-
     const btns = wrapper.findAll('button');
 
     await btns[0].trigger('click');
 
     expect(wrapper.emitted('answer')).toBeTruthy();
-    expect(wrapper.emitted('answer')?.[0]).toEqual(['yes']);
+    expect(wrapper.emitted('answer')?.[0]).toEqual([question.answers[0]]);
   });
 });
