@@ -45,7 +45,6 @@
         :is-toggle-favourites-in-progress="store.isToggleFavouritesInProgress"
         :is-admin="authStore.isAdmin"
         @delete="onDelete"
-        @toggle-favourites="onAddToFavourites"
       />
       <Pagination
         :total-items-count="store.totalCount"
@@ -66,10 +65,7 @@ import Pagination from '@/components/Pagination.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/buttons/AppButton.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
-import type {
-  GetAllQuizesDto,
-  QuizDto
-} from '@/api/swagger/Quizes/data-contracts';
+import type { GetAllQuizesDto } from '@/api/swagger/Quizes/data-contracts';
 
 defineProps<{
   title: string;
@@ -100,14 +96,6 @@ const getQuizzes = async () => {
 const onDelete = async (id: string) => {
   await store.deleteQuiz(id);
   await getQuizzes();
-};
-const onAddToFavourites = async (quiz: QuizDto) => {
-  await store.toggleFavouriteQuiz(quiz);
-  emit('toggle-favourites', {
-    page: page.value,
-    search: search.value,
-    limit: 10
-  });
 };
 
 const onSearch = () => {

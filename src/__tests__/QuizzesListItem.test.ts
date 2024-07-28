@@ -3,7 +3,6 @@ import QuizzesListItem from '@/modules/quizes/components/QuizzesListItem.vue';
 import router from '@/router';
 import { RouterLink } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
-import Tooltip from '@/components/Tooltip.vue';
 import type { QuizDto } from '@/api/swagger/Quizes/data-contracts';
 
 describe('QuizzesList item tests', () => {
@@ -109,40 +108,6 @@ describe('QuizzesList item tests', () => {
     const favBtn = wrapper.find('[data-test="fav-button"]');
 
     expect(favBtn.exists()).toBe(false);
-  });
-
-  it('should render fav button userId', async () => {
-    const wrapper = mount(QuizzesListItem, {
-      props: {
-        quiz,
-        userId: 1,
-        isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false,
-        isAdmin: false
-      }
-    });
-
-    const favBtn = wrapper.find('[data-test="fav-button"]');
-
-    expect(favBtn.exists()).toBe(true);
-
-    await favBtn.trigger('click');
-
-    expect(wrapper.emitted('toggleFavourites')).toBeTruthy();
-    expect(wrapper.emitted('toggleFavourites')?.[0]).toEqual([quiz]);
-
-    const favblock = wrapper.get('[data-test="fav-block"]');
-
-    let favTooltip = favblock.getComponent(Tooltip);
-
-    expect(favTooltip.props().tip).toBe('Add to favourites');
-
-    wrapper.props().quiz.isInFavourites = true;
-
-    await flushPromises();
-
-    favTooltip = favblock.getComponent(Tooltip);
-    expect(favTooltip.props().tip).toBe('Remove from favourites');
   });
 
   it('should not render userBtns if userIds are not equal', async () => {

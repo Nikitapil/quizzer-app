@@ -36,26 +36,11 @@
       data-test="fav-block"
       class="controls"
     >
-      <Tooltip
+      <AddQuizToFavoritesButton
         v-if="userId"
-        :tip="favouritesBtnTooltip"
-      >
-        <AppButton
-          with-icon
-          class="tool-btn"
-          data-test="fav-button"
-          appearence="dark"
-          :disabled="isToggleFavouritesInProgress"
-          @click="$emit('toggleFavourites', quiz)"
-        >
-          <Icon
-            :icon="favouritesBtnIcon"
-            color="#d2e000"
-            width="24"
-            height="24"
-          />
-        </AppButton>
-      </Tooltip>
+        :quiz="quiz"
+      />
+
       <Tooltip
         v-if="isUsersIdsEquals"
         :tip="$t('edit')"
@@ -121,12 +106,10 @@ import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
 import { Icon } from '@iconify/vue';
 import { computed, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
 import Tooltip from '@/components/Tooltip.vue';
 import ConfirmModal from '@/components/modals/ConfirmModal.vue';
 import type { QuizDto } from '@/api/swagger/Quizes/data-contracts';
-
-const { t } = useI18n();
+import AddQuizToFavoritesButton from '@/modules/shared/AddQuizToFavoritesButton/AddQuizToFavoritesButton.vue';
 
 const router = useRouter();
 
@@ -151,16 +134,6 @@ const goToQuiz = () => {
 
 const isUsersIdsEquals = computed(() => props.quiz.userId === props.userId);
 const canDelete = computed(() => isUsersIdsEquals.value || props.isAdmin);
-
-const favouritesBtnIcon = computed(() =>
-  props.quiz.isInFavourites ? 'ion:star' : 'ion:star-outline'
-);
-
-const favouritesBtnTooltip = computed(() =>
-  props.quiz.isInFavourites
-    ? t('remove_from_favourites')
-    : t('add_to_favourites')
-);
 </script>
 
 <style lang="scss" scoped>
