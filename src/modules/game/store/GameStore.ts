@@ -23,25 +23,10 @@ export const useGameStore = defineStore('game', () => {
     quizApi.rateQuiz
   );
 
-  const { call: addToFavorites, isLoading: isAddToFavoritesInProgress } =
-    useApiMethod(quizApi.addQuizToFavourites);
-
-  const {
-    call: removeFromFavorites,
-    isLoading: isRemoveFromFavoritesInProgress
-  } = useApiMethod(quizApi.removeQuizFromFavourites);
-
-  const isToggleFavouritesInProgress = computed(
-    () =>
-      isAddToFavoritesInProgress.value || isRemoveFromFavoritesInProgress.value
-  );
-
   const totalQuestionsCount = computed(() => game.value?.questions.length || 0);
 
   const quizName = computed(() =>
-    game.value?.name === 'Untitled'
-      ? i18n.global.t('generated_quiz')
-      : game.value?.name
+    game.value?.isGenerated ? i18n.global.t('generated_quiz') : game.value?.name
   );
 
   const getGame = async (id: string) => {
@@ -61,31 +46,15 @@ export const useGameStore = defineStore('game', () => {
     await rateQuizApi({ quizId: game.value.id, rating });
   };
 
-  const toggleFavouriteQuiz = async () => {
-    if (!game.value) {
-      return;
-    }
-
-    if (!game.value.isInFavourites) {
-      await addToFavorites(game.value.id);
-    } else {
-      await removeFromFavorites(game.value.id);
-    }
-
-    game.value.isInFavourites = !game.value.isInFavourites;
-  };
-
   return {
     game,
     isPageLoading,
     isAnswerLoading,
     isRateInProgress,
-    isToggleFavouritesInProgress,
     totalQuestionsCount,
     quizName,
     getGame,
     getCorrectAnswer,
-    rateQuiz,
-    toggleFavouriteQuiz
+    rateQuiz
   };
 });
