@@ -37,14 +37,17 @@ onMounted(async () => {
 <template>
   <div class="centered-page">
     <HorizontalLoader v-if="store.isPageLoading" />
+
     <h1
       v-else
       class="title"
     >
       {{ store.quizName }}
     </h1>
+
     <div class="quiz-info">
       <RoundLoader v-if="store.isPageLoading" />
+
       <div v-else-if="!store.game">
         <h2
           class="not-found"
@@ -53,6 +56,7 @@ onMounted(async () => {
           {{ $t('quiz_not_found') }}
         </h2>
       </div>
+
       <div v-else-if="store.currentQuestion">
         <p
           class="total"
@@ -60,9 +64,11 @@ onMounted(async () => {
         >
           {{ store.currentQuestionIndex + 1 }}/{{ store.totalQuestionsCount }}
         </p>
+
         <div class="progress">
           <ProgressBar :progress="store.progress" />
         </div>
+
         <GameQuestion
           :is-loading="store.isAnswerLoading"
           :correct-answer="store.currentCorrectAnswer"
@@ -71,6 +77,7 @@ onMounted(async () => {
           @answer="store.onAnswer"
         />
       </div>
+
       <div
         v-else
         class="result"
@@ -84,6 +91,7 @@ onMounted(async () => {
             store.totalQuestionsCount
           }}
         </p>
+
         <div
           v-if="authStore.user"
           data-test="user-btns"
@@ -95,11 +103,14 @@ onMounted(async () => {
               @select="store.rateQuiz"
             />
           </div>
+
           <AddQuizToFavoritesButton
             :quiz="store.game"
+            class="favorite-btn"
             with-text
           />
         </div>
+
         <AppButton
           :text="$t('play_again')"
           data-test="restart-btn"
@@ -163,10 +174,7 @@ onMounted(async () => {
   margin-bottom: 16px;
 }
 
-.fav-btn {
+.favorite-btn {
   margin: 8px auto 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 </style>

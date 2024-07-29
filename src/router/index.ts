@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/modules/home/views/Home.vue';
 import { ERoutesNames } from '@/router/routes-names';
 import Error from '@/modules/app/pages/Error.vue';
-import Game from '@/modules/game/views/Game.vue';
+import Game from '@/modules/game/pages/Game.vue';
 import AllQuizes from '@/modules/quizes/views/AllQuizes.vue';
 import SignUp from '@/modules/auth/pages/SignUp.vue';
 import SignIn from '@/modules/auth/pages/SignIn.vue';

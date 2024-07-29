@@ -58,7 +58,7 @@ const { isToggleFavouritesInProgress, toggleFavorites } = useAddQuizToFavorites(
   </AppButton>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .fav-btn {
   display: flex;
   align-items: center;

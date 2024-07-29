@@ -1,5 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
-import Game from '@/modules/game/views/Game.vue';
+import Game from '@/modules/game/pages/Game.vue';
 import router from '@/router';
 import { createTestingPinia } from '@pinia/testing';
 import { useGameStore } from '@/modules/game/store/GameStore';
