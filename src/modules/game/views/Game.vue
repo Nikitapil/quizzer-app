@@ -1,3 +1,39 @@
+<script setup lang="ts">
+import { onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+
+import { useGameStore } from '@/modules/game/store/GameStore';
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
+
+import { useDocTitle } from '@/composables/useDocTitle';
+import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
+import { BREADCRUMBS } from '@/modules/app/domain/breadcrumbs';
+
+import AppButton from '@/components/buttons/AppButton.vue';
+import StarRating from '@/components/StarRating.vue';
+import GameQuestion from '@/modules/game/components/GameQuestion.vue';
+import RoundLoader from '@/components/loaders/RoundLoader.vue';
+import ProgressBar from '@/components/ProgressBar.vue';
+import HorizontalLoader from '@/components/loaders/HorizontalLoader.vue';
+import AddQuizToFavoritesButton from '@/modules/shared/AddQuizToFavoritesButton/AddQuizToFavoritesButton.vue';
+
+const { t } = useI18n();
+useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.GAME]);
+useDocTitle(t('play_quiz'));
+
+const route = useRoute();
+const store = useGameStore();
+const authStore = useAuthStore();
+
+onMounted(async () => {
+  const { id } = route.params;
+  if (id) {
+    await store.init(id as string);
+  }
+});
+</script>
+
 <template>
   <div class="centered-page">
     <HorizontalLoader v-if="store.isPageLoading" />
@@ -17,22 +53,22 @@
           {{ $t('quiz_not_found') }}
         </h2>
       </div>
-      <div v-else-if="currentQuestion">
+      <div v-else-if="store.currentQuestion">
         <p
           class="total"
           data-test="total-info"
         >
-          {{ currentQuestionIndex + 1 }}/{{ store.totalQuestionsCount }}
+          {{ store.currentQuestionIndex + 1 }}/{{ store.totalQuestionsCount }}
         </p>
         <div class="progress">
-          <ProgressBar :progress="progress" />
+          <ProgressBar :progress="store.progress" />
         </div>
         <GameQuestion
           :is-loading="store.isAnswerLoading"
-          :correct-answer="currentCorrectAnswer"
-          :question="currentQuestion"
+          :correct-answer="store.currentCorrectAnswer"
+          :question="store.currentQuestion"
           :is-generated="store.game.isGenerated"
-          @answer="onAnswer"
+          @answer="store.onAnswer"
         />
       </div>
       <div
@@ -44,7 +80,7 @@
           class="result-text"
           data-test="result-text"
         >
-          {{ $t('your_result') }}: {{ correctAnswersCount }}/{{
+          {{ $t('your_result') }}: {{ store.correctAnswersCount }}/{{
             store.totalQuestionsCount
           }}
         </p>
@@ -69,82 +105,12 @@
           data-test="restart-btn"
           appearence="white"
           size="lg"
-          @click="restart"
+          @click="store.resetGameValues"
         />
       </div>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useRoute } from 'vue-router';
-import { computed, onMounted, ref } from 'vue';
-import { useGameStore } from '@/modules/game/store/GameStore';
-import RoundLoader from '@/components/loaders/RoundLoader.vue';
-import GameQuestion from '@/modules/game/components/GameQuestion.vue';
-import AppButton from '@/components/buttons/AppButton.vue';
-import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
-import { BREADCRUMBS } from '@/modules/app/domain/breadcrumbs';
-import { useDocTitle } from '@/composables/useDocTitle';
-import { useI18n } from 'vue-i18n';
-import StarRating from '@/components/StarRating.vue';
-import { useAuthStore } from '@/modules/auth/store/AuthStore';
-import ProgressBar from '@/components/ProgressBar.vue';
-import HorizontalLoader from '@/components/loaders/HorizontalLoader.vue';
-import AddQuizToFavoritesButton from '@/modules/shared/AddQuizToFavoritesButton/AddQuizToFavoritesButton.vue';
-
-const { t } = useI18n();
-useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.GAME]);
-useDocTitle(t('play_quiz'));
-
-const route = useRoute();
-const store = useGameStore();
-const authStore = useAuthStore();
-
-const currentQuestionIndex = ref(0);
-const correctAnswersCount = ref(0);
-const currentCorrectAnswer = ref<string | null>(null);
-
-const currentQuestion = computed(
-  () => store.game?.questions[currentQuestionIndex.value] || null
-);
-
-const progress = computed(
-  () => (currentQuestionIndex.value / (store.totalQuestionsCount - 1)) * 100
-);
-
-const goToNextQuestion = () => {
-  currentQuestionIndex.value++;
-  currentCorrectAnswer.value = null;
-};
-
-const onAnswer = async (answer: string) => {
-  if (currentQuestion.value && !currentCorrectAnswer.value) {
-    currentCorrectAnswer.value = await store.getCorrectAnswer(
-      currentQuestion.value?.id
-    );
-    if (answer === currentCorrectAnswer.value) {
-      correctAnswersCount.value++;
-    }
-    setTimeout(() => {
-      goToNextQuestion();
-    }, 2000);
-  }
-};
-
-const restart = () => {
-  currentQuestionIndex.value = 0;
-  correctAnswersCount.value = 0;
-  currentCorrectAnswer.value = null;
-};
-
-onMounted(async () => {
-  const { id } = route.params;
-  if (id) {
-    await store.getGame(id as string);
-  }
-});
-</script>
 
 <style lang="scss" scoped>
 .title {

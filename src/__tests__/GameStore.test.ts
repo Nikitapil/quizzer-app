@@ -5,7 +5,6 @@ import { useGameStore } from '@/modules/game/store/GameStore';
 
 import { quizApi } from '@/api/apiInstances';
 import {
-  CorrectAnswerReturnDtoMock,
   PlayQuizDtoMock,
   SuccessMessageDtoMock
 } from '@/api/swagger/Quizes/mock';
@@ -25,55 +24,6 @@ describe('GameStore tests', () => {
     store.game = PlayQuizDtoMock.create({ isGenerated: true });
 
     expect(store.quizName).toBe('Generated Quiz');
-  });
-
-  it('should work getGame', async () => {
-    quizApi.getPlayQuiz = async () => {
-      return mockGame;
-    };
-    const store = useGameStore();
-
-    await store.getGame('1');
-
-    expect(store.game).toStrictEqual(mockGame);
-    expect(store.isPageLoading).toBe(false);
-  });
-
-  it('should go to catch block in getGame method if error', async () => {
-    quizApi.getPlayQuiz = async () => {
-      throw new Error();
-    };
-    const store = useGameStore();
-
-    await store.getGame('1');
-
-    expect(store.game).toStrictEqual(null);
-    expect(store.isPageLoading).toBe(false);
-  });
-
-  it('should work getCorrectAnswer method', async () => {
-    const answerMock = CorrectAnswerReturnDtoMock.create();
-    quizApi.getCorrectAnswer = async () => {
-      return answerMock;
-    };
-    const store = useGameStore();
-
-    const answer = await store.getCorrectAnswer('1');
-
-    expect(answer).toBe(answerMock.answer);
-    expect(store.isAnswerLoading).toBe(false);
-  });
-
-  it('should go to catch bock if error in getCorrectAnswer method', async () => {
-    quizApi.getCorrectAnswer = async () => {
-      throw new Error();
-    };
-    const store = useGameStore();
-
-    const answer = await store.getCorrectAnswer('1');
-
-    expect(answer).toBe('');
-    expect(store.isAnswerLoading).toBe(false);
   });
 
   it('should not rate quiz if no game', async () => {

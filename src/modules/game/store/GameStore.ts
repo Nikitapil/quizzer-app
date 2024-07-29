@@ -10,6 +10,9 @@ import { i18n } from '@/plugins/i18n';
 
 export const useGameStore = defineStore('game', () => {
   const game = ref<PlayQuizDto | null>(null);
+  const currentQuestionIndex = ref(0);
+  const correctAnswersCount = ref(0);
+  const currentCorrectAnswer = ref<string | null>(null);
 
   const { call: getGameApi, isLoading: isPageLoading } = useApiMethod(
     quizApi.getPlayQuiz,
@@ -23,10 +26,18 @@ export const useGameStore = defineStore('game', () => {
     quizApi.rateQuiz
   );
 
+  const currentQuestion = computed(
+    () => game.value?.questions[currentQuestionIndex.value] || null
+  );
+
   const totalQuestionsCount = computed(() => game.value?.questions.length || 0);
 
   const quizName = computed(() =>
     game.value?.isGenerated ? i18n.global.t('generated_quiz') : game.value?.name
+  );
+
+  const progress = computed(
+    () => (currentQuestionIndex.value / (totalQuestionsCount.value - 1)) * 100
   );
 
   const getGame = async (id: string) => {
@@ -35,8 +46,28 @@ export const useGameStore = defineStore('game', () => {
 
   const getCorrectAnswer = async (id: string) => {
     const correctAnswer = await getCorrectAnswerApi(id);
+    currentCorrectAnswer.value = correctAnswer?.answer || null;
+  };
 
-    return correctAnswer?.answer || '';
+  const goToNextQuestion = () => {
+    currentQuestionIndex.value++;
+    currentCorrectAnswer.value = null;
+  };
+
+  const onAnswer = async (answer: string) => {
+    if (!currentQuestion.value || currentCorrectAnswer.value) {
+      return;
+    }
+
+    await getCorrectAnswer(currentQuestion.value.id);
+
+    if (answer === currentCorrectAnswer.value) {
+      correctAnswersCount.value += 1;
+    }
+
+    setTimeout(() => {
+      goToNextQuestion();
+    }, 2000);
   };
 
   const rateQuiz = async (rating: number) => {
@@ -46,6 +77,17 @@ export const useGameStore = defineStore('game', () => {
     await rateQuizApi({ quizId: game.value.id, rating });
   };
 
+  const resetGameValues = () => {
+    currentQuestionIndex.value = 0;
+    correctAnswersCount.value = 0;
+    currentCorrectAnswer.value = null;
+  };
+
+  const init = async (id: string) => {
+    resetGameValues();
+    await getGame(id);
+  };
+
   return {
     game,
     isPageLoading,
@@ -53,8 +95,14 @@ export const useGameStore = defineStore('game', () => {
     isRateInProgress,
     totalQuestionsCount,
     quizName,
-    getGame,
-    getCorrectAnswer,
-    rateQuiz
+    currentQuestionIndex,
+    correctAnswersCount,
+    currentCorrectAnswer,
+    currentQuestion,
+    progress,
+    init,
+    resetGameValues,
+    rateQuiz,
+    onAnswer
   };
 });

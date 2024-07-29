@@ -17,7 +17,7 @@ describe('Game component tests', () => {
     const pinia = createTestingPinia();
     const store = useGameStore(pinia);
 
-    store.getGame = async () => {};
+    store.init = async () => {};
 
     const wrapper = mount(Game, {
       global: {
@@ -34,7 +34,7 @@ describe('Game component tests', () => {
     const pinia = createTestingPinia();
     const store = useGameStore(pinia);
 
-    store.getGame = async () => {};
+    store.init = async () => {};
 
     const wrapper = mount(Game, {
       global: {
@@ -55,7 +55,7 @@ describe('Game component tests', () => {
     const pinia = createTestingPinia();
     const store = useGameStore(pinia);
 
-    store.getGame = async () => {
+    store.init = async () => {
       store.game = mockGame;
       store.isPageLoading = false;
     };
@@ -82,12 +82,10 @@ describe('Game component tests', () => {
     const store = useGameStore(pinia);
     vi.useFakeTimers();
 
-    store.getGame = async () => {
+    store.init = async () => {
       store.game = mockGame;
       store.isPageLoading = false;
     };
-
-    store.getCorrectAnswer = async () => 'correct';
 
     await router.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
 
@@ -146,7 +144,7 @@ describe('Game component tests', () => {
     const pinia = createTestingPinia();
     const store = useGameStore(pinia);
 
-    store.getGame = async () => {
+    store.init = async () => {
       store.game = mockGame;
       store.isPageLoading = false;
     };
@@ -178,7 +176,7 @@ describe('Game component tests', () => {
       role: UserRolesEnum.User
     };
 
-    store.getGame = async () => {
+    store.init = async () => {
       store.game = PlayQuizDtoMock.create({ questions: [] });
       store.isPageLoading = false;
     };
@@ -210,7 +208,7 @@ describe('Game component tests', () => {
       role: UserRolesEnum.User
     };
 
-    store.getGame = async () => {
+    store.init = async () => {
       store.game = PlayQuizDtoMock.create({
         isInFavourites: true,
         questions: []
