@@ -1,22 +1,27 @@
-import { createTestingPinia } from '@pinia/testing';
-import { useGameStore } from '@/modules/game/store/GameStore';
 import { vi } from 'vitest';
-import { toast } from 'vue3-toastify';
+import { getErrorToastSpy } from '@/__tests__/mocks/toastMocks';
+
+import { useGameStore } from '@/modules/game/store/GameStore';
+
 import { quizApi } from '@/api/apiInstances';
-import { PlayQuizDtoMock } from '@/api/swagger/Quizes/mock';
+import {
+  CorrectAnswerReturnDtoMock,
+  PlayQuizDtoMock,
+  SuccessMessageDtoMock
+} from '@/api/swagger/Quizes/mock';
+import { createPinia, setActivePinia } from 'pinia';
 
 describe('GameStore tests', () => {
   const mockGame = PlayQuizDtoMock.create();
 
-  const toastMock = vi.spyOn(toast, 'error').mockImplementation((): any => {});
+  const toastMock = getErrorToastSpy();
 
-  afterAll(() => {
-    vi.restoreAllMocks();
+  beforeEach(() => {
+    setActivePinia(createPinia());
   });
 
   it('should set default quiz name', () => {
-    const pinia = createTestingPinia();
-    const store = useGameStore(pinia);
+    const store = useGameStore();
     store.game = PlayQuizDtoMock.create({ isGenerated: true });
 
     expect(store.quizName).toBe('Generated Quiz');
@@ -26,10 +31,7 @@ describe('GameStore tests', () => {
     quizApi.getPlayQuiz = async () => {
       return mockGame;
     };
-    const pinia = createTestingPinia({
-      stubActions: false
-    });
-    const store = useGameStore(pinia);
+    const store = useGameStore();
 
     await store.getGame('1');
 
@@ -41,10 +43,7 @@ describe('GameStore tests', () => {
     quizApi.getPlayQuiz = async () => {
       throw new Error();
     };
-    const pinia = createTestingPinia({
-      stubActions: false
-    });
-    const store = useGameStore(pinia);
+    const store = useGameStore();
 
     await store.getGame('1');
 
@@ -53,19 +52,15 @@ describe('GameStore tests', () => {
   });
 
   it('should work getCorrectAnswer method', async () => {
+    const answerMock = CorrectAnswerReturnDtoMock.create();
     quizApi.getCorrectAnswer = async () => {
-      return {
-        answer: '1234'
-      };
+      return answerMock;
     };
-    const pinia = createTestingPinia({
-      stubActions: false
-    });
-    const store = useGameStore(pinia);
+    const store = useGameStore();
 
     const answer = await store.getCorrectAnswer('1');
 
-    expect(answer).toBe('1234');
+    expect(answer).toBe(answerMock.answer);
     expect(store.isAnswerLoading).toBe(false);
   });
 
@@ -73,10 +68,7 @@ describe('GameStore tests', () => {
     quizApi.getCorrectAnswer = async () => {
       throw new Error();
     };
-    const pinia = createTestingPinia({
-      stubActions: false
-    });
-    const store = useGameStore(pinia);
+    const store = useGameStore();
 
     const answer = await store.getCorrectAnswer('1');
 
@@ -88,12 +80,9 @@ describe('GameStore tests', () => {
     const serviceMock = vi
       .spyOn(quizApi, 'rateQuiz')
       .mockImplementation(async () => {
-        return {} as any;
+        return SuccessMessageDtoMock.create();
       });
-    const pinia = createTestingPinia({
-      stubActions: false
-    });
-    const store = useGameStore(pinia);
+    const store = useGameStore();
 
     await store.rateQuiz(5);
 
@@ -104,12 +93,9 @@ describe('GameStore tests', () => {
     const serviceMock = vi
       .spyOn(quizApi, 'rateQuiz')
       .mockImplementation(async () => {
-        return {} as any;
+        return SuccessMessageDtoMock.create();
       });
-    const pinia = createTestingPinia({
-      stubActions: false
-    });
-    const store = useGameStore(pinia);
+    const store = useGameStore();
 
     store.game = mockGame;
 
@@ -131,10 +117,7 @@ describe('GameStore tests', () => {
           }
         };
       });
-    const pinia = createTestingPinia({
-      stubActions: false
-    });
-    const store = useGameStore(pinia);
+    const store = useGameStore();
 
     store.game = mockGame;
 
