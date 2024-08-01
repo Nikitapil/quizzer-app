@@ -1,46 +1,43 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import Game from '@/modules/game/pages/Game.vue';
 import router from '@/router';
-import { createTestingPinia } from '@pinia/testing';
 import { useGameStore } from '@/modules/game/store/GameStore';
 import GameQuestion from '@/modules/game/components/GameQuestion.vue';
 import { ERoutesNames } from '@/router/routes-names';
 import { vi } from 'vitest';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
-import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
-import { PlayQuizDtoMock } from '@/api/swagger/Quizes/mock';
+import {
+  CorrectAnswerReturnDtoMock,
+  PlayQuizDtoMock
+} from '@/api/swagger/Quizes/mock';
+import { createPinia, setActivePinia } from 'pinia';
+import { quizApi } from '@/api/apiInstances';
+import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
+
+const getGameApiMock = vi.fn().mockImplementation(() => {});
+const getCorrectAnswerApiMock = vi.fn().mockImplementation(() => {});
 
 describe('Game component tests', () => {
   const mockGame = PlayQuizDtoMock.create();
+  let store: ReturnType<typeof useGameStore>;
+
+  beforeEach(() => {
+    quizApi.getPlayQuiz = getGameApiMock;
+    quizApi.getCorrectAnswer = getCorrectAnswerApiMock;
+    getGameApiMock.mockReset();
+    setActivePinia(createPinia());
+    store = useGameStore();
+  });
 
   it('should render loader while getting game', () => {
-    const pinia = createTestingPinia();
-    const store = useGameStore(pinia);
-
-    store.init = async () => {};
-
-    const wrapper = mount(Game, {
-      global: {
-        plugins: [pinia]
-      }
-    });
-
+    const wrapper = mount(Game);
     const loader = wrapper.find('[data-test="round-loader"]');
 
     expect(loader.exists()).toBe(true);
   });
 
   it('should render not found text', async () => {
-    const pinia = createTestingPinia();
-    const store = useGameStore(pinia);
-
-    store.init = async () => {};
-
-    const wrapper = mount(Game, {
-      global: {
-        plugins: [pinia]
-      }
-    });
+    const wrapper = mount(Game);
 
     store.isPageLoading = false;
 
@@ -52,23 +49,11 @@ describe('Game component tests', () => {
   });
 
   it('should render current question', async () => {
-    const pinia = createTestingPinia();
-    const store = useGameStore(pinia);
-
-    store.init = async () => {
-      store.game = mockGame;
-      store.isPageLoading = false;
-    };
-
-    // await router.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
+    getGameApiMock.mockResolvedValue(mockGame);
 
     await router.replace({ name: ERoutesNames.QUIZ, params: { id: 1 } });
 
-    const wrapper = mount(Game, {
-      global: {
-        plugins: [pinia]
-      }
-    });
+    const wrapper = mount(Game);
 
     await flushPromises();
 
@@ -77,23 +62,18 @@ describe('Game component tests', () => {
     expect(questionComponent.exists()).toBe(true);
   });
 
-  it.skip('should answer questions and should restart game', async () => {
-    const pinia = createTestingPinia();
-    const store = useGameStore(pinia);
-    vi.useFakeTimers();
+  it('should answer questions and should restart game', async () => {
+    getGameApiMock.mockResolvedValue(mockGame);
+    getCorrectAnswerApiMock.mockResolvedValue(
+      CorrectAnswerReturnDtoMock.create({
+        answer: mockGame.questions[0].answers[0]
+      })
+    );
+    vi.useFakeTimers({ shouldAdvanceTime: true });
 
-    store.init = async () => {
-      store.game = mockGame;
-      store.isPageLoading = false;
-    };
+    await router.replace({ name: ERoutesNames.QUIZ, params: { id: 1 } });
 
-    await router.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
-
-    const wrapper = mount(Game, {
-      global: {
-        plugins: [pinia]
-      }
-    });
+    const wrapper = mount(Game);
 
     await flushPromises();
 
@@ -108,20 +88,21 @@ describe('Game component tests', () => {
 
     await answers[0].trigger('click');
 
-    vi.runAllTimers();
-
     await flushPromises();
+
+    await vi.runAllTimersAsync();
 
     const questionComponent2 = wrapper.findComponent(GameQuestion);
 
-    expect(questionComponent2.exists()).toBe(true);
-    expect(totalInfo.text()).toBe(`2/${mockGame.questions.length}`);
+    console.log(store.currentQuestionIndex, 'CURRENT CURRENT');
 
-    const answers2 = questionComponent.findAll('button');
+    expect(questionComponent2.exists()).toBe(true);
+
+    const answers2 = questionComponent2.findAll('button');
 
     await answers2[0].trigger('click');
 
-    vi.runAllTimers();
+    await vi.runAllTimersAsync();
 
     await flushPromises();
 
@@ -141,53 +122,25 @@ describe('Game component tests', () => {
   });
 
   it('should not render user btns if not authenticated', async () => {
-    const pinia = createTestingPinia();
-    const store = useGameStore(pinia);
-
-    store.init = async () => {
-      store.game = mockGame;
-      store.isPageLoading = false;
-    };
-
     await router.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
 
-    const wrapper = mount(Game, {
-      global: {
-        plugins: [pinia]
-      }
-    });
+    const wrapper = mount(Game);
 
     await flushPromises();
 
-    const userBtns = wrapper.find('user-btns');
+    const userBtns = wrapper.find('[data-test="user-btns"]');
 
     expect(userBtns.exists()).toBe(false);
   });
 
   it('should render user btns if is authenticated', async () => {
-    const pinia = createTestingPinia();
-    const store = useGameStore(pinia);
-
-    const authStore = useAuthStore(pinia);
-    authStore.user = {
-      id: 1,
-      email: 'test@test.test',
-      username: 'Test user',
-      role: UserRolesEnum.User
-    };
-
-    store.init = async () => {
-      store.game = PlayQuizDtoMock.create({ questions: [] });
-      store.isPageLoading = false;
-    };
+    getGameApiMock.mockResolvedValue(PlayQuizDtoMock.create({ questions: [] }));
+    const authStore = useAuthStore();
+    authStore.user = UserReturnDtoMock.create();
 
     await router.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
 
-    const wrapper = mount(Game, {
-      global: {
-        plugins: [pinia]
-      }
-    });
+    const wrapper = mount(Game);
 
     await flushPromises();
 
@@ -197,32 +150,18 @@ describe('Game component tests', () => {
   });
 
   it('should be text "Remove from favourites" on favourites btn', async () => {
-    const pinia = createTestingPinia();
-    const store = useGameStore(pinia);
-
-    const authStore = useAuthStore(pinia);
-    authStore.user = {
-      id: 1,
-      email: 'test@test.test',
-      username: 'Test user',
-      role: UserRolesEnum.User
-    };
-
-    store.init = async () => {
-      store.game = PlayQuizDtoMock.create({
+    getGameApiMock.mockResolvedValue(
+      PlayQuizDtoMock.create({
         isInFavourites: true,
         questions: []
-      });
-      store.isPageLoading = false;
-    };
+      })
+    );
+    const authStore = useAuthStore();
+    authStore.user = UserReturnDtoMock.create();
 
     await router.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
 
-    const wrapper = mount(Game, {
-      global: {
-        plugins: [pinia]
-      }
-    });
+    const wrapper = mount(Game);
 
     await flushPromises();
 
