@@ -10,6 +10,9 @@ import {
 } from '@/api/swagger/Quizes/mock';
 import { createPinia, setActivePinia } from 'pinia';
 
+const getCorrectAnswerApiMock = vi.fn().mockImplementation(() => {});
+quizApi.getCorrectAnswer = getCorrectAnswerApiMock;
+
 describe('GameStore tests', () => {
   const mockGame = PlayQuizDtoMock.create();
 
@@ -76,5 +79,21 @@ describe('GameStore tests', () => {
     expect(serviceMock).toHaveBeenCalled();
     expect(toastMock).toHaveBeenCalled();
     expect(store.isRateInProgress).toBe(false);
+  });
+
+  it('should not answer question if no question', async () => {
+    const store = useGameStore();
+    await store.onAnswer('');
+
+    expect(getCorrectAnswerApiMock).not.toHaveBeenCalled();
+  });
+
+  it('should set null to correct answer if no response', async () => {
+    getCorrectAnswerApiMock.mockResolvedValue(undefined);
+    const store = useGameStore();
+    store.game = PlayQuizDtoMock.create();
+    await store.onAnswer('');
+
+    expect(store.currentCorrectAnswer).toBe(null);
   });
 });
