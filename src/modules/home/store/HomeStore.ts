@@ -1,13 +1,17 @@
-import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
-import type { GenerateQuizDto } from '@/api/swagger/Quizes/data-contracts';
-import { defaultQuestionsCountValue } from '@/modules/home/domain/constants';
+import { defineStore } from 'pinia';
+
 import { useApiMethod } from '@/api/useApiMethod';
 import { quizApi } from '@/api/apiInstances';
+import type { GenerateQuizDto } from '@/api/swagger/Quizes/data-contracts';
+
+import { defaultQuestionsCountValue } from '@/modules/home/domain/constants';
+
 import {
-  getCategoryLevelQuestionCount,
+  mapCategoriesQuestionCounts,
   mapCategoriesToOptions
 } from '@/modules/home/helpers/mappers';
+
 import type { IOption } from '@/types/types';
 
 export const useHomeStore = defineStore('home', () => {
@@ -41,14 +45,7 @@ export const useHomeStore = defineStore('home', () => {
     const response = await getCategoriesQuestionCountApi(id);
 
     if (response) {
-      categoryQuestionsCount.value = {
-        easy: getCategoryLevelQuestionCount(response.total_easy_question_count),
-        medium: getCategoryLevelQuestionCount(
-          response.total_medium_question_count
-        ),
-        hard: getCategoryLevelQuestionCount(response.total_hard_question_count),
-        all: response.total_question_count
-      };
+      categoryQuestionsCount.value = mapCategoriesQuestionCounts(response);
     }
   };
 
@@ -57,6 +54,7 @@ export const useHomeStore = defineStore('home', () => {
 
     return response?.id;
   };
+
   return {
     questionCategories,
     categoryQuestionsCount,

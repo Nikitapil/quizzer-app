@@ -48,11 +48,7 @@
         name="questions-amount"
         type="number"
         full-width
-        :rules="{
-          max_value: maxQuestionsCount,
-          min_value: 1,
-          required: true
-        }"
+        :rules="amountRules"
         :label="amountLabel"
         :disabled="store.isLoading"
       />
@@ -117,6 +113,12 @@ const maxQuestionsCount = computed(() => {
 const amountLabel = computed(() => {
   return `${t('set_amount_of_questions')} (max: ${maxQuestionsCount.value})`;
 });
+
+const amountRules = computed(() => ({
+  max_value: maxQuestionsCount.value,
+  min_value: 1,
+  required: true
+}));
 
 const onChangeCategory = async () => {
   await store.getCategoryQuestionsCount(generateQuizValues.value.category);
