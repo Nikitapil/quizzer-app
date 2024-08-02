@@ -42,6 +42,7 @@
         :disabled="store.isLoading"
       />
       <AppInput
+        :key="amountKey"
         v-model="generateQuizValues.amount"
         id="set_amount_of_questions"
         class="amount-input"
@@ -119,6 +120,8 @@ const amountRules = computed(() => ({
   min_value: 1,
   required: true
 }));
+
+const amountKey = computed(() => maxQuestionsCount.value);
 
 const onChangeCategory = async () => {
   await store.getCategoryQuestionsCount(generateQuizValues.value.category);

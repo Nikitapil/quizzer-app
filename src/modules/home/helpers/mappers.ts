@@ -27,5 +27,5 @@ export const mapCategoriesQuestionCounts = (data: CategoryCountReturnDto) => ({
   easy: getCategoryLevelQuestionCount(data.total_easy_question_count),
   medium: getCategoryLevelQuestionCount(data.total_medium_question_count),
   hard: getCategoryLevelQuestionCount(data.total_hard_question_count),
-  all: data.total_question_count
+  all: getCategoryLevelQuestionCount(data.total_question_count)
 });
