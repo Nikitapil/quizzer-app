@@ -77,7 +77,7 @@ import { useHomeStore } from '@/modules/home/store/HomeStore';
 import { computed, onMounted, ref } from 'vue';
 import type {
   IGenerateQuizValues,
-  IQuestionsCount
+  QuestionCountKeys
 } from '@/modules/home/domain/types';
 import { useI18n } from 'vue-i18n';
 import AppButton from '@/components/buttons/AppButton.vue';
@@ -109,7 +109,7 @@ const generateQuizValues = ref<IGenerateQuizValues>({
 const maxQuestionsCount = computed(() => {
   return (
     store.categoryQuestionsCount[
-      generateQuizValues.value.difficulty as keyof IQuestionsCount
+      generateQuizValues.value.difficulty as QuestionCountKeys
     ] || store.categoryQuestionsCount.all
   );
 });
