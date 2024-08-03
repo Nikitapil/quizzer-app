@@ -79,4 +79,23 @@ describe('UpdatePasswordModal components tests', () => {
       expect(btn.props().disabled).toBe(true);
     });
   });
+
+  it('should close modal on cancel btn', async () => {
+    const wrapper = mount(UpdatePasswordModal, {
+      props: {
+        modelValue: true,
+        isLoading: false,
+        'onUpdate:modelValue': (e: boolean) =>
+          wrapper.setProps({ modelValue: e })
+      }
+    });
+
+    const cancelButton = wrapper.find('[data-test="cancel-btn"]');
+
+    await cancelButton.trigger('click');
+
+    await flushPromises();
+
+    expect(wrapper.props('modelValue')).toBe(false);
+  });
 });

@@ -68,6 +68,7 @@ const onSubmit = async () => {
           <AppButton
             full
             appearence="error"
+            data-test="cancel-btn"
             :text="$t('cancel')"
             :disabled="props.isLoading"
             @click="closeModal"
