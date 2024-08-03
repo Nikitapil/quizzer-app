@@ -1,13 +1,14 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+import { useForm } from 'vee-validate';
+
 import AppModal from '@/components/modals/AppModal.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
-import { ref } from 'vue';
 import AppButton from '@/components/buttons/AppButton.vue';
-import { useForm } from 'vee-validate';
 
 const modelValue = defineModel<boolean>({ required: true });
 
-defineProps<{
+const props = defineProps<{
   isLoading: boolean;
 }>();
 
@@ -24,6 +25,7 @@ const closeModal = () => (modelValue.value = false);
 
 const onSubmit = async () => {
   const { valid } = await validate();
+
   if (valid) {
     emit('submit', password.value);
   }
@@ -50,6 +52,7 @@ const onSubmit = async () => {
           :label="$t('password_label')"
           :disabled="isLoading"
         />
+
         <AppInput
           v-model="repeatedPassword"
           id="repeated-password"
@@ -58,21 +61,23 @@ const onSubmit = async () => {
           name="repeated-password"
           rules="confirmed:password"
           :label="$t('repeat_password')"
-          :disabled="isLoading"
+          :disabled="props.isLoading"
         />
+
         <div class="controls">
           <AppButton
             full
             appearence="error"
             :text="$t('cancel')"
-            :disabled="isLoading"
+            :disabled="props.isLoading"
             @click="closeModal"
           />
+
           <AppButton
             full
             type="submit"
             :text="$t('change')"
-            :disabled="isLoading"
+            :disabled="props.isLoading"
           />
         </div>
       </form>
