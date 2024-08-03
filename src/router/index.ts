@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '@/modules/home/views/Home.vue';
+import Home from '@/modules/home/pages/Home.vue';
 import { ERoutesNames } from '@/router/routes-names';
 import Error from '@/modules/app/pages/Error.vue';
 import Game from '@/modules/game/pages/Game.vue';

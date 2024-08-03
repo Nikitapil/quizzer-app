@@ -1,7 +1,7 @@
 import { createTestingPinia } from '@pinia/testing';
 import { useHomeStore } from '@/modules/home/store/HomeStore';
 import { flushPromises, mount } from '@vue/test-utils';
-import Home from '@/modules/home/views/Home.vue';
+import Home from '@/modules/home/pages/Home.vue';
 import router from '@/router';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { ERoutesNames } from '@/router/routes-names';

@@ -1,88 +1,30 @@
-<template>
-  <div class="centered-page">
-    <div
-      v-if="authStore.user"
-      class="create-button"
-      data-test="create-btn"
-    >
-      <AppButton
-        full
-        appearence="success"
-        size="lg"
-        :text="$t('create_quiz')"
-        @click="router.push({ name: ERoutesNames.CREATE_QUIZ })"
-      />
-      <p>{{ $t('or') }}</p>
-    </div>
-    <form
-      class="generation-form"
-      @submit.prevent="onSubmit"
-    >
-      <h2 class="generation-form__title">{{ $t('generate_quiz') }}</h2>
-      <AppSelect
-        v-model="generateQuizValues.category"
-        id="select_category"
-        :options="store.questionCategories"
-        :label="$t('select_category')"
-        :disabled="store.isLoading"
-        @change="onChangeCategory"
-      />
-      <AppSelect
-        v-model="generateQuizValues.difficulty"
-        id="select_difficulty"
-        :options="difficultiesOptions"
-        :label="$t('select_difficulty')"
-        :disabled="store.isLoading"
-      />
-      <AppSelect
-        v-model="generateQuizValues.type"
-        id="select_questions_type"
-        :options="questionTypeOptions"
-        :label="$t('select_questions_type')"
-        :disabled="store.isLoading"
-      />
-      <AppInput
-        :key="amountKey"
-        v-model="generateQuizValues.amount"
-        id="set_amount_of_questions"
-        class="amount-input"
-        name="questions-amount"
-        type="number"
-        full-width
-        :rules="amountRules"
-        :label="amountLabel"
-        :disabled="store.isLoading"
-      />
-      <AppButton
-        full
-        type="submit"
-        :text="$t('lets_go')"
-        :disabled="store.isLoading"
-      />
-    </form>
-  </div>
-</template>
 <script setup lang="ts">
+import { computed, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useForm } from 'vee-validate';
+import { useI18n } from 'vue-i18n';
+
 import { useDocTitle } from '@/composables/useDocTitle';
-import AppSelect from '@/components/inputs/AppSelect.vue';
+import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
+
+import { useHomeStore } from '@/modules/home/store/HomeStore';
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
+
 import {
   difficultiesOptions,
   questionTypeOptions
 } from '@/modules/home/domain/constants';
-import AppInput from '@/components/inputs/AppInput.vue';
-import { useHomeStore } from '@/modules/home/store/HomeStore';
-import { computed, onMounted, ref } from 'vue';
+
 import type {
   IGenerateQuizValues,
   QuestionCountKeys
 } from '@/modules/home/domain/types';
-import { useI18n } from 'vue-i18n';
-import AppButton from '@/components/buttons/AppButton.vue';
-import { useRouter } from 'vue-router';
+
 import { ERoutesNames } from '@/router/routes-names';
-import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
-import { useAuthStore } from '@/modules/auth/store/AuthStore';
-import { useForm } from 'vee-validate';
+
+import AppButton from '@/components/buttons/AppButton.vue';
+import AppSelect from '@/components/inputs/AppSelect.vue';
+import AppInput from '@/components/inputs/AppInput.vue';
 
 useBreadCrumbs([]);
 
@@ -121,8 +63,6 @@ const amountRules = computed(() => ({
   required: true
 }));
 
-const amountKey = computed(() => maxQuestionsCount.value);
-
 const onChangeCategory = async () => {
   await store.getCategoryQuestionsCount(generateQuizValues.value.category);
 };
@@ -146,6 +86,78 @@ onMounted(async () => {
   await store.getCategories();
 });
 </script>
+
+<template>
+  <div class="centered-page">
+    <div
+      v-if="authStore.user"
+      class="create-button"
+      data-test="create-btn"
+    >
+      <AppButton
+        full
+        appearence="success"
+        size="lg"
+        :text="$t('create_quiz')"
+        @click="router.push({ name: ERoutesNames.CREATE_QUIZ })"
+      />
+      <p>{{ $t('or') }}</p>
+    </div>
+
+    <form
+      class="generation-form"
+      @submit.prevent="onSubmit"
+    >
+      <h2 class="generation-form__title">{{ $t('generate_quiz') }}</h2>
+
+      <AppSelect
+        v-model="generateQuizValues.category"
+        id="select_category"
+        :options="store.questionCategories"
+        :label="$t('select_category')"
+        :disabled="store.isLoading"
+        @change="onChangeCategory"
+      />
+
+      <AppSelect
+        v-model="generateQuizValues.difficulty"
+        id="select_difficulty"
+        :options="difficultiesOptions"
+        :label="$t('select_difficulty')"
+        :disabled="store.isLoading"
+      />
+
+      <AppSelect
+        v-model="generateQuizValues.type"
+        id="select_questions_type"
+        :options="questionTypeOptions"
+        :label="$t('select_questions_type')"
+        :disabled="store.isLoading"
+      />
+
+      <AppInput
+        :key="maxQuestionsCount"
+        v-model="generateQuizValues.amount"
+        id="set_amount_of_questions"
+        class="amount-input"
+        name="questions-amount"
+        type="number"
+        full-width
+        :rules="amountRules"
+        :label="amountLabel"
+        :disabled="store.isLoading"
+      />
+
+      <AppButton
+        full
+        type="submit"
+        :text="$t('lets_go')"
+        :disabled="store.isLoading"
+      />
+    </form>
+  </div>
+</template>
+
 <style lang="scss" scoped>
 @import '../../../assets/styles/vars';
 
