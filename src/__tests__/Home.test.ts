@@ -1,37 +1,50 @@
-import { createTestingPinia } from '@pinia/testing';
-import { useHomeStore } from '@/modules/home/store/HomeStore';
+import { vi } from 'vitest';
 import { flushPromises, mount } from '@vue/test-utils';
-import Home from '@/modules/home/pages/Home.vue';
-import router from '@/router';
+import { createPinia, setActivePinia } from 'pinia';
+
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
-import { ERoutesNames } from '@/router/routes-names';
-import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
+
+import router from '@/router';
+import { quizApi } from '@/api/apiInstances';
+import {
+  CategoryCountReturnDtoMock,
+  QuizCategoriesReturnDtoMock,
+  ReturnGeneratedQuizDtoMock
+} from '@/api/swagger/Quizes/mock';
+import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
+
+import Home from '@/modules/home/pages/Home.vue';
 
 describe('Home component tests', () => {
-  const pinia = createTestingPinia();
+  const createButtonSelector = '[data-test="create-btn"]';
+  const getCategoriesMock = vi
+    .fn()
+    .mockResolvedValue(QuizCategoriesReturnDtoMock.createMany(4));
 
-  const homeStore = useHomeStore(pinia);
+  const generateQuizMock = vi
+    .fn()
+    .mockResolvedValue(ReturnGeneratedQuizDtoMock.create());
 
-  homeStore.getCategories = async () => {
-    homeStore.questionCategories = [
-      { name: 'All', value: '' },
-      { name: 'Category1', value: '1' },
-      { name: 'Category2', value: '2' },
-      { name: 'Category3', value: '3' },
-      { name: 'Category4', value: '4' }
-    ];
-  };
+  const getCategoriesQuestionCountMock = vi
+    .fn()
+    .mockResolvedValue(CategoryCountReturnDtoMock.create());
+
+  quizApi.getCategories = getCategoriesMock;
+  quizApi.generateQuiz = generateQuizMock;
+  quizApi.getCategoriesQuestionCount = getCategoriesQuestionCountMock;
+
+  setActivePinia(createPinia());
+
+  beforeEach(() => {
+    generateQuizMock.mockClear();
+  });
 
   it('should render only generation form', async () => {
-    const wrapper = mount(Home, {
-      global: {
-        plugins: [pinia]
-      }
-    });
+    const wrapper = mount(Home);
 
     await flushPromises();
 
-    const createBtn = wrapper.find('[data-test="create-btn"]');
+    const createBtn = wrapper.find(createButtonSelector);
     const form = wrapper.find('form');
 
     expect(createBtn.exists()).toBe(false);
@@ -39,24 +52,15 @@ describe('Home component tests', () => {
   });
 
   it('should render create btn if authenticated', async () => {
-    const wrapper = mount(Home, {
-      global: {
-        plugins: [pinia]
-      }
-    });
+    const wrapper = mount(Home);
 
-    const authStore = useAuthStore(pinia);
+    const authStore = useAuthStore();
 
-    authStore.user = {
-      id: 1,
-      username: 'Test user',
-      email: 'test@test.test',
-      role: UserRolesEnum.User
-    };
+    authStore.user = UserReturnDtoMock.create();
 
     await flushPromises();
 
-    const createBtn = wrapper.find('[data-test="create-btn"]');
+    const createBtn = wrapper.find(createButtonSelector);
     const form = wrapper.find('form');
 
     expect(createBtn.exists()).toBe(true);
@@ -64,13 +68,9 @@ describe('Home component tests', () => {
   });
 
   it('should redirect to quiz page after generating', async () => {
-    const wrapper = mount(Home, {
-      global: {
-        plugins: [pinia]
-      }
-    });
+    const wrapper = mount(Home);
 
-    homeStore.generateQuiz = async () => '1';
+    const routerSpy = vi.spyOn(router, 'push');
 
     await flushPromises();
 
@@ -80,6 +80,55 @@ describe('Home component tests', () => {
 
     await flushPromises();
 
-    expect(router.currentRoute.value.name).toBe(ERoutesNames.QUIZ);
+    expect(routerSpy).toHaveBeenCalled();
+  });
+
+  it('should not redirect to quiz page after unsuccess generating', async () => {
+    generateQuizMock.mockResolvedValueOnce(null);
+    const wrapper = mount(Home);
+
+    const routerSpy = vi.spyOn(router, 'push');
+
+    await flushPromises();
+
+    const form = wrapper.find('form');
+
+    await form.trigger('submit');
+
+    await flushPromises();
+
+    expect(routerSpy).not.toHaveBeenCalled();
+  });
+
+  it('should validate correctly', async () => {
+    const wrapper = mount(Home);
+
+    await flushPromises();
+
+    const amountInput = wrapper.find('[data-test="app-input"]');
+
+    await amountInput.setValue('0');
+
+    await flushPromises();
+
+    const form = wrapper.find('form');
+
+    await form.trigger('submit');
+
+    expect(generateQuizMock).not.toHaveBeenCalled();
+  });
+
+  it('should change category correctly', async () => {
+    const wrapper = mount(Home);
+
+    await flushPromises();
+
+    const categorySelect = wrapper.find('[data-test="app-select"]');
+
+    await categorySelect.setValue('1');
+
+    await flushPromises();
+
+    expect(getCategoriesQuestionCountMock).toHaveBeenCalled();
   });
 });
