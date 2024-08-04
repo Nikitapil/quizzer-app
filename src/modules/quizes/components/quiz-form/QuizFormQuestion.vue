@@ -2,13 +2,14 @@
 import { computed } from 'vue';
 import { Icon } from '@iconify/vue';
 
-import type { IQuizFormQuestion } from '@/modules/quizes/domain/types';
-
 import AppInput from '@/components/inputs/AppInput.vue';
 import QuizFormIncorrectAnswer from '@/modules/quizes/components/quiz-form/QuizFormIncorrectAnswer.vue';
 import AppButton from '@/components/buttons/AppButton.vue';
+import type { CreateQuizQuestionDto } from '@/api/swagger/Quizes/data-contracts';
 
-const questionFormValues = defineModel<IQuizFormQuestion>({ required: true });
+const questionFormValues = defineModel<CreateQuizQuestionDto>({
+  required: true
+});
 
 const props = defineProps<{
   questionNumber: number;
