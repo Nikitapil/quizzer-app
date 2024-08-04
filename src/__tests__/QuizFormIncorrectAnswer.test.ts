@@ -4,14 +4,22 @@ import AppButton from '@/components/buttons/AppButton.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 
 describe('QuizFormIncorrectAnswer component tests', () => {
-  it('should render answer without delete btn if 0 index', () => {
-    const wrapper = mount(QuizFormIncorrectAnswer, {
-      props: {
-        index: 0,
-        questionId: '123',
-        isLoading: false
-      }
-    });
+  const props = {
+    index: 1,
+    questionId: '123',
+    isLoading: false
+  } as const;
+
+  const wrapper = mount(QuizFormIncorrectAnswer, {
+    props
+  });
+
+  beforeEach(async () => {
+    await wrapper.setProps(props);
+  });
+
+  it('should render answer without delete btn if 0 index', async () => {
+    await wrapper.setProps({ index: 0 });
 
     const deleteBtn = wrapper.find('button');
 
@@ -19,27 +27,13 @@ describe('QuizFormIncorrectAnswer component tests', () => {
   });
 
   it('should render answer with delete btn if index more than 0', () => {
-    const wrapper = mount(QuizFormIncorrectAnswer, {
-      props: {
-        index: 1,
-        questionId: '123',
-        isLoading: false
-      }
-    });
-
     const deleteBtn = wrapper.find('button');
 
     expect(deleteBtn.exists()).toBe(true);
   });
 
-  it('should disable input and btn if isLoading', () => {
-    const wrapper = mount(QuizFormIncorrectAnswer, {
-      props: {
-        index: 1,
-        questionId: '123',
-        isLoading: true
-      }
-    });
+  it('should disable input and btn if isLoading', async () => {
+    await wrapper.setProps({ isLoading: true });
 
     const deleteBtn = wrapper.getComponent(AppInput);
     const input = wrapper.getComponent(AppButton);
@@ -49,14 +43,6 @@ describe('QuizFormIncorrectAnswer component tests', () => {
   });
 
   it('should emit delete-answer event', async () => {
-    const wrapper = mount(QuizFormIncorrectAnswer, {
-      props: {
-        index: 1,
-        questionId: '123',
-        isLoading: false
-      }
-    });
-
     const deleteBtn = wrapper.getComponent(AppButton);
 
     await deleteBtn.trigger('click');

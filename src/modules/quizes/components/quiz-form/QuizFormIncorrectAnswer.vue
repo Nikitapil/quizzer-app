@@ -22,7 +22,7 @@ defineEmits(['delete-answer']);
       :name="`incorrect-${props.index}-${props.questionId}`"
       :placeholder="$t('incorrect_answer_placeholder')"
       :label="`${$t('incorrect_answer_label')}${props.index + 1}:`"
-      :disabled="isLoading"
+      :disabled="props.isLoading"
       full-width
       rules="required"
     />
@@ -32,7 +32,7 @@ defineEmits(['delete-answer']);
       class="delete-btn"
       with-icon
       appearence="transparent"
-      :disabled="isLoading"
+      :disabled="props.isLoading"
       @click="$emit('delete-answer')"
     >
       <Icon
