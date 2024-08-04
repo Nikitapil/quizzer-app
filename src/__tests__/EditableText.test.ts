@@ -3,6 +3,7 @@ import EditableText from '@/components/inputs/EditableText.vue';
 
 describe('EditableText component tests', () => {
   const props = {
+    modelValue: false,
     text: 'test text',
     name: 'test-name',
     id: 'test-id',
@@ -44,7 +45,7 @@ describe('EditableText component tests', () => {
   });
 
   it('should toggle form correctly outside from component', async () => {
-    await wrapper.vm.toggleForm();
+    await wrapper.setProps({ modelValue: true });
 
     let staticTextEl = wrapper.find('p');
     const input = wrapper.get<HTMLInputElement>('[data-test="app-input"]');
@@ -52,7 +53,7 @@ describe('EditableText component tests', () => {
     expect(staticTextEl.exists()).toBe(false);
     expect(input.element.value).toBe('test text');
 
-    await wrapper.vm.toggleForm();
+    await wrapper.setProps({ modelValue: false });
 
     staticTextEl = wrapper.find('p');
 

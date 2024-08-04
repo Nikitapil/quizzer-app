@@ -10,7 +10,7 @@ import CreateQuiz from '@/modules/quizes/views/CreateQuiz.vue';
 import EditQuiz from '@/modules/quizes/views/EditQuiz.vue';
 import UsersQuizes from '@/modules/quizes/views/UsersQuizes.vue';
 import FavouritesQuizzes from '@/modules/quizes/views/FavouritesQuizzes.vue';
-import Profile from '@/modules/profile/views/Profile.vue';
+import Profile from '@/modules/auth/pages/Profile.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
 export const routes = [

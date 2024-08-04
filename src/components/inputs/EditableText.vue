@@ -12,6 +12,8 @@ import IconButton from '@/components/buttons/IconButton.vue';
 
 const { t } = useI18n();
 
+const isFormOpened = defineModel<boolean>();
+
 const props = withDefaults(
   defineProps<{
     text: string;
@@ -33,7 +35,6 @@ const emit = defineEmits<{
 const { validate } = useForm();
 
 const inputValue = ref('');
-const isFormOpened = ref(false);
 
 const editButtonIcon = computed(() =>
   isFormOpened.value
@@ -51,10 +52,7 @@ const editButtonIcon = computed(() =>
 
 const toggleForm = () => {
   isFormOpened.value = !isFormOpened.value;
-
-  if (isFormOpened.value) {
-    inputValue.value = props.text;
-  }
+  inputValue.value = props.text;
 };
 
 const onSubmit = async () => {
@@ -64,10 +62,6 @@ const onSubmit = async () => {
     emit('submit-handler', inputValue.value);
   }
 };
-
-defineExpose({
-  toggleForm
-});
 </script>
 
 <template>

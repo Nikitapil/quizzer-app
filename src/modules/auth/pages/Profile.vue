@@ -1,55 +1,58 @@
 <script setup lang="ts">
+import { type Ref, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
+
+import { useDocTitle } from '@/composables/useDocTitle';
 import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/modules/app/domain/breadcrumbs';
-import { useDocTitle } from '@/composables/useDocTitle';
-import EditableText from '@/components/inputs/EditableText.vue';
+
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
-import { ref } from 'vue';
-import UpdatePasswordModal from '@/modules/profile/components/UpdatePasswordModal.vue';
+
+import type { EditUserDto } from '@/api/swagger/Users/data-contracts';
+import { ERoutesNames } from '@/router/routes-names';
+
+import UpdatePasswordModal from '@/modules/auth/components/UpdatePasswordModal.vue';
 import AppButton from '@/components/buttons/AppButton.vue';
 import ConfirmModal from '@/components/modals/ConfirmModal.vue';
-import { useRouter } from 'vue-router';
-import { ERoutesNames } from '@/router/routes-names';
+import EditableText from '@/components/inputs/EditableText.vue';
 
 const { t } = useI18n();
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.PROFILE]);
 useDocTitle(t('profile'));
 
 const router = useRouter();
-
 const authStore = useAuthStore();
 
-const email = ref<InstanceType<typeof EditableText>>();
-const username = ref<InstanceType<typeof EditableText>>();
+const emailEditMode = ref(false);
+const usernameEditMode = ref(false);
 const isUpdatePasswordModalShowed = ref(false);
 const isDeleteProfileModalShowed = ref(false);
 
-const onChangeEmail = async (newEmail: string) => {
-  const isUpdated = await authStore.editUser({ email: newEmail });
-  if (isUpdated && email.value) {
-    email.value.toggleForm();
+const editUser = async (
+  dto: EditUserDto,
+  controlShowingModel: Ref<boolean>
+) => {
+  const isUpdated = await authStore.editUser(dto);
+
+  if (isUpdated && controlShowingModel.value) {
+    controlShowingModel.value = false;
   }
 };
 
-const onChangeUsername = async (newUsername: string) => {
-  const isUpdated = await authStore.editUser({ username: newUsername });
-  if (isUpdated && username.value) {
-    username.value.toggleForm();
-  }
-};
+const onChangeEmail = (email: string) => editUser({ email }, emailEditMode);
 
-const onChangePassword = async (newPassword: string) => {
-  const isUpdated = await authStore.editUser({ password: newPassword });
-  if (isUpdated) {
-    isUpdatePasswordModalShowed.value = false;
-  }
-};
+const onChangeUsername = async (username: string) =>
+  editUser({ username }, usernameEditMode);
+
+const onChangePassword = async (password: string) =>
+  editUser({ password }, isUpdatePasswordModalShowed);
 
 const onDeleteUser = async () => {
   const isDeleted = await authStore.deleteUser();
+
   if (isDeleted) {
-    router.push({ name: ERoutesNames.HOME });
+    await router.push({ name: ERoutesNames.HOME });
   }
 };
 </script>
@@ -60,10 +63,11 @@ const onDeleteUser = async () => {
     class="centered-page page"
   >
     <h2 class="title">{{ $t('profile') }}</h2>
+
     <div class="profile-item">
       <span class="label">Email:</span>
       <EditableText
-        ref="email"
+        v-model="emailEditMode"
         id="email"
         name="email"
         input-type="text"
@@ -73,10 +77,11 @@ const onDeleteUser = async () => {
         @submit-handler="onChangeEmail"
       />
     </div>
+
     <div class="profile-item">
       <span class="label">{{ $t('username_label') }}</span>
       <EditableText
-        ref="username"
+        v-model="usernameEditMode"
         id="username"
         name="username"
         input-type="text"
@@ -86,6 +91,7 @@ const onDeleteUser = async () => {
         @submit-handler="onChangeUsername"
       />
     </div>
+
     <div class="profile-item">
       <AppButton
         full
@@ -93,6 +99,7 @@ const onDeleteUser = async () => {
         @click="isUpdatePasswordModalShowed = true"
       />
     </div>
+
     <div class="profile-item">
       <AppButton
         appearence="error"
@@ -101,6 +108,7 @@ const onDeleteUser = async () => {
         @click="isDeleteProfileModalShowed = true"
       />
     </div>
+
     <ConfirmModal
       v-model="isDeleteProfileModalShowed"
       :title="$t('delete_profile')"
@@ -110,6 +118,7 @@ const onDeleteUser = async () => {
       @confirm="onDeleteUser"
     />
   </div>
+
   <UpdatePasswordModal
     v-model="isUpdatePasswordModalShowed"
     :is-loading="authStore.isUpdateUserInProgress"

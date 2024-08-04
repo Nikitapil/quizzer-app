@@ -1,5 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
-import UpdatePasswordModal from '@/modules/profile/components/UpdatePasswordModal.vue';
+import UpdatePasswordModal from '@/modules/auth/components/UpdatePasswordModal.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/buttons/AppButton.vue';
 
