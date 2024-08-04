@@ -4,16 +4,26 @@ import QuizFormQuestion from '@/modules/quizes/components/quiz-form/QuizFormQues
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/buttons/AppButton.vue';
 import AppCheckbox from '@/components/inputs/AppCheckbox.vue';
+import {
+  CreateQuizDtoMock,
+  CreateQuizQuestionDtoMock
+} from '@/api/swagger/Quizes/mock';
 
 describe('QuizForm component tests', () => {
-  it('should add and remove questions', async () => {
-    const wrapper = mount(QuizForm, {
-      props: {
-        title: 'Quiz form',
-        isLoading: false
-      }
-    });
+  const props = {
+    title: 'Quiz form',
+    isLoading: false
+  } as const;
 
+  const wrapper = mount(QuizForm, {
+    props
+  });
+
+  beforeEach(async () => {
+    await wrapper.setProps(props);
+  });
+
+  it('should add and remove questions', async () => {
     const addQuestionBtn = wrapper.get('[data-test="add-question"]');
 
     await addQuestionBtn.trigger('click');
@@ -31,13 +41,8 @@ describe('QuizForm component tests', () => {
     expect(questions2.length).toBe(3);
   });
 
-  it('should set disabled all controls if is loading', () => {
-    const wrapper = mount(QuizForm, {
-      props: {
-        title: 'Quiz form',
-        isLoading: true
-      }
-    });
+  it('should set disabled all controls if is loading', async () => {
+    await wrapper.setProps({ isLoading: true });
 
     const inputs = wrapper.findAllComponents(AppInput);
     const buttons = wrapper.findAllComponents(AppButton);
@@ -57,13 +62,6 @@ describe('QuizForm component tests', () => {
   });
 
   it('should validate and emit submit if correct', async () => {
-    const wrapper = mount(QuizForm, {
-      props: {
-        title: 'Quiz form',
-        isLoading: false
-      }
-    });
-
     const form = wrapper.get('form');
 
     await form.trigger('submit');
@@ -82,36 +80,15 @@ describe('QuizForm component tests', () => {
   });
 
   it('should set initial values', async () => {
+    const initialValues = CreateQuizDtoMock.create({
+      questions: CreateQuizQuestionDtoMock.createMany(4, {
+        incorrectAnswers: ['123', '123', '123']
+      })
+    });
     const wrapper = mount(QuizForm, {
       props: {
-        title: 'Quiz form',
-        isLoading: false,
-        initialValues: {
-          name: 'Test quiz',
-          isPrivate: false,
-          questions: [
-            {
-              question: 'Is it Test?',
-              correctAnswer: 'yes',
-              incorrectAnswers: ['no', 'maybe', 'dont know']
-            },
-            {
-              question: 'Is it Test?',
-              correctAnswer: 'yes',
-              incorrectAnswers: ['no', 'maybe', 'dont know']
-            },
-            {
-              question: 'Is it Test?',
-              correctAnswer: 'yes',
-              incorrectAnswers: ['no', 'maybe', 'dont know']
-            },
-            {
-              question: 'Is it Test?',
-              correctAnswer: 'yes',
-              incorrectAnswers: ['no', 'maybe', 'dont know']
-            }
-          ]
-        }
+        ...props,
+        initialValues
       }
     });
 
