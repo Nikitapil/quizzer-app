@@ -1,17 +1,34 @@
+<script setup lang="ts">
+import { Icon } from '@iconify/vue';
+import AppInput from '@/components/inputs/AppInput.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
+
+const modelValue = defineModel<string>();
+
+const props = defineProps<{
+  index: number;
+  questionId: string;
+  isLoading: boolean;
+}>();
+
+defineEmits(['delete-answer']);
+</script>
+
 <template>
   <div class="incorrect-answer">
     <AppInput
       v-model="modelValue"
-      :id="`incorrect-${index}-${questionId}`"
-      :name="`incorrect-${index}-${questionId}`"
+      :id="`incorrect-${props.index}-${props.questionId}`"
+      :name="`incorrect-${props.index}-${props.questionId}`"
       :placeholder="$t('incorrect_answer_placeholder')"
-      :label="`${$t('incorrect_answer_label')}${index + 1}:`"
+      :label="`${$t('incorrect_answer_label')}${props.index + 1}:`"
       :disabled="isLoading"
       full-width
       rules="required"
     />
+
     <AppButton
-      v-if="index > 0"
+      v-if="props.index > 0"
       class="delete-btn"
       with-icon
       appearence="transparent"
@@ -27,22 +44,6 @@
     </AppButton>
   </div>
 </template>
-
-<script setup lang="ts">
-import AppInput from '@/components/inputs/AppInput.vue';
-import AppButton from '@/components/buttons/AppButton.vue';
-import { Icon } from '@iconify/vue';
-
-const modelValue = defineModel<string>();
-
-defineProps<{
-  index: number;
-  questionId: string;
-  isLoading: boolean;
-}>();
-
-defineEmits(['delete-answer']);
-</script>
 
 <style lang="scss" scoped>
 .incorrect-answer {

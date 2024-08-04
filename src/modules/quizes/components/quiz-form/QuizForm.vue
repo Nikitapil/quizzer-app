@@ -61,7 +61,7 @@ onMounted(() => {
     class="form"
     @submit.prevent="onSubmit"
   >
-    <h2 class="title">{{ title }}</h2>
+    <h2 class="title">{{ props.title }}</h2>
 
     <AppInput
       v-model="formValues.name"
@@ -70,14 +70,14 @@ onMounted(() => {
       rules="required"
       :placeholder="$t('quiz_name_placeholder')"
       :label="$t('quiz_name_label')"
-      :disabled="isLoading"
+      :disabled="props.isLoading"
     />
 
     <AppCheckbox
       v-model="formValues.isPrivate"
       id="is-private"
       :label="$t('access_only_by_link')"
-      :disabled="isLoading"
+      :disabled="props.isLoading"
     />
 
     <QuizFormQuestion
@@ -85,7 +85,7 @@ onMounted(() => {
       :key="`question-${index}`"
       v-model="formValues.questions[index]"
       :question-number="index + 1"
-      :is-loading="isLoading"
+      :is-loading="props.isLoading"
       @delete-question="onDeleteQuestion(index)"
     />
 
@@ -93,7 +93,7 @@ onMounted(() => {
       :text="$t('add_question')"
       data-test="add-question"
       appearence="dark"
-      :disabled="isLoading"
+      :disabled="props.isLoading"
       @click="onAddQuestion"
     />
 
@@ -102,7 +102,7 @@ onMounted(() => {
       type="submit"
       size="lg"
       :text="title"
-      :disabled="isLoading"
+      :disabled="props.isLoading"
     />
   </form>
 </template>
