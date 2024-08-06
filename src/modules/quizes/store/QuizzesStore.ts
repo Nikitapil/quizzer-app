@@ -28,23 +28,11 @@ export const useQuizzesStore = defineStore('quizzesStore', () => {
     quizApi.deleteQuiz
   );
 
-  const { call: addQuizToFavourites, isLoading: isAddQuizToFavouritesLoading } =
-    useApiMethod(quizApi.addQuizToFavourites);
-
-  const {
-    call: removeQuizFromFavourites,
-    isLoading: isRemoveQuizFromFavourites
-  } = useApiMethod(quizApi.removeQuizFromFavourites);
-
   const isQuizzesLoading = computed(
     () =>
       isGetAllQuizzesLoading.value ||
       isGetQuizzesByUserLoading.value ||
       isGetFavoritesQuizzesLoading.value
-  );
-
-  const isToggleFavouritesInProgress = computed(
-    () => isAddQuizToFavouritesLoading.value || isRemoveQuizFromFavourites.value
   );
 
   const getQuizesMethod = async (
@@ -74,28 +62,14 @@ export const useQuizzesStore = defineStore('quizzesStore', () => {
     return !!response;
   };
 
-  const toggleFavouriteQuiz = async (quiz: QuizDto) => {
-    const response = quiz.isInFavourites
-      ? await removeQuizFromFavourites(quiz.id)
-      : await addQuizToFavourites(quiz.id);
-
-    if (response) {
-      const idx = quizzes.value.findIndex((q) => q.id === quiz.id);
-      if (idx !== -1) {
-        quizzes.value[idx].isInFavourites = !quiz.isInFavourites;
-      }
-    }
-  };
   return {
     quizzes,
     totalCount,
     isQuizzesLoading,
     isDeleteInProgress,
-    isToggleFavouritesInProgress,
     getAllQuizes,
     getUserQuizzes,
     getFavouritesQuizzes,
-    deleteQuiz,
-    toggleFavouriteQuiz
+    deleteQuiz
   };
 });

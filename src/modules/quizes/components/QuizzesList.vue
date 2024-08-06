@@ -1,73 +1,20 @@
-<template>
-  <div>
-    <h1 class="title">{{ title }}</h1>
-    <form
-      v-if="isShowSearch"
-      class="controls"
-      @submit.prevent
-    >
-      <AppInput
-        v-model="search"
-        id="search"
-        name="search"
-        full-width
-        :placeholder="$t('search')"
-      />
-      <AppButton
-        type="submit"
-        data-test="search"
-        :text="$t('search')"
-        @click="onSearch"
-      />
-    </form>
-    <div
-      v-if="store.isQuizzesLoading"
-      class="loader"
-    >
-      <RoundLoader />
-    </div>
-    <div
-      v-else-if="!store.quizzes.length"
-      data-test="no-quizzes"
-    >
-      {{ $t('no_quizzes_yet') }}.
-    </div>
-    <ul
-      v-else
-      class="quizzes-container"
-    >
-      <QuizzesListItem
-        v-for="quiz in store.quizzes"
-        :key="quiz.id"
-        :quiz="quiz"
-        :user-id="userId"
-        :is-delete-in-progress="store.isDeleteInProgress"
-        :is-toggle-favourites-in-progress="store.isToggleFavouritesInProgress"
-        :is-admin="authStore.isAdmin"
-        @delete="onDelete"
-      />
-      <Pagination
-        :total-items-count="store.totalCount"
-        :limit="10"
-        :current-page="page"
-        @change-page="onChangePage"
-      />
-    </ul>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
+
 import { useQuizzesStore } from '@/modules/quizes/store/QuizzesStore';
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
+
+import type { GetAllQuizesDto } from '@/api/swagger/Quizes/data-contracts';
+
 import RoundLoader from '@/components/loaders/RoundLoader.vue';
 import QuizzesListItem from '@/modules/quizes/components/QuizzesListItem.vue';
 import Pagination from '@/components/Pagination.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/buttons/AppButton.vue';
-import { useAuthStore } from '@/modules/auth/store/AuthStore';
-import type { GetAllQuizesDto } from '@/api/swagger/Quizes/data-contracts';
 
-defineProps<{
+const QUIZ_LIMIT = 10;
+
+const props = defineProps<{
   title: string;
 }>();
 
@@ -79,17 +26,17 @@ const emit = defineEmits<{
 const store = useQuizzesStore();
 const authStore = useAuthStore();
 
-const userId = computed(() => authStore.user?.id || 0);
-
 const page = ref(1);
 const search = ref('');
 const isSearched = ref(false);
+
+const userId = computed(() => authStore.user?.id || 0);
 
 const getQuizzes = async () => {
   emit('get-quizzes', {
     page: page.value,
     search: search.value,
-    limit: 10
+    limit: QUIZ_LIMIT
   });
 };
 
@@ -104,8 +51,8 @@ const onSearch = () => {
   getQuizzes();
 };
 
-const onChangePage = (p: number) => {
-  page.value = p;
+const onChangePage = (newPage: number) => {
+  page.value = newPage;
   getQuizzes();
 };
 
@@ -119,6 +66,69 @@ onMounted(() => {
   getQuizzes();
 });
 </script>
+
+<template>
+  <div>
+    <h1 class="title">{{ props.title }}</h1>
+
+    <form
+      v-if="isShowSearch"
+      class="controls"
+      @submit.prevent
+    >
+      <AppInput
+        v-model="search"
+        id="search"
+        name="search"
+        full-width
+        :placeholder="$t('search')"
+      />
+
+      <AppButton
+        type="submit"
+        data-test="search"
+        :text="$t('search')"
+        @click="onSearch"
+      />
+    </form>
+
+    <div
+      v-if="store.isQuizzesLoading"
+      class="loader"
+    >
+      <RoundLoader />
+    </div>
+
+    <div
+      v-else-if="!store.quizzes.length"
+      data-test="no-quizzes"
+    >
+      {{ $t('no_quizzes_yet') }}.
+    </div>
+
+    <ul
+      v-else
+      class="quizzes-container"
+    >
+      <QuizzesListItem
+        v-for="quiz in store.quizzes"
+        :key="quiz.id"
+        :quiz="quiz"
+        :user-id="userId"
+        :is-delete-in-progress="store.isDeleteInProgress"
+        :is-admin="authStore.isAdmin"
+        @delete="onDelete"
+      />
+
+      <Pagination
+        :total-items-count="store.totalCount"
+        :limit="QUIZ_LIMIT"
+        :current-page="page"
+        @change-page="onChangePage"
+      />
+    </ul>
+  </div>
+</template>
 
 <style scoped>
 .title {

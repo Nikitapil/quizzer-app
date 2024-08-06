@@ -124,7 +124,6 @@ const props = defineProps<{
   quiz: QuizDto;
   userId: number;
   isDeleteInProgress: boolean;
-  isToggleFavouritesInProgress: boolean;
   isAdmin: boolean;
 }>();
 
