@@ -1,114 +1,14 @@
-<template>
-  <li class="quiz-item">
-    <div>
-      <h3 class="quiz-item__title">{{ quiz.name }}</h3>
-      <p class="quiz-item__text">
-        {{ quiz.questionsCount }} {{ $t('questions_pl') }}
-      </p>
-      <p
-        v-if="quiz.rating"
-        class="quiz-item__text"
-        data-test="rating"
-      >
-        {{ $t('rating') }}: {{ quiz.rating }}
-        <Icon
-          icon="ic:round-star"
-          color="#d2e000"
-          width="20"
-          height="20"
-        />
-      </p>
-      <p
-        v-if="quiz.author"
-        class="quiz-item__text"
-        data-test="author"
-      >
-        <span>{{ $t('author') }}: </span>
-        <RouterLink
-          class="user-link"
-          :to="{ name: ERoutesNames.USER_QUIZES, params: { id: quiz.userId } }"
-        >
-          {{ quiz.author }}
-        </RouterLink>
-      </p>
-    </div>
-    <div
-      data-test="fav-block"
-      class="controls"
-    >
-      <AddQuizToFavoritesButton
-        v-if="userId"
-        :quiz="quiz"
-      />
-
-      <Tooltip
-        v-if="isUsersIdsEquals"
-        :tip="$t('edit')"
-      >
-        <AppButton
-          class="tool-btn"
-          data-test="edit"
-          with-icon
-          @click="
-            router.push({
-              name: ERoutesNames.EDIT_QUIZ,
-              params: { id: quiz.id }
-            })
-          "
-        >
-          <Icon
-            icon="ic:twotone-edit"
-            color="#fff"
-            width="25"
-            height="25"
-          />
-        </AppButton>
-      </Tooltip>
-      <Tooltip
-        v-if="canDelete"
-        :tip="$t('delete')"
-      >
-        <AppButton
-          class="tool-btn"
-          data-test="delete"
-          appearence="error"
-          with-icon
-          @click="isDeleteModalOpened = true"
-        >
-          <Icon
-            icon="ic:round-delete"
-            color="#fff"
-            width="25"
-            height="25"
-          />
-        </AppButton>
-      </Tooltip>
-      <AppButton
-        appearence="dark"
-        data-test="play"
-        :text="$t('play')"
-        @click="goToQuiz"
-      />
-    </div>
-  </li>
-  <ConfirmModal
-    v-model="isDeleteModalOpened"
-    :title="$t('delete_quiz_question')"
-    :is-loading="isDeleteInProgress"
-    :confirm-btn-text="$t('delete')"
-    @confirm="$emit('delete', quiz.id)"
-  />
-</template>
-
 <script setup lang="ts">
-import AppButton from '@/components/buttons/AppButton.vue';
-import { useRouter } from 'vue-router';
-import { ERoutesNames } from '@/router/routes-names';
-import { Icon } from '@iconify/vue';
 import { computed, ref } from 'vue';
-import Tooltip from '@/components/Tooltip.vue';
-import ConfirmModal from '@/components/modals/ConfirmModal.vue';
+import { useRouter } from 'vue-router';
+import { Icon } from '@iconify/vue';
+
+import { ERoutesNames } from '@/router/routes-names';
 import type { QuizDto } from '@/api/swagger/Quizes/data-contracts';
+
+import Tooltip from '@/components/Tooltip.vue';
+import AppButton from '@/components/buttons/AppButton.vue';
+import ConfirmModal from '@/components/modals/ConfirmModal.vue';
 import AddQuizToFavoritesButton from '@/modules/shared/AddQuizToFavoritesButton/AddQuizToFavoritesButton.vue';
 
 const router = useRouter();
@@ -134,6 +34,119 @@ const goToQuiz = () => {
 const isUsersIdsEquals = computed(() => props.quiz.userId === props.userId);
 const canDelete = computed(() => isUsersIdsEquals.value || props.isAdmin);
 </script>
+
+<template>
+  <li class="quiz-item">
+    <div>
+      <h3 class="quiz-item__title">{{ props.quiz.name }}</h3>
+
+      <p class="quiz-item__text">
+        {{ props.quiz.questionsCount }} {{ $t('questions_pl') }}
+      </p>
+
+      <p
+        v-if="props.quiz.rating"
+        class="quiz-item__text"
+        data-test="rating"
+      >
+        {{ $t('rating') }}: {{ props.quiz.rating }}
+        <Icon
+          icon="ic:round-star"
+          color="#d2e000"
+          width="20"
+          height="20"
+        />
+      </p>
+
+      <p
+        v-if="props.quiz.author"
+        class="quiz-item__text"
+        data-test="author"
+      >
+        <span>{{ $t('author') }}: </span>
+
+        <RouterLink
+          class="user-link"
+          :to="{
+            name: ERoutesNames.USER_QUIZES,
+            params: { id: props.quiz.userId }
+          }"
+        >
+          {{ props.quiz.author }}
+        </RouterLink>
+      </p>
+    </div>
+
+    <div
+      data-test="fav-block"
+      class="controls"
+    >
+      <AddQuizToFavoritesButton
+        v-if="props.userId"
+        :quiz="props.quiz"
+      />
+
+      <Tooltip
+        v-if="isUsersIdsEquals"
+        :tip="$t('edit')"
+      >
+        <AppButton
+          class="tool-btn"
+          data-test="edit"
+          with-icon
+          @click="
+            router.push({
+              name: ERoutesNames.EDIT_QUIZ,
+              params: { id: props.quiz.id }
+            })
+          "
+        >
+          <Icon
+            icon="ic:twotone-edit"
+            color="#fff"
+            width="25"
+            height="25"
+          />
+        </AppButton>
+      </Tooltip>
+
+      <Tooltip
+        v-if="canDelete"
+        :tip="$t('delete')"
+      >
+        <AppButton
+          class="tool-btn"
+          data-test="delete"
+          appearence="error"
+          with-icon
+          @click="isDeleteModalOpened = true"
+        >
+          <Icon
+            icon="ic:round-delete"
+            color="#fff"
+            width="25"
+            height="25"
+          />
+        </AppButton>
+      </Tooltip>
+
+      <AppButton
+        appearence="dark"
+        data-test="play"
+        :text="$t('play')"
+        @click="goToQuiz"
+      />
+    </div>
+  </li>
+
+  <ConfirmModal
+    v-model="isDeleteModalOpened"
+    :title="$t('delete_quiz_question')"
+    :is-loading="props.isDeleteInProgress"
+    :confirm-btn-text="$t('delete')"
+    @confirm="$emit('delete', props.quiz.id)"
+  />
+</template>
 
 <style lang="scss" scoped>
 @import '../../../assets/styles/vars';
