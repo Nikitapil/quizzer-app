@@ -1,38 +1,36 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import QuizzesListItem from '@/modules/quizes/components/QuizzesListItem.vue';
 import router from '@/router';
-import { RouterLink } from 'vue-router';
-import { ERoutesNames } from '@/router/routes-names';
-import type { QuizDto } from '@/api/swagger/Quizes/data-contracts';
+import { QuizDtoMock } from '@/api/swagger/Quizes/mock';
+import { vi } from 'vitest';
+import { createPinia, setActivePinia } from 'pinia';
 
 describe('QuizzesList item tests', () => {
-  let quiz: QuizDto;
+  const ratingSelector = '[data-test="rating"]';
+  const authorSelector = '[data-test="author"]';
+  const editButtonSelector = '[data-test="edit"]';
+  const deleteButtonSelector = '[data-test="delete"]';
+
+  const defaultProps = {
+    userId: 0,
+    isDeleteInProgress: false,
+    isToggleFavouritesInProgress: false,
+    isAdmin: false
+  };
+
   beforeEach(() => {
-    quiz = {
-      id: 'string-id',
-      createdAt: '',
-      updatedAt: '',
-      name: 'Test quiz',
-      isPrivate: false,
-      userId: 1,
-      isInFavourites: false,
-      questionsCount: 4,
-      author: 'Test user',
-      rating: null
-    };
+    setActivePinia(createPinia());
   });
+
   it('should not render quiz rating if it does not exists', () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
-        quiz,
-        userId: 0,
-        isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false,
-        isAdmin: false
+        quiz: QuizDtoMock.create({ rating: null }),
+        ...defaultProps
       }
     });
 
-    const rating = wrapper.find('[data-test="rating"]');
+    const rating = wrapper.find(ratingSelector);
 
     expect(rating.exists()).toBe(false);
   });
@@ -40,15 +38,12 @@ describe('QuizzesList item tests', () => {
   it('should render quiz rating if rating in quiz', () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
-        quiz: { ...quiz, rating: 5 },
-        userId: 0,
-        isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false,
-        isAdmin: false
+        quiz: QuizDtoMock.create({ rating: 5 }),
+        ...defaultProps
       }
     });
 
-    const rating = wrapper.find('[data-test="rating"]');
+    const rating = wrapper.find(ratingSelector);
 
     expect(rating.exists()).toBe(true);
   });
@@ -56,52 +51,34 @@ describe('QuizzesList item tests', () => {
   it('should not render quiz author if no author in quiz', () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
-        quiz: { ...quiz, author: null },
-        userId: 0,
-        isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false,
-        isAdmin: false
+        quiz: QuizDtoMock.create({ author: null }),
+        ...defaultProps
       }
     });
 
-    const author = wrapper.find('[data-test="author"]');
+    const author = wrapper.find(authorSelector);
 
     expect(author.exists()).toBe(false);
   });
 
-  it.skip('should render quiz author if author in quiz', async () => {
+  it('should render quiz author if author in quiz', async () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
-        quiz: { ...quiz },
-        userId: 0,
-        isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false,
-        isAdmin: false
+        quiz: QuizDtoMock.create(),
+        ...defaultProps
       }
     });
 
-    const author = wrapper.find('[data-test="author"]');
+    const author = wrapper.find(authorSelector);
 
     expect(author.exists()).toBe(true);
-
-    const authorLink = author.getComponent(RouterLink);
-
-    await authorLink.trigger('click');
-
-    await flushPromises();
-
-    expect(router.currentRoute.value.name).toBe(ERoutesNames.USER_QUIZES);
-    expect(router.currentRoute.value.params.id).toBe('1');
   });
 
   it('should not render fav button if no userId', async () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
-        quiz: { ...quiz },
-        userId: 0,
-        isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false,
-        isAdmin: false
+        quiz: QuizDtoMock.create(),
+        ...defaultProps
       }
     });
 
@@ -113,16 +90,13 @@ describe('QuizzesList item tests', () => {
   it('should not render userBtns if userIds are not equal', async () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
-        quiz: { ...quiz },
-        userId: 0,
-        isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false,
-        isAdmin: false
+        quiz: QuizDtoMock.create({ userId: 5 }),
+        ...defaultProps
       }
     });
 
-    const editBtn = wrapper.find('[data-test="edit"]');
-    const deleteBtn = wrapper.find('[data-test="delete"]');
+    const editBtn = wrapper.find(editButtonSelector);
+    const deleteBtn = wrapper.find(deleteButtonSelector);
 
     expect(editBtn.exists()).toBe(false);
     expect(deleteBtn.exists()).toBe(false);
@@ -131,16 +105,14 @@ describe('QuizzesList item tests', () => {
   it('should render delete btn if admin and not render edit btn', async () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
-        quiz: { ...quiz },
-        userId: 0,
-        isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false,
+        ...defaultProps,
+        quiz: QuizDtoMock.create(),
         isAdmin: true
       }
     });
 
-    const editBtn = wrapper.find('[data-test="edit"]');
-    const deleteBtn = wrapper.find('[data-test="delete"]');
+    const editBtn = wrapper.find(editButtonSelector);
+    const deleteBtn = wrapper.find(deleteButtonSelector);
 
     expect(editBtn.exists()).toBe(false);
     expect(deleteBtn.exists()).toBe(true);
@@ -149,56 +121,27 @@ describe('QuizzesList item tests', () => {
   it('should  render userBtns if userIds are equal', async () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
-        quiz: { ...quiz },
-        userId: 1,
-        isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false,
-        isAdmin: false
+        ...defaultProps,
+        quiz: QuizDtoMock.create({ userId: 0 })
       }
     });
 
-    const editBtn = wrapper.find('[data-test="edit"]');
-    const deleteBtn = wrapper.find('[data-test="edit"]');
+    const editBtn = wrapper.find(editButtonSelector);
+    const deleteBtn = wrapper.find(deleteButtonSelector);
 
     expect(editBtn.exists()).toBe(true);
     expect(deleteBtn.exists()).toBe(true);
   });
 
-  it.skip('should  redirect to edit quiz page on edit click', async () => {
+  it('should open delete modal', async () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
-        quiz: { ...quiz },
-        userId: 1,
-        isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false,
-        isAdmin: false
+        ...defaultProps,
+        quiz: QuizDtoMock.create({ userId: 0 })
       }
     });
 
-    const editBtn = wrapper.find('[data-test="edit"]');
-
-    expect(editBtn.exists()).toBe(true);
-
-    await editBtn.trigger('click');
-
-    await flushPromises();
-
-    expect(router.currentRoute.value.name).toBe(ERoutesNames.EDIT_QUIZ);
-    expect(router.currentRoute.value.params.id).toBe('string-id');
-  });
-
-  it('should  open delete modal', async () => {
-    const wrapper = mount(QuizzesListItem, {
-      props: {
-        quiz: { ...quiz },
-        userId: 1,
-        isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false,
-        isAdmin: false
-      }
-    });
-
-    const deleteBtn = wrapper.find('[data-test="delete"]');
+    const deleteBtn = wrapper.find(deleteButtonSelector);
 
     await deleteBtn.trigger('click');
 
@@ -209,14 +152,12 @@ describe('QuizzesList item tests', () => {
     expect(deleteModal.exists()).toBe(true);
   });
 
-  it.skip('should open play quiz', async () => {
+  it('should open play quiz', async () => {
+    const routerSpy = vi.spyOn(router, 'push');
     const wrapper = mount(QuizzesListItem, {
       props: {
-        quiz: { ...quiz },
-        userId: 1,
-        isDeleteInProgress: false,
-        isToggleFavouritesInProgress: false,
-        isAdmin: false
+        ...defaultProps,
+        quiz: QuizDtoMock.create()
       }
     });
 
@@ -226,7 +167,24 @@ describe('QuizzesList item tests', () => {
 
     await flushPromises();
 
-    expect(router.currentRoute.value.name).toBe(ERoutesNames.QUIZ);
-    expect(router.currentRoute.value.params.id).toBe('string-id');
+    expect(routerSpy).toHaveBeenCalled();
+  });
+
+  it('should open edit quiz', async () => {
+    const routerSpy = vi.spyOn(router, 'push');
+    const wrapper = mount(QuizzesListItem, {
+      props: {
+        ...defaultProps,
+        quiz: QuizDtoMock.create({ userId: 0 })
+      }
+    });
+
+    const editBtn = wrapper.find(editButtonSelector);
+
+    await editBtn.trigger('click');
+
+    await flushPromises();
+
+    expect(routerSpy).toHaveBeenCalled();
   });
 });

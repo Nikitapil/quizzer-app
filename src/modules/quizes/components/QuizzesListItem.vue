@@ -17,7 +17,6 @@ const isDeleteModalOpened = ref(false);
 
 defineEmits<{
   delete: [id: string];
-  toggleFavourites: [quiz: QuizDto];
 }>();
 
 const props = defineProps<{
