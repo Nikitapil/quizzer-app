@@ -1,13 +1,15 @@
 import type {
-  IQuizFormQuestion,
-  IQuizFormValues,
-  ISingleQuiz,
-  ISingleQuizQuestion
+  TQuizFormQuestion,
+  TQuizFormValues
 } from '@/modules/quizes/domain/types';
+import type {
+  QuizQuestionReturnDto,
+  SingleQuizReturnDto
+} from '@/api/swagger/Quizes/data-contracts';
 
 const mapQuizQuestionsToFormQuestion = (
-  questions: ISingleQuizQuestion[]
-): IQuizFormQuestion[] => {
+  questions: QuizQuestionReturnDto[]
+): TQuizFormQuestion[] => {
   return questions.map(({ question, correctAnswer, incorrectAnswers }) => ({
     question,
     correctAnswer,
@@ -16,8 +18,8 @@ const mapQuizQuestionsToFormQuestion = (
 };
 
 export const mapQuizResponseToQuizForm = (
-  quiz: ISingleQuiz
-): IQuizFormValues => {
+  quiz: SingleQuizReturnDto
+): TQuizFormValues => {
   const { name, isPrivate, questions } = quiz;
   return {
     name,

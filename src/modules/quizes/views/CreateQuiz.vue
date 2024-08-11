@@ -11,7 +11,7 @@
 <script lang="ts" setup>
 import QuizForm from '@/modules/quizes/components/quiz-form/QuizForm.vue';
 import { useQuizFormStore } from '@/modules/quizes/store/QuizFormStore';
-import type { IQuizFormValues } from '@/modules/quizes/domain/types';
+import type { TQuizFormValues } from '@/modules/quizes/domain/types';
 import { toast } from 'vue3-toastify';
 import { useRouter } from 'vue-router';
 import { ERoutesNames } from '@/router/routes-names';
@@ -26,7 +26,7 @@ const router = useRouter();
 const store = useQuizFormStore();
 const authStore = useAuthStore();
 
-const onCreate = async (data: IQuizFormValues) => {
+const onCreate = async (data: TQuizFormValues) => {
   const isCreated = await store.createQuiz(data);
   if (isCreated) {
     toast.success('quiz_created');

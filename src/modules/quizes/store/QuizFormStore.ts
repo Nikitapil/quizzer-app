@@ -3,15 +3,15 @@ import { quizApi } from '@/api/apiInstances';
 import { computed, ref } from 'vue';
 import type {
   IGetQuizFormParams,
-  IQuizFormValues,
-  TEditQuizParams
+  TEditQuizParams,
+  TQuizFormValues
 } from '@/modules/quizes/domain/types';
 import type { CreateQuizDto } from '@/api/swagger/Quizes/data-contracts';
 import { mapQuizResponseToQuizForm } from '@/modules/quizes/helpers/mapers';
 import { defineStore } from 'pinia';
 
 export const useQuizFormStore = defineStore('quizFormStore', () => {
-  const quizForm = ref<IQuizFormValues | null>();
+  const quizForm = ref<TQuizFormValues | null>();
   const isQuizLoading = ref<boolean>(false);
   const quizId = ref<string>('');
 

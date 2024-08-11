@@ -27,7 +27,7 @@ import { onMounted } from 'vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import RoundLoader from '@/components/loaders/RoundLoader.vue';
 import QuizForm from '@/modules/quizes/components/quiz-form/QuizForm.vue';
-import type { IQuizFormValues } from '@/modules/quizes/domain/types';
+import type { TQuizFormValues } from '@/modules/quizes/domain/types';
 import { ERoutesNames } from '@/router/routes-names';
 
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.EDIT]);
@@ -38,7 +38,7 @@ const router = useRouter();
 const store = useQuizFormStore();
 const authStore = useAuthStore();
 
-const onEdit = async (data: IQuizFormValues) => {
+const onEdit = async (data: TQuizFormValues) => {
   const isEditted = await store.editQuiz(data);
   if (isEditted) {
     await router.push({
