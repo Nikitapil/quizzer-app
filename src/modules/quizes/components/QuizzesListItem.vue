@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { Icon } from '@iconify/vue';
 
@@ -23,15 +23,11 @@ const props = defineProps<{
   quiz: QuizDto;
   userId: number;
   isDeleteInProgress: boolean;
-  isAdmin: boolean;
 }>();
 
 const goToQuiz = () => {
   router.push({ name: ERoutesNames.QUIZ, params: { id: props.quiz.id } });
 };
-
-const isUsersIdsEquals = computed(() => props.quiz.userId === props.userId);
-const canDelete = computed(() => isUsersIdsEquals.value || props.isAdmin);
 </script>
 
 <template>
@@ -86,7 +82,7 @@ const canDelete = computed(() => isUsersIdsEquals.value || props.isAdmin);
       />
 
       <Tooltip
-        v-if="isUsersIdsEquals"
+        v-if="props.quiz.canEdit"
         :tip="$t('edit')"
       >
         <AppButton
@@ -110,7 +106,7 @@ const canDelete = computed(() => isUsersIdsEquals.value || props.isAdmin);
       </Tooltip>
 
       <Tooltip
-        v-if="canDelete"
+        v-if="props.quiz.canDelete"
         :tip="$t('delete')"
       >
         <AppButton

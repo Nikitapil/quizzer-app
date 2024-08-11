@@ -86,6 +86,10 @@ export interface QuizDto {
   userId: number | null;
   /** is quiz in users favourites */
   isInFavourites: boolean;
+  /** Ability to edit quiz */
+  canEdit: boolean;
+  /** Ability to delete quiz */
+  canDelete: boolean;
   /** count of quiz questions */
   questionsCount: number;
   /** author */

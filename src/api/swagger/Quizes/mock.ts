@@ -150,6 +150,8 @@ export class QuizDtoMock {
       isPrivate: faker.datatype.boolean(),
       userId: faker.number.int(),
       isInFavourites: faker.datatype.boolean(),
+      canEdit: faker.datatype.boolean(),
+      canDelete: faker.datatype.boolean(),
       questionsCount: faker.number.int(),
       author: faker.lorem.word(),
       rating: faker.number.int(),

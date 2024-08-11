@@ -87,10 +87,10 @@ describe('QuizzesList item tests', () => {
     expect(favBtn.exists()).toBe(false);
   });
 
-  it('should not render userBtns if userIds are not equal', async () => {
+  it('should not render userBtns if canEdit and canDelete false', async () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
-        quiz: QuizDtoMock.create({ userId: 5 }),
+        quiz: QuizDtoMock.create({ canEdit: false, canDelete: false }),
         ...defaultProps
       }
     });
@@ -102,27 +102,11 @@ describe('QuizzesList item tests', () => {
     expect(deleteBtn.exists()).toBe(false);
   });
 
-  it('should render delete btn if admin and not render edit btn', async () => {
+  it('should  render userBtns if canEdit and canDelete is true', async () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
         ...defaultProps,
-        quiz: QuizDtoMock.create(),
-        isAdmin: true
-      }
-    });
-
-    const editBtn = wrapper.find(editButtonSelector);
-    const deleteBtn = wrapper.find(deleteButtonSelector);
-
-    expect(editBtn.exists()).toBe(false);
-    expect(deleteBtn.exists()).toBe(true);
-  });
-
-  it('should  render userBtns if userIds are equal', async () => {
-    const wrapper = mount(QuizzesListItem, {
-      props: {
-        ...defaultProps,
-        quiz: QuizDtoMock.create({ userId: 0 })
+        quiz: QuizDtoMock.create({ canEdit: true, canDelete: true })
       }
     });
 
@@ -137,7 +121,7 @@ describe('QuizzesList item tests', () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
         ...defaultProps,
-        quiz: QuizDtoMock.create({ userId: 0 })
+        quiz: QuizDtoMock.create({ canDelete: true })
       }
     });
 
@@ -175,7 +159,7 @@ describe('QuizzesList item tests', () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
         ...defaultProps,
-        quiz: QuizDtoMock.create({ userId: 0 })
+        quiz: QuizDtoMock.create({ canEdit: true })
       }
     });
 

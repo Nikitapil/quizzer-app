@@ -116,7 +116,6 @@ onMounted(() => {
         :quiz="quiz"
         :user-id="userId"
         :is-delete-in-progress="store.isDeleteInProgress"
-        :is-admin="authStore.isAdmin"
         @delete="onDelete"
       />
 
