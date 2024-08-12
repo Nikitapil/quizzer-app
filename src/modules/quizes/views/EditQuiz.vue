@@ -50,8 +50,7 @@ const onEdit = async (data: TQuizFormValues) => {
 
 onMounted(async () => {
   await store.getQuizForm({
-    quizId: route.params.id as string,
-    userId: authStore.user?.id || 0
+    quizId: route.params.id as string
   });
 });
 </script>

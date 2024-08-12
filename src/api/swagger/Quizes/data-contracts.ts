@@ -72,6 +72,10 @@ export interface GetAllQuizesDto {
 }
 
 export interface QuizDto {
+  /** Ability to edit quiz */
+  canEdit: boolean;
+  /** Ability to delete quiz */
+  canDelete: boolean;
   /** quiz id */
   id: string;
   /** created date */
@@ -86,10 +90,6 @@ export interface QuizDto {
   userId: number | null;
   /** is quiz in users favourites */
   isInFavourites: boolean;
-  /** Ability to edit quiz */
-  canEdit: boolean;
-  /** Ability to delete quiz */
-  canDelete: boolean;
   /** count of quiz questions */
   questionsCount: number;
   /** author */
@@ -123,6 +123,10 @@ export interface QuizQuestionReturnDto {
 }
 
 export interface SingleQuizReturnDto {
+  /** Ability to edit quiz */
+  canEdit: boolean;
+  /** Ability to delete quiz */
+  canDelete: boolean;
   /** quiz rating */
   rating?: number;
   /** quiz id */

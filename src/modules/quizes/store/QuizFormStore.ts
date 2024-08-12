@@ -42,12 +42,11 @@ export const useQuizFormStore = defineStore('quizFormStore', () => {
     return !!isEdited;
   };
 
-  // TODO check on backend that quiz belongs to user
-  const getQuizForm = async ({ quizId: id, userId }: IGetQuizFormParams) => {
+  const getQuizForm = async ({ quizId: id }: IGetQuizFormParams) => {
     isQuizLoading.value = true;
     const quiz = await getQuiz(id);
 
-    if (quiz?.userId !== userId || !quiz) {
+    if (!quiz?.canEdit) {
       quizForm.value = null;
       isQuizLoading.value = false;
       return;

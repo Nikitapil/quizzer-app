@@ -17,7 +17,6 @@ export type TQuizFormValues = Pick<
 
 export interface IGetQuizFormParams {
   quizId: string;
-  userId: number;
 }
 
 export type TEditQuizParams = Omit<EditQuizDto, 'id'>;

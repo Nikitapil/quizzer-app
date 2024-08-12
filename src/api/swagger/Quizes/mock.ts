@@ -143,6 +143,8 @@ export class GetAllQuizesDtoMock {
 export class QuizDtoMock {
   public static create(overrides: Partial<QuizDto> = {}): QuizDto {
     return {
+      canEdit: faker.datatype.boolean(),
+      canDelete: faker.datatype.boolean(),
       id: faker.lorem.word(),
       createdAt: faker.lorem.word(),
       updatedAt: faker.lorem.word(),
@@ -150,8 +152,6 @@ export class QuizDtoMock {
       isPrivate: faker.datatype.boolean(),
       userId: faker.number.int(),
       isInFavourites: faker.datatype.boolean(),
-      canEdit: faker.datatype.boolean(),
-      canDelete: faker.datatype.boolean(),
       questionsCount: faker.number.int(),
       author: faker.lorem.word(),
       rating: faker.number.int(),
@@ -215,6 +215,8 @@ export class SingleQuizReturnDtoMock {
     overrides: Partial<SingleQuizReturnDto> = {}
   ): SingleQuizReturnDto {
     return {
+      canEdit: faker.datatype.boolean(),
+      canDelete: faker.datatype.boolean(),
       rating: faker.number.int(),
       id: faker.lorem.word(),
       createdAt: faker.lorem.word(),
