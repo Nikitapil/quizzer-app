@@ -1,8 +1,8 @@
+import { vi } from 'vitest';
 import { flushPromises, mount } from '@vue/test-utils';
 import QuizzesListItem from '@/modules/quizes/components/QuizzesListItem.vue';
 import router from '@/router';
 import { QuizDtoMock } from '@/api/swagger/Quizes/mock';
-import { vi } from 'vitest';
 import { createPinia, setActivePinia } from 'pinia';
 
 describe('QuizzesList item tests', () => {

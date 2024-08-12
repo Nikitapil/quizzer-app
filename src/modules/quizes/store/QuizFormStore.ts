@@ -1,14 +1,17 @@
+import { computed, ref } from 'vue';
+import { defineStore } from 'pinia';
+
 import { useApiMethod } from '@/api/useApiMethod';
 import { quizApi } from '@/api/apiInstances';
-import { computed, ref } from 'vue';
+
 import type {
   IGetQuizFormParams,
   TEditQuizParams,
   TQuizFormValues
 } from '@/modules/quizes/domain/types';
 import type { CreateQuizDto } from '@/api/swagger/Quizes/data-contracts';
+
 import { mapQuizResponseToQuizForm } from '@/modules/quizes/helpers/mapers';
-import { defineStore } from 'pinia';
 
 export const useQuizFormStore = defineStore('quizFormStore', () => {
   const quizForm = ref<TQuizFormValues | null>();
