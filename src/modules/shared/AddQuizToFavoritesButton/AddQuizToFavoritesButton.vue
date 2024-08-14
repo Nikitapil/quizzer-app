@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { Icon } from '@iconify/vue';
-import AppButton from '@/components/buttons/AppButton.vue';
-import type { IQuizWithInFavoritesFlag } from '@/modules/shared/AddQuizToFavoritesButton/domain';
-import { useAddQuizToFavorites } from '@/modules/shared/AddQuizToFavoritesButton/useAddQuizToFavorites';
 import { useI18n } from 'vue-i18n';
+import { Icon } from '@iconify/vue';
+
+import type { IQuizWithInFavoritesFlag } from '@/modules/shared/AddQuizToFavoritesButton/domain';
+
+import { useAddQuizToFavorites } from '@/modules/shared/AddQuizToFavoritesButton/useAddQuizToFavorites';
+
+import AppButton from '@/components/buttons/AppButton.vue';
 
 const { t } = useI18n();
 
