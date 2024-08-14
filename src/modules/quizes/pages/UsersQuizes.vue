@@ -1,21 +1,18 @@
-<template>
-  <QuizzesList
-    :title="$t(docTitle)"
-    @get-quizzes="onGetQuizzes"
-  />
-</template>
-
 <script setup lang="ts">
+import { computed, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+
+import { useDocTitle } from '@/composables/useDocTitle';
 import { useBreadCrumbs } from '@/modules/app/composables/useBreadCrumbs';
 import { BREADCRUMBS } from '@/modules/app/domain/breadcrumbs';
-import { useDocTitle } from '@/composables/useDocTitle';
-import { useI18n } from 'vue-i18n';
+
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
-import { useRoute } from 'vue-router';
-import { computed, watch } from 'vue';
 import { useQuizzesStore } from '@/modules/quizes/store/QuizzesStore';
-import QuizzesList from '@/modules/quizes/components/QuizzesList.vue';
+
 import type { GetAllQuizesDto } from '@/api/swagger/Quizes/data-contracts';
+
+import QuizzesList from '@/modules/quizes/components/QuizzesList.vue';
 
 const { t } = useI18n();
 
@@ -55,3 +52,10 @@ watch(
   }
 );
 </script>
+
+<template>
+  <QuizzesList
+    :title="$t(docTitle)"
+    @get-quizzes="onGetQuizzes"
+  />
+</template>
