@@ -3,13 +3,13 @@ import Home from '@/modules/home/pages/Home.vue';
 import { ERoutesNames } from '@/router/routes-names';
 import Error from '@/modules/app/pages/Error.vue';
 import Game from '@/modules/game/pages/Game.vue';
-import AllQuizes from '@/modules/quizes/views/AllQuizes.vue';
+import AllQuizes from '@/modules/quizes/pages/AllQuizes.vue';
 import SignUp from '@/modules/auth/pages/SignUp.vue';
 import SignIn from '@/modules/auth/pages/SignIn.vue';
-import CreateQuiz from '@/modules/quizes/views/CreateQuiz.vue';
-import EditQuiz from '@/modules/quizes/views/EditQuiz.vue';
-import UsersQuizes from '@/modules/quizes/views/UsersQuizes.vue';
-import FavouritesQuizzes from '@/modules/quizes/views/FavouritesQuizzes.vue';
+import CreateQuiz from '@/modules/quizes/pages/CreateQuiz.vue';
+import EditQuiz from '@/modules/quizes/pages/EditQuiz.vue';
+import UsersQuizes from '@/modules/quizes/pages/UsersQuizes.vue';
+import FavouritesQuizzes from '@/modules/quizes/pages/FavouritesQuizzes.vue';
 import Profile from '@/modules/auth/pages/Profile.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 

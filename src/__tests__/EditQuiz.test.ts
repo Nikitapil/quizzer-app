@@ -1,7 +1,7 @@
 import { createTestingPinia } from '@pinia/testing';
 import { useQuizFormStore } from '@/modules/quizes/store/QuizFormStore';
 import { mount } from '@vue/test-utils';
-import EditQuiz from '@/modules/quizes/views/EditQuiz.vue';
+import EditQuiz from '@/modules/quizes/pages/EditQuiz.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import QuizForm from '@/modules/quizes/components/quiz-form/QuizForm.vue';
 import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
