@@ -20,7 +20,6 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   'get-quizzes': [quizParams: GetAllQuizesDto];
-  'toggle-favourites': [quizParams: GetAllQuizesDto];
 }>();
 
 const store = useQuizzesStore();
