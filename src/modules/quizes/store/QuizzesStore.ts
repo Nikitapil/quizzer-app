@@ -1,7 +1,9 @@
-import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
+import { defineStore } from 'pinia';
+
 import { useApiMethod } from '@/api/useApiMethod';
 import { quizApi } from '@/api/apiInstances';
+
 import type {
   AllQuizesReturnDto,
   GetAllQuizesDto,
@@ -39,6 +41,7 @@ export const useQuizzesStore = defineStore('quizzesStore', () => {
     method: () => Promise<AllQuizesReturnDto | null>
   ) => {
     const response = await method();
+
     if (response) {
       quizzes.value = response.quizes;
       totalCount.value = response.totalCount;
