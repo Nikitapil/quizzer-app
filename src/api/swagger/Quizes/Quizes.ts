@@ -240,29 +240,14 @@ export class QuizesApi<SecurityDataType = unknown> extends HttpClient<SecurityDa
    * No description
    *
    * @tags Quizes
-   * @name AddQuizToFavourites
-   * @summary Add quiz to favourites
-   * @request POST:/api/quizes/favourite/{id}
+   * @name ToggleQuizInFavourites
+   * @summary Toggle quiz in favorites
+   * @request PATCH:/api/quizes/favourite/{id}
    */
-  addQuizToFavourites = (id: string, params: RequestParams = {}) =>
+  toggleQuizInFavourites = (id: string, params: RequestParams = {}) =>
     this.request<SuccessMessageDto, any>({
       path: `/api/quizes/favourite/${id}`,
-      method: 'POST',
-      format: 'json',
-      ...params
-    });
-  /**
-   * No description
-   *
-   * @tags Quizes
-   * @name RemoveQuizFromFavourites
-   * @summary Remove quiz from favourites
-   * @request DELETE:/api/quizes/favourite/{id}
-   */
-  removeQuizFromFavourites = (id: string, params: RequestParams = {}) =>
-    this.request<SuccessMessageDto, any>({
-      path: `/api/quizes/favourite/${id}`,
-      method: 'DELETE',
+      method: 'PATCH',
       format: 'json',
       ...params
     });
