@@ -1,5 +1,6 @@
 import { defineRule } from 'vee-validate';
 import { i18n } from '@/plugins/i18n';
+
 export const validators = () => {
   defineRule('required', (value: string) => {
     if (!value?.toString()?.trim() || !value?.toString()?.length) {

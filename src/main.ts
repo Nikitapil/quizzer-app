@@ -1,15 +1,18 @@
-import './assets/styles/main.scss';
-
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
+
 import Vue3Toasity, { type ToastContainerOptions } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
-import App from './modules/app/App.vue';
+import './assets/styles/main.scss';
+
 import router from './router';
+
 import { validators } from '@/plugins/validation';
 import { i18n } from '@/plugins/i18n';
 import { DirectivePlugin } from '@/directives/DirectivePlugin';
+
+import App from './modules/app/App.vue';
 
 const app = createApp(App);
 

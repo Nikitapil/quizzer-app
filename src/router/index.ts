@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '@/modules/home/pages/Home.vue';
+
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
+
 import { ERoutesNames } from '@/router/routes-names';
+
+import Home from '@/modules/home/pages/Home.vue';
 import Error from '@/modules/app/pages/Error.vue';
 import Game from '@/modules/game/pages/Game.vue';
 import AllQuizes from '@/modules/quizes/pages/AllQuizes.vue';
@@ -11,7 +15,6 @@ import EditQuiz from '@/modules/quizes/pages/EditQuiz.vue';
 import UsersQuizes from '@/modules/quizes/pages/UsersQuizes.vue';
 import FavouritesQuizzes from '@/modules/quizes/pages/FavouritesQuizzes.vue';
 import Profile from '@/modules/auth/pages/Profile.vue';
-import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
 export const routes = [
   {
