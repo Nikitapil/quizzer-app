@@ -4,6 +4,7 @@ import AppInput from '../components/inputs/AppInput.vue';
 import ErrorMessage from '@/components/ErrorMessage.vue';
 
 describe('AppInput component test', () => {
+  const appInputSelector = '[data-test="app-input"]';
   const defaultProps = {
     name: 'test-name',
     id: 'test-id',
@@ -19,7 +20,7 @@ describe('AppInput component test', () => {
   });
 
   it('should render input without label', () => {
-    const input = wrapper.get('[data-test="app-input"]');
+    const input = wrapper.get(appInputSelector);
 
     const label = wrapper.find('label');
 
@@ -39,7 +40,7 @@ describe('AppInput component test', () => {
 
     await wrapper.setProps(props);
 
-    const input = wrapper.get('[data-test="app-input"]');
+    const input = wrapper.get(appInputSelector);
 
     const label = wrapper.get('[data-test="app-input-label"]');
 
@@ -59,7 +60,7 @@ describe('AppInput component test', () => {
       id: 'test-id'
     });
 
-    const input = wrapper.get('[data-test="app-input"]');
+    const input = wrapper.get(appInputSelector);
 
     await input.setValue('test');
 
@@ -79,7 +80,7 @@ describe('AppInput component test', () => {
       },
       attachTo: document.body
     });
-    const input = wrapper.get('[data-test="app-input"]');
+    const input = wrapper.get(appInputSelector);
 
     expect(input.element).toBe(document.activeElement);
   });
