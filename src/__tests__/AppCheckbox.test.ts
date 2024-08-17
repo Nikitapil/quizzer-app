@@ -7,7 +7,7 @@ describe('AppCheckbox tests', () => {
       id: 'test-id',
       label: 'Test label',
       modelValue: false,
-      'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e })
+      'onUpdate:modelValue': (e: boolean) => wrapper.setProps({ modelValue: e })
     }
   });
 
