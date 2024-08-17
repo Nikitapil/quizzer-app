@@ -1,40 +1,34 @@
-import { useAuthStore } from '@/modules/auth/store/AuthStore';
+import { vi } from 'vitest';
 import { flushPromises, mount } from '@vue/test-utils';
-import App from '@/modules/app/App.vue';
-import { RouterView } from 'vue-router';
 import { createPinia, setActivePinia } from 'pinia';
+import { RouterView } from 'vue-router';
+
+import { authApi } from '@/api/apiInstances';
+
+import App from '@/modules/app/App.vue';
 
 describe('App component test', () => {
-  const setup = () => {
-    setActivePinia(createPinia());
-  };
+  const loaderSelector = '[data-test="round-loader"]';
+  authApi.refresh = vi.fn();
 
   beforeEach(() => {
-    setup();
+    setActivePinia(createPinia());
   });
 
   it('should render app with loader', () => {
-    const store = useAuthStore();
-    store.refresh = async () => {};
-
     const wrapper = mount(App);
 
-    const loader = wrapper.find('[data-test="round-loader"]');
+    const loader = wrapper.find(loaderSelector);
 
     expect(loader.exists()).toBeTruthy();
   });
 
   it('should render app with routerView', async () => {
-    const store = useAuthStore();
-    store.refresh = async () => {};
-
     const wrapper = mount(App);
-
-    store.isLoading = false;
 
     await flushPromises();
 
-    const loader = wrapper.find('[data-test="round-loader"]');
+    const loader = wrapper.find(loaderSelector);
     const view = wrapper.findComponent(RouterView);
 
     expect(loader.exists()).toBeFalsy();
