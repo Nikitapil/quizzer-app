@@ -2,6 +2,8 @@ import { mount } from '@vue/test-utils';
 import AppSelect from '@/components/inputs/AppSelect.vue';
 
 describe('AppSelect tests', () => {
+  const appSelectSelector = '[data-test="app-select"]';
+  const appSelectLabelSelector = '[data-test="app-select-label"]';
   const options = [
     {
       name: 'option 1',
@@ -20,7 +22,7 @@ describe('AppSelect tests', () => {
   const wrapper = mount(AppSelect, {
     props: {
       options,
-      'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e })
+      'onUpdate:modelValue': (e: string) => wrapper.setProps({ modelValue: e })
     }
   });
 
@@ -29,8 +31,8 @@ describe('AppSelect tests', () => {
   });
 
   it('should render select without label', () => {
-    const select = wrapper.get('[data-test="app-select"]');
-    const label = wrapper.find('[data-test="app-select-label"]');
+    const select = wrapper.get(appSelectSelector);
+    const label = wrapper.find(appSelectLabelSelector);
 
     expect(select.classes()).toContain('input');
     expect(label.exists()).toBeFalsy();
@@ -40,10 +42,8 @@ describe('AppSelect tests', () => {
     const labelText = 'Test label';
     await wrapper.setProps({ label: labelText });
 
-    const select = wrapper.get('[data-test="app-select"]');
-    const label = wrapper.get('[data-test="app-select-label"]');
+    const label = wrapper.get(appSelectLabelSelector);
 
-    expect(select.classes()).toContain('input');
     expect(label.text()).toBe(labelText);
   });
 
@@ -56,7 +56,7 @@ describe('AppSelect tests', () => {
   it('should handle select change', async () => {
     await wrapper.setProps({ modelValue: 'option_1' });
 
-    const select = wrapper.get('[data-test="app-select"]');
+    const select = wrapper.get(appSelectSelector);
 
     expect((select.element as HTMLSelectElement).value).toBe('option_1');
 
