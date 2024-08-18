@@ -3,11 +3,12 @@ import AppModal from '@/components/modals/AppModal.vue';
 
 describe('AppModal component tests', () => {
   const titleText = 'Test title';
+  const modalSelector = '[data-test="modal"]';
   const wrapper = mount(AppModal, {
     props: {
       modelValue: true,
-      'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e }),
-      title: titleText
+      title: titleText,
+      'onUpdate:modelValue': (e: any) => wrapper.setProps({ modelValue: e })
     }
   });
 
@@ -22,7 +23,7 @@ describe('AppModal component tests', () => {
 
     await overlay.trigger('click');
 
-    const modal = wrapper.find('[data-test="modal"]');
+    const modal = wrapper.find(modalSelector);
     expect(modal.exists()).toBeFalsy();
   });
 
@@ -32,7 +33,7 @@ describe('AppModal component tests', () => {
 
     await closeBtn.trigger('click');
 
-    const modal = wrapper.find('[data-test="modal"]');
+    const modal = wrapper.find(modalSelector);
     expect(modal.exists()).toBeFalsy();
   });
 });
