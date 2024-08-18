@@ -2,6 +2,8 @@ import { flushPromises, mount } from '@vue/test-utils';
 import EditableText from '@/components/inputs/EditableText.vue';
 
 describe('EditableText component tests', () => {
+  const toggleButtonSelector = '[data-test="toggle-button"]';
+  const appInputSelector = '[data-test="app-input"]';
   const props = {
     modelValue: false,
     text: 'test text',
@@ -27,12 +29,12 @@ describe('EditableText component tests', () => {
   });
 
   it('should toggle form correctly', async () => {
-    const btn = wrapper.get('[data-test="toggle-button"]');
+    const btn = wrapper.get(toggleButtonSelector);
 
     await btn.trigger('click');
 
     let staticTextEl = wrapper.find('p');
-    const input = wrapper.get<HTMLInputElement>('[data-test="app-input"]');
+    const input = wrapper.get<HTMLInputElement>(appInputSelector);
 
     expect(staticTextEl.exists()).toBe(false);
     expect(input.element.value).toBe('test text');
@@ -48,7 +50,7 @@ describe('EditableText component tests', () => {
     await wrapper.setProps({ modelValue: true });
 
     let staticTextEl = wrapper.find('p');
-    const input = wrapper.get<HTMLInputElement>('[data-test="app-input"]');
+    const input = wrapper.get<HTMLInputElement>(appInputSelector);
 
     expect(staticTextEl.exists()).toBe(false);
     expect(input.element.value).toBe('test text');
@@ -65,7 +67,7 @@ describe('EditableText component tests', () => {
       rules: 'email'
     });
 
-    const toggleBtn = wrapper.get('[data-test="toggle-button"]');
+    const toggleBtn = wrapper.get(toggleButtonSelector);
     await toggleBtn.trigger('click');
     const form = wrapper.find('form');
 
@@ -88,7 +90,7 @@ describe('EditableText component tests', () => {
       }
     });
 
-    const toggleBtn = wrapper.get('[data-test="toggle-button"]');
+    const toggleBtn = wrapper.get(toggleButtonSelector);
     await toggleBtn.trigger('click');
     const form = wrapper.find('form');
 
