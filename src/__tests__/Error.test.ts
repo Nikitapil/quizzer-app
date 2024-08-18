@@ -1,8 +1,14 @@
+import { useGlobalMocks } from '@/__tests__/mocks/globalMocks';
 import { mount } from '@vue/test-utils';
-import App from '@/modules/app/App.vue';
-import router from '@/router';
-import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { createPinia, setActivePinia } from 'pinia';
+
+import router from '@/router';
+
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
+
+import App from '@/modules/app/App.vue';
+
+useGlobalMocks();
 
 describe('Error page tests', () => {
   beforeEach(() => {
