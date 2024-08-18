@@ -1,9 +1,13 @@
+import { createPinia, setActivePinia } from 'pinia';
+
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
+
 import {
   getAuthToken,
   removeAuthToken,
   setAuthToken
 } from '@/helpers/token-helpers';
+
 import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
 import { authApi, usersApi } from '@/api/apiInstances';
 import {
@@ -11,20 +15,39 @@ import {
   SuccessMessageDtoMock,
   UserReturnDtoMock
 } from '@/api/swagger/Auth/mock';
-import { createPinia, setActivePinia } from 'pinia';
+import { vi } from 'vitest';
+import { errorFn } from '@/__tests__/mocks/fnMocks';
 
 describe('AuthStore tests', () => {
   const authResponse = AuthResponseDtoMock.create();
+  const successMessageDtoMock = SuccessMessageDtoMock.create();
+  const refreshApiMock = vi.fn();
+  const signinApiMock = vi.fn();
+  const signupApiMock = vi.fn();
+  const logoutApiMock = vi.fn();
+  const getRestorePasswordKeyApiMock = vi.fn();
+  const restorePasswordKeyApiMock = vi.fn();
+  const deleteUserApiMock = vi.fn();
+  const editUserApiMock = vi.fn();
+  authApi.refresh = refreshApiMock;
+  authApi.signin = signinApiMock;
+  authApi.signup = signupApiMock;
+  authApi.logout = logoutApiMock;
+  authApi.getRestorePasswordKey = getRestorePasswordKeyApiMock;
+  authApi.restorePassword = restorePasswordKeyApiMock;
+  usersApi.deleteUser = deleteUserApiMock;
+  usersApi.editUser = editUserApiMock;
 
   beforeEach(() => {
     removeAuthToken();
+    refreshApiMock.mockReset();
+    signinApiMock.mockReset();
+    signupApiMock.mockReset();
     setActivePinia(createPinia());
   });
 
   it('should refresh successfully and set Auth Data', async () => {
-    authApi.refresh = async () => {
-      return authResponse;
-    };
+    refreshApiMock.mockResolvedValue(authResponse);
 
     const store = useAuthStore();
 
@@ -38,9 +61,7 @@ describe('AuthStore tests', () => {
   });
 
   it('should go to catch block in refresh method', async () => {
-    authApi.refresh = async () => {
-      throw new Error();
-    };
+    refreshApiMock.mockImplementation(errorFn);
 
     const store = useAuthStore();
 
@@ -54,11 +75,9 @@ describe('AuthStore tests', () => {
   });
 
   it('should login successfully and set Auth Data', async () => {
-    const store = useAuthStore();
+    signinApiMock.mockResolvedValue(authResponse);
 
-    authApi.signin = async () => {
-      return authResponse;
-    };
+    const store = useAuthStore();
 
     await store.login({
       email: 'test@test.test',
@@ -73,15 +92,7 @@ describe('AuthStore tests', () => {
   });
 
   it('should go to catch block in login method', async () => {
-    authApi.signin = async () => {
-      throw {
-        response: {
-          data: {
-            message: 'error'
-          }
-        }
-      };
-    };
+    signinApiMock.mockImplementation(errorFn);
 
     const store = useAuthStore();
 
@@ -98,9 +109,7 @@ describe('AuthStore tests', () => {
   });
 
   it('should register successfully and set Auth Data', async () => {
-    authApi.signup = async () => {
-      return authResponse;
-    };
+    signupApiMock.mockResolvedValue(authResponse);
 
     const store = useAuthStore();
 
@@ -118,15 +127,7 @@ describe('AuthStore tests', () => {
   });
 
   it('should go to catch block in register method', async () => {
-    authApi.signup = async () => {
-      throw {
-        response: {
-          data: {
-            message: 'error'
-          }
-        }
-      };
-    };
+    signupApiMock.mockImplementation(errorFn);
 
     const store = useAuthStore();
 
@@ -144,9 +145,7 @@ describe('AuthStore tests', () => {
   });
 
   it('should logout successfully and remove Auth Data', async () => {
-    authApi.logout = async () => {
-      return SuccessMessageDtoMock.create();
-    };
+    logoutApiMock.mockResolvedValue(successMessageDtoMock);
 
     const store = useAuthStore();
 
@@ -164,15 +163,7 @@ describe('AuthStore tests', () => {
   });
 
   it('should go to  catch in logout method if err', async () => {
-    authApi.logout = async () => {
-      throw {
-        response: {
-          data: {
-            message: 'Error'
-          }
-        }
-      };
-    };
+    logoutApiMock.mockImplementation(errorFn);
 
     const store = useAuthStore();
 
@@ -190,9 +181,7 @@ describe('AuthStore tests', () => {
   });
 
   it('should call getRestorePasswordKey method successfully', async () => {
-    authApi.getRestorePasswordKey = async () => {
-      return SuccessMessageDtoMock.create();
-    };
+    getRestorePasswordKeyApiMock.mockResolvedValue(successMessageDtoMock);
 
     const store = useAuthStore();
 
@@ -202,15 +191,7 @@ describe('AuthStore tests', () => {
   });
 
   it('should go to catch block in getRestorePasswordKey method if error', async () => {
-    authApi.getRestorePasswordKey = async () => {
-      throw {
-        response: {
-          data: {
-            message: 'Error'
-          }
-        }
-      };
-    };
+    getRestorePasswordKeyApiMock.mockImplementation(errorFn);
 
     const store = useAuthStore();
 
@@ -220,9 +201,7 @@ describe('AuthStore tests', () => {
   });
 
   it('should restorePassword successfully and set Auth Data', async () => {
-    authApi.restorePassword = async () => {
-      return authResponse;
-    };
+    restorePasswordKeyApiMock.mockResolvedValue(authResponse);
 
     const store = useAuthStore();
 
@@ -260,9 +239,7 @@ describe('AuthStore tests', () => {
   });
 
   it('should delete user', async () => {
-    usersApi.deleteUser = async () => {
-      return SuccessMessageDtoMock.create();
-    };
+    deleteUserApiMock.mockResolvedValue(successMessageDtoMock);
 
     const store = useAuthStore();
 
@@ -275,9 +252,7 @@ describe('AuthStore tests', () => {
 
   it('should update user', async () => {
     const newUser = UserReturnDtoMock.create();
-    usersApi.editUser = async () => {
-      return newUser;
-    };
+    editUserApiMock.mockResolvedValue(newUser);
 
     const store = useAuthStore();
 
