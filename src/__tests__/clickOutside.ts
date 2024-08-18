@@ -1,22 +1,18 @@
-import { useDocTitle } from '@/composables/useDocTitle';
+import { useGlobalMocks } from '@/__tests__/mocks/globalMocks';
 import { flushPromises, mount } from '@vue/test-utils';
-import { createTestingPinia } from '@pinia/testing';
 import App from '@/modules/app/App.vue';
 import LangSwitcher from '@/modules/app/components/LangSwitcher.vue';
+import { createPinia, setActivePinia } from 'pinia';
 
-describe('Composables', () => {
-  it.skip('should work useDocTitle composable', async () => {
-    useDocTitle('Hello');
-    const document = window.document;
+useGlobalMocks();
 
-    expect(document.title).toBe('Quizzer | Hello');
+describe('useClickOutside', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia());
   });
 
   it('should work useClickOutside', async () => {
     const wrapper = mount(App, {
-      global: {
-        plugins: [createTestingPinia()]
-      },
       attachTo: document.body
     });
 
