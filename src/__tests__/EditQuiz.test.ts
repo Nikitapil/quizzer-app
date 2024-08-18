@@ -1,19 +1,27 @@
+import { useGlobalMocks } from '@/__tests__/mocks/globalMocks';
+import { vi } from 'vitest';
 import { createPinia, setActivePinia } from 'pinia';
 import { flushPromises, mount } from '@vue/test-utils';
+
+import router from '@/router';
+import { quizApi } from '@/api/apiInstances';
 
 import { useQuizFormStore } from '@/modules/quizes/store/QuizFormStore';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
-import QuizForm from '@/modules/quizes/components/quiz-form/QuizForm.vue';
-import EditQuiz from '@/modules/quizes/pages/EditQuiz.vue';
 import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
-import { quizApi } from '@/api/apiInstances';
-import { vi } from 'vitest';
 import { SingleQuizReturnDtoMock } from '@/api/swagger/Quizes/mock';
-import router from '@/router';
+
+import EditQuiz from '@/modules/quizes/pages/EditQuiz.vue';
+import QuizForm from '@/modules/quizes/components/quiz-form/QuizForm.vue';
+
+useGlobalMocks();
 
 describe('Edit quiz page test', () => {
   const user = UserReturnDtoMock.create();
+  const editableQuizMock = SingleQuizReturnDtoMock.create({
+    canEdit: true
+  });
   const getQuizMock = vi.fn();
   const editQuizMock = vi.fn();
   quizApi.getQuiz = getQuizMock;
@@ -47,11 +55,7 @@ describe('Edit quiz page test', () => {
   });
 
   it('should render quizForm', async () => {
-    getQuizMock.mockResolvedValue(
-      SingleQuizReturnDtoMock.create({
-        canEdit: true
-      })
-    );
+    getQuizMock.mockResolvedValue(editableQuizMock);
 
     const wrapper = mount(EditQuiz);
 
@@ -63,11 +67,7 @@ describe('Edit quiz page test', () => {
 
   it('should not redirect to user quizes if not editted after submit', async () => {
     const routerSpy = vi.spyOn(router, 'push');
-    getQuizMock.mockResolvedValue(
-      SingleQuizReturnDtoMock.create({
-        canEdit: true
-      })
-    );
+    getQuizMock.mockResolvedValue(editableQuizMock);
 
     const wrapper = mount(EditQuiz);
 
@@ -84,11 +84,7 @@ describe('Edit quiz page test', () => {
 
   it('should redirect to user quizes if editted after submit', async () => {
     const routerSpy = vi.spyOn(router, 'push');
-    getQuizMock.mockResolvedValue(
-      SingleQuizReturnDtoMock.create({
-        canEdit: true
-      })
-    );
+    getQuizMock.mockResolvedValue(editableQuizMock);
     editQuizMock.mockResolvedValue(true);
 
     const wrapper = mount(EditQuiz);
