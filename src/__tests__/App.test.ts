@@ -1,16 +1,12 @@
-import { vi } from 'vitest';
 import { flushPromises, mount } from '@vue/test-utils';
 import { createPinia, setActivePinia } from 'pinia';
 import { RouterView } from 'vue-router';
-
-import { authApi } from '@/api/apiInstances';
 
 import App from '@/modules/app/App.vue';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
 describe('App component test', () => {
   const loaderSelector = '[data-test="round-loader"]';
-  authApi.refresh = vi.fn();
 
   beforeEach(() => {
     setActivePinia(createPinia());
