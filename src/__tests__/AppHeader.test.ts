@@ -3,6 +3,7 @@ import AppHeader from '@/modules/app/components/app-header/AppHeader.vue';
 import { createPinia, setActivePinia } from 'pinia';
 
 describe('AppHeader tests', () => {
+  const mobileBarSelector = '[data-test="mobile-bar"]';
   beforeEach(() => {
     setActivePinia(createPinia());
   });
@@ -18,7 +19,7 @@ describe('AppHeader tests', () => {
 
     await flushPromises();
 
-    let mobileBar = wrapper.find('[data-test="mobile-bar"]');
+    let mobileBar = wrapper.find(mobileBarSelector);
 
     expect(mobileBar.exists()).toBe(true);
 
@@ -26,7 +27,7 @@ describe('AppHeader tests', () => {
 
     await flushPromises();
 
-    mobileBar = wrapper.find('[data-test="mobile-bar"]');
+    mobileBar = wrapper.find(mobileBarSelector);
     expect(mobileBar.exists()).toBe(false);
   });
 });
