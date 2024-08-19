@@ -67,7 +67,10 @@ export const useAuthStore = defineStore('AuthStore', () => {
   };
 
   const refresh = async () => {
-    return getApiData(() => authApi.refresh());
+    return getApiData(
+      () => authApi.refresh(),
+      () => {}
+    );
   };
 
   const login = async (request: LoginUserDto) => {
