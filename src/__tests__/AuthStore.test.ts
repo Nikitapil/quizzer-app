@@ -162,7 +162,7 @@ describe('AuthStore tests', () => {
     expect(token).toBe(null);
   });
 
-  it('should go to  catch in logout method if err', async () => {
+  it('should go to catch in logout method if err', async () => {
     logoutApiMock.mockImplementation(errorFn);
 
     const store = useAuthStore();

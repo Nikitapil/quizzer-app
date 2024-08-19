@@ -13,9 +13,7 @@ describe('QuizzesList item tests', () => {
 
   const defaultProps = {
     userId: 0,
-    isDeleteInProgress: false,
-    isToggleFavouritesInProgress: false,
-    isAdmin: false
+    isDeleteInProgress: false
   };
 
   beforeEach(() => {
@@ -102,7 +100,7 @@ describe('QuizzesList item tests', () => {
     expect(deleteBtn.exists()).toBe(false);
   });
 
-  it('should  render userBtns if canEdit and canDelete is true', async () => {
+  it('should render userBtns if canEdit and canDelete is true', async () => {
     const wrapper = mount(QuizzesListItem, {
       props: {
         ...defaultProps,
