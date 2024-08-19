@@ -6,7 +6,6 @@ import { testRouter } from '../../vitest.setup';
 
 import { useGameStore } from '@/modules/game/store/GameStore';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
-import { useGlobalMocks } from '@/__tests__/mocks/globalMocks';
 
 import { quizApi } from '@/api/apiInstances';
 
@@ -20,8 +19,6 @@ import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
 
 import GameQuestion from '@/modules/game/components/GameQuestion.vue';
 import Game from '@/modules/game/pages/Game.vue';
-
-useGlobalMocks();
 
 const getGameApiMock = vi.fn().mockImplementation(() => {});
 const getCorrectAnswerApiMock = vi.fn().mockImplementation(() => {});

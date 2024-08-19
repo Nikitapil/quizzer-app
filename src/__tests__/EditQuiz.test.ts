@@ -1,4 +1,3 @@
-import { useGlobalMocks } from '@/__tests__/mocks/globalMocks';
 import { vi } from 'vitest';
 import { createPinia, setActivePinia } from 'pinia';
 import { flushPromises, mount } from '@vue/test-utils';
@@ -14,8 +13,6 @@ import { SingleQuizReturnDtoMock } from '@/api/swagger/Quizes/mock';
 
 import EditQuiz from '@/modules/quizes/pages/EditQuiz.vue';
 import QuizForm from '@/modules/quizes/components/quiz-form/QuizForm.vue';
-
-useGlobalMocks();
 
 describe('Edit quiz page test', () => {
   const user = UserReturnDtoMock.create();

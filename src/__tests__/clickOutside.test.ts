@@ -1,10 +1,7 @@
-import { useGlobalMocks } from '@/__tests__/mocks/globalMocks';
 import { flushPromises, mount } from '@vue/test-utils';
 import App from '@/modules/app/App.vue';
 import LangSwitcher from '@/modules/app/components/LangSwitcher.vue';
 import { createPinia, setActivePinia } from 'pinia';
-
-useGlobalMocks();
 
 describe('useClickOutside', () => {
   beforeEach(() => {
