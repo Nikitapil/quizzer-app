@@ -1,22 +1,27 @@
-import { useHomeStore } from '@/modules/home/store/HomeStore';
-import { flushPromises } from '@vue/test-utils';
 import { vi } from 'vitest';
-import { quizApi } from '@/api/apiInstances';
 import { createPinia, setActivePinia } from 'pinia';
+import { flushPromises } from '@vue/test-utils';
+
+import { useHomeStore } from '@/modules/home/store/HomeStore';
+import { quizApi } from '@/api/apiInstances';
+
 import {
   CategoryCountReturnDtoMock,
   GenerateQuizDtoMock,
   QuizCategoriesReturnDtoMock,
   ReturnGeneratedQuizDtoMock
 } from '@/api/swagger/Quizes/mock';
+
 import {
   mapCategoriesQuestionCounts,
   mapCategoriesToOptions
 } from '@/modules/home/helpers/mappers';
+
 import { defaultQuestionsCountValue } from '@/modules/home/domain/constants';
 
 describe('HomeStore tests', () => {
   let store: ReturnType<typeof useHomeStore>;
+
   const categoriesMock = QuizCategoriesReturnDtoMock.createMany(2);
   const generateQuizResponseMock = ReturnGeneratedQuizDtoMock.create();
   const categoriesQuestionCountResponseMock =
