@@ -1,12 +1,12 @@
 import { config } from '@vue/test-utils';
-import { validators } from './src/plugins/validation';
-import { i18n } from './src/plugins/i18n';
-import { DirectivePlugin } from './src/directives/DirectivePlugin';
-import { routes } from './src/router';
-import { createRouter, createWebHistory } from 'vue-router';
+import { validators } from '@/plugins/validation';
+import { i18n } from '@/plugins/i18n';
+import { DirectivePlugin } from '@/directives/DirectivePlugin';
+import { routes } from '@/router';
+import { createMemoryHistory, createRouter } from 'vue-router';
 
 export const testRouter = createRouter({
-  history: createWebHistory('/quizzer-app/'),
+  history: createMemoryHistory('/quizzer-app/'),
   routes
 });
 
