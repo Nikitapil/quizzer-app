@@ -25,7 +25,13 @@ describe('App component test', () => {
   });
 
   it('should render app with routerView', async () => {
-    const wrapper = mount(App);
+    const wrapper = mount(App, {
+      global: {
+        stubs: {
+          Home: true
+        }
+      }
+    });
 
     await flushPromises();
 
