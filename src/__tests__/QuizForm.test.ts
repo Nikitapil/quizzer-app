@@ -68,7 +68,7 @@ describe('QuizForm component tests', () => {
 
     expect(wrapper.emitted('submit')).toBeFalsy();
 
-    const inputs = wrapper.findAll('input');
+    const inputs = wrapper.findAll('input[type="text"]');
 
     await Promise.all(inputs.map((input) => input.setValue('test value')));
 
