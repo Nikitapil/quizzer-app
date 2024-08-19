@@ -28,7 +28,7 @@
   "more_games_here": "More games here",
   "email_error": "This field must be a valid email",
   "sign_up": "Sign up",
-  "field_min_length": "This field must be at least %{limit} characters",
+  "field_min_length": "This field must be at least {limit} characters",
   "password_label": "Password:",
   "username_label": "Username:",
   "email_placeholder": "Enter email...",
