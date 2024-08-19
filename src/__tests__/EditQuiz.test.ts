@@ -3,7 +3,7 @@ import { vi } from 'vitest';
 import { createPinia, setActivePinia } from 'pinia';
 import { flushPromises, mount } from '@vue/test-utils';
 
-import router from '@/router';
+import { testRouter } from '../../vitest.setup';
 import { quizApi } from '@/api/apiInstances';
 
 import { useQuizFormStore } from '@/modules/quizes/store/QuizFormStore';
@@ -66,7 +66,7 @@ describe('Edit quiz page test', () => {
   });
 
   it('should not redirect to user quizes if not editted after submit', async () => {
-    const routerSpy = vi.spyOn(router, 'push');
+    const routerSpy = vi.spyOn(testRouter, 'push');
     getQuizMock.mockResolvedValue(editableQuizMock);
 
     const wrapper = mount(EditQuiz);
@@ -83,7 +83,7 @@ describe('Edit quiz page test', () => {
   });
 
   it('should redirect to user quizes if editted after submit', async () => {
-    const routerSpy = vi.spyOn(router, 'push');
+    const routerSpy = vi.spyOn(testRouter, 'push');
     getQuizMock.mockResolvedValue(editableQuizMock);
     editQuizMock.mockResolvedValue(true);
 

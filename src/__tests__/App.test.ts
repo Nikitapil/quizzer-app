@@ -6,6 +6,7 @@ import { RouterView } from 'vue-router';
 import { authApi } from '@/api/apiInstances';
 
 import App from '@/modules/app/App.vue';
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
 describe('App component test', () => {
   const loaderSelector = '[data-test="round-loader"]';
@@ -25,6 +26,12 @@ describe('App component test', () => {
 
   it('should render app with routerView', async () => {
     const wrapper = mount(App);
+
+    await flushPromises();
+
+    const store = useAuthStore();
+
+    store.isLoading = false;
 
     await flushPromises();
 

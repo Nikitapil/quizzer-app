@@ -1,5 +1,4 @@
 import { flushPromises, mount } from '@vue/test-utils';
-import router from '@/router';
 import { createTestingPinia } from '@pinia/testing';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { ERoutesNames } from '@/router/routes-names';
@@ -9,6 +8,7 @@ import { createPinia, setActivePinia } from 'pinia';
 import AuthForm from '@/modules/auth/components/AuthForm.vue';
 import { vi } from 'vitest';
 import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
+import { testRouter } from '../../vitest.setup';
 
 describe('SignUn component tests', () => {
   setActivePinia(createPinia());
@@ -57,7 +57,7 @@ describe('SignUn component tests', () => {
 
     await flushPromises();
 
-    expect(router.currentRoute.value.name).toBe(ERoutesNames.SIGN_IN);
+    expect(testRouter.currentRoute.value.name).toBe(ERoutesNames.SIGN_IN);
   });
 
   it('should call store register function on login', async () => {

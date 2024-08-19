@@ -1,6 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import SignIn from '@/modules/auth/pages/SignIn.vue';
-import router from '@/router';
 import { createTestingPinia } from '@pinia/testing';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { ERoutesNames } from '@/router/routes-names';
@@ -9,6 +8,7 @@ import { createPinia, setActivePinia } from 'pinia';
 import AuthForm from '@/modules/auth/components/AuthForm.vue';
 import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
 import { vi } from 'vitest';
+import { testRouter } from '../../vitest.setup';
 
 describe('SignIn component tests', () => {
   setActivePinia(createPinia());
@@ -71,7 +71,7 @@ describe('SignIn component tests', () => {
 
     await flushPromises();
 
-    expect(router.currentRoute.value.name).toBe(ERoutesNames.SIGN_UP);
+    expect(testRouter.currentRoute.value.name).toBe(ERoutesNames.SIGN_UP);
   });
 
   it('should call store login function on login', async () => {

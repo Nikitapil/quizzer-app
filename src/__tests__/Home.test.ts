@@ -4,7 +4,8 @@ import { createPinia, setActivePinia } from 'pinia';
 
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
-import router from '@/router';
+import { testRouter } from '../../vitest.setup';
+
 import { quizApi } from '@/api/apiInstances';
 import {
   CategoryCountReturnDtoMock,
@@ -70,7 +71,7 @@ describe('Home component tests', () => {
   it('should redirect to quiz page after generating', async () => {
     const wrapper = mount(Home);
 
-    const routerSpy = vi.spyOn(router, 'push');
+    const routerSpy = vi.spyOn(testRouter, 'push');
 
     await flushPromises();
 
@@ -87,7 +88,7 @@ describe('Home component tests', () => {
     generateQuizMock.mockResolvedValueOnce(null);
     const wrapper = mount(Home);
 
-    const routerSpy = vi.spyOn(router, 'push');
+    const routerSpy = vi.spyOn(testRouter, 'push');
 
     await flushPromises();
 

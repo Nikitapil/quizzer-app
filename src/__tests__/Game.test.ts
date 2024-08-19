@@ -2,7 +2,7 @@ import { vi } from 'vitest';
 import { flushPromises, mount } from '@vue/test-utils';
 import { createPinia, setActivePinia } from 'pinia';
 
-import router from '@/router';
+import { testRouter } from '../../vitest.setup';
 
 import { useGameStore } from '@/modules/game/store/GameStore';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
@@ -61,7 +61,7 @@ describe('Game component tests', () => {
   it('should render current question', async () => {
     getGameApiMock.mockResolvedValue(mockGame);
 
-    await router.replace({ name: ERoutesNames.QUIZ, params: { id: 1 } });
+    await testRouter.replace({ name: ERoutesNames.QUIZ, params: { id: 1 } });
 
     const wrapper = mount(Game);
 
@@ -81,7 +81,7 @@ describe('Game component tests', () => {
     );
     vi.useFakeTimers({ shouldAdvanceTime: true });
 
-    await router.replace({ name: ERoutesNames.QUIZ, params: { id: 1 } });
+    await testRouter.replace({ name: ERoutesNames.QUIZ, params: { id: 1 } });
 
     const wrapper = mount(Game);
 
@@ -103,8 +103,6 @@ describe('Game component tests', () => {
     await vi.runAllTimersAsync();
 
     const questionComponent2 = wrapper.findComponent(GameQuestion);
-
-    console.log(store.currentQuestionIndex, 'CURRENT CURRENT');
 
     expect(questionComponent2.exists()).toBe(true);
 
@@ -132,7 +130,7 @@ describe('Game component tests', () => {
   });
 
   it('should not render user btns if not authenticated', async () => {
-    await router.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
+    await testRouter.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
 
     const wrapper = mount(Game);
 
@@ -148,7 +146,7 @@ describe('Game component tests', () => {
     const authStore = useAuthStore();
     authStore.user = UserReturnDtoMock.create();
 
-    await router.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
+    await testRouter.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
 
     const wrapper = mount(Game);
 
@@ -169,7 +167,7 @@ describe('Game component tests', () => {
     const authStore = useAuthStore();
     authStore.user = UserReturnDtoMock.create();
 
-    await router.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
+    await testRouter.push({ name: ERoutesNames.QUIZ, params: { id: 1 } });
 
     const wrapper = mount(Game);
 

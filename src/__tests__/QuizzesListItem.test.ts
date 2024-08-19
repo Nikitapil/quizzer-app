@@ -1,7 +1,7 @@
 import { vi } from 'vitest';
 import { flushPromises, mount } from '@vue/test-utils';
 import QuizzesListItem from '@/modules/quizes/components/QuizzesListItem.vue';
-import router from '@/router';
+import { testRouter } from '../../vitest.setup';
 import { QuizDtoMock } from '@/api/swagger/Quizes/mock';
 import { createPinia, setActivePinia } from 'pinia';
 
@@ -137,7 +137,7 @@ describe('QuizzesList item tests', () => {
   });
 
   it('should open play quiz', async () => {
-    const routerSpy = vi.spyOn(router, 'push');
+    const routerSpy = vi.spyOn(testRouter, 'push');
     const wrapper = mount(QuizzesListItem, {
       props: {
         ...defaultProps,
@@ -155,7 +155,7 @@ describe('QuizzesList item tests', () => {
   });
 
   it('should open edit quiz', async () => {
-    const routerSpy = vi.spyOn(router, 'push');
+    const routerSpy = vi.spyOn(testRouter, 'push');
     const wrapper = mount(QuizzesListItem, {
       props: {
         ...defaultProps,
