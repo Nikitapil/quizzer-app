@@ -1,23 +1,33 @@
-import { flushPromises, mount } from '@vue/test-utils';
-import Game from '@/modules/game/pages/Game.vue';
-import router from '@/router';
-import { useGameStore } from '@/modules/game/store/GameStore';
-import GameQuestion from '@/modules/game/components/GameQuestion.vue';
-import { ERoutesNames } from '@/router/routes-names';
 import { vi } from 'vitest';
+import { flushPromises, mount } from '@vue/test-utils';
+import { createPinia, setActivePinia } from 'pinia';
+
+import router from '@/router';
+
+import { useGameStore } from '@/modules/game/store/GameStore';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
+import { useGlobalMocks } from '@/__tests__/mocks/globalMocks';
+
+import { quizApi } from '@/api/apiInstances';
+
+import { ERoutesNames } from '@/router/routes-names';
+
 import {
   CorrectAnswerReturnDtoMock,
   PlayQuizDtoMock
 } from '@/api/swagger/Quizes/mock';
-import { createPinia, setActivePinia } from 'pinia';
-import { quizApi } from '@/api/apiInstances';
 import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
+
+import GameQuestion from '@/modules/game/components/GameQuestion.vue';
+import Game from '@/modules/game/pages/Game.vue';
+
+useGlobalMocks();
 
 const getGameApiMock = vi.fn().mockImplementation(() => {});
 const getCorrectAnswerApiMock = vi.fn().mockImplementation(() => {});
 
 describe('Game component tests', () => {
+  const userButtonSelector = '[data-test="user-btns"]';
   const mockGame = PlayQuizDtoMock.create();
   let store: ReturnType<typeof useGameStore>;
 
@@ -128,7 +138,7 @@ describe('Game component tests', () => {
 
     await flushPromises();
 
-    const userBtns = wrapper.find('[data-test="user-btns"]');
+    const userBtns = wrapper.find(userButtonSelector);
 
     expect(userBtns.exists()).toBe(false);
   });
@@ -144,7 +154,7 @@ describe('Game component tests', () => {
 
     await flushPromises();
 
-    const userBtns = wrapper.find('[data-test="user-btns"]');
+    const userBtns = wrapper.find(userButtonSelector);
 
     expect(userBtns.exists()).toBe(true);
   });
