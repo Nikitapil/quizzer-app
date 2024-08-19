@@ -119,6 +119,54 @@ describe('Home component tests', () => {
     expect(generateQuizMock).not.toHaveBeenCalled();
   });
 
+  it('should validate maxCount correctly', async () => {
+    getCategoriesQuestionCountMock.mockResolvedValue(
+      CategoryCountReturnDtoMock.create({ total_easy_question_count: 10 })
+    );
+
+    const wrapper = mount(Home);
+
+    await flushPromises();
+
+    const difficultySelect = wrapper.find('#select_difficulty');
+
+    await difficultySelect.setValue('easy');
+
+    const amountInput = wrapper.find('[data-test="app-input"]');
+
+    await amountInput.setValue('11');
+
+    await flushPromises();
+
+    const form = wrapper.find('form');
+
+    await form.trigger('submit');
+
+    expect(generateQuizMock).not.toHaveBeenCalled();
+  });
+
+  it('should validate default maxCount correctly', async () => {
+    getCategoriesQuestionCountMock.mockResolvedValue(
+      CategoryCountReturnDtoMock.create({ total_question_count: 10 })
+    );
+
+    const wrapper = mount(Home);
+
+    await flushPromises();
+
+    const amountInput = wrapper.find('[data-test="app-input"]');
+
+    await amountInput.setValue('11');
+
+    await flushPromises();
+
+    const form = wrapper.find('form');
+
+    await form.trigger('submit');
+
+    expect(generateQuizMock).not.toHaveBeenCalled();
+  });
+
   it('should change category correctly', async () => {
     const wrapper = mount(Home);
 
