@@ -9,12 +9,14 @@ import {
   SuccessMessageDtoMock
 } from '@/api/swagger/Quizes/mock';
 import { createPinia, setActivePinia } from 'pinia';
+import { errorFn } from '@/__tests__/mocks/fnMocks';
 
 const getCorrectAnswerApiMock = vi.fn().mockImplementation(() => {});
 quizApi.getCorrectAnswer = getCorrectAnswerApiMock;
 
 describe('GameStore tests', () => {
   const mockGame = PlayQuizDtoMock.create();
+  const successMessageMock = SuccessMessageDtoMock.create();
 
   const toastMock = getErrorToastSpy();
 
@@ -32,9 +34,7 @@ describe('GameStore tests', () => {
   it('should not rate quiz if no game', async () => {
     const serviceMock = vi
       .spyOn(quizApi, 'rateQuiz')
-      .mockImplementation(async () => {
-        return SuccessMessageDtoMock.create();
-      });
+      .mockResolvedValue(successMessageMock);
     const store = useGameStore();
 
     await store.rateQuiz(5);
@@ -45,9 +45,7 @@ describe('GameStore tests', () => {
   it('should rate quiz successfully', async () => {
     const serviceMock = vi
       .spyOn(quizApi, 'rateQuiz')
-      .mockImplementation(async () => {
-        return SuccessMessageDtoMock.create();
-      });
+      .mockResolvedValue(successMessageMock);
     const store = useGameStore();
 
     store.game = mockGame;
@@ -61,15 +59,7 @@ describe('GameStore tests', () => {
   it('should go to catch block', async () => {
     const serviceMock = vi
       .spyOn(quizApi, 'rateQuiz')
-      .mockImplementation(async () => {
-        throw {
-          response: {
-            data: {
-              message: 'error'
-            }
-          }
-        };
-      });
+      .mockImplementation(errorFn);
     const store = useGameStore();
 
     store.game = mockGame;
