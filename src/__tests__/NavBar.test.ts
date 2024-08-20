@@ -8,15 +8,12 @@ import NavBar from '@/modules/app/components/app-header/NavBar.vue';
 import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
 
 describe('NavBar tests', () => {
-  setActivePinia(createPinia());
-
   beforeEach(() => {
     setActivePinia(createPinia());
   });
 
-  const wrapper = mount(NavBar);
-
   it('should render loader if authLoading', () => {
+    const wrapper = mount(NavBar);
     const loader = wrapper.find('[data-test="horizontal-loader"]');
 
     expect(loader.exists()).toBeTruthy();
