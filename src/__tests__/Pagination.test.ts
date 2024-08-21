@@ -2,12 +2,17 @@ import { mount } from '@vue/test-utils';
 import Pagination from '@/components/Pagination.vue';
 
 describe('Pagination tests', () => {
+  const defaultProps = {
+    totalItemsCount: 50,
+    limit: 10,
+    currentPage: 1
+  } as const;
+
   it('should not be rendered with 1 page', () => {
     const wrapper = mount(Pagination, {
       props: {
+        ...defaultProps,
         totalItemsCount: 5,
-        limit: 10,
-        currentPage: 1
       }
     });
 
@@ -18,11 +23,7 @@ describe('Pagination tests', () => {
 
   it('should render five button pages', () => {
     const wrapper = mount(Pagination, {
-      props: {
-        totalItemsCount: 50,
-        limit: 10,
-        currentPage: 1
-      }
+      props: defaultProps
     });
 
     const buttons = wrapper.findAll('button');
@@ -32,11 +33,7 @@ describe('Pagination tests', () => {
 
   it('should emit change-page', () => {
     const wrapper = mount(Pagination, {
-      props: {
-        totalItemsCount: 50,
-        limit: 10,
-        currentPage: 1
-      }
+      props: defaultProps
     });
 
     const buttons = wrapper.findAll('button');
@@ -48,11 +45,7 @@ describe('Pagination tests', () => {
 
   it('should show current page', () => {
     const wrapper = mount(Pagination, {
-      props: {
-        totalItemsCount: 50,
-        limit: 10,
-        currentPage: 1
-      }
+      props: defaultProps
     });
 
     const buttons = wrapper.findAll('button');
