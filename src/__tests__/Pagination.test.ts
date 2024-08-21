@@ -12,7 +12,7 @@ describe('Pagination tests', () => {
     const wrapper = mount(Pagination, {
       props: {
         ...defaultProps,
-        totalItemsCount: 5,
+        totalItemsCount: 5
       }
     });
 
