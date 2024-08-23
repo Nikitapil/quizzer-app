@@ -1,9 +1,10 @@
-import QuizFormQuestion from '@/modules/quizes/components/quiz-form/QuizFormQuestion.vue';
 import { flushPromises, mount } from '@vue/test-utils';
+import { CreateQuizQuestionDtoMock } from '@/api/swagger/Quizes/mock';
+
+import QuizFormQuestion from '@/modules/quizes/components/quiz-form/QuizFormQuestion.vue';
 import QuizFormIncorrectAnswer from '@/modules/quizes/components/quiz-form/QuizFormIncorrectAnswer.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/buttons/AppButton.vue';
-import { CreateQuizQuestionDtoMock } from '@/api/swagger/Quizes/mock';
 
 describe('QuizFormQuestion component tests', () => {
   const deleteBtnSelector = '[data-test="delete-question"]';
