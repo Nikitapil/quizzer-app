@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, toRef } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import type { ISignUpAuthRequest } from '@/modules/auth/domain/types';
@@ -29,6 +29,8 @@ const onOpenRestoreModal = () => {
   isShowRestorePasswordModal.value = true;
 };
 
+const user = computed(() => store.user);
+
 const onLogin = async (data: ISignUpAuthRequest) => {
   const { email, password } = data;
   await store.login({
@@ -37,7 +39,7 @@ const onLogin = async (data: ISignUpAuthRequest) => {
   });
 };
 
-useUserWatchRedirect(toRef(store.user));
+useUserWatchRedirect(user);
 </script>
 
 <template>
