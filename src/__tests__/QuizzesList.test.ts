@@ -1,14 +1,18 @@
+import { vi } from 'vitest';
 import { flushPromises, mount } from '@vue/test-utils';
+import { createPinia, setActivePinia } from 'pinia';
+
 import { useQuizzesStore } from '@/modules/quizes/store/QuizzesStore';
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
+
+import { quizApi } from '@/api/apiInstances';
+
+import { QuizDtoMock } from '@/api/swagger/Quizes/mock';
+import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
+
 import QuizzesList from '@/modules/quizes/components/QuizzesList.vue';
 import QuizzesListItem from '@/modules/quizes/components/QuizzesListItem.vue';
 import Pagination from '@/components/Pagination.vue';
-import { createPinia, setActivePinia } from 'pinia';
-import { quizApi } from '@/api/apiInstances';
-import { vi } from 'vitest';
-import { QuizDtoMock } from '@/api/swagger/Quizes/mock';
-import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
-import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
 describe('QuizzesList component tests', () => {
   const title = 'Test list';
