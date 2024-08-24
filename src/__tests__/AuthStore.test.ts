@@ -12,11 +12,13 @@ import { UserRolesEnum } from '@/api/swagger/Auth/data-contracts';
 import { authApi, usersApi } from '@/api/apiInstances';
 import {
   AuthResponseDtoMock,
+  LoginUserDtoMock,
   SuccessMessageDtoMock,
   UserReturnDtoMock
 } from '@/api/swagger/Auth/mock';
 import { vi } from 'vitest';
 import { errorFn } from '@/__tests__/mocks/fnMocks';
+import { toast } from 'vue3-toastify';
 
 describe('AuthStore tests', () => {
   const authResponse = AuthResponseDtoMock.create();
@@ -259,5 +261,16 @@ describe('AuthStore tests', () => {
     await store.editUser({});
 
     expect(store.user).toStrictEqual(newUser);
+  });
+
+  it('should correctly call error fn', async () => {
+    const spy = vi.spyOn(toast, 'error');
+    signinApiMock.mockRejectedValue('123');
+
+    const store = useAuthStore();
+
+    await store.login(LoginUserDtoMock.create());
+
+    expect(spy).toHaveBeenCalledWith('Error');
   });
 });
