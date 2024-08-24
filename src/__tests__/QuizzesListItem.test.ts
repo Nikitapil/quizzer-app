@@ -1,9 +1,13 @@
 import { vi } from 'vitest';
 import { flushPromises, mount } from '@vue/test-utils';
-import QuizzesListItem from '@/modules/quizes/components/QuizzesListItem.vue';
-import { testRouter } from '../../vitest.setup';
-import { QuizDtoMock } from '@/api/swagger/Quizes/mock';
 import { createPinia, setActivePinia } from 'pinia';
+
+import { testRouter } from '../../vitest.setup';
+
+import { QuizDtoMock } from '@/api/swagger/Quizes/mock';
+
+import QuizzesListItem from '@/modules/quizes/components/QuizzesListItem.vue';
+import ConfirmModal from '@/components/modals/ConfirmModal.vue';
 
 describe('QuizzesList item tests', () => {
   const ratingSelector = '[data-test="rating"]';
@@ -168,5 +172,20 @@ describe('QuizzesList item tests', () => {
     await flushPromises();
 
     expect(routerSpy).toHaveBeenCalled();
+  });
+
+  it('should emit delete event', async () => {
+    const wrapper = mount(QuizzesListItem, {
+      props: {
+        ...defaultProps,
+        quiz: QuizDtoMock.create({ canDelete: true })
+      }
+    });
+
+    const deleteModal = wrapper.findComponent(ConfirmModal);
+
+    deleteModal.vm.$emit('confirm', '123');
+
+    expect(wrapper.emitted('delete')).toBeTruthy();
   });
 });
