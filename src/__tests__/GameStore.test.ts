@@ -31,6 +31,14 @@ describe('GameStore tests', () => {
     expect(store.quizName).toBe('Generated Quiz');
   });
 
+  it('should set quiz name акщь йгшя', () => {
+    const store = useGameStore();
+    const name = 'test name';
+    store.game = PlayQuizDtoMock.create({ isGenerated: false, name });
+
+    expect(store.quizName).toBe(name);
+  });
+
   it('should not rate quiz if no game', async () => {
     const serviceMock = vi
       .spyOn(quizApi, 'rateQuiz')
