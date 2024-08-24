@@ -8,6 +8,7 @@ const props = defineProps<{
 <template>
   <span
     v-if="props.useVHtml"
+    data-test="span-v-html"
     v-html="props.content"
   ></span>
 
