@@ -1,23 +1,26 @@
+import { vi } from 'vitest';
 import { flushPromises, mount } from '@vue/test-utils';
-import { createTestingPinia } from '@pinia/testing';
+import { createPinia, setActivePinia } from 'pinia';
+
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
+
+import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
+
 import { ERoutesNames } from '@/router/routes-names';
 import { RouterLink } from 'vue-router';
-import SignUp from '@/modules/auth/pages/SignUp.vue';
-import { createPinia, setActivePinia } from 'pinia';
-import AuthForm from '@/modules/auth/components/AuthForm.vue';
-import { vi } from 'vitest';
-import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
 import { testRouter } from '../../vitest.setup';
 
+import AuthForm from '@/modules/auth/components/AuthForm.vue';
+import SignUp from '@/modules/auth/pages/SignUp.vue';
+
 describe('SignUn component tests', () => {
-  setActivePinia(createPinia());
   beforeEach(async () => {
     setActivePinia(createPinia());
   });
 
-  const wrapper = mount(SignUp);
   it('should render loader if auth isLoading', () => {
+    const wrapper = mount(SignUp);
+
     const loader = wrapper.find('[data-test="round-loader"]');
 
     expect(loader.exists()).toBe(true);
@@ -39,11 +42,7 @@ describe('SignUn component tests', () => {
   });
 
   it('should navigate to sign in page', async () => {
-    const wrapper = mount(SignUp, {
-      global: {
-        plugins: [createTestingPinia()]
-      }
-    });
+    const wrapper = mount(SignUp);
 
     const store = useAuthStore();
 
@@ -61,11 +60,7 @@ describe('SignUn component tests', () => {
   });
 
   it('should call store register function on login', async () => {
-    const wrapper = mount(SignUp, {
-      global: {
-        plugins: [createTestingPinia()]
-      }
-    });
+    const wrapper = mount(SignUp);
 
     const store = useAuthStore();
 
