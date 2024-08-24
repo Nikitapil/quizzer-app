@@ -22,7 +22,7 @@ describe('UserQuizes', () => {
 
   beforeEach(() => {
     setActivePinia(createPinia());
-    userQuizerResponseMock.mockReset();
+    userQuizerResponseMock.mockClear();
   });
 
   it('should get user quizzes on mount and if id changed', async () => {
