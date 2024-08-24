@@ -1,23 +1,25 @@
-import { flushPromises, mount } from '@vue/test-utils';
-import SignIn from '@/modules/auth/pages/SignIn.vue';
-import { createTestingPinia } from '@pinia/testing';
-import { useAuthStore } from '@/modules/auth/store/AuthStore';
-import { ERoutesNames } from '@/router/routes-names';
-import { RouterLink } from 'vue-router';
-import { createPinia, setActivePinia } from 'pinia';
-import AuthForm from '@/modules/auth/components/AuthForm.vue';
-import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
 import { vi } from 'vitest';
+import { flushPromises, mount } from '@vue/test-utils';
+import { createPinia, setActivePinia } from 'pinia';
+
+import { useAuthStore } from '@/modules/auth/store/AuthStore';
+
+import { ERoutesNames } from '@/router/routes-names';
+import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
+
+import { RouterLink } from 'vue-router';
 import { testRouter } from '../../vitest.setup';
 
+import AuthForm from '@/modules/auth/components/AuthForm.vue';
+import SignIn from '@/modules/auth/pages/SignIn.vue';
+
 describe('SignIn component tests', () => {
-  setActivePinia(createPinia());
   beforeEach(() => {
     setActivePinia(createPinia());
   });
 
-  const wrapper = mount(SignIn);
   it('should render loader if auth isLoading', () => {
+    const wrapper = mount(SignIn);
     const loader = wrapper.find('[data-test="round-loader"]');
 
     expect(loader.exists()).toBe(true);
@@ -53,11 +55,7 @@ describe('SignIn component tests', () => {
   });
 
   it('should navigate to sign up page', async () => {
-    const wrapper = mount(SignIn, {
-      global: {
-        plugins: [createTestingPinia()]
-      }
-    });
+    const wrapper = mount(SignIn);
 
     const store = useAuthStore();
 
@@ -75,11 +73,7 @@ describe('SignIn component tests', () => {
   });
 
   it('should call store login function on login', async () => {
-    const wrapper = mount(SignIn, {
-      global: {
-        plugins: [createTestingPinia()]
-      }
-    });
+    const wrapper = mount(SignIn);
 
     const store = useAuthStore();
 
