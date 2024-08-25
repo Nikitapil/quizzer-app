@@ -1,5 +1,5 @@
 import { flushPromises, mount } from '@vue/test-utils';
-import AppHeader from '@/modules/app/components/app-header/AppHeader.vue';
+import AppHeader from '@/modules/app/components/AppHeader/AppHeader.vue';
 import { createPinia, setActivePinia } from 'pinia';
 
 describe('AppHeader tests', () => {

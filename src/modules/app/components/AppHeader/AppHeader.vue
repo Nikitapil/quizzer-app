@@ -4,7 +4,7 @@ import { Icon } from '@iconify/vue';
 
 import { ERoutesNames } from '@/router/routes-names';
 
-import NavBar from '@/modules/app/components/app-header/NavBar.vue';
+import NavBar from '@/modules/app/components/AppHeader/NavBar.vue';
 import AppButton from '@/components/buttons/AppButton.vue';
 
 const isMobileBarOpened = ref(false);

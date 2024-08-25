@@ -87,5 +87,6 @@
   "remove_from_favourites": "Remove from favourites",
   "delete_profile": "Delete profile",
   "confirm": "Confirm",
-  "delete_profile_description": "All quizzes your quizzes will be deleted with your profile!"
+  "delete_profile_description": "All quizzes your quizzes will be deleted with your profile!",
+  "confirm_logout": "Do you want to log out from your current account?"
 }

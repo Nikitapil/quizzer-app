@@ -4,7 +4,7 @@ import { flushPromises, mount } from '@vue/test-utils';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import { RouterLink } from 'vue-router';
 
-import NavBar from '@/modules/app/components/app-header/NavBar.vue';
+import NavBar from '@/modules/app/components/AppHeader/NavBar.vue';
 import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
 
 describe('NavBar tests', () => {
@@ -66,6 +66,10 @@ describe('NavBar tests', () => {
     const logoutBtn = wrapper.find('[data-test="logout"]');
 
     await logoutBtn.trigger('click');
+
+    const confirmModalBtn = wrapper.find('[data-test="confirm-btn"]');
+
+    await confirmModalBtn.trigger('click');
 
     expect(authStore.user).toBe(null);
   });

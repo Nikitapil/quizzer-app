@@ -5,12 +5,16 @@ import { useAuthStore } from '@/modules/auth/store/AuthStore';
 import HorizontalLoader from '@/components/loaders/HorizontalLoader.vue';
 import Tooltip from '@/components/Tooltip.vue';
 import AppButton from '@/components/buttons/AppButton.vue';
-import NavLink from '@/modules/app/components/app-header/NavLink.vue';
+import NavLink from '@/modules/app/components/AppHeader/NavLink.vue';
+import ConfirmModal from '@/components/modals/ConfirmModal.vue';
+import { ref } from 'vue';
 
 const authStore = useAuthStore();
+const isLogoutModalOpened = ref(false);
 
 const logout = async () => {
   await authStore.logout();
+  isLogoutModalOpened.value = false;
 };
 </script>
 
@@ -78,7 +82,12 @@ const logout = async () => {
             size="sm"
             data-test="logout"
             :text="$t('logout')"
-            @click="logout"
+            @click="isLogoutModalOpened = true"
+          />
+          <ConfirmModal
+            v-model="isLogoutModalOpened"
+            :title="$t('confirm_logout')"
+            @confirm="logout"
           />
         </li>
       </template>

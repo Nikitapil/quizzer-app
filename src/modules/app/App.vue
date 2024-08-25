@@ -2,7 +2,7 @@
 import { useAppStore } from '@/modules/app/store/AppStore';
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
 
-import AppHeader from '@/modules/app/components/app-header/AppHeader.vue';
+import AppHeader from '@/modules/app/components/AppHeader/AppHeader.vue';
 import BreadCrumbs from '@/modules/app/components/BreadCrumbs.vue';
 import LangSwitcher from '@/modules/app/components/LangSwitcher.vue';
 import AppFooter from '@/modules/app/components/AppFooter.vue';

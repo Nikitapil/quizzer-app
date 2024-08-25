@@ -10,12 +10,19 @@ const { t } = useI18n();
 
 const isOpened = defineModel<boolean>('modelValue');
 
-const props = defineProps<{
-  isLoading: boolean;
-  title: string;
-  text?: string;
-  confirmBtnText?: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    title: string;
+    isLoading?: boolean;
+    text?: string;
+    confirmBtnText?: string;
+  }>(),
+  {
+    isLoading: false,
+    text: '',
+    confirmBtnText: ''
+  }
+);
 
 defineEmits<{
   confirm: [];
