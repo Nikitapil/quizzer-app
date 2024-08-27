@@ -81,7 +81,7 @@ export interface QuizDto {
   /** created date */
   createdAt: string;
   /** updated date */
-  updatedAt: string;
+  updatedAt: string | null;
   /** quiz name */
   name: string;
   /** quiz privacy */
@@ -111,7 +111,7 @@ export interface QuizQuestionReturnDto {
   /** question created at */
   createdAt: string;
   /** question updated at */
-  updatedAt: string;
+  updatedAt: string | null;
   /** question */
   question: string;
   /** question correct answer */
@@ -128,19 +128,19 @@ export interface SingleQuizReturnDto {
   /** Ability to delete quiz */
   canDelete: boolean;
   /** quiz rating */
-  rating?: number;
+  rating?: number | null;
   /** quiz id */
   id: string;
   /** quiz created date */
   createdAt: string;
   /** quiz updated date */
-  updatedAt: string;
+  updatedAt: string | null;
   /** quiz name */
   name: string;
   /** quiz created date */
   isPrivate: boolean;
   /** quiz author id */
-  userId: number;
+  userId: number | null;
   /** quiz questions */
   questions: QuizQuestionReturnDto[];
   /** is Quiz in favourites by current user */
@@ -212,4 +212,56 @@ export interface RateQuizDto {
   quizId: string;
   /** rating */
   rating: number;
+}
+
+export interface AddQuizCommentDto {
+  /** comment text */
+  text: string;
+  /** parent comment id */
+  replayToId?: string;
+  /** quizId */
+  quizId: string;
+}
+
+export interface QuizCommentReturnDto {
+  /** comment id */
+  id: string;
+  /** comment created date */
+  createdAt: string;
+  /** comment updated date */
+  updatedAt: string | null;
+  /** comment text */
+  text: string;
+  /** comment  quiz id */
+  quizId: string;
+  /** comment  quiz id */
+  authorId: number;
+  /** parent comment id */
+  replyToId?: string | null;
+  /** comment  author name */
+  authorName: string;
+  /** comment replies count */
+  repliesCount: string;
+  /** can edit comment */
+  canEdit: boolean;
+  /** can delete comment */
+  canDelete: boolean;
+}
+
+export interface EditQuizCommentDto {
+  /** comment id */
+  id: string;
+  /** comment text */
+  text: string;
+}
+
+export interface GetQuizCommentsParams {
+  /** page number */
+  page: number;
+  /** items limit */
+  limit: number;
+  /** parent id */
+  replyToId?: string;
+  /** quiz id */
+  quizId: string;
 }

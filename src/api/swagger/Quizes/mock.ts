@@ -19,7 +19,11 @@ import {
   type QuizCategoriesReturnDto,
   type CategoryCountReturnDto,
   type EditQuizDto,
-  type RateQuizDto
+  type RateQuizDto,
+  type AddQuizCommentDto,
+  type QuizCommentReturnDto,
+  type EditQuizCommentDto,
+  type GetQuizCommentsParams
 } from './data-contracts';
 
 export class GenerateQuizDtoMock {
@@ -376,6 +380,94 @@ export class RateQuizDtoMock {
     count = 1,
     overrides: Partial<RateQuizDto> = {}
   ): RateQuizDto[] {
+    return Array.from({ length: count }, () => this.create(overrides));
+  }
+}
+
+export class AddQuizCommentDtoMock {
+  public static create(
+    overrides: Partial<AddQuizCommentDto> = {}
+  ): AddQuizCommentDto {
+    return {
+      text: faker.lorem.word(),
+      replayToId: faker.lorem.word(),
+      quizId: faker.lorem.word(),
+      ...overrides
+    };
+  }
+
+  public static createMany(
+    count = 1,
+    overrides: Partial<AddQuizCommentDto> = {}
+  ): AddQuizCommentDto[] {
+    return Array.from({ length: count }, () => this.create(overrides));
+  }
+}
+
+export class QuizCommentReturnDtoMock {
+  public static create(
+    overrides: Partial<QuizCommentReturnDto> = {}
+  ): QuizCommentReturnDto {
+    return {
+      id: faker.lorem.word(),
+      createdAt: faker.lorem.word(),
+      updatedAt: faker.lorem.word(),
+      text: faker.lorem.word(),
+      quizId: faker.lorem.word(),
+      authorId: faker.number.int(),
+      replyToId: faker.lorem.word(),
+      authorName: faker.lorem.word(),
+      repliesCount: faker.lorem.word(),
+      canEdit: faker.datatype.boolean(),
+      canDelete: faker.datatype.boolean(),
+      ...overrides
+    };
+  }
+
+  public static createMany(
+    count = 1,
+    overrides: Partial<QuizCommentReturnDto> = {}
+  ): QuizCommentReturnDto[] {
+    return Array.from({ length: count }, () => this.create(overrides));
+  }
+}
+
+export class EditQuizCommentDtoMock {
+  public static create(
+    overrides: Partial<EditQuizCommentDto> = {}
+  ): EditQuizCommentDto {
+    return {
+      id: faker.lorem.word(),
+      text: faker.lorem.word(),
+      ...overrides
+    };
+  }
+
+  public static createMany(
+    count = 1,
+    overrides: Partial<EditQuizCommentDto> = {}
+  ): EditQuizCommentDto[] {
+    return Array.from({ length: count }, () => this.create(overrides));
+  }
+}
+
+export class GetQuizCommentsParamsMock {
+  public static create(
+    overrides: Partial<GetQuizCommentsParams> = {}
+  ): GetQuizCommentsParams {
+    return {
+      page: faker.number.int(),
+      limit: faker.number.int(),
+      replyToId: faker.lorem.word(),
+      quizId: faker.lorem.word(),
+      ...overrides
+    };
+  }
+
+  public static createMany(
+    count = 1,
+    overrides: Partial<GetQuizCommentsParams> = {}
+  ): GetQuizCommentsParams[] {
     return Array.from({ length: count }, () => this.create(overrides));
   }
 }
