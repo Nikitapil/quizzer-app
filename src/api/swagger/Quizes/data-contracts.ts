@@ -92,6 +92,8 @@ export interface QuizDto {
   isInFavourites: boolean;
   /** count of quiz questions */
   questionsCount: number;
+  /** count of quiz comments */
+  commentsCount: number;
   /** author */
   author: string | null;
   /** quiz rating */
@@ -253,6 +255,13 @@ export interface EditQuizCommentDto {
   id: string;
   /** comment text */
   text: string;
+}
+
+export interface ManyCommentsReturnDto {
+  /** comments list */
+  comments: QuizCommentReturnDto[];
+  /** total comments count */
+  totalCount: number;
 }
 
 export interface GetQuizCommentsParams {

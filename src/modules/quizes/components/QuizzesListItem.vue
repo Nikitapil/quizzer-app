@@ -70,6 +70,16 @@ const goToQuiz = () => {
           {{ props.quiz.author }}
         </RouterLink>
       </p>
+
+      <RouterLink
+        class="quiz-item__text"
+        :to="{
+          name: ERoutesNames.COMMENTS,
+          params: { id: props.quiz.id }
+        }"
+      >
+        {{ $t('comments') }}: {{ props.quiz.commentsCount }}
+      </RouterLink>
     </div>
 
     <div
@@ -169,6 +179,7 @@ const goToQuiz = () => {
     display: flex;
     gap: 3px;
     align-items: center;
+    line-height: 1.2;
   }
 }
 

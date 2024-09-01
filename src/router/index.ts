@@ -15,6 +15,7 @@ import EditQuiz from '@/modules/quizes/pages/EditQuiz.vue';
 import UsersQuizes from '@/modules/quizes/pages/UsersQuizes.vue';
 import FavouritesQuizzes from '@/modules/quizes/pages/FavouritesQuizzes.vue';
 import Profile from '@/modules/auth/pages/Profile.vue';
+import QuizComments from '@/modules/comments/pages/QuizComments.vue';
 
 export const routes = [
   {
@@ -75,6 +76,11 @@ export const routes = [
     name: ERoutesNames.PROFILE,
     component: Profile,
     meta: { needAuth: true }
+  },
+  {
+    path: '/comments/:id',
+    name: ERoutesNames.COMMENTS,
+    component: QuizComments
   }
 ];
 

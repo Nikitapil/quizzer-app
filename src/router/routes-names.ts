@@ -9,5 +9,6 @@ export enum ERoutesNames {
   CREATE_QUIZ = 'create-quiz',
   EDIT_QUIZ = 'edit-quiz',
   FAVOURITES = 'quizes.favourites',
-  PROFILE = 'profile'
+  PROFILE = 'profile',
+  COMMENTS = 'comments'
 }

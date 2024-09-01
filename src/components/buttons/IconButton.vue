@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import AppButton from '@/components/buttons/AppButton.vue';
+import AppButton, {
+  type ButtonAppearance
+} from '@/components/buttons/AppButton.vue';
 import { Icon } from '@iconify/vue';
 import type { ButtonType } from '@/components/buttons/domain';
 
@@ -11,13 +13,15 @@ const props = withDefaults(
     size?: `${string}px`;
     icon: string;
     color: string;
+    appearance?: ButtonAppearance;
   }>(),
   {
     type: 'button',
     dataTest: '',
     disabled: false,
     color: 'black',
-    size: '24px'
+    size: '24px',
+    appearance: 'transparent'
   }
 );
 </script>
@@ -25,7 +29,7 @@ const props = withDefaults(
 <template>
   <AppButton
     class="p-5"
-    appearence="transparent"
+    :appearence="appearance"
     with-icon
     :type="props.type"
     :data-test="props.dataTest"

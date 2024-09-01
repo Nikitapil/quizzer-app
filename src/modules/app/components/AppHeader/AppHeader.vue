@@ -117,10 +117,8 @@ const closeMobileBar = () => (isMobileBarOpened.value = false);
   background: $bg-medium-dark;
   transform-origin: top;
 
-  &:deep {
-    .link {
-      font-size: 16px;
-    }
+  &:deep(.link) {
+    font-size: 16px;
   }
 
   @media (min-width: 546px) {

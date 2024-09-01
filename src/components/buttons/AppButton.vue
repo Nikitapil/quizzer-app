@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import type { ButtonType } from '@/components/buttons/domain';
 
-type ButtonAppearance =
+export type ButtonAppearance =
   | 'primary'
   | 'dark'
   | 'transparent'

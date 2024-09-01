@@ -23,6 +23,7 @@ import {
   type AddQuizCommentDto,
   type QuizCommentReturnDto,
   type EditQuizCommentDto,
+  type ManyCommentsReturnDto,
   type GetQuizCommentsParams
 } from './data-contracts';
 
@@ -157,6 +158,7 @@ export class QuizDtoMock {
       userId: faker.number.int(),
       isInFavourites: faker.datatype.boolean(),
       questionsCount: faker.number.int(),
+      commentsCount: faker.number.int(),
       author: faker.lorem.word(),
       rating: faker.number.int(),
       ...overrides
@@ -447,6 +449,28 @@ export class EditQuizCommentDtoMock {
     count = 1,
     overrides: Partial<EditQuizCommentDto> = {}
   ): EditQuizCommentDto[] {
+    return Array.from({ length: count }, () => this.create(overrides));
+  }
+}
+
+export class ManyCommentsReturnDtoMock {
+  public static create(
+    overrides: Partial<ManyCommentsReturnDto> = {}
+  ): ManyCommentsReturnDto {
+    return {
+      comments: [
+        QuizCommentReturnDtoMock.create(),
+        QuizCommentReturnDtoMock.create()
+      ],
+      totalCount: faker.number.int(),
+      ...overrides
+    };
+  }
+
+  public static createMany(
+    count = 1,
+    overrides: Partial<ManyCommentsReturnDto> = {}
+  ): ManyCommentsReturnDto[] {
     return Array.from({ length: count }, () => this.create(overrides));
   }
 }

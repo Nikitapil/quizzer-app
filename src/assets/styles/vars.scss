@@ -8,6 +8,7 @@ $bg-success: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
 $bg-error: radial-gradient(circle at 10.6% 22.1%, rgb(206, 18, 18) 0%, rgb(122, 21, 21) 100.7%);
 $bg-white: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 $bg-gray: linear-gradient(to right, #868f96 0%, #596164 100%);
+$bg-light-gray: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 
 //colors
 $color-white: #fff;
@@ -17,6 +18,7 @@ $color-dark-blue: #0c1d2d;
 $color-red: #cd1f0e;
 $color-yellow: #d2e000;
 $color-success: #0ba360;
+$color-dark-md: #222;
 
 // shadows
 $shadow-black-common: #000000 0 0 12px;
@@ -26,3 +28,5 @@ $form-shadow: $shadow-black-common, inset 0 65px 45px -15px $color-blue;
 
 //transitions
 $default-transition: 0.4s;
+
+$border-radius-md: 1rem;

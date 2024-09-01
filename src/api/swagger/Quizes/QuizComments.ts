@@ -13,6 +13,7 @@ import type {
   AddQuizCommentDto,
   EditQuizCommentDto,
   GetQuizCommentsParams,
+  ManyCommentsReturnDto,
   QuizCommentReturnDto,
   SuccessMessageDto
 } from './data-contracts';
@@ -59,7 +60,7 @@ export class QuizCommentsApi<SecurityDataType = unknown> extends HttpClient<Secu
    * @request GET:/api/quiz-comments
    */
   getQuizComments = (query: GetQuizCommentsParams, params: RequestParams = {}) =>
-    this.request<QuizCommentReturnDto[], any>({
+    this.request<ManyCommentsReturnDto, any>({
       path: `/api/quiz-comments`,
       method: 'GET',
       query: query,
