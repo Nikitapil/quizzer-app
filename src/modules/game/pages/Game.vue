@@ -17,6 +17,7 @@ import RoundLoader from '@/components/loaders/RoundLoader.vue';
 import ProgressBar from '@/components/ProgressBar.vue';
 import HorizontalLoader from '@/components/loaders/HorizontalLoader.vue';
 import AddQuizToFavoritesButton from '@/modules/shared/AddQuizToFavoritesButton/AddQuizToFavoritesButton.vue';
+import { ERoutesNames } from '@/router/routes-names';
 
 const { t } = useI18n();
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.GAME]);
@@ -109,6 +110,16 @@ onMounted(async () => {
             class="favorite-btn"
             with-text
           />
+
+          <RouterLink
+            class="comment-link"
+            :to="{
+              name: ERoutesNames.COMMENTS,
+              params: { id: store.game.id }
+            }"
+          >
+            {{ $t('comments') }}
+          </RouterLink>
         </div>
 
         <AppButton
@@ -176,5 +187,12 @@ onMounted(async () => {
 
 .favorite-btn {
   margin: 8px auto 0 auto;
+}
+
+.comment-link {
+  display: block;
+  text-align: center;
+  margin-top: 0.5rem;
+  color: #fff;
 }
 </style>
