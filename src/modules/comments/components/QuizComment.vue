@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { Icon } from '@iconify/vue';
 
 import { formatDateToClient } from '@/helpers/dates';
 
@@ -11,6 +12,7 @@ import ConfirmModal from '@/components/modals/ConfirmModal.vue';
 import QuizCommentForm from '@/modules/comments/components/QuizCommentForm.vue';
 import AppButton from '@/components/buttons/AppButton.vue';
 import RoundLoader from '@/components/loaders/RoundLoader.vue';
+import QuizCommentsList from '@/modules/comments/components/QuizCommentsList.vue';
 
 const props = defineProps<{
   comment: IQuizComment;
@@ -23,6 +25,7 @@ const emit = defineEmits<{
 
 const isDeleteModalOpened = ref(false);
 const isEditMode = ref(false);
+const isShowReplies = ref(false);
 
 const date = computed(() =>
   formatDateToClient(props.comment.updatedAt || props.comment.createdAt)
@@ -89,6 +92,30 @@ const onEdit = (text: string) => {
       />
 
       <p class="quiz-comment__text">{{ props.comment.text }}</p>
+
+      <hr class="mt-s" />
+
+      <div class="mt-s">
+        <AppButton
+          appearence="dark"
+          with-icon
+          @click="isShowReplies = !isShowReplies"
+        >
+          <Icon icon="ri:reply-fill" />
+          {{ $t('replies') }} {{ comment.repliesCount }}
+        </AppButton>
+
+        <div
+          v-if="isShowReplies"
+          class="replies"
+        >
+          <QuizCommentsList
+            :quiz-id="props.comment.quizId"
+            :parent-comment="props.comment"
+            :empty-text="$t('no_replies')"
+          />
+        </div>
+      </div>
     </template>
   </article>
 </template>
@@ -102,6 +129,7 @@ const onEdit = (text: string) => {
   background: $bg-white;
   padding: 1rem;
   color: black;
+  box-shadow: $shadow-black-common;
 
   &__header {
     display: flex;
@@ -126,6 +154,21 @@ const onEdit = (text: string) => {
   &__text {
     font-size: 1.2rem;
     line-height: 1.2;
+  }
+
+  .replies {
+    margin-left: 1rem;
+    margin-top: 1rem;
+    padding-left: 1rem;
+    border-left: 1px solid $color-dark-md;
+  }
+
+  .no-replies {
+    margin-top: 1.5rem;
+    font-size: 1.3rem;
+    line-height: 1.2rem;
+    font-weight: bold;
+    text-align: center;
   }
 }
 </style>

@@ -1,47 +1,25 @@
 <script setup lang="ts">
+import { computed, onBeforeUnmount, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { onMounted, ref } from 'vue';
+
 import { useQuizCommentsPageStore } from '@/modules/comments/store/QuizCommentsPageStore';
-import { useAuthStore } from '@/modules/auth/store/AuthStore';
-import { DEFAULT_COMMENTS_REQUEST_LIMIT } from '@/modules/comments/constants';
 
 import QuizNotFound from '@/modules/shared/components/QuizNotFound.vue';
 import RoundLoader from '@/components/loaders/RoundLoader.vue';
-import HorizontalLoader from '@/components/loaders/HorizontalLoader.vue';
-import QuizCommentForm from '@/modules/comments/components/QuizCommentForm.vue';
-import QuizComment from '@/modules/comments/components/QuizComment.vue';
-import Pagination from '@/components/Pagination.vue';
+import QuizCommentsList from '@/modules/comments/components/QuizCommentsList.vue';
 
 const route = useRoute();
 
-const authStore = useAuthStore();
-
 const store = useQuizCommentsPageStore();
-const page = ref(1);
 
-const onChangePage = async (p: number) => {
-  page.value = p;
-  await store.loadQuizComments({
-    page: page.value,
-    limit: DEFAULT_COMMENTS_REQUEST_LIMIT
-  });
-};
-
-const onCreateQuizComment = async (text: string) => {
-  await store.createQuizComment(text);
-  await onChangePage(1);
-};
-
-const onDeleteQuizComment = async (id: string) => {
-  const isDeleted = await store.deleteQuizComment(id);
-  if (isDeleted) {
-    const nextPage = store.quizComments.length === 1 ? 1 : page.value;
-    await onChangePage(nextPage);
-  }
-};
+const quizId = computed(() => route.params.id as string);
 
 onMounted(async () => {
-  await store.init(route.params.id as string);
+  await store.init(quizId.value);
+});
+
+onBeforeUnmount(() => {
+  store.reset();
 });
 </script>
 
@@ -60,46 +38,11 @@ onMounted(async () => {
       v-else
       class="quiz-comments-container"
     >
-      <h2 class="text-center page-title">
+      <h2 class="text-center page-title mb-m">
         {{ $t('quiz_discussion') }}: {{ store.quiz.name }}
       </h2>
 
-      <QuizCommentForm
-        v-if="authStore.user"
-        :is-loading="store.isCreateQuizCommentInProgress"
-        @submit="onCreateQuizComment"
-      />
-
-      <HorizontalLoader v-if="store.isQuizCommentsLoading" />
-
-      <div v-else-if="!store.quizComments.length">{{ $t('no_comments') }}</div>
-
-      <template v-else>
-        <QuizComment
-          v-for="comment in store.quizComments"
-          :key="comment.id"
-          :comment="comment"
-          @delete="onDeleteQuizComment(comment.id)"
-          @edit="store.editQuizComment"
-        />
-      </template>
-
-      <Pagination
-        :total-items-count="store.totalQuizCommentsCount"
-        :limit="DEFAULT_COMMENTS_REQUEST_LIMIT"
-        :current-page="page"
-        @change-page="onChangePage"
-      />
+      <QuizCommentsList :quiz-id="quizId" />
     </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-.quiz-comments-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  width: 100%;
-}
-</style>

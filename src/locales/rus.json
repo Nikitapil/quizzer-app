@@ -94,5 +94,8 @@
   "comment_text": "Текст комментария",
   "send": "Отправить",
   "confirm_delete_comment_question": "Вы хотите удалить этот комментарий?",
-  "comments": "Комментарии"
+  "comments": "Комментарии",
+  "replies": "Ответы",
+  "no_replies": "Ответов пока нет.",
+  "show_more": "Показать больше"
 }

@@ -220,7 +220,7 @@ export interface AddQuizCommentDto {
   /** comment text */
   text: string;
   /** parent comment id */
-  replayToId?: string;
+  replyToId?: string;
   /** quizId */
   quizId: string;
 }
@@ -243,7 +243,7 @@ export interface QuizCommentReturnDto {
   /** comment  author name */
   authorName: string;
   /** comment replies count */
-  repliesCount: string;
+  repliesCount: number;
   /** can edit comment */
   canEdit: boolean;
   /** can delete comment */

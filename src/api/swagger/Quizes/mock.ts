@@ -392,7 +392,7 @@ export class AddQuizCommentDtoMock {
   ): AddQuizCommentDto {
     return {
       text: faker.lorem.word(),
-      replayToId: faker.lorem.word(),
+      replyToId: faker.lorem.word(),
       quizId: faker.lorem.word(),
       ...overrides
     };
@@ -419,7 +419,7 @@ export class QuizCommentReturnDtoMock {
       authorId: faker.number.int(),
       replyToId: faker.lorem.word(),
       authorName: faker.lorem.word(),
-      repliesCount: faker.lorem.word(),
+      repliesCount: faker.number.int(),
       canEdit: faker.datatype.boolean(),
       canDelete: faker.datatype.boolean(),
       ...overrides

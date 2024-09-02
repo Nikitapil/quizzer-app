@@ -94,5 +94,8 @@
   "comment_text": "Comment text",
   "send": "Send",
   "confirm_delete_comment_question": "Do you want to delete this comment?",
-  "comments": "Comments"
+  "comments": "Comments",
+  "replies": "Replies",
+  "no_replies": "No replies yet.",
+  "show_more": "Show more"
 }
