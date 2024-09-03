@@ -62,7 +62,7 @@ const onEdit = (text: string) => {
     <template v-else>
       <div class="quiz-comment__header">
         <div class="quiz-comment__title">
-          <p>{{ date }}</p>
+          <p data-testid="comment-date">{{ date }}</p>
           <p class="font-bold">{{ props.comment.authorName }}</p>
         </div>
 
