@@ -66,7 +66,7 @@ export const useQuizCommentsList = ({
 
     if (response?.comments.length) {
       quizComments.value.push(
-        ...(response?.comments || []).map(extendQuizCommentWithClientData)
+        ...response.comments.map(extendQuizCommentWithClientData)
       );
     }
   };

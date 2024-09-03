@@ -62,7 +62,10 @@ onMounted(() => {
 
     <HorizontalLoader v-if="isQuizCommentsLoading" />
 
-    <div v-else-if="!quizComments.length">
+    <div
+      v-else-if="!quizComments.length"
+      data-testid="empty-text"
+    >
       {{ props.emptyText || $t('no_comments') }}
     </div>
 
@@ -87,6 +90,7 @@ onMounted(() => {
     <AppButton
       v-else-if="!isAllShowed"
       appearence="dark"
+      data-testid="show-more-btn"
       :text="$t('show_more')"
       @click="loadMoreQuizComments"
     />
