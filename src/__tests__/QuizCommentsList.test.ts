@@ -1,18 +1,23 @@
 import { vi } from 'vitest';
+import { flushPromises, mount } from '@vue/test-utils';
+import { createPinia, setActivePinia } from 'pinia';
+
 import { quizCommentsApi } from '@/api/apiInstances';
+
 import {
   ManyCommentsReturnDtoMock,
   QuizCommentReturnDtoMock
 } from '@/api/swagger/Quizes/mock';
-import { flushPromises, mount } from '@vue/test-utils';
-import QuizCommentsList from '@/modules/comments/components/QuizCommentsList.vue';
-import QuizComment from '@/modules/comments/components/QuizComment.vue';
-import { createPinia, setActivePinia } from 'pinia';
-import Pagination from '@/components/Pagination.vue';
+
 import { useAuthStore } from '@/modules/auth/store/AuthStore';
-import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
-import QuizCommentForm from '@/modules/comments/components/QuizCommentForm.vue';
 import { extendQuizCommentWithClientData } from '@/modules/comments/mappers';
+
+import { UserReturnDtoMock } from '@/api/swagger/Auth/mock';
+
+import Pagination from '@/components/Pagination.vue';
+import QuizComment from '@/modules/comments/components/QuizComment.vue';
+import QuizCommentForm from '@/modules/comments/components/QuizCommentForm.vue';
+import QuizCommentsList from '@/modules/comments/components/QuizCommentsList.vue';
 
 describe('QuizCommentsList test', () => {
   const getQuizCommentsApiMock = vi.fn();
@@ -25,25 +30,39 @@ describe('QuizCommentsList test', () => {
   quizCommentsApi.editQuizComment = editQuizCommentsApiMock;
   quizCommentsApi.deleteQuizComment = deleteQuizCommentsApiMock;
 
+  const defaultCommentsResponseMockValue = ManyCommentsReturnDtoMock.create({
+    totalCount: 8
+  });
+
+  const defaultProps = {
+    quizId: '123'
+  };
+
+  let parentComment = {
+    ...QuizCommentReturnDtoMock.create(),
+    isEditInProgress: false
+  };
+
   beforeEach(() => {
     setActivePinia(createPinia());
     getQuizCommentsApiMock.mockClear();
+    getQuizCommentsApiMock.mockResolvedValue(defaultCommentsResponseMockValue);
+
     createQuizCommentsApiMock.mockClear();
     editQuizCommentsApiMock.mockClear();
     deleteQuizCommentsApiMock.mockClear();
+
+    parentComment = {
+      ...QuizCommentReturnDtoMock.create({
+        repliesCount: 1
+      }),
+      isEditInProgress: false
+    };
   });
 
   it('should add isEditInProgress field to quiz comments', async () => {
-    getQuizCommentsApiMock.mockResolvedValue(
-      ManyCommentsReturnDtoMock.create({
-        totalCount: 2
-      })
-    );
-
     const wrapper = mount(QuizCommentsList, {
-      props: {
-        quizId: '123'
-      }
+      props: defaultProps
     });
 
     await flushPromises();
@@ -55,20 +74,11 @@ describe('QuizCommentsList test', () => {
     });
   });
 
-  it('should load more quizes', async () => {
-    getQuizCommentsApiMock.mockResolvedValue(
-      ManyCommentsReturnDtoMock.create({
-        totalCount: 8
-      })
-    );
-
+  it('should load more comments', async () => {
     const wrapper = mount(QuizCommentsList, {
       props: {
-        quizId: '123',
-        parentComment: {
-          ...QuizCommentReturnDtoMock.create(),
-          isEditInProgress: false
-        }
+        ...defaultProps,
+        parentComment
       }
     });
 
@@ -103,9 +113,7 @@ describe('QuizCommentsList test', () => {
     getQuizCommentsApiMock.mockRejectedValue('');
 
     const wrapper = mount(QuizCommentsList, {
-      props: {
-        quizId: '123'
-      }
+      props: defaultProps
     });
 
     await flushPromises();
@@ -116,16 +124,8 @@ describe('QuizCommentsList test', () => {
   });
 
   it('should change page correctly', async () => {
-    getQuizCommentsApiMock.mockResolvedValue(
-      ManyCommentsReturnDtoMock.create({
-        totalCount: 12
-      })
-    );
-
     const wrapper = mount(QuizCommentsList, {
-      props: {
-        quizId: '123'
-      }
+      props: defaultProps
     });
 
     await flushPromises();
@@ -143,19 +143,10 @@ describe('QuizCommentsList test', () => {
 
   it('should create quiz correctly', async () => {
     const authStore = useAuthStore();
-
     authStore.user = UserReturnDtoMock.create();
 
-    getQuizCommentsApiMock.mockResolvedValue(
-      ManyCommentsReturnDtoMock.create({
-        totalCount: 12
-      })
-    );
-
     const wrapper = mount(QuizCommentsList, {
-      props: {
-        quizId: '123'
-      }
+      props: defaultProps
     });
 
     await flushPromises();
@@ -173,25 +164,11 @@ describe('QuizCommentsList test', () => {
 
   it('should increment parentComment repliesCount', async () => {
     const authStore = useAuthStore();
-
     authStore.user = UserReturnDtoMock.create();
-
-    getQuizCommentsApiMock.mockResolvedValue(
-      ManyCommentsReturnDtoMock.create({
-        totalCount: 12
-      })
-    );
-
-    const parentComment = {
-      ...QuizCommentReturnDtoMock.create({
-        repliesCount: 0
-      }),
-      isEditInProgress: false
-    };
 
     const wrapper = mount(QuizCommentsList, {
       props: {
-        quizId: '123',
+        ...defaultProps,
         parentComment
       }
     });
@@ -204,7 +181,7 @@ describe('QuizCommentsList test', () => {
 
     await flushPromises();
 
-    expect(parentComment.repliesCount).toBe(1);
+    expect(parentComment.repliesCount).toBe(2);
   });
 
   it('should edit quiz comment', async () => {
@@ -223,9 +200,7 @@ describe('QuizCommentsList test', () => {
     );
 
     const wrapper = mount(QuizCommentsList, {
-      props: {
-        quizId: '123'
-      }
+      props: defaultProps
     });
 
     await flushPromises();
@@ -239,25 +214,11 @@ describe('QuizCommentsList test', () => {
     expect(editQuizCommentsApiMock).toHaveBeenCalledTimes(1);
   });
 
-  it('should edit quiz comment if comment not in the list', async () => {
+  it('should not edit quiz comment if comment not in the list', async () => {
     const commentId = '123';
 
-    getQuizCommentsApiMock.mockResolvedValue(
-      ManyCommentsReturnDtoMock.create({
-        totalCount: 12,
-        comments: [
-          QuizCommentReturnDtoMock.create({
-            canEdit: true,
-            id: commentId
-          })
-        ]
-      })
-    );
-
     const wrapper = mount(QuizCommentsList, {
-      props: {
-        quizId: '123'
-      }
+      props: defaultProps
     });
 
     await flushPromises();
@@ -291,9 +252,7 @@ describe('QuizCommentsList test', () => {
     );
 
     const wrapper = mount(QuizCommentsList, {
-      props: {
-        quizId: '123'
-      }
+      props: defaultProps
     });
 
     await flushPromises();
@@ -312,26 +271,10 @@ describe('QuizCommentsList test', () => {
   });
 
   it('should delete comment correctly', async () => {
-    const commentId = '123';
-
     deleteQuizCommentsApiMock.mockResolvedValue(true);
 
-    getQuizCommentsApiMock.mockResolvedValue(
-      ManyCommentsReturnDtoMock.create({
-        totalCount: 12,
-        comments: [
-          QuizCommentReturnDtoMock.create({
-            canDelete: true,
-            id: commentId
-          })
-        ]
-      })
-    );
-
     const wrapper = mount(QuizCommentsList, {
-      props: {
-        quizId: '123'
-      }
+      props: defaultProps
     });
 
     await flushPromises();
@@ -347,28 +290,7 @@ describe('QuizCommentsList test', () => {
   });
 
   it('should decrement parent repliesCount after delete comment correctly', async () => {
-    const commentId = '123';
-
     deleteQuizCommentsApiMock.mockResolvedValue(true);
-
-    getQuizCommentsApiMock.mockResolvedValue(
-      ManyCommentsReturnDtoMock.create({
-        totalCount: 12,
-        comments: [
-          QuizCommentReturnDtoMock.create({
-            canDelete: true,
-            id: commentId
-          })
-        ]
-      })
-    );
-
-    const parentComment = {
-      ...QuizCommentReturnDtoMock.create({
-        repliesCount: 1
-      }),
-      isEditInProgress: false
-    };
 
     const wrapper = mount(QuizCommentsList, {
       props: {
