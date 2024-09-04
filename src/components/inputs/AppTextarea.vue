@@ -44,7 +44,7 @@ onMounted(() => {
     <label
       v-if="props.label"
       class="label"
-      data-test="app-input-label"
+      data-test="textarea-label"
       :for="id"
     >
       {{ props.label }}
@@ -56,7 +56,7 @@ onMounted(() => {
       :id="id"
       rows="4"
       class="input"
-      data-test="app-input"
+      data-test="app-text-area"
       :class="{ error: errorMessage, full: props.fullWidth }"
       :placeholder="props.placeholder"
       :name="props.name"
