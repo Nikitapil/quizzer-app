@@ -52,6 +52,7 @@ const onEdit = (text: string) => {
       <template #additional-actions>
         <AppButton
           appearence="error"
+          data-test="close-edit-btn"
           :text="$t('cancel')"
           :disabled="props.comment.isEditInProgress"
           @click="isEditMode = false"
@@ -72,6 +73,7 @@ const onEdit = (text: string) => {
             icon="ic:twotone-edit"
             appearance="primary"
             color="#fff"
+            data-test="edit-btn"
             @click="isEditMode = true"
           />
 
@@ -80,6 +82,7 @@ const onEdit = (text: string) => {
             icon="ic:round-delete"
             appearance="error"
             color="#fff"
+            data-test="delete-btn"
             @click="isDeleteModalOpened = true"
           />
         </div>
@@ -98,6 +101,7 @@ const onEdit = (text: string) => {
       <div class="mt-s">
         <AppButton
           appearence="dark"
+          data-test="replies-btn"
           with-icon
           @click="isShowReplies = !isShowReplies"
         >
@@ -108,6 +112,7 @@ const onEdit = (text: string) => {
         <div
           v-if="isShowReplies"
           class="replies"
+          data-test="replies"
         >
           <QuizCommentsList
             :quiz-id="props.comment.quizId"
