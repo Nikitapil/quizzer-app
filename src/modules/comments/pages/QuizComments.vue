@@ -37,6 +37,7 @@ onBeforeUnmount(() => {
     <div
       v-else
       class="quiz-comments-container"
+      data-test="comments-content"
     >
       <h2 class="text-center page-title mb-m">
         {{ $t('quiz_discussion') }}: {{ store.quiz.name }}

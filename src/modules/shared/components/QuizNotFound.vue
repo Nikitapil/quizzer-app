@@ -1,7 +1,10 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="centered-page">
+  <div
+    class="centered-page"
+    data-test="quiz-not-found"
+  >
     <h2 class="not-found">
       {{ $t('quiz_not_found') }}
     </h2>
