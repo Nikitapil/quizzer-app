@@ -120,6 +120,17 @@ onMounted(async () => {
           >
             {{ $t('comments') }}
           </RouterLink>
+
+          <RouterLink
+            v-if="store.game.authorId"
+            class="comment-link"
+            :to="{
+              name: ERoutesNames.USER_QUIZES,
+              params: { id: store.game.authorId }
+            }"
+          >
+            {{ $t('other_user_quizes') }} {{ store.game.author }}
+          </RouterLink>
         </div>
 
         <AppButton

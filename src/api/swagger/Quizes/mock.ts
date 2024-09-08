@@ -228,6 +228,8 @@ export class SingleQuizReturnDtoMock {
       createdAt: faker.lorem.word(),
       updatedAt: faker.lorem.word(),
       name: faker.lorem.word(),
+      author: faker.lorem.word(),
+      authorId: faker.number.int(),
       isPrivate: faker.datatype.boolean(),
       userId: faker.number.int(),
       questions: [
@@ -277,6 +279,8 @@ export class PlayQuizDtoMock {
       isGenerated: faker.datatype.boolean(),
       questions: [PlayQuestionDtoMock.create(), PlayQuestionDtoMock.create()],
       isInFavourites: faker.datatype.boolean(),
+      author: faker.lorem.word(),
+      authorId: faker.number.int(),
       ...overrides
     };
   }

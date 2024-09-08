@@ -139,6 +139,10 @@ export interface SingleQuizReturnDto {
   updatedAt: string | null;
   /** quiz name */
   name: string;
+  /** quiz author */
+  author: string | null;
+  /** quiz author id */
+  authorId: number | null;
   /** quiz created date */
   isPrivate: boolean;
   /** quiz author id */
@@ -173,6 +177,10 @@ export interface PlayQuizDto {
   questions: PlayQuestionDto[];
   /** is Quiz in favourites by current user */
   isInFavourites: boolean;
+  /** quiz author */
+  author: string | null;
+  /** quiz author id */
+  authorId: number | null;
 }
 
 export interface CorrectAnswerReturnDto {
