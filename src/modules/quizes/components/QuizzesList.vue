@@ -11,6 +11,7 @@ import QuizzesListItem from '@/modules/quizes/components/QuizzesListItem.vue';
 import Pagination from '@/components/Pagination.vue';
 import AppInput from '@/components/inputs/AppInput.vue';
 import AppButton from '@/components/buttons/AppButton.vue';
+import EmptyState from '@/components/EmptyState.vue';
 
 const QUIZ_LIMIT = 10;
 
@@ -98,12 +99,11 @@ onMounted(() => {
       <RoundLoader />
     </div>
 
-    <div
+    <EmptyState
       v-else-if="!store.quizzes.length"
+      :text="$t('no_quizzes_yet')"
       data-test="no-quizzes"
-    >
-      {{ $t('no_quizzes_yet') }}.
-    </div>
+    />
 
     <ul
       v-else
