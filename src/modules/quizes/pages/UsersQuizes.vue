@@ -28,11 +28,15 @@ const dynamicBreadCrumb = computed(() =>
 );
 
 const docTitle = computed(() =>
-  isMyQuizzesPage.value ? 'my_quizzes' : 'user_quizzes'
+  isMyQuizzesPage.value
+    ? t('my_quizzes')
+    : `${t('user_quizzes')} ${userName.value}`
 );
 
+const userName = computed(() => quizzesStore.quizzes[0]?.author || '');
+
 useBreadCrumbs([BREADCRUMBS.MAIN, dynamicBreadCrumb.value]);
-useDocTitle(t(docTitle.value));
+useDocTitle(docTitle.value);
 
 const onGetQuizzes = async (data: GetAllQuizesDto) => {
   await quizzesStore.getUserQuizzes({
