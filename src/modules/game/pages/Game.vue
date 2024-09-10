@@ -18,6 +18,7 @@ import ProgressBar from '@/components/ProgressBar.vue';
 import HorizontalLoader from '@/components/loaders/HorizontalLoader.vue';
 import AddQuizToFavoritesButton from '@/modules/shared/AddQuizToFavoritesButton/AddQuizToFavoritesButton.vue';
 import { ERoutesNames } from '@/router/routes-names';
+import QuizNotFound from '@/modules/shared/components/QuizNotFound.vue';
 
 const { t } = useI18n();
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.GAME]);
@@ -49,14 +50,7 @@ onMounted(async () => {
     <div class="quiz-info">
       <RoundLoader v-if="store.isPageLoading" />
 
-      <div v-else-if="!store.game">
-        <h2
-          class="not-found"
-          data-test="error-text"
-        >
-          {{ $t('quiz_not_found') }}
-        </h2>
-      </div>
+      <QuizNotFound v-else-if="!store.game" />
 
       <div v-else-if="store.currentQuestion">
         <p
@@ -158,10 +152,6 @@ onMounted(async () => {
   justify-content: center;
   align-items: center;
   width: 100%;
-}
-
-.not-found {
-  font-size: 34px;
 }
 
 .total {

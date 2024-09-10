@@ -46,7 +46,7 @@ describe('Edit quiz page test', () => {
   it('should render not found message', () => {
     const wrapper = mount(EditQuiz);
 
-    const notFound = wrapper.find('[data-test="not-found"]');
+    const notFound = wrapper.find('[data-test="quiz-not-found"]');
 
     expect(notFound.exists()).toBe(true);
   });

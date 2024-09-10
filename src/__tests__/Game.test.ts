@@ -50,7 +50,7 @@ describe('Game component tests', () => {
 
     await flushPromises();
 
-    const errorText = wrapper.find('[data-test="error-text"]');
+    const errorText = wrapper.find('[data-test="quiz-not-found"]');
 
     expect(errorText.exists()).toBe(true);
   });

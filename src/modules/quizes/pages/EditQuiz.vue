@@ -13,6 +13,7 @@ import { useQuizFormStore } from '@/modules/quizes/store/QuizFormStore';
 
 import QuizForm from '@/modules/quizes/components/quiz-form/QuizForm.vue';
 import RoundLoader from '@/components/loaders/RoundLoader.vue';
+import QuizNotFound from '@/modules/shared/components/QuizNotFound.vue';
 
 useBreadCrumbs([BREADCRUMBS.MAIN, BREADCRUMBS.EDIT]);
 
@@ -43,13 +44,7 @@ onMounted(async () => {
   <div class="centered-page">
     <RoundLoader v-if="store.isQuizLoading" />
 
-    <div
-      v-else-if="!store.quizForm"
-      class="not-found"
-      data-test="not-found"
-    >
-      {{ $t('quiz_not_found') }}
-    </div>
+    <QuizNotFound v-else-if="!store.quizForm" />
 
     <QuizForm
       v-else
@@ -60,10 +55,3 @@ onMounted(async () => {
     />
   </div>
 </template>
-
-<style lang="scss" scoped>
-.not-found {
-  font-size: 24px;
-  font-weight: 700;
-}
-</style>

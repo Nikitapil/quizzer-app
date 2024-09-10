@@ -1,18 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import EmptyState from '@/components/EmptyState.vue';
+</script>
 
 <template>
-  <div
-    class="centered-page"
+  <EmptyState
+    :text="$t('quiz_not_found')"
     data-test="quiz-not-found"
-  >
-    <h2 class="not-found">
-      {{ $t('quiz_not_found') }}
-    </h2>
-  </div>
+  />
 </template>
-
-<style lang="scss">
-.not-found {
-  font-size: 32px;
-}
-</style>
