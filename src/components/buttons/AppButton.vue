@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { ButtonType } from '@/components/buttons/domain';
+import RoundLoader from '@/components/loaders/RoundLoader.vue';
 
 export type ButtonAppearance =
   | 'primary'
@@ -18,6 +19,7 @@ const props = withDefaults(
     size?: 'sm' | 'md' | 'lg';
     disabled?: boolean;
     withIcon?: boolean;
+    isLoading?: boolean;
     appearence?: ButtonAppearance;
   }>(),
   {
@@ -26,7 +28,8 @@ const props = withDefaults(
     full: false,
     withIcon: false,
     disabled: false,
-    size: 'md'
+    size: 'md',
+    isLoading: false
   }
 );
 
@@ -48,7 +51,11 @@ const classes = computed(() => ({
     :disabled="props.disabled"
     @click="$emit('click')"
   >
-    <slot>{{ props.text }}</slot>
+    <RoundLoader
+      v-if="isLoading"
+      :size="props.size"
+    />
+    <slot v-else>{{ props.text }}</slot>
   </button>
 </template>
 
