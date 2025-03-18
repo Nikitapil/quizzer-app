@@ -38,6 +38,7 @@ defineEmits(['click']);
 const classes = computed(() => ({
   [props.appearence]: true,
   [props.size]: true,
+  loading: props.isLoading,
   'full-width': props.full,
   'with-icon': props.withIcon
 }));
@@ -134,6 +135,10 @@ const classes = computed(() => ({
   &.with-icon {
     line-height: 0;
     padding: 3px;
+  }
+
+  .loading {
+    pointer-events: none;
   }
 }
 </style>

@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils';
 import AppButton from '@/components/buttons/AppButton.vue';
+import { expect } from 'vitest';
 
 describe('AppButton tests', () => {
   const wrapper = mount(AppButton);
@@ -17,6 +18,7 @@ describe('AppButton tests', () => {
     expect(button.classes()).toContain('primary');
     expect(button.classes()).toContain('full-width');
     expect(button.classes()).toContain('md');
+    expect(button.classes()).not.toContain('loading');
   });
 
   it('should emit click event', () => {
@@ -25,5 +27,12 @@ describe('AppButton tests', () => {
     button.trigger('click');
 
     expect(wrapper.emitted()).toHaveProperty('click');
+  });
+
+  it('should show loader', async () => {
+    await wrapper.setProps({ isLoading: true });
+    const loader = wrapper.find('[data-test="round-loader"]');
+    expect(loader.exists()).toBe(true);
+    expect(wrapper.get('button').classes()).toContain('loading');
   });
 });
