@@ -14,6 +14,7 @@ const props = withDefaults(
     icon: string;
     color: string;
     appearance?: ButtonAppearance;
+    isLoading?: boolean;
   }>(),
   {
     type: 'button',
@@ -21,7 +22,8 @@ const props = withDefaults(
     disabled: false,
     color: 'black',
     size: '24px',
-    appearance: 'transparent'
+    appearance: 'transparent',
+    isLoading: false
   }
 );
 </script>
@@ -31,9 +33,11 @@ const props = withDefaults(
     class="p-5"
     :appearence="appearance"
     with-icon
+    size="sm"
     :type="props.type"
     :data-test="props.dataTest"
     :disabled="props.disabled"
+    :isLoading="isLoading"
   >
     <Icon
       :icon="props.icon"

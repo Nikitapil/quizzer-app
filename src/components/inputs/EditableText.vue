@@ -94,7 +94,7 @@ const onSubmit = async () => {
           icon="simple-line-icons:check"
           color="#0ba360"
           data-test="submit-button"
-          :disabled="isLoading"
+          :isLoading="isLoading"
         />
       </Tooltip>
     </form>
@@ -104,7 +104,7 @@ const onSubmit = async () => {
         :icon="editButtonIcon.icon"
         :color="editButtonIcon.color"
         data-test="toggle-button"
-        :disabled="isLoading"
+        :isLoading="isLoading"
         @click="toggleForm"
       />
     </Tooltip>

@@ -49,7 +49,7 @@ const classes = computed(() => ({
     class="button"
     :class="classes"
     :type="props.type"
-    :disabled="props.disabled"
+    :disabled="props.disabled || props.isLoading"
     @click="$emit('click')"
   >
     <RoundLoader
@@ -127,7 +127,7 @@ const classes = computed(() => ({
     font-size: 22px;
   }
 
-  &:disabled {
+  &:disabled:not(&.loading) {
     background: $bg-gray;
     cursor: not-allowed;
   }
@@ -135,10 +135,6 @@ const classes = computed(() => ({
   &.with-icon {
     line-height: 0;
     padding: 3px;
-  }
-
-  .loading {
-    pointer-events: none;
   }
 }
 </style>
