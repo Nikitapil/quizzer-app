@@ -67,7 +67,7 @@ describe('ConfirmModal component tests', () => {
 
     buttons
       .slice(1)
-      .forEach((button) => expect(button.props('disabled')).toBe(true));
+      .forEach((button) => expect(button.props('isLoading')).toBe(true));
   });
 
   it('should close modal on click cancel', async () => {

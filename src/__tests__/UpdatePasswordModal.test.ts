@@ -76,7 +76,7 @@ describe('UpdatePasswordModal components tests', () => {
     });
 
     btns.slice(1).forEach((btn) => {
-      expect(btn.props().disabled).toBe(true);
+      expect(btn.props().isLoading).toBe(true);
     });
   });
 

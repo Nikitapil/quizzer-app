@@ -152,7 +152,7 @@ onMounted(async () => {
         full
         type="submit"
         :text="$t('lets_go')"
-        :disabled="store.isLoading"
+        :isLoading="store.isLoading"
       />
     </form>
   </div>

@@ -87,6 +87,7 @@ const logout = async () => {
           <ConfirmModal
             v-model="isLogoutModalOpened"
             :title="$t('confirm_logout')"
+            :is-loading="authStore.isLogoutLoading"
             @confirm="logout"
           />
         </li>

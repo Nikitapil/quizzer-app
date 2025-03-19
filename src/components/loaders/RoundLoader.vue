@@ -22,7 +22,7 @@ const sizes = computed(() => {
     };
   }
 
-  if (props.size === 'lg') {
+  if (props.size === 'lg' || props.size === 'md') {
     return {
       mainRing: '24px',
       innerRing: '18px',

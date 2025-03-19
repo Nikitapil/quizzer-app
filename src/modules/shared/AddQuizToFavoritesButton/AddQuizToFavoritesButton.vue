@@ -44,7 +44,7 @@ const { isToggleFavouritesInProgress, toggleFavorites } = useAddQuizToFavorites(
     :with-icon="!props.withText"
     data-test="fav-button"
     appearence="dark"
-    :disabled="isToggleFavouritesInProgress"
+    :isLoading="isToggleFavouritesInProgress"
     @click="toggleFavorites"
   >
     <span

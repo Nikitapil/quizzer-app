@@ -55,7 +55,8 @@ describe('QuizForm component tests', () => {
     });
 
     buttons.forEach((btn) => {
-      expect(btn.props().disabled).toBe(true);
+      const propName = btn.props().type === 'submit' ? 'isLoading' : 'disabled';
+      expect(btn.props()[propName]).toBe(true);
     });
 
     checkboxes.forEach((checkbox) => {

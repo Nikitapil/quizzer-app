@@ -70,7 +70,7 @@ const onSubmit = async () => {
             appearence="error"
             data-test="cancel-btn"
             :text="$t('cancel')"
-            :disabled="props.isLoading"
+            :isLoading="props.isLoading"
             @click="closeModal"
           />
 
@@ -78,7 +78,7 @@ const onSubmit = async () => {
             full
             type="submit"
             :text="$t('change')"
-            :disabled="props.isLoading"
+            :isLoading="props.isLoading"
           />
         </div>
       </form>

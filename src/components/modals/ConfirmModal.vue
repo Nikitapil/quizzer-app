@@ -53,7 +53,7 @@ const confirmBtnTextInternal = computed(
           appearence="dark"
           data-test="cancel-btn"
           :text="$t('cancel')"
-          :disabled="isLoading"
+          :isLoading="isLoading"
           @click="isOpened = false"
         />
 
@@ -62,7 +62,7 @@ const confirmBtnTextInternal = computed(
           data-test="confirm-btn"
           appearence="error"
           :text="confirmBtnTextInternal"
-          :disabled="isLoading"
+          :isLoading="isLoading"
           @click="$emit('confirm')"
         />
       </div>

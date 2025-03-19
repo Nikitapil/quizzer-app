@@ -57,7 +57,7 @@ onMounted(() => {
         tabindex="0"
         type="submit"
         :text="$t('send')"
-        :disabled="props.isLoading"
+        :isLoading="props.isLoading"
       />
     </div>
   </form>

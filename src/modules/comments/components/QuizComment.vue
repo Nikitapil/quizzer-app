@@ -54,7 +54,7 @@ const onEdit = (text: string) => {
           appearence="error"
           data-test="close-edit-btn"
           :text="$t('cancel')"
-          :disabled="props.comment.isEditInProgress"
+          :isLoading="props.comment.isEditInProgress"
           @click="isEditMode = false"
         />
       </template>

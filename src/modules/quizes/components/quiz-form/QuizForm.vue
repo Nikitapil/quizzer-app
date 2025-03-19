@@ -102,7 +102,7 @@ onMounted(() => {
       type="submit"
       size="lg"
       :text="title"
-      :disabled="props.isLoading"
+      :isLoading="props.isLoading"
     />
   </form>
 </template>
